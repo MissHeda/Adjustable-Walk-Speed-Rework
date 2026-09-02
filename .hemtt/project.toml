@@ -3,10 +3,6 @@ prefix = "awsr"
 author = "Miss Heda"
 mainprefix = "z"
 
-#modname = "{{prefix}}_mods"
-#key_name = "{{prefix}}_{{version}}"
-#authority = "{{prefix}}_{{version}}"
-
 [files]
 include = [
     "mod.cpp",
@@ -17,42 +13,20 @@ include = [
 [version]
 git_hash = 0
 
-#[properties]
-#version = "{{git \"id 8\"}}"
-
-[lint.sqf]
-enabled = true # Default: true
-exclude = [
-    "a3/3DEN/UI/macroexecs.inc",
-    "a3/ui_f/hpp/defineResincl.inc",
-    "a3/ui_f/hpp/defineDIKCodes.inc",
-    "a3/ui_f/hpp/defineCommonGrids.inc",
-    "a3/ui_f/hpp/defineCommonColors.inc",
-]
-
-
-
-[asc]
-enabled = true
-exclude = [
-    "/initsettings.sqf",
-    "/initkeybinds.sqf",
-    "/xeh_prep.sqf"
-]
-
 [hemtt.config]
 preset = "Hemtt"
 
+# Mods loaded alongside for testing. `hemtt launch` already sets -skipIntro -noSplash
+# -showScriptErrors -debug and file patching by itself.
+#
+# Machine-specific things - an Arma profile, a custom mod folder - go on the command line
+# instead of in here, so the repo stays the same for everyone:
+#
+#   hemtt launch -- -name="Mia"
 [hemtt.launch]
 workshop = [
-    "463939057", # ACE3's Workshop ID
+    "450814997",  # CBA_A3
+    "463939057",  # ACE3
     "1779063631", # Zeus Enhanced
-    "450814997", # CBA_A3's Workshop ID
-    "2369477168" # Advanced Dev Tools
-]
-parameters = [
-    '"-profiles=C:\Users\Heda\OneDrive\Documents\Arma 3 - Other Profiles\Mia"'  
-]
-dlc = [
-    
+    "2369477168", # Advanced Developer Tools
 ]
