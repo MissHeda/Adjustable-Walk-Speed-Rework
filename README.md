@@ -11,16 +11,15 @@
     Visit us on <a href="https://discord.gg/Jud6gyzFYx">Discord</a></strong></sup>
 </p>
 
+## Addons
 
-## Big thanks to
+| PBO | What it is |
+| --- | --- |
+| `awsr_main` | Version numbers and the macros every other addon builds on. No gameplay code. |
+| `awsr_awsr` | The speed adjustment itself: settings, keybinds, IGUI. |
+| `awsr_autorun` | Autorun, kept as its own addon so it can be dropped from a build. |
 
-- Rad
-
-## Note from the current Developers
-- Currently there is no active development on this mod.
-- Feel free to request features.
-
-## Core features
+## Speed adjustment
 
 - Walk animation group speed (raised weapon only)
 - Tactical animation group speed (raised weapon only)
@@ -33,6 +32,22 @@
 - CBA IGUI options (settings for speed change display)
 - Custom IGUI (can be resized in the layout tab from Arma)
 
+## Autorun
+
+Walk, jog or run without holding the key, with the stance and the animation kept in step
+with stamina, terrain, water and injuries.
+
+- Separate keys for auto walk, auto jog and auto run
+- Stance switching while running, by key or automatically in deep water
+- Swimming, diving and the way back onto land
+- A stop key, or any key when none is bound; keys you bind as "Ignored Key" (map, compass,
+  watch) leave the run alone
+- Can be switched off entirely in the CBA settings
+
+The keys live in the vanilla control options under **Autorun**, not in the CBA keybinds -
+the run logic has to ask the engine which key is currently down, and only vanilla key
+actions answer that.
+
 ## Bug Report
 
 - [Discord](https://discord.gg/Jud6gyzFYx)
@@ -40,3 +55,24 @@
 ## Requirements
 
 - [CBA_A3 v3.17.1.240424 or later](https://steamcommunity.com/sharedfiles/filedetails/?id=450814997)
+
+## Building
+
+[HEMTT](https://github.com/BrettMayson/HEMTT) 1.11.2:
+
+```
+hemtt check     # config and SQF checks, same thing CI runs
+hemtt build     # unsigned PBOs in .hemttout/build
+hemtt launch    # start Arma with the mod and CBA/ACE loaded
+```
+
+## Big thanks to
+
+- Rad
+- Leon (leonz2019) and Legion, for [Autorun Rework](https://github.com/LeonZ2019/autorun-rework),
+  which `awsr_autorun` is derived from. That component stays under APL-SA - see
+  [addons/autorun/LICENSE.txt](addons/autorun/LICENSE.txt).
+
+## Note from the current Developers
+- Currently there is no active development on this mod.
+- Feel free to request features.

@@ -1,0 +1,18 @@
+Autorun component - third-party content
+=======================================
+
+This component is derived from "Autorun Rework" by Leon (leonz2019) and Legion,
+https://github.com/LeonZ2019/autorun-rework, and has been modified: it was moved into the
+Adjustable Walk Speed - Rework addon layout and namespace, its debug logging was removed
+and several script errors were fixed.
+
+"Autorun Rework" is licensed under the Arma Public License Share Alike (APL-SA):
+https://www.bohemia.net/community/licenses/arma-public-license-share-alike
+
+This component, including the modifications, stays under APL-SA. That is a different
+licence from the rest of this mod - see the LICENSE.txt in the repository root - and it is
+the licence that applies to anything derived from this component.
+
+Original author contact: Discord `leonz2020` (Leon) / `l3gion_` (Legion)
+Original Steam Workshop release:
+https://steamcommunity.com/sharedfiles/filedetails/?id=3221899977

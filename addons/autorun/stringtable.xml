@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="awsr">
+    <Package name="autorun">
+        <Key ID="STR_awsr_autorun_SETTING_SubCategory">
+            <English>5) Autorun</English>
+            <German>5) Autolauf</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_SETTING_enable">
+            <English>Enable autorun</English>
+            <German>Autolauf aktivieren</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_SETTING_enable_DESC">
+            <English>Lets the autorun keys start a run that keeps going until you stop it. The keys themselves are set in the vanilla control options, under "Autorun".</English>
+            <German>Erlaubt es, mit den Autolauf-Tasten einen Lauf zu starten, der weiterläuft, bis du ihn stoppst. Die Tasten selbst werden in den normalen Steuerungsoptionen unter "Autolauf" belegt.</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_Category">
+            <English>Autorun</English>
+            <German>Autolauf</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_walk">
+            <English>Auto Walk</English>
+            <German>Automatisch Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_walk_DESC">
+            <English>Starts walking on its own. Press again to stop.</English>
+            <German>Startet automatisches Gehen. Nochmal drücken zum Stoppen.</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_jog">
+            <English>Auto Jog</English>
+            <German>Automatisch Joggen</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_jog_DESC">
+            <English>Starts jogging on its own. Press again to stop.</English>
+            <German>Startet automatisches Joggen. Nochmal drücken zum Stoppen.</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_run">
+            <English>Auto Run</English>
+            <German>Automatisch Rennen</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_run_DESC">
+            <English>Starts running on its own, sprinting while stamina allows it. Press again to stop.</English>
+            <German>Startet automatisches Rennen, mit Sprint solange die Ausdauer reicht. Nochmal drücken zum Stoppen.</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_disabled">
+            <English>Ignored Key</English>
+            <German>Ignorierte Taste</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_disabled_DESC">
+            <English>Keys bound here do not stop an active run. Meant for map, compass, watch and the like.</English>
+            <German>Hier belegte Tasten stoppen einen laufenden Autolauf nicht. Gedacht für Karte, Kompass, Uhr und Ähnliches.</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_stop">
+            <English>Stop Autorun</English>
+            <German>Autolauf stoppen</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_KEYBIND_stop_DESC">
+            <English>Stops an active run. As long as this is bound, no other key stops the run.</English>
+            <German>Stoppt einen laufenden Autolauf. Solange diese Taste belegt ist, stoppt keine andere Taste den Lauf.</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_HUD_StopAnyKey">
+            <English>PRESS ANY KEY TO STOP</English>
+            <German>BELIEBIGE TASTE ZUM STOPPEN</German>
+        </Key>
+        <Key ID="STR_awsr_autorun_HUD_StopKey">
+            <English>PRESS %1 TO STOP</English>
+            <German>%1 DRÜCKEN ZUM STOPPEN</German>
+        </Key>
+    </Package>
+</Project>

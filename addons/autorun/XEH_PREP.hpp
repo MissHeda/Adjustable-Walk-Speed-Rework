@@ -1,0 +1,10 @@
+PREP(addEHKeybind);
+PREP(checkDisplay);
+PREP(getAnimation);
+PREP(getStance);
+PREP(onKeyDown);
+PREP(onload);
+PREP(stopRunning);
+PREP(swimToLand);
+PREP(updateStance);
+PREP(updateSwimAnim);
