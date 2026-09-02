@@ -62,7 +62,7 @@ switch (_type) do {
         _settingsType = GVAR(speedUpdatedDisplayType_Custom);
         _maxAdjustSpeed = GVAR(maxAdjustSpeed_Custom);
         _minAdjustSpeed = GVAR(minAdjustSpeed_Custom);
-        _IGUItoDisplay = QGVAR(IGUI_Display_Tactical);
+        _IGUItoDisplay = QGVAR(IGUI_Display_Custom);
         _text = GVAR(IGUI_Text_Custom);
         _customTextColor = "<t color='" + GVAR(IGUI_textColor_Custom) + "'>";
         _customTextSize = GVAR(IGUI_textSize_Custom);

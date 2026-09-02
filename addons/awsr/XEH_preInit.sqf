@@ -2,9 +2,7 @@
 
 ADDON = false;
 
-PREP_RECOMPILE_START;
 #include "XEH_PREP.hpp"
-PREP_RECOMPILE_END;
 
 #define CBA_SETTINGS_AWSR "Adjustable Walking Speed - Rework"
 #define CBA_SETTINGS_AWSR_GUI "Adjustable Walking Speed - Rework IGUI"
