@@ -22,6 +22,11 @@
 #define DISPLAY_X ((safeZoneX + safeZoneW) - 3.8 * GUI_GRID_W)
 #define DISPLAY_Y(row) (safeZoneY + 0.08 * safeZoneH + row * 3.9 * GUI_GRID_H)
 
+// The autorun indicator sits low and centred, where it was before it became a display like the
+// others - it is read while moving, not while aiming at it.
+#define AUTORUN_X (safeZoneX + safeZoneW / 2 - 1.7 * GUI_GRID_W)
+#define AUTORUN_Y (safeZoneY + 0.78 * safeZoneH)
+
 // ---------------------------------------------------------------------------------- AUTORUN
 
 // Animation "action" segments that mean the unit is in the water.

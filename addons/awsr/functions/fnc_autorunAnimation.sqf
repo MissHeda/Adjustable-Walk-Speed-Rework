@@ -55,12 +55,8 @@ if (_tier == AUTORUN_JOG) then {
     _fatigue = 1;
 };
 
-// Holding the sprint key at the top tier asks for the sprint animation, the walk key for a walk.
-private _wantsSprint = _tier >= AUTORUN_RUN && {inputAction "MoveFastForward" > 0 || {inputAction "Sprint" > 0}};
-if (inputAction "MoveSlowForward" > 0 || {inputAction "WalkRunTemp" > 0}) then {
-    _isFW = true;
-    _wantsSprint = false;
-};
+// The sprint key toggles the sprint on while the run is at its top pace.
+private _wantsSprint = _tier >= AUTORUN_RUN && {GVAR(autorun_sprint)};
 
 private _cw = currentWeapon _unit;
 private _isRfl = _cw != "" && {_cw == primaryWeapon _unit};
@@ -139,21 +135,9 @@ private _weapon = switch (true) do {
     default {"non"};
 };
 
-// The direction the player is asking for. Nothing held means forwards, which is what a run
-// with no input at all should be.
-private _left = inputAction "MoveLeft" > 0;
-private _right = inputAction "MoveRight" > 0;
-private _forward = inputAction "MoveForward" > 0;
-private _back = inputAction "MoveBack" > 0;
-
-private _sideways = "";
-if (_left isNotEqualTo _right) then {_sideways = ["r", "l"] select _left};
-
-private _straight = "";
-if (_forward isNotEqualTo _back) then {_straight = ["b", "f"] select _forward};
-if (_straight == "" && {_sideways == ""}) then {_straight = "f"};
-
-private _direction = _straight + _sideways;
+// The direction the run is going. A movement key sets it and it stays set - letting go of the
+// key does not send the player back to forwards, it just carries on the way it was pointed.
+private _direction = GVAR(autorun_direction);
 
 // Directions the stop and the sitting animations do not have.
 private _directions = switch (true) do {

@@ -35,6 +35,8 @@ GVAR(autorun_pfh) = -1;
 GVAR(autorun_iconFrame) = 1;
 GVAR(autorun_iconTime) = 0;
 GVAR(autorun_nameCache) = createHashMap;
+GVAR(autorun_direction) = "f";
+GVAR(autorun_sprint) = false;
 
 // Displays a run keeps going under. 12 is the map; add your own display IDs from a mission or
 // another mod if a run should survive them being open.
@@ -234,10 +236,7 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_IGUI_textColor),LLSTRING(SETTING_IGUI_textColor_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Walk_IGUI)],
     [1,1,1],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textColor_Walk),GVAR(IGUI_textColor_Walk) call FUNC(colorToHex));
-    }
+    0
 ] call CBA_Settings_fnc_init;
 
 // IGUI text color limit reached (walk)
@@ -247,10 +246,7 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_IGUI_textColorLimitReached),LLSTRING(SETTING_IGUI_textColorLimitReached_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Walk_IGUI)],
     [1,0,0],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textColorLimitReached_Walk),GVAR(IGUI_textColorLimitReached_Walk) call FUNC(colorToHex));
-    }
+    0
 ] call CBA_Settings_fnc_init;
 
 // Custom text (walk)
@@ -420,10 +416,7 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_IGUI_textColor),LLSTRING(SETTING_IGUI_textColor_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Tactical_IGUI)],
     [1,1,1],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textColor_Tactical),GVAR(IGUI_textColor_Tactical) call FUNC(colorToHex));
-    }
+    0
 ] call CBA_Settings_fnc_init;
 
 // IGUI text color limit reached (tactical)
@@ -433,10 +426,7 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_IGUI_textColorLimitReached),LLSTRING(SETTING_IGUI_textColorLimitReached_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Tactical_IGUI)],
     [1,0,0],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textColorLimitReached_Tactical),GVAR(IGUI_textColorLimitReached_Tactical) call FUNC(colorToHex));
-    }
+    0
 ] call CBA_Settings_fnc_init;
 
 // Custom text (tactical)
@@ -584,10 +574,7 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_IGUI_textColor),LLSTRING(SETTING_IGUI_textColor_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
     [1,1,1],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textColor_Custom),GVAR(IGUI_textColor_Custom) call FUNC(colorToHex));
-    }
+    0
 ] call CBA_Settings_fnc_init;
 
 // IGUI text color limit reached (custom)
@@ -597,10 +584,7 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_IGUI_textColorLimitReached),LLSTRING(SETTING_IGUI_textColorLimitReached_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
     [1,0,0],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textColorLimitReached_Custom),GVAR(IGUI_textColorLimitReached_Custom) call FUNC(colorToHex));
-    }
+    0
 ] call CBA_Settings_fnc_init;
 
 // Custom text (custom)
@@ -695,10 +679,7 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_IGUI_textColor),LLSTRING(SETTING_IGUI_textColor_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
     [1,1,1],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textColor_Autorun),GVAR(IGUI_textColor_Autorun) call FUNC(colorToHex));
-    }
+    0
 ] call CBA_Settings_fnc_init;
 
 // IGUI Text Size (autorun)

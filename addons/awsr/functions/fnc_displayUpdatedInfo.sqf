@@ -30,7 +30,7 @@ private _settings = switch (_type) do {
     case "walk": {
         [
             GVAR(speedUpdatedDisplayType_Walk), GVAR(minAdjustSpeed_Walk), GVAR(maxAdjustSpeed_Walk),
-            QGVAR(IGUI_Display_Walk), QGVAR(display_Walk), QUOTE(TRIPLES(IGUI,GVAR(grid_Walk),H)),
+            QGVAR(IGUI_Display_Walk), QGVAR(display_Walk), QUOTE(DOUBLES(IGUI,GVAR(grid_Walk))), DISPLAY_X, DISPLAY_Y(0),
             GVAR(IGUI_imageColor_Walk), GVAR(IGUI_Text_Walk), GVAR(IGUI_textColor_Walk),
             GVAR(IGUI_textSize_Walk), GVAR(allowIGUIRedLimitValue_Walk),
             GVAR(IGUI_textColorLimitReached_Walk), GVAR(IGUI_displayDuration_Walk),
@@ -40,7 +40,7 @@ private _settings = switch (_type) do {
     case "tactical": {
         [
             GVAR(speedUpdatedDisplayType_Tactical), GVAR(minAdjustSpeed_Tactical), GVAR(maxAdjustSpeed_Tactical),
-            QGVAR(IGUI_Display_Tactical), QGVAR(display_Tactical), QUOTE(TRIPLES(IGUI,GVAR(grid_Tactical),H)),
+            QGVAR(IGUI_Display_Tactical), QGVAR(display_Tactical), QUOTE(DOUBLES(IGUI,GVAR(grid_Tactical))), DISPLAY_X, DISPLAY_Y(1),
             GVAR(IGUI_imageColor_Tactical), GVAR(IGUI_Text_Tactical), GVAR(IGUI_textColor_Tactical),
             GVAR(IGUI_textSize_Tactical), GVAR(allowIGUIRedLimitValue_Tactical),
             GVAR(IGUI_textColorLimitReached_Tactical), GVAR(IGUI_displayDuration_Tactical),
@@ -50,7 +50,7 @@ private _settings = switch (_type) do {
     case "custom": {
         [
             GVAR(speedUpdatedDisplayType_Custom), GVAR(minAdjustSpeed_Custom), GVAR(maxAdjustSpeed_Custom),
-            QGVAR(IGUI_Display_Custom), QGVAR(display_Custom), QUOTE(TRIPLES(IGUI,GVAR(grid_Custom),H)),
+            QGVAR(IGUI_Display_Custom), QGVAR(display_Custom), QUOTE(DOUBLES(IGUI,GVAR(grid_Custom))), DISPLAY_X, DISPLAY_Y(2),
             GVAR(IGUI_imageColor_Custom), GVAR(IGUI_Text_Custom), GVAR(IGUI_textColor_Custom),
             GVAR(IGUI_textSize_Custom), GVAR(allowIGUIRedLimitValue_Custom),
             GVAR(IGUI_textColorLimitReached_Custom), GVAR(IGUI_displayDuration_Custom),
@@ -63,10 +63,16 @@ private _settings = switch (_type) do {
 if (_settings isEqualTo []) exitWith {};
 
 _settings params [
-    "_displayType", "_min", "_max", "_resource", "_uiVar", "_gridHeightVar",
+    "_displayType", "_min", "_max", "_resource", "_uiVar", "_gridVar", "_defaultX", "_defaultY",
     "_imageColor", "_format", "_color", "_size", "_showLimit",
     "_limitColor", "_duration", "_hideAtDefault"
 ];
+
+// Converted here rather than in the settings callback. CBA hands the setting back as an array
+// every time it changes, and a colour that arrives as an array kills the whole function on the
+// string concatenation below - which is what stopped both colours from ever showing.
+_color = _color call FUNC(colorToHex);
+_limitColor = _limitColor call FUNC(colorToHex);
 
 if (_displayType == DISPLAY_NONE) exitWith {};
 
@@ -95,9 +101,7 @@ switch (_displayType) do {
             [_uiVar] call FUNC(hideIGUI);
         };
 
-        private _fontHeight = (profileNamespace getVariable [_gridHeightVar, DISPLAY_H]) * 0.357 * _size;
-
-        [_resource, _uiVar, _text, _fontHeight, _imageColor, _duration] call FUNC(updateIGUI);
+        [_resource, _uiVar, _gridVar, _defaultX, _defaultY, 1, _text, _size, _imageColor, _duration] call FUNC(updateIGUI);
     };
 
     default {};

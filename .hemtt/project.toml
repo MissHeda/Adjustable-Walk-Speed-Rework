@@ -22,7 +22,7 @@ preset = "Hemtt"
 # Machine-specific things - an Arma profile, a custom mod folder - go on the command line
 # instead of in here, so the repo stays the same for everyone:
 #
-#   hemtt launch -- -name="Mia"
+#   hemtt launch -- -name="YourProfile"
 [hemtt.launch]
 workshop = [
     "450814997",  # CBA_A3

@@ -249,14 +249,15 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
 // of keys covers starting a walk, working up to a run and stopping again - stepping down out of
 // a walk ends the run.
 //
-// The defaults are Ctrl based because plain keys and the F row are already spoken for in vanilla:
-// F1 to F12 select team members, which is what the old F4 to F7 defaults collided with.
+// The pace keys keep the F row they have always had. Faster and Slower only do anything while a
+// run is already going, so their keys stay free for whatever else they are bound to the rest of
+// the time.
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
 
-// Auto Walk: Ctrl + Alt + 1
+// Auto Walk: F6
 [
     _autorunCategory,
     QGVAR(autorun_walkKey),
@@ -266,10 +267,10 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
         true
     },
     "",
-    [0x02, [false, true, true]]
+    [0x40, [false, false, false]]
 ] call CBA_fnc_addKeybind;
 
-// Auto Jog: Ctrl + Alt + 2
+// Auto Jog: F7
 [
     _autorunCategory,
     QGVAR(autorun_jogKey),
@@ -279,10 +280,10 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
         true
     },
     "",
-    [0x03, [false, true, true]]
+    [0x41, [false, false, false]]
 ] call CBA_fnc_addKeybind;
 
-// Auto Run: Ctrl + Alt + 3
+// Auto Run: F5
 [
     _autorunCategory,
     QGVAR(autorun_runKey),
@@ -292,10 +293,10 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
         true
     },
     "",
-    [0x04, [false, true, true]]
+    [0x3F, [false, false, false]]
 ] call CBA_fnc_addKeybind;
 
-// One tier faster, starting a walk from a standstill: Ctrl + W
+// One pace faster, while a run is going: Ctrl + W
 [
     _autorunCategory,
     QGVAR(autorun_fasterKey),
@@ -308,7 +309,7 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
     [0x11, [false, true, false]]
 ] call CBA_fnc_addKeybind;
 
-// One tier slower, ending the run below a walk: Ctrl + S
+// One pace slower, ending the run below a walk: Ctrl + S
 [
     _autorunCategory,
     QGVAR(autorun_slowerKey),
@@ -321,7 +322,7 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
     [0x1F, [false, true, false]]
 ] call CBA_fnc_addKeybind;
 
-// Stop Autorun: Ctrl + X
+// Stop Autorun: F4
 [
     _autorunCategory,
     QGVAR(autorun_stopKey),
@@ -334,7 +335,7 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
         true
     },
     "",
-    [0x2D, [false, true, false]]
+    [0x3E, [false, false, false]]
 ] call CBA_fnc_addKeybind;
 
 call FUNC(autorunKeyHandler);

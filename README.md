@@ -70,13 +70,15 @@ The keys are in the CBA keybind menu next to the speed keys, under **Autorun**:
 
 | Action | Default |
 | --- | --- |
-| One pace faster (starts a walk) | `Ctrl + W` |
+| Stop | `F4` |
+| Run | `F5` |
+| Walk | `F6` |
+| Jog | `F7` |
+| One pace faster | `Ctrl + W` |
 | One pace slower (ends the run below a walk) | `Ctrl + S` |
-| Stop | `Ctrl + X` |
-| Walk / Jog / Run directly | `Ctrl + Alt + 1` / `2` / `3` |
 
-The defaults avoid the F row on purpose - `F1` to `F12` select team members in vanilla, which
-is what autorun's old `F4` to `F7` defaults collided with.
+Faster and slower only do anything while a run is already going, so those keys stay free for
+everything else the rest of the time.
 
 ## Bug Report
 

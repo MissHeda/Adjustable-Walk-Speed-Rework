@@ -4,16 +4,18 @@
  * Plays the transition into a new stance while a run is going.
  *
  * Arguments:
- * None
+ * 0: Stance key that was pressed - "up" or "down" <STRING>
  *
  * Return Value:
  * Stance changed <BOOL>
  *
  * Example:
- * call awsr_awsr_fnc_autorunUpdateStance;
+ * ["up"] call awsr_awsr_fnc_autorunUpdateStance;
  *
  * Public: No
  */
+
+params [["_key", ""]];
 
 if (!hasInterface) exitWith {false};
 if (!GVAR(autorun_active)) exitWith {false};
@@ -21,7 +23,7 @@ if (!isNull objectParent player) exitWith {false};
 if (getUnitFreefallInfo player select 0) exitWith {false};
 if (GVAR(autorun_updatingStance)) exitWith {false};
 
-private _newStance = call FUNC(autorunStance);
+private _newStance = [_key] call FUNC(autorunStance);
 
 if (_newStance select 0) then {
     GVAR(autorun_updatingStance) = true;

@@ -43,14 +43,19 @@ if (!isNil "_keybind") then {
     };
 };
 
-private _text = "<t color='" + GVAR(IGUI_textColor_Autorun) + "'>" + (_lines joinString "<br/>") + "</t>";
-private _fontHeight = (profileNamespace getVariable [QUOTE(TRIPLES(IGUI,GVAR(grid_Autorun),H)), DISPLAY_H]) * 0.357 * GVAR(IGUI_textSize_Autorun);
+// Converted here rather than in the settings callback - see awsr_awsr_fnc_displayUpdatedInfo.
+private _color = GVAR(IGUI_textColor_Autorun) call FUNC(colorToHex);
+private _text = "<t color='" + _color + "'>" + (_lines joinString "<br/>") + "</t>";
 
 [
     QGVAR(IGUI_Display_Autorun),
     QGVAR(display_Autorun),
+    QUOTE(DOUBLES(IGUI,GVAR(grid_Autorun))),
+    AUTORUN_X,
+    AUTORUN_Y,
+    count _lines,
     _text,
-    _fontHeight,
+    GVAR(IGUI_textSize_Autorun),
     GVAR(IGUI_imageColor_Autorun),
     0
 ] call FUNC(updateIGUI);

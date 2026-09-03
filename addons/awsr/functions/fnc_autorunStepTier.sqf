@@ -1,8 +1,8 @@
 #include "..\script_component.hpp"
 /*
  * Author: Miss Heda
- * Shifts the autorun one tier up or down. Stepping up from a standstill starts a walk;
- * stepping down out of a walk ends the run.
+ * Shifts a running autorun one pace up or down. Stepping down out of a walk ends the run.
+ * Does nothing while no run is on, so the keys stay free for everything else.
  *
  * Arguments:
  * 0: Tiers to shift, negative to slow down <NUMBER> (default: 1)
@@ -18,6 +18,8 @@
 
 params [["_delta", 1]];
 
-private _tier = [ARR_2(AUTORUN_OFF,GVAR(autorun_tier))] select GVAR(autorun_active);
+// Only while a run is already going. From a standstill these keys belong to whatever else they
+// are bound to - stepping up out of nothing would take the key away from the player entirely.
+if (!GVAR(autorun_active)) exitWith {};
 
-[_tier + _delta] call FUNC(autorunSetTier);
+[GVAR(autorun_tier) + _delta] call FUNC(autorunSetTier);

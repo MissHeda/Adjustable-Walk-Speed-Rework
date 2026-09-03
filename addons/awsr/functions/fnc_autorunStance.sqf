@@ -5,7 +5,7 @@
  * keys and the water depth.
  *
  * Arguments:
- * None
+ * 0: Stance key that was pressed - "up", "down", or "" for none <STRING> (default: "")
  *
  * Return Value:
  * 0: Stance changed <BOOL>
@@ -13,10 +13,12 @@
  * 2: New stance <STRING>
  *
  * Example:
- * call awsr_awsr_fnc_autorunStance;
+ * ["up"] call awsr_awsr_fnc_autorunStance;
  *
  * Public: No
  */
+
+params [["_key", ""]];
 
 private _isSit = animationState player select [1, 7] == "adjppne";
 private _currentStance = switch (true) do {
@@ -26,9 +28,11 @@ private _currentStance = switch (true) do {
     default {"Stand"};
 };
 
-// Stance keys toggle between the stance they stand for and standing up again.
-private _isCrouch = inputAction "MoveUp" > 0;
-private _isProne = inputAction "MoveDown" > 0;
+// Stance keys toggle between the stance they stand for and standing up again. The key comes
+// from the display handler rather than from inputAction, which reports nothing while a scripted
+// animation is playing.
+private _isCrouch = _key == "up";
+private _isProne = _key == "down";
 private _stance = switch (true) do {
     case (_isProne && _currentStance == "Prone"): {"Stand"};
     case (_isProne): {"Prone"};

@@ -1,10 +1,10 @@
 // One entry per animation group in the layout tab, so each display can be dragged and resized
 // on its own. gridvar has to match the one the matching RscTitles class reads.
-#define SPEED_DISPLAY_PRESET(gridvar,row) \
+#define SPEED_DISPLAY_PRESET(gridvar,defx,defy) \
     GVAR(gridvar)[] = { \
         { \
-            QUOTE(DISPLAY_X), \
-            QUOTE(DISPLAY_Y(row)), \
+            QUOTE(defx), \
+            QUOTE(defy), \
             QUOTE(DISPLAY_W), \
             QUOTE(DISPLAY_H) \
         }, \
@@ -26,10 +26,10 @@ class CfgUIGrids {
         class Presets {
             class Arma3 {
                 class Variables {
-                    SPEED_DISPLAY_PRESET(grid_Walk,0);
-                    SPEED_DISPLAY_PRESET(grid_Tactical,1);
-                    SPEED_DISPLAY_PRESET(grid_Custom,2);
-                    SPEED_DISPLAY_PRESET(grid_Autorun,3);
+                    SPEED_DISPLAY_PRESET(grid_Walk,DISPLAY_X,DISPLAY_Y(0));
+                    SPEED_DISPLAY_PRESET(grid_Tactical,DISPLAY_X,DISPLAY_Y(1));
+                    SPEED_DISPLAY_PRESET(grid_Custom,DISPLAY_X,DISPLAY_Y(2));
+                    SPEED_DISPLAY_PRESET(grid_Autorun,AUTORUN_X,AUTORUN_Y);
                 };
             };
         };

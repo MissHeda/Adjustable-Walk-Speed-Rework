@@ -12,10 +12,11 @@ class RscStructuredText;
 // cls     - class name, also the layer name
 // uivar   - variable the display is parked under in uiNamespace
 // gridvar - IGUI grid variable, one per group so each can be moved and resized on its own
-// row     - which row the default position sits in
+// defx    - default x before the layout tab has been used
+// defy    - default y before the layout tab has been used
 // rows    - how many lines of text the box under the picture has room for
 // picture - the artwork
-#define SPEED_DISPLAY(cls,uivar,gridvar,row,rows,picture) \
+#define SPEED_DISPLAY(cls,uivar,gridvar,defx,defy,rows,picture) \
     class GVAR(cls) { \
         idd = -1; \
         onLoad = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(uivar),_this select 0)]); \
@@ -29,8 +30,8 @@ class RscStructuredText;
                 idc = IDC_SPEED_BACKGROUND; \
                 text = QPATHTOF(picture); \
                 colorText[] = {1,1,1,1}; \
-                x = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),X)',DISPLAY_X)]); \
-                y = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),Y)',DISPLAY_Y(row))]); \
+                x = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),X)',defx)]); \
+                y = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),Y)',defy)]); \
                 w = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),W)',DISPLAY_W)]); \
                 h = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),H)',DISPLAY_H)]); \
             }; \
@@ -41,8 +42,8 @@ class RscStructuredText;
                 colorText[] = {1,1,1,1}; \
                 colorBackground[] = {0,0,0,0}; \
                 font = "RobotoCondensed"; \
-                x = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),X)',DISPLAY_X)]); \
-                y = QUOTE((profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),Y)',DISPLAY_Y(row))]) + 0.95 * (profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),H)',DISPLAY_H)])); \
+                x = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),X)',defx)]); \
+                y = QUOTE((profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),Y)',defy)]) + 0.95 * (profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),H)',DISPLAY_H)])); \
                 w = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),W)',DISPLAY_W)]); \
                 h = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),H)',DISPLAY_H)]); \
                 class Attributes { \
@@ -59,8 +60,8 @@ class RscStructuredText;
     }
 
 class RscTitles {
-    SPEED_DISPLAY(IGUI_Display_Walk,display_Walk,grid_Walk,0,1,assets\ui\IGUI_Display_Walk.paa);
-    SPEED_DISPLAY(IGUI_Display_Tactical,display_Tactical,grid_Tactical,1,1,assets\ui\IGUI_Display_Tactical.paa);
-    SPEED_DISPLAY(IGUI_Display_Custom,display_Custom,grid_Custom,2,1,assets\ui\IGUI_Display_Default.paa);
-    SPEED_DISPLAY(IGUI_Display_Autorun,display_Autorun,grid_Autorun,3,3,assets\ui\running\run_01.paa);
+    SPEED_DISPLAY(IGUI_Display_Walk,display_Walk,grid_Walk,DISPLAY_X,DISPLAY_Y(0),1,assets\ui\IGUI_Display_Walk.paa);
+    SPEED_DISPLAY(IGUI_Display_Tactical,display_Tactical,grid_Tactical,DISPLAY_X,DISPLAY_Y(1),1,assets\ui\IGUI_Display_Tactical.paa);
+    SPEED_DISPLAY(IGUI_Display_Custom,display_Custom,grid_Custom,DISPLAY_X,DISPLAY_Y(2),1,assets\ui\IGUI_Display_Default.paa);
+    SPEED_DISPLAY(IGUI_Display_Autorun,display_Autorun,grid_Autorun,AUTORUN_X,AUTORUN_Y,3,assets\ui\running\run_01.paa);
 };

@@ -370,16 +370,16 @@
             <German>Autolauf | Eine Stufe schneller</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_autorun_faster_DESC">
-            <English>Walk to jog to run. From a standstill it starts a walk.</English>
-            <German>Gehen zu Joggen zu Rennen. Aus dem Stand startet es einen Gehlauf.</German>
+            <English>Walk to jog to run, while a run is already going. Does nothing from a standstill.</English>
+            <German>Gehen zu Joggen zu Rennen, während ein Lauf läuft. Aus dem Stand passiert nichts.</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_autorun_slower">
             <English>Autorun | One Pace Slower</English>
             <German>Autolauf | Eine Stufe langsamer</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_autorun_slower_DESC">
-            <English>Run to jog to walk. A step below a walk ends the run.</English>
-            <German>Rennen zu Joggen zu Gehen. Eine Stufe unter Gehen beendet den Lauf.</German>
+            <English>Run to jog to walk, while a run is already going. A step below a walk ends the run.</English>
+            <German>Rennen zu Joggen zu Gehen, während ein Lauf läuft. Eine Stufe unter Gehen beendet den Lauf.</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

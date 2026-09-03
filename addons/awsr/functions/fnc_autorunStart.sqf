@@ -18,6 +18,8 @@
 if (!hasInterface) exitWith {};
 
 GVAR(autorun_stance) = (call FUNC(autorunStance)) select 1;
+GVAR(autorun_direction) = "f";
+GVAR(autorun_sprint) = false;
 
 ([player] call FUNC(autorunAnimation)) params ["_animation", "_label"];
 

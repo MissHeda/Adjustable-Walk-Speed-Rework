@@ -20,6 +20,7 @@ PREP(displayUpdatedInfo);
 PREP(getSpeedHashMap);
 PREP(handleAnimation);
 PREP(hideIGUI);
+PREP(igUIGeometry);
 PREP(isForceWalkedByOther);
 PREP(reapplySpeed);
 PREP(rebuildAnimations);
