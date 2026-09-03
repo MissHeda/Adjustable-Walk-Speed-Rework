@@ -68,11 +68,14 @@ _settings params [
     "_limitColor", "_duration", "_hideAtDefault"
 ];
 
-// Converted here rather than in the settings callback. CBA hands the setting back as an array
-// every time it changes, and a colour that arrives as an array kills the whole function on the
-// string concatenation below - which is what stopped both colours from ever showing.
-_color = _color call FUNC(colorToHex);
-_limitColor = _limitColor call FUNC(colorToHex);
+// Converted here rather than in the settings callback, so it does not matter whether CBA has
+// handed the setting back as an array or a hex string.
+//
+// The colour goes in wrapped in an array. `_colour call fnc` makes the colour itself the
+// argument list, so params pulls its first element out and hands the function a number - which
+// it rejects, returning white. That is why no colour setting ever did anything.
+_color = [_color] call FUNC(colorToHex);
+_limitColor = [_limitColor] call FUNC(colorToHex);
 
 if (_displayType == DISPLAY_NONE) exitWith {};
 

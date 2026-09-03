@@ -8,11 +8,14 @@
  * Arguments:
  * 0: Colour <ARRAY> (RGB or RGBA, 0..1) or an already converted hex code <STRING>
  *
+ * Note the argument goes in wrapped: [_colour] call, not _colour call. Passing the colour bare
+ * makes it the argument list itself and params hands back its first element.
+ *
  * Return Value:
  * Hex colour code, e.g. "#FF8000" <STRING>
  *
  * Example:
- * private _hex = [1, 0.5, 0] call awsr_awsr_fnc_colorToHex;
+ * private _hex = [[1, 0.5, 0]] call awsr_awsr_fnc_colorToHex;
  *
  * Public: No
  */
