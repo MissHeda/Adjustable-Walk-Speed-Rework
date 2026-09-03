@@ -29,8 +29,27 @@
 - Works as client-side only (server can override this)
 - CBA keybinds (keybinds for animation groups & more)
 - CBA options (functionality things like min / max speed)
-- CBA IGUI options (settings for speed change display)
+- CBA IGUI options (settings for speed change display, including how long it stays up)
 - Custom IGUI (can be resized in the layout tab from Arma)
+- Puts the speed back when a mission or another mod overwrites it
+
+## Whitelisting animations
+
+Each animation group has a whitelist box in the CBA settings. Type animation names separated
+by commas - capitalisation does not matter, and the change applies without a restart:
+
+```
+melee_armed_walkf, melee_armed_walkb, Rotary_Proper_Walk
+```
+
+An entry may contain `*` as a wildcard, which saves listing a mod's animations one by one:
+
+```
+melee_armed_*, Rotary_Proper_Walk*
+```
+
+The blacklist box takes the same syntax and removes animations from the group again, wildcards
+included.
 
 ## Autorun
 
@@ -50,7 +69,10 @@ actions answer that.
 
 ## Bug Report
 
+- [GitHub issues](https://github.com/MissHeda/Adjustable-Walk-Speed-Rework/issues)
 - [Discord](https://discord.gg/Jud6gyzFYx)
+
+Changes per version are in [CHANGELOG.md](CHANGELOG.md).
 
 ## Requirements
 
