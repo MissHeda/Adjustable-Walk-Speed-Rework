@@ -3,6 +3,7 @@ PREP(animationType);
 PREP(autorunAnimDone);
 PREP(autorunAnimation);
 PREP(autorunCheckDisplay);
+PREP(autorunDirection);
 PREP(autorunIndicator);
 PREP(autorunKeyHandler);
 PREP(autorunLabel);

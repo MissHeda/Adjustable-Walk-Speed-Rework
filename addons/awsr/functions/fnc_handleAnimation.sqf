@@ -36,7 +36,7 @@ SETVAR(_unit,GVAR(activeType),_type);
 // Not one of ours: default speed, default audibility, and drop our force walk if we set one.
 if (_type isEqualTo "") exitWith {
     [_unit, _speeds getOrDefault ["defaultSpeed", 1]] call FUNC(applySpeed);
-    [_unit, false] call FUNC(setForceWalk);
+    [_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);
 };
 
 private _coef = _speeds getOrDefault [_type, 1];
@@ -48,4 +48,8 @@ if (_coef > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {
 };
 
 [_unit, _coef] call FUNC(applySpeed);
-[_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_type isEqualTo "walk"} && {_coef != 1}] call FUNC(setForceWalk);
+
+// Force walk hangs off the walk speed itself, not off the animation the unit happens to be in.
+// Deciding it here and nowhere else is what stops it being set in one place and cleared in the
+// other on the very next animation change.
+[_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);

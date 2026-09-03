@@ -79,12 +79,10 @@ if (_new > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {
 
 _speeds set [_type, _new];
 
-// The animation event handler only fires on an animation change, so a key press while the
-// animation is already running has to apply the value itself.
-if (_isActiveAnimation) then {
-    [_unit, _new] call FUNC(applySpeed);
-};
-
-[_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_type isEqualTo "walk"} && {_new != 1}] call FUNC(setForceWalk);
+// Applied through the animation handler rather than here. It knows which group owns the
+// animation the unit is in at this moment, and it is the single place force walk is decided -
+// doing it twice is how the two used to end up disagreeing. Without this the new value would
+// sit unused until the next animation change.
+[_unit, animationState _unit] call FUNC(handleAnimation);
 
 [_unit, _new * 100, _type, _limitReached] call FUNC(displayUpdatedInfo);

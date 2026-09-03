@@ -21,6 +21,7 @@ if (!hasInterface) exitWith {};
 // reads a stance key out of it.
 GVAR(autorun_stance) = ([""] call FUNC(autorunStance)) select 1;
 GVAR(autorun_direction) = "f";
+GVAR(autorun_heldKeys) = [];
 GVAR(autorun_sprint) = false;
 
 ([player] call FUNC(autorunAnimation)) params ["_animation", "_label"];
