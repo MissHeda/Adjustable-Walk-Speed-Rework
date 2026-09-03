@@ -2,32 +2,32 @@
 <Project name="awsr">
     <Package name="awsr">
         <Key ID="STR_awsr_awsr_SETTING_SubCategory_General">
-            <English>1) General</English>
-            <German>1) Allgemein</German>
+            <English>2) General</English>
+            <German>2) Allgemein</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_SubCategory_Walk">
+            <English>3) Walking</English>
+            <German>3) Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Tactical">
+            <English>4) Tactical</English>
+            <German>4) Taktisch</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Custom">
+            <English>5) Custom</English>
+            <German>5) Benutzerdefiniert</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Walk_IGUI">
             <English>2) Walking</English>
             <German>2) Gehen</German>
         </Key>
-        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Tactical">
+        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Tactical_IGUI">
             <English>3) Tactical</English>
             <German>3) Taktisch</German>
         </Key>
-        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Custom">
+        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Custom_IGUI">
             <English>4) Custom</English>
             <German>4) Benutzerdefiniert</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Walk_IGUI">
-            <English>1) Walking</English>
-            <German>1) Gehen</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Tactical_IGUI">
-            <English>2) Tactical</English>
-            <German>2) Taktisch</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Custom_IGUI">
-            <English>3) Custom</English>
-            <German>3) Benutzerdefiniert</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_Enable">
             <English>Enable AWSR (whole system)</English>
@@ -310,12 +310,12 @@
             <German>AWSR - Benutzerdefinierte Geschwindigkeit</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_SubCategory_Autorun">
-            <English>5) Autorun</English>
-            <German>5) Autolauf</German>
+            <English>1) Autorun</English>
+            <German>1) Autolauf</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_SubCategory_Autorun_IGUI">
-            <English>4) Autorun</English>
-            <German>4) Autolauf</German>
+            <English>1) Autorun</English>
+            <German>1) Autolauf</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_autorun_enable">
             <English>Enable autorun</English>
@@ -338,8 +338,8 @@
             <German>AWSR - Autolauf</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_Category_Autorun">
-            <English>Autorun</English>
-            <German>Autolauf</German>
+            <English>1) Autorun</English>
+            <German>1) Autolauf</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_autorun_walk">
             <English>Autorun | Walk</English>
@@ -394,20 +394,44 @@
             <German>Rennen</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_Category_General">
-            <English>General</English>
-            <German>Allgemein</German>
+            <English>2) General</English>
+            <German>2) Allgemein</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_Category_Walk">
-            <English>Walking</English>
-            <German>Gehen</German>
+            <English>3) Walking</English>
+            <German>3) Gehen</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_Category_Tactical">
-            <English>Tactical</English>
-            <German>Taktisch</German>
+            <English>4) Tactical</English>
+            <German>4) Taktisch</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_Category_Custom">
-            <English>Custom</English>
-            <German>Benutzerdefiniert</German>
+            <English>5) Custom</English>
+            <German>5) Benutzerdefiniert</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_autorun_animation_Walk">
+            <English>Walk Animation</English>
+            <German>Geh-Animation</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_autorun_animation_Jog">
+            <English>Jog Animation</English>
+            <German>Jogg-Animation</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_autorun_animation_Run">
+            <English>Run Animation</English>
+            <German>Renn-Animation</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_autorun_animation_DESC">
+            <English>The animation this pace loops. Leave it empty to let the run pick one that follows your weapon, stance, stamina, the terrain and the water - which is what it does by default.
+
+A name typed in here is looped exactly as written and stops following any of that, so a rifle animation stays a rifle animation with a pistol in hand. Names that do not exist are ignored.
+
+The automatic ones look like AmovPercMwlkSlowWrflDf for a walk, AmovPercMrunSlowWrflDf for a jog and AmovPercMevaSlowWrflDf for a run - Perc upright, Pknl crouched, Slow lowered, Sras raised, Wrfl rifle, Wpst pistol.</English>
+            <German>Die Animation, die diese Gangart loopt. Leer lassen heißt: der Lauf sucht sich eine, die Waffe, Haltung, Ausdauer, Gelände und Wasser folgt - so macht er es standardmäßig.
+
+Ein hier eingetragener Name wird exakt so geloopt und folgt nichts davon mehr, eine Gewehranimation bleibt also eine Gewehranimation, auch mit Pistole in der Hand. Nicht vorhandene Namen werden ignoriert.
+
+Die automatischen sehen aus wie AmovPercMwlkSlowWrflDf beim Gehen, AmovPercMrunSlowWrflDf beim Joggen und AmovPercMevaSlowWrflDf beim Rennen - Perc aufrecht, Pknl kniend, Slow gesenkt, Sras erhoben, Wrfl Gewehr, Wpst Pistole.</German>
         </Key>
     </Package>
 </Project>

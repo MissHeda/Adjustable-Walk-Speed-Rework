@@ -189,4 +189,18 @@ if (_animation == "") then {
     GVAR(autorun_nameCache) set [_key, _animation];
 };
 
+// An animation typed into the settings wins over the one worked out above, for that pace. A
+// fixed name stops following the weapon and the stance, which is the price of pinning it.
+if (!_stop) then {
+    private _override = switch (_tier) do {
+        case AUTORUN_WALK: {GVAR(autorun_animation_Walk)};
+        case AUTORUN_JOG: {GVAR(autorun_animation_Jog)};
+        default {GVAR(autorun_animation_Run)};
+    };
+
+    if (_override != "" && {isClass (ANIMATION_STATES >> _override)}) then {
+        _animation = _override;
+    };
+};
+
 _animation

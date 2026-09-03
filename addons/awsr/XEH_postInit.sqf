@@ -38,6 +38,99 @@ if (!hasInterface) exitWith {};
 // Associates a pretty name to a keybinding mod entry.
 ["AWSR", "Adjustable Walking Speed - Rework"] call CBA_fnc_registerKeybindModPrettyName;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Autorun
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// The three tier keys jump straight to a pace. Faster and Slower step through them, so one pair
+// of keys covers starting a walk, working up to a run and stopping again - stepping down out of
+// a walk ends the run.
+//
+// The pace keys keep the F row they have always had. Faster and Slower only do anything while a
+// run is already going, so their keys stay free for whatever else they are bound to the rest of
+// the time.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
+
+// Auto Walk: F5
+[
+    _autorunCategory,
+    QGVAR(autorun_walkKey),
+    [LLSTRING(KEYBIND_autorun_walk), LLSTRING(KEYBIND_autorun_walk_DESC)],
+    {
+        [AUTORUN_WALK] call FUNC(autorunSetTier);
+        true
+    },
+    "",
+    [0x3F, [false, false, false]]
+] call CBA_fnc_addKeybind;
+
+// Auto Jog: F6
+[
+    _autorunCategory,
+    QGVAR(autorun_jogKey),
+    [LLSTRING(KEYBIND_autorun_jog), LLSTRING(KEYBIND_autorun_jog_DESC)],
+    {
+        [AUTORUN_JOG] call FUNC(autorunSetTier);
+        true
+    },
+    "",
+    [0x40, [false, false, false]]
+] call CBA_fnc_addKeybind;
+
+// Auto Run: F7
+[
+    _autorunCategory,
+    QGVAR(autorun_runKey),
+    [LLSTRING(KEYBIND_autorun_run), LLSTRING(KEYBIND_autorun_run_DESC)],
+    {
+        [AUTORUN_RUN] call FUNC(autorunSetTier);
+        true
+    },
+    "",
+    [0x41, [false, false, false]]
+] call CBA_fnc_addKeybind;
+
+// One pace faster, while a run is going: Ctrl + W
+[
+    _autorunCategory,
+    QGVAR(autorun_fasterKey),
+    [LLSTRING(KEYBIND_autorun_faster), LLSTRING(KEYBIND_autorun_faster_DESC)],
+    {
+        // Not swallowed while no run is going, or holding ctrl would eat the movement
+        // key this is bound alongside - which is exactly what stopped the player dead
+        // the moment they held ctrl to change a speed.
+        if (!GVAR(autorun_active)) exitWith {false};
+
+        [1] call FUNC(autorunStepTier);
+        true
+    },
+    "",
+    [0x11, [false, true, false]]
+] call CBA_fnc_addKeybind;
+
+// One pace slower, ending the run below a walk: Ctrl + S
+[
+    _autorunCategory,
+    QGVAR(autorun_slowerKey),
+    [LLSTRING(KEYBIND_autorun_slower), LLSTRING(KEYBIND_autorun_slower_DESC)],
+    {
+        // Not swallowed while no run is going, or holding ctrl would eat the movement
+        // key this is bound alongside - which is exactly what stopped the player dead
+        // the moment they held ctrl to change a speed.
+        if (!GVAR(autorun_active)) exitWith {false};
+
+        [-1] call FUNC(autorunStepTier);
+        true
+    },
+    "",
+    [0x1F, [false, true, false]]
+] call CBA_fnc_addKeybind;
+
+call FUNC(autorunKeyHandler);
+
 // Every keybind sits under one heading, so the menu reads the same way the settings do.
 private _generalCategory = ["AWSR", LLSTRING(KEYBIND_Category_General)];
 private _walkCategory = ["AWSR", LLSTRING(KEYBIND_Category_Walk)];
@@ -240,99 +333,6 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     "",
     []
 ] call CBA_fnc_addKeybind;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// Autorun
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// The three tier keys jump straight to a pace. Faster and Slower step through them, so one pair
-// of keys covers starting a walk, working up to a run and stopping again - stepping down out of
-// a walk ends the run.
-//
-// The pace keys keep the F row they have always had. Faster and Slower only do anything while a
-// run is already going, so their keys stay free for whatever else they are bound to the rest of
-// the time.
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
-
-// Auto Walk: F6
-[
-    _autorunCategory,
-    QGVAR(autorun_walkKey),
-    [LLSTRING(KEYBIND_autorun_walk), LLSTRING(KEYBIND_autorun_walk_DESC)],
-    {
-        [AUTORUN_WALK] call FUNC(autorunSetTier);
-        true
-    },
-    "",
-    [0x40, [false, false, false]]
-] call CBA_fnc_addKeybind;
-
-// Auto Jog: F7
-[
-    _autorunCategory,
-    QGVAR(autorun_jogKey),
-    [LLSTRING(KEYBIND_autorun_jog), LLSTRING(KEYBIND_autorun_jog_DESC)],
-    {
-        [AUTORUN_JOG] call FUNC(autorunSetTier);
-        true
-    },
-    "",
-    [0x41, [false, false, false]]
-] call CBA_fnc_addKeybind;
-
-// Auto Run: F5
-[
-    _autorunCategory,
-    QGVAR(autorun_runKey),
-    [LLSTRING(KEYBIND_autorun_run), LLSTRING(KEYBIND_autorun_run_DESC)],
-    {
-        [AUTORUN_RUN] call FUNC(autorunSetTier);
-        true
-    },
-    "",
-    [0x3F, [false, false, false]]
-] call CBA_fnc_addKeybind;
-
-// One pace faster, while a run is going: Ctrl + W
-[
-    _autorunCategory,
-    QGVAR(autorun_fasterKey),
-    [LLSTRING(KEYBIND_autorun_faster), LLSTRING(KEYBIND_autorun_faster_DESC)],
-    {
-        // Not swallowed while no run is going, or holding ctrl would eat the movement
-        // key this is bound alongside - which is exactly what stopped the player dead
-        // the moment they held ctrl to change a speed.
-        if (!GVAR(autorun_active)) exitWith {false};
-
-        [1] call FUNC(autorunStepTier);
-        true
-    },
-    "",
-    [0x11, [false, true, false]]
-] call CBA_fnc_addKeybind;
-
-// One pace slower, ending the run below a walk: Ctrl + S
-[
-    _autorunCategory,
-    QGVAR(autorun_slowerKey),
-    [LLSTRING(KEYBIND_autorun_slower), LLSTRING(KEYBIND_autorun_slower_DESC)],
-    {
-        // Not swallowed while no run is going, or holding ctrl would eat the movement
-        // key this is bound alongside - which is exactly what stopped the player dead
-        // the moment they held ctrl to change a speed.
-        if (!GVAR(autorun_active)) exitWith {false};
-
-        [-1] call FUNC(autorunStepTier);
-        true
-    },
-    "",
-    [0x1F, [false, true, false]]
-] call CBA_fnc_addKeybind;
-
-call FUNC(autorunKeyHandler);
 
 // The animation handler follows the player rather than sitting on whichever unit happened to
 // exist at mission start. Adding it once to "player" meant respawning, switching unit or taking

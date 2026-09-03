@@ -644,6 +644,37 @@ GVAR(autorun_displayAllow) = [12];
     }
 ] call CBA_Settings_fnc_init;
 
+
+// Animation this pace loops instead of the one worked out for the situation
+[
+    QGVAR(autorun_animation_Walk),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_Walk),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    "",
+    1
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops instead of the one worked out for the situation
+[
+    QGVAR(autorun_animation_Jog),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_Jog),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    "",
+    1
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops instead of the one worked out for the situation
+[
+    QGVAR(autorun_animation_Run),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_Run),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    "",
+    1
+] call CBA_Settings_fnc_init;
+
 // ------------------------------------------------------------------------------------------------------------------------ AUTORUN IGUI
 
 // Show the autorun indicator
