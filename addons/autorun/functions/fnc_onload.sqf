@@ -19,9 +19,9 @@ params ["_display"];
 
 private _hint = _display displayCtrl IDC_INDICATOR_HINT;
 
-if (count (actionKeys QGVAR(stopKey)) > 0) then {
-    private _key = actionKeysNamesArray QGVAR(stopKey);
-    _hint ctrlSetText format [LLSTRING(HUD_StopKey), toUpper (_key select 0)];
+if (call FUNC(hasStopKey)) then {
+    private _keybind = ((["AWSR", QGVAR(stopKey)] call CBA_fnc_getKeybind) select 8) select 0;
+    _hint ctrlSetText format [LLSTRING(HUD_StopKey), toUpper (_keybind call CBA_fnc_localizeKey)];
 } else {
     _hint ctrlSetText LLSTRING(HUD_StopAnyKey);
 };

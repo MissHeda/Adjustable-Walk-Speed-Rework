@@ -10,8 +10,8 @@
             <German>Autolauf aktivieren</German>
         </Key>
         <Key ID="STR_awsr_autorun_SETTING_enable_DESC">
-            <English>Lets the autorun keys start a run that keeps going until you stop it. The keys themselves are set in the vanilla control options, under "Autorun".</English>
-            <German>Erlaubt es, mit den Autolauf-Tasten einen Lauf zu starten, der weiterläuft, bis du ihn stoppst. Die Tasten selbst werden in den normalen Steuerungsoptionen unter "Autolauf" belegt.</German>
+            <English>Lets the autorun keys start a run that keeps going until you stop it. The keys themselves are set in the CBA keybind menu, under "Adjustable Walking Speed - Rework".</English>
+            <German>Erlaubt es, mit den Autolauf-Tasten einen Lauf zu starten, der weiterläuft, bis du ihn stoppst. Die Tasten selbst werden im CBA-Tastenbelegungsmenü unter "Adjustable Walking Speed - Rework" belegt.</German>
         </Key>
         <Key ID="STR_awsr_autorun_KEYBIND_Category">
             <English>Autorun</English>

@@ -30,12 +30,9 @@ if (GVAR(active) && {_type >= 0}) exitWith {
     GVAR(type) = _type;
 };
 
-// With a stop key bound, that key is the only thing that stops a run.
-if (
-    GVAR(active) &&
-    {count (actionKeys QGVAR(stopKey)) > 0} &&
-    {inputAction QGVAR(stopKey) == 0}
-) exitWith {};
+// With a stop key bound, that key is the only thing that stops a run - and it calls
+// awsr_autorun_fnc_stopRunning itself rather than coming through here.
+if (GVAR(active) && {call FUNC(hasStopKey)}) exitWith {};
 
 if (focusOn != player) exitWith {};
 if (!isNull objectParent player) exitWith {};

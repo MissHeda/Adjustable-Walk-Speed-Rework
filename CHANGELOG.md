@@ -71,8 +71,25 @@ Bug fix round based on the reports on the Steam Workshop page.
   storing a value that would never be applied.
 - Switching the whole system, or audibility, off in the CBA settings now hands the unit back
   right away rather than at the next animation change.
+- **The autorun keys moved into the CBA keybind menu**, next to the speed keys, under their
+  own "Autorun" heading - they used to be vanilla key actions in the normal control options.
+  The reason they were vanilla ones was that the run logic asks which key is currently down,
+  and only vanilla actions answer `inputAction`; it now reads the live keybinds from CBA
+  instead, so rebinding takes effect without a restart. They start out unbound: the keys they
+  used to default to, F4 to F7, are the vanilla team select keys.
+- With no stop key bound, pressing the walk, jog or run key during a run switched the type
+  and stopped the run in the same breath. It only switches the type now.
 - Autorun stops when the player unit changes, and no longer leaves its animation handler on
   the old unit.
+- **Stopping an autorun no longer makes the player invulnerable.** Inherited from the
+  original mod, the stop turned damage off outright and gave it back when the stop animation
+  ended, or after three seconds - so every stop bought up to three seconds of immunity to
+  everything, gunfire included, which in multiplayer is an exploit. It also wrote the same
+  `allowDamage` flag ACE, Zeus and mission scripts use, after reading back a value that may
+  have been theirs rather than ours. The stop now hangs a `HandleDamage` handler on the unit
+  for a quarter of a second that cancels only damage with no projectile and nobody behind it
+  - the fall or collision the forced animation can provoke. Being shot while stopping hurts
+  exactly as much as it should, and no other damage handler is disturbed.
 - The four IGUI title classes are one class; the picture and its colour come from script.
 
 ### Known and not changed

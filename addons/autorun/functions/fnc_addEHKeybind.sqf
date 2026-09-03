@@ -1,8 +1,11 @@
 #include "..\script_component.hpp"
 /*
  * Author: leonz2019, Miss Heda
- * Installs the mission display input handlers. While a run is active they turn any key or
- * a left click into a stop, except for the view and stance keys.
+ * Installs the mission display input handlers. While a run is active they turn any key or a
+ * left click into a stop, except for autorun's own keys and the view and stance keys.
+ *
+ * Our own keys are recognised and handed back to CBA rather than acted on here, so it does
+ * not matter which of the two handlers the engine reaches first.
  *
  * Arguments:
  * None
@@ -21,22 +24,13 @@ if (!isNil QGVAR(stopKeyID)) exitWith {};
 
 [{!isNull (findDisplay 46)}, {
     GVAR(stopKeyID) = (findDisplay 46) displayAddEventHandler ["KeyDown", {
+        params ["", "_key", "_shift", "_ctrl", "_alt"];
+
         if (!GVAR(active)) exitWith {false};
         if !(call FUNC(checkDisplay)) exitWith {false};
 
-        // No stop key bound: anything that is not a view or stance key stops the run.
-        if (
-            count (actionKeys QGVAR(stopKey)) == 0 &&
-            {inputAction "lookAroundToggle" == 0} &&
-            {inputAction "personView" == 0} &&
-            {inputAction "commandWatch" == 0} &&
-            {inputAction "MoveUp" == 0} &&
-            {inputAction "MoveDown" == 0} &&
-            {inputAction QGVAR(disabledKey) == 0}
-        ) exitWith {
-            [] call FUNC(onKeyDown);
-            true
-        };
+        // One of ours - the walk, jog, run, stop or ignored key. CBA runs the action itself.
+        if ([_key, _shift, _ctrl, _alt] call FUNC(isOwnKeybind)) exitWith {false};
 
         // Stance keys switch stance instead of stopping.
         if (
@@ -47,12 +41,22 @@ if (!isNil QGVAR(stopKeyID)) exitWith {};
             true
         };
 
-        if (inputAction QGVAR(stopKey) > 0) exitWith {
-            [] call FUNC(onKeyDown);
-            true
-        };
+        // In the water they do nothing, but they still must not stop the run.
+        if (inputAction "MoveUp" > 0 || {inputAction "MoveDown" > 0}) exitWith {false};
 
-        false
+        // Neither do the keys that only move the camera.
+        if (
+            inputAction "lookAroundToggle" > 0 ||
+            {inputAction "personView" > 0} ||
+            {inputAction "commandWatch" > 0}
+        ) exitWith {false};
+
+        // With a stop key bound, that key is the only thing that stops a run, and it was
+        // handled above. Everything else carries on doing whatever it normally does.
+        if (call FUNC(hasStopKey)) exitWith {false};
+
+        [] call FUNC(onKeyDown);
+        true
     }];
 
     GVAR(stopMouseID) = (findDisplay 46) displayAddEventHandler ["MouseButtonDown", {

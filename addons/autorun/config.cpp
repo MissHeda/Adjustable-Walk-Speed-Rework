@@ -8,6 +8,7 @@ class CfgPatches {
         requiredVersion = REQUIRED_VERSION;
         requiredAddons[] = {
             "awsr_main",
+            "cba_keybinding",
             "cba_main"
         };
         author = "Miss Heda";
@@ -18,5 +19,4 @@ class CfgPatches {
 };
 
 #include "CfgEventHandlers.hpp"
-#include "CfgUserActions.hpp"
 #include "RscTitles.hpp"

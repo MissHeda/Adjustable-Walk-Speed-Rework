@@ -11,7 +11,6 @@ ADDON = false;
 GVAR(active) = false;
 GVAR(updatingStance) = false;
 GVAR(isSwim) = false;
-GVAR(damageAllowed) = false;
 GVAR(type) = AUTORUN_RUN;
 GVAR(stance) = "Stand";
 GVAR(animation) = "";

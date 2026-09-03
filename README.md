@@ -63,9 +63,10 @@ with stamina, terrain, water and injuries.
   watch) leave the run alone
 - Can be switched off entirely in the CBA settings
 
-The keys live in the vanilla control options under **Autorun**, not in the CBA keybinds -
-the run logic has to ask the engine which key is currently down, and only vanilla key
-actions answer that.
+The keys live in the CBA keybind menu, next to the speed keys, under **Adjustable Walking
+Speed - Rework → Autorun**. They start out unbound: the keys autorun used to default to are
+the vanilla team select keys, and a default that fires two actions at once is worse than
+none.
 
 ## Bug Report
 
