@@ -1,49 +1,64 @@
 class RscPicture;
 class RscStructuredText;
+
+// One title per animation group. They used to share a single title whose picture was swapped,
+// which meant the groups also shared its position, its size and its hide timer - setting walk
+// to stay up permanently only lasted until a tactical change came along and took the shared
+// display away on the tactical timer.
+//
+// Each title is cut once and then kept for the rest of the mission. Do not go back to cutting a
+// fresh one per change: that tears down the display the number is about to be written into.
+//
+// cls     - class name, also the layer name
+// uivar   - variable the display is parked under in uiNamespace
+// gridvar - IGUI grid variable, one per group so each can be moved and resized on its own
+// row     - which row the default position sits in
+// picture - the artwork
+#define SPEED_DISPLAY(cls,uivar,gridvar,row,picture) \
+    class GVAR(cls) { \
+        idd = -1; \
+        onLoad = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(uivar),_this select 0)]); \
+        onUnload = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(uivar),nil)]); \
+        fadeIn = 0; \
+        fadeOut = 0; \
+        duration = 1e+6; \
+        movingEnable = 0; \
+        class controls { \
+            class background: RscPicture { \
+                idc = IDC_SPEED_BACKGROUND; \
+                text = QPATHTOF(picture); \
+                colorText[] = {1,1,1,1}; \
+                x = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),X)',DISPLAY_X)]); \
+                y = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),Y)',DISPLAY_Y(row))]); \
+                w = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),W)',DISPLAY_W)]); \
+                h = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),H)',DISPLAY_H)]); \
+            }; \
+            class speedText: RscStructuredText { \
+                idc = IDC_SPEED_TEXT; \
+                text = ""; \
+                sizeEx = QUOTE(GUI_GRID_H); \
+                colorText[] = {1,1,1,1}; \
+                colorBackground[] = {0,0,0,0}; \
+                font = "RobotoCondensed"; \
+                x = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),X)',DISPLAY_X)]); \
+                y = QUOTE((profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),Y)',DISPLAY_Y(row))]) + 0.95 * (profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),H)',DISPLAY_H)])); \
+                w = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),W)',DISPLAY_W)]); \
+                h = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),H)',DISPLAY_H)]); \
+                class Attributes { \
+                    font = "RobotoCondensed"; \
+                    color = "#EEEEEE"; \
+                    align = "center"; \
+                    valign = "middle"; \
+                    shadow = 2; \
+                    shadowColor = "#3f4345"; \
+                    size = "1"; \
+                }; \
+            }; \
+        }; \
+    }
+
 class RscTitles {
-    // One title for all three animation groups. It is cut once and then kept alive - the
-    // picture, the colours and the text are set from awsr_awsr_fnc_displayUpdatedInfo, and
-    // hiding it fades the controls rather than tearing the display down. Cutting a fresh title
-    // on every change is what used to blank the number instead of updating it.
-    class GVAR(IGUI_Display) {
-        idd = -1;
-        onLoad = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(speedDisplay_onLoadSave),_this select 0)]);
-        onUnload = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(speedDisplay_onLoadSave),nil)]);
-        fadeIn = 0;
-        fadeOut = 0;
-        duration = 1e+6;
-        movingEnable = 0;
-        class controls {
-            class background: RscPicture {
-                idc = IDC_SPEED_BACKGROUND;
-                x = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(speedDisplay_Preset),X)',(safeZoneX + safeZoneW) - 3.8 * GUI_GRID_W)]);
-                y = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(speedDisplay_Preset),Y)',safeZoneY + 0.08 * safeZoneH)]);
-                w = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(speedDisplay_Preset),W)',3.4 * GUI_GRID_W)]);
-                h = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(speedDisplay_Preset),H)',3.4 * GUI_GRID_H)]);
-                text = QPATHTOF(assets\ui\IGUI_Display_Default.paa);
-                colorText[] = {1, 1, 1, 1};
-            };
-            class speedText: RscStructuredText {
-                idc = IDC_SPEED_TEXT;
-                text = "";
-                sizeEx = QUOTE(GUI_GRID_H);
-                colorText[] = {1, 1, 1, 1};
-                colorBackground[] = {0, 0, 0, 0};
-                x = QUOTE((profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(speedDisplay_Preset),X)',(safeZoneX + safeZoneW) - 3.8 * GUI_GRID_W)]));
-                y = QUOTE(((profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(speedDisplay_Preset),Y)',safeZoneY + 0.08 * safeZoneH)]) + ((profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(speedDisplay_Preset),H)',3.4 * GUI_GRID_H)]) * 0.95)));
-                w = QUOTE((profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(speedDisplay_Preset),W)',3.4 * GUI_GRID_W)]));
-                h = QUOTE((profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(speedDisplay_Preset),H)',3.4 * GUI_GRID_H)]));
-                font = "RobotoCondensed";
-                class Attributes {
-                    font = "RobotoCondensed";
-                    color = "#EEEEEE";
-                    align = "center";
-                    valign = "middle";
-                    shadow = 2;
-                    shadowColor = "#3f4345";
-                    size = "1";
-                };
-            };
-        };
-    };
+    SPEED_DISPLAY(IGUI_Display_Walk,display_Walk,grid_Walk,0,assets\ui\IGUI_Display_Walk.paa);
+    SPEED_DISPLAY(IGUI_Display_Tactical,display_Tactical,grid_Tactical,1,assets\ui\IGUI_Display_Tactical.paa);
+    SPEED_DISPLAY(IGUI_Display_Custom,display_Custom,grid_Custom,2,assets\ui\IGUI_Display_Default.paa);
 };

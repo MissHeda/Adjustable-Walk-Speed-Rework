@@ -59,8 +59,15 @@ Bug fix round based on the reports on the Steam Workshop page.
 - **Wildcards in the whitelist and blacklist.** `melee_armed_*` covers every animation whose
   name starts that way, so mods with a lot of custom animations no longer have to be listed
   one entry at a time. *(asked for by SSG and QWRT0987 for prone animations)*
-- **IGUI Display Duration** per animation group. 0 keeps the display up permanently.
+- **Each animation group has its own IGUI now**, with its own entry in the layout tab, so walk,
+  tactical and custom can be placed, sized and timed independently. They used to share one
+  display whose picture was swapped, which meant they also shared its hide timer: setting walk
+  to stay up permanently only held until the next tactical change took the shared display away
+  on the tactical timer.
+- **IGUI Display Duration** per animation group, defaulting to 0 - the display stays up.
   *(asked for by dyolF)*
+- **IGUI Hide At Default Speed** per animation group, on by default. Together with a duration of
+  0 the display stands exactly as long as that group's speed is not 100%.
 - Autorun, as its own `awsr_autorun` PBO. *(asked for by 42nfl19)*
 
 ### Changed
@@ -90,7 +97,11 @@ Bug fix round based on the reports on the Steam Workshop page.
   for a quarter of a second that cancels only damage with no projectile and nobody behind it
   - the fall or collision the forced animation can provoke. Being shot while stopping hurts
   exactly as much as it should, and no other damage handler is disturbed.
-- The four IGUI title classes are one class; the picture and its colour come from script.
+- The IGUI text colour and the limit colour had stopped having any effect. Showing the display
+  committed a fade on the structured text control, and `ctrlCommit` re-applies the control's own
+  `colorText` over the colours `parseText` put into the markup. Nothing on that control is
+  committed any more, and the markup it is handed is properly closed rather than assembled out
+  of loose tags.
 
 ### Known and not changed
 

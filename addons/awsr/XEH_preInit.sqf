@@ -18,8 +18,9 @@ GVAR(patterns_Custom) = [];
 GVAR(animationTypeCache) = createHashMap;
 GVAR(aceExclusions) = [];
 
-// Lets the newest change cancel the hide that the change before it queued.
-GVAR(displayToken) = 0;
+// One hide token per display, so the newest change to a group cancels the hide that group's
+// previous change queued - and only that group's.
+GVAR(displayTokens) = createHashMap;
 
 // Whitelist and blacklist settings all go through the same rebuild.
 #define REBUILD_ANIMATIONS {call FUNC(rebuildAnimations)}
@@ -263,7 +264,17 @@ GVAR(displayToken) = 0;
     "SLIDER",
     [LLSTRING(SETTING_IGUI_displayDuration), LLSTRING(SETTING_IGUI_displayDuration_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Walk_IGUI)],
-    [0, 30, 5, 0],
+    [0, 30, 0, 0],
+    0
+] call CBA_Settings_fnc_init;
+
+// IGUI hide once the speed is back at default (walk)
+[
+    QGVAR(IGUI_hideAtDefault_Walk),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_hideAtDefault), LLSTRING(SETTING_IGUI_hideAtDefault_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Walk_IGUI)],
+    [true],
     0
 ] call CBA_Settings_fnc_init;
 
@@ -439,7 +450,17 @@ GVAR(displayToken) = 0;
     "SLIDER",
     [LLSTRING(SETTING_IGUI_displayDuration), LLSTRING(SETTING_IGUI_displayDuration_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Tactical_IGUI)],
-    [0, 30, 5, 0],
+    [0, 30, 0, 0],
+    0
+] call CBA_Settings_fnc_init;
+
+// IGUI hide once the speed is back at default (tactical)
+[
+    QGVAR(IGUI_hideAtDefault_Tactical),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_hideAtDefault), LLSTRING(SETTING_IGUI_hideAtDefault_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Tactical_IGUI)],
+    [true],
     0
 ] call CBA_Settings_fnc_init;
 
@@ -593,7 +614,17 @@ GVAR(displayToken) = 0;
     "SLIDER",
     [LLSTRING(SETTING_IGUI_displayDuration), LLSTRING(SETTING_IGUI_displayDuration_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
-    [0, 30, 5, 0],
+    [0, 30, 0, 0],
+    0
+] call CBA_Settings_fnc_init;
+
+// IGUI hide once the speed is back at default (custom)
+[
+    QGVAR(IGUI_hideAtDefault_Custom),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_hideAtDefault), LLSTRING(SETTING_IGUI_hideAtDefault_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
+    [true],
     0
 ] call CBA_Settings_fnc_init;
 

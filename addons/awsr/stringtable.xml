@@ -205,10 +205,6 @@
             <English>This is the text that is being shown when the speed value is changed. %1 is the current calculated value from the mod.</English>
             <German>Dies ist der Text, der angezeigt wird, wenn der Geschwindigkeitswert geändert wird. %1 ist der aktuell berechnete Wert aus dem Mod.</German>
         </Key>
-        <Key ID="STR_awsr_awsr_IGUI_DisplayName">
-            <English>AWS - Rework</English>
-            <German>AWS - Rework</German>
-        </Key>
         <Key ID="STR_awsr_awsr_IGUI_Description">
             <English>Adjusted walk speed display that pops up when you change your walk speed</English>
             <German>Angepasste Geschwindigkeits Anzeige die erscheint sobald du deine Geschwindigkeit änderst</German>
@@ -290,8 +286,28 @@
             <German>IGUI Anzeigedauer</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_IGUI_displayDuration_DESC">
-            <English>How many seconds the custom IGUI stays on screen after a change. Set it to 0 to keep it up permanently.</English>
-            <German>Wie viele Sekunden die eigene IGUI nach einer Änderung sichtbar bleibt. 0 lässt sie dauerhaft stehen.</German>
+            <English>How many seconds this group's IGUI stays on screen after a change. 0 keeps it up until something else takes it away - pair it with "IGUI Hide At Default Speed" to have it stand exactly while the speed is not the default one.</English>
+            <German>Wie viele Sekunden die IGUI dieser Gruppe nach einer Änderung sichtbar bleibt. 0 lässt sie stehen, bis etwas anderes sie ausblendet - zusammen mit "IGUI bei Standardgeschwindigkeit ausblenden" steht sie damit genau so lange, wie die Geschwindigkeit nicht dem Standard entspricht.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_IGUI_hideAtDefault">
+            <English>IGUI Hide At Default Speed</English>
+            <German>IGUI bei Standardgeschwindigkeit ausblenden</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_IGUI_hideAtDefault_DESC">
+            <English>Takes the display off screen as soon as the speed is back at 100%. With the duration set to 0 that leaves it up for exactly as long as the speed is not the default one.</English>
+            <German>Blendet die Anzeige aus, sobald die Geschwindigkeit wieder bei 100% ist. Zusammen mit Anzeigedauer 0 steht sie damit genau so lange, wie die Geschwindigkeit nicht dem Standard entspricht.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_IGUI_DisplayName_Walk">
+            <English>AWSR - Walking Speed</English>
+            <German>AWSR - Gehgeschwindigkeit</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_IGUI_DisplayName_Tactical">
+            <English>AWSR - Tactical Speed</English>
+            <German>AWSR - Taktische Geschwindigkeit</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_IGUI_DisplayName_Custom">
+            <English>AWSR - Custom Speed</English>
+            <German>AWSR - Benutzerdefinierte Geschwindigkeit</German>
         </Key>
     </Package>
 </Project>
