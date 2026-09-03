@@ -122,16 +122,16 @@
             <German>Animations Whitelist</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_allowedAnimationArray_DESC">
-            <English>Here you can whitelist additional animations that you want to be included in this animation group.\nUsage: Just type the animation name (caps does not matter) into this field. \nEach time you want to add another animation use a , to separate them.\nExample: firstCustomAnimation, secondCustomAnimation, thirdCustomAnimation</English>
-            <German>Hier können Sie zusätzliche Animationen auf die Whitelist setzen, die Sie in dieser Animationsgruppe aufnehmen möchten.\nVerwendung: Geben Sie einfach den Animationsnamen (Großschreibung spielt keine Rolle) in dieses Feld ein. \nJedes Mal, wenn Sie eine weitere Animation hinzufügen möchten, verwenden Sie ein , um sie zu trennen.\nBeispiel: firstCustomAnimation, secondCustomAnimation, thirdCustomAnimation</German>
+            <English>Here you can whitelist additional animations that you want to be included in this animation group.\nUsage: Just type the animation name (caps does not matter) into this field. \nEach time you want to add another animation use a , to separate them.\nExample: firstCustomAnimation, secondCustomAnimation, thirdCustomAnimation\n\nAn entry may contain * as a wildcard, so melee_armed_* covers every animation whose name starts that way.</English>
+            <German>Hier können Sie zusätzliche Animationen auf die Whitelist setzen, die Sie in dieser Animationsgruppe aufnehmen möchten.\nVerwendung: Geben Sie einfach den Animationsnamen (Großschreibung spielt keine Rolle) in dieses Feld ein. \nJedes Mal, wenn Sie eine weitere Animation hinzufügen möchten, verwenden Sie ein , um sie zu trennen.\nBeispiel: firstCustomAnimation, secondCustomAnimation, thirdCustomAnimation\n\nEin Eintrag darf * als Platzhalter enthalten, melee_armed_* erfasst also jede Animation, deren Name so beginnt.</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_notAllowedAnimationArray">
             <English>Animation Blacklist</English>
             <German>Animations Blacklist</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_notAllowedAnimationArray_DESC">
-            <English>Here you can blacklist animations that you don't want to be included in this animation group.\nUsage: Just type the animation name (caps does not matter) into this field. \nEach time you want to add another animation use a , to separate them.\nExample: firstCustomAnimation, secondCustomAnimation, thirdCustomAnimation</English>
-            <German>Hier können Sie Animationen auf die Blacklist setzen, die Sie nicht in dieser Animationsgruppe haben möchten.\nVerwendung: Geben Sie einfach den Animationsnamen (Großschreibung spielt keine Rolle) in dieses Feld ein. \nJedes Mal, wenn Sie eine weitere Animation hinzufügen möchten, verwenden Sie ein , um sie zu trennen.\nBeispiel: firstCustomAnimation, secondCustomAnimation, thirdCustomAnimation</German>
+            <English>Here you can blacklist animations that you don't want to be included in this animation group.\nUsage: Just type the animation name (caps does not matter) into this field. \nEach time you want to add another animation use a , to separate them.\nExample: firstCustomAnimation, secondCustomAnimation, thirdCustomAnimation\n\nAn entry may contain * as a wildcard, so melee_armed_* covers every animation whose name starts that way.</English>
+            <German>Hier können Sie Animationen auf die Blacklist setzen, die Sie nicht in dieser Animationsgruppe haben möchten.\nVerwendung: Geben Sie einfach den Animationsnamen (Großschreibung spielt keine Rolle) in dieses Feld ein. \nJedes Mal, wenn Sie eine weitere Animation hinzufügen möchten, verwenden Sie ein , um sie zu trennen.\nBeispiel: firstCustomAnimation, secondCustomAnimation, thirdCustomAnimation\n\nEin Eintrag darf * als Platzhalter enthalten, melee_armed_* erfasst also jede Animation, deren Name so beginnt.</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_allowIGUIRedLimitValue">
             <English>Show Limit Values in Red</English>
@@ -276,6 +276,22 @@
         <Key ID="STR_awsr_awsr_KEYBIND_custom_setMax">
             <English>Custom | Set To Maximum</English>
             <German>Benutzerdefiniert | Zum Maximum Setzen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_reapplySpeed">
+            <English>Reapply Speed If Overwritten</English>
+            <German>Geschwindigkeit erneut setzen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_reapplySpeed_DESC">
+            <English>Puts the speed you set back when another mod or mission overwrites it. Some scenarios drive the animation speed from their own loop and reset it a moment after you change it. Turn this off if it fights a mod you want to have the last word.</English>
+            <German>Setzt die von dir gewählte Geschwindigkeit erneut, wenn eine andere Mod oder Mission sie überschreibt. Manche Szenarien steuern die Animationsgeschwindigkeit in einer eigenen Schleife und setzen sie kurz nach deiner Änderung zurück. Schalte die Option ab, wenn sie sich mit einer Mod streitet, die das letzte Wort haben soll.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_IGUI_displayDuration">
+            <English>IGUI Display Duration</English>
+            <German>IGUI Anzeigedauer</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_IGUI_displayDuration_DESC">
+            <English>How many seconds the custom IGUI stays on screen after a change. Set it to 0 to keep it up permanently.</English>
+            <German>Wie viele Sekunden die eigene IGUI nach einer Änderung sichtbar bleibt. 0 lässt sie dauerhaft stehen.</German>
         </Key>
     </Package>
 </Project>

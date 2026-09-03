@@ -1,3 +1,12 @@
 PREP(adjustSpeed);
+PREP(animationType);
+PREP(applySpeed);
+PREP(colorToHex);
 PREP(displayUpdatedInfo);
+PREP(getSpeedHashMap);
+PREP(handleAnimation);
+PREP(isForceWalkedByOther);
+PREP(reapplySpeed);
+PREP(rebuildAnimations);
 PREP(setDefaultSpeed);
+PREP(setForceWalk);

@@ -7,25 +7,25 @@ ADDON = false;
 #define CBA_SETTINGS_AWSR "Adjustable Walking Speed - Rework"
 #define CBA_SETTINGS_AWSR_GUI "Adjustable Walking Speed - Rework IGUI"
 
-// Init toHex (copied from ACE3)
-GVAR(hexArray) = [
-"00","01","02","03","04","05","06","07","08","09","0A","0B","0C","0D","0E","0F",
-"10","11","12","13","14","15","16","17","18","19","1A","1B","1C","1D","1E","1F",
-"20","21","22","23","24","25","26","27","28","29","2A","2B","2C","2D","2E","2F",
-"30","31","32","33","34","35","36","37","38","39","3A","3B","3C","3D","3E","3F",
-"40","41","42","43","44","45","46","47","48","49","4A","4B","4C","4D","4E","4F",
-"50","51","52","53","54","55","56","57","58","59","5A","5B","5C","5D","5E","5F",
-"60","61","62","63","64","65","66","67","68","69","6A","6B","6C","6D","6E","6F",
-"70","71","72","73","74","75","76","77","78","79","7A","7B","7C","7D","7E","7F",
-"80","81","82","83","84","85","86","87","88","89","8A","8B","8C","8D","8E","8F",
-"90","91","92","93","94","95","96","97","98","99","9A","9B","9C","9D","9E","9F",
-"A0","A1","A2","A3","A4","A5","A6","A7","A8","A9","AA","AB","AC","AD","AE","AF",
-"B0","B1","B2","B3","B4","B5","B6","B7","B8","B9","BA","BB","BC","BD","BE","BF",
-"C0","C1","C2","C3","C4","C5","C6","C7","C8","C9","CA","CB","CC","CD","CE","CF",
-"D0","D1","D2","D3","D4","D5","D6","D7","D8","D9","DA","DB","DC","DD","DE","DF",
-"E0","E1","E2","E3","E4","E5","E6","E7","E8","E9","EA","EB","EC","ED","EE","EF",
-"F0","F1","F2","F3","F4","F5","F6","F7","F8","F9","FA","FB","FC","FD","FE","FF"
-];
+// Resolved whitelists. The settings themselves stay the strings the player typed;
+// awsr_awsr_fnc_rebuildAnimations turns them into these, and drops the lookup cache with it.
+GVAR(animations_Walk) = [];
+GVAR(animations_Tactical) = [];
+GVAR(animations_Custom) = [];
+GVAR(patterns_Walk) = [];
+GVAR(patterns_Tactical) = [];
+GVAR(patterns_Custom) = [];
+GVAR(animationTypeCache) = createHashMap;
+GVAR(aceExclusions) = [];
+
+// Lets the newest change cancel the hide that the change before it queued.
+GVAR(displayToken) = 0;
+
+// Whitelist and blacklist settings all go through the same rebuild.
+#define REBUILD_ANIMATIONS {call FUNC(rebuildAnimations)}
+
+// The enable switches decide which group owns an animation, so the cache goes with them.
+#define DROP_ANIMATION_CACHE {GVAR(animationTypeCache) = createHashMap}
 
 // ------------------------------------------------------------------------------------------------------------------------ GENERAL
 
@@ -36,7 +36,14 @@ GVAR(hexArray) = [
     [LLSTRING(SETTING_Enable),LLSTRING(SETTING_Enable_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
     [true],
-    0
+    0,
+    {
+        // Switching the system off has to give the unit its speed back right away, not at the
+        // next animation change.
+        if (hasInterface && {!isNull player}) then {
+            [player, animationState player] call FUNC(handleAnimation);
+        };
+    }
 ] call CBA_Settings_fnc_init;
 
 // Effect sound detection
@@ -46,7 +53,12 @@ GVAR(hexArray) = [
     [LLSTRING(SETTING_adjustAudioDetection),LLSTRING(SETTING_adjustAudioDetection_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
     [true],
-    1
+    1,
+    {
+        if (hasInterface && {!isNull player}) then {
+            [player, animationState player] call FUNC(handleAnimation);
+        };
+    }
 ] call CBA_Settings_fnc_init;
 
 // Only allow speed change while doing a animation of the animation group
@@ -59,6 +71,16 @@ GVAR(hexArray) = [
     0
 ] call CBA_Settings_fnc_init;
 
+// Put our speed back when another mod or mission overwrites it
+[
+    QGVAR(reapplySpeed),
+    "CHECKBOX",
+    [LLSTRING(SETTING_reapplySpeed),LLSTRING(SETTING_reapplySpeed_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
 // ------------------------------------------------------------------------------------------------------------------------ WALK
 
 // Enable speed adjustments (walking)
@@ -68,7 +90,8 @@ GVAR(hexArray) = [
     [LLSTRING(SETTING_Enable_Walk),LLSTRING(SETTING_Enable_Walk_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Walk)],
     [true],
-    0
+    0,
+    DROP_ANIMATION_CACHE
 ] call CBA_Settings_fnc_init;
 
 // Include no raised animations
@@ -79,31 +102,7 @@ GVAR(hexArray) = [
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Walk)],
     [true],
     1,
-    {
-        if (GVAR(includeNonRaisedAnimations_Walk)) then {
-
-            [{
-                private _array = GETMVAR(GVAR(allowedAnimationArray_Walk),[]);
-                typeName _array == "ARRAY";
-            }, 
-            {
-                private _array = GETMVAR(GVAR(allowedAnimationArray_Walk),[]);
-                _array = _array + ALL_MOVE_WALK_ANIMATIONS_ADDITIONAL; 
-
-                {
-                    _array set [_forEachIndex, toLower _x];
-                } forEach _array;
-                
-                SETMVAR(GVAR(allowedAnimationArray_Walk),_array);
-
-                // If ace is loaded make sure to not allow it to override walking speed animations
-                if (isClass (configfile >> "CfgPatches" >> "ace_advanced_fatigue")) then {
-                    {ACEGVAR(advanced_fatigue,setAnimExclusions) pushBackUnique _x} forEach _array;
-                };
-            },[_array]] call CBA_fnc_waitUntilAndExecute;
-        };
-    },
-    true
+    REBUILD_ANIMATIONS
 ] call CBA_Settings_fnc_init;
 
 // If a value is > or < force walk (requires onlyChangeSpeedWhileAnimationIsPlaying to be off)
@@ -163,24 +162,7 @@ GVAR(hexArray) = [
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Walk)],
     "",
     1,
-    {
-        private _string = GETMVAR(GVAR(allowedAnimationArray_Walk),[]);
-        private _array = _string call CBA_fnc_removeWhitespace;
-        _array = [_array, ","] call CBA_fnc_split;
-        _array = _array + ALL_ADJUST_WALK_ANIMATIONS + ALL_MOVE_WALK_ANIMATIONS;
-        
-        {
-            _array set [_forEachIndex, toLower _x];
-        } forEach _array;
-        
-        SETMVAR(GVAR(allowedAnimationArray_Walk),_array);
-
-        // If ace is loaded make sure to not allow it to override walking speed animations
-        if (isClass (configfile >> "CfgPatches" >> "ace_advanced_fatigue")) then {
-            {ACEGVAR(advanced_fatigue,setAnimExclusions) pushBackUnique _x} forEach _array;
-        };
-    },
-    true
+    REBUILD_ANIMATIONS
 ] call CBA_Settings_fnc_init;
 
 // Custom animation blacklist (walk)
@@ -191,29 +173,7 @@ GVAR(hexArray) = [
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Walk)],
     "",
     1,
-    {
-        private _removeString = GETMVAR(GVAR(notAllowedAnimationArray_Walk),[]);
-        private _removeArray = _removeString call CBA_fnc_removeWhitespace;
-        _removeArray = [_removeArray, ","] call CBA_fnc_split;
-        
-        {
-            _removeArray set [_forEachIndex, toLower _x];
-        } forEach _removeArray;
-
-        private _arrayToRemoveFrom = GETMVAR(GVAR(allowedAnimationArray_Walk),[]);
-        private _updatedArray = _arrayToRemoveFrom - _removeArray;
-        
-        SETMVAR(GVAR(allowedAnimationArray_Walk),_updatedArray);
-        SETMVAR(GVAR(notAllowedAnimationArray_Walk),_removeArray);
-        
-        // If ace is loaded make sure to remove it here as well
-        if (isClass (configfile >> "CfgPatches" >> "ace_advanced_fatigue")) then {
-            _arrayToRemoveFrom = ACEGVAR(advanced_fatigue,setAnimExclusions);
-            _updatedArray = _arrayToRemoveFrom - _removeArray;
-            SETMVAR(ACEGVAR(advanced_fatigue,setAnimExclusions),_updatedArray);
-        };
-    },
-    true
+    REBUILD_ANIMATIONS
 ] call CBA_Settings_fnc_init;
 
 // ------------------------------------------------------------------------------------------------------------------------ WALK IGUI
@@ -234,7 +194,7 @@ GVAR(hexArray) = [
     "LIST",
     [LLSTRING(SETTING_speedUpdatedDisplayType), LLSTRING(SETTING_speedUpdatedDisplayType_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Walk_IGUI)],
-    [[0, 1, 2, 3], [LLSTRING(SETTING_None), LLSTRING(SETTING_Hint), LLSTRING(SETTING_Systemchat), LLSTRING(SETTING_Custom)], 3],
+    [[ARR_4(DISPLAY_NONE,DISPLAY_HINT,DISPLAY_SYSTEMCHAT,DISPLAY_IGUI)], [ARR_4(LLSTRING(SETTING_None),LLSTRING(SETTING_Hint),LLSTRING(SETTING_Systemchat),LLSTRING(SETTING_Custom))], 3],
     0
 ] call CBA_settings_fnc_init;
 
@@ -257,21 +217,7 @@ GVAR(hexArray) = [
     [1,1,1],
     0,
     {
-        private _array = GVAR(IGUI_textColor_Walk);
-        private _return = "";
-        private _hashtag = "";
-        private _hexCode = "";
-        private _count = 0;
-
-        {
-            _count = _count + 1;
-            _x = _x * 255;
-            _hexCode  = GVAR(hexArray) select (((round abs _x) max 0) min 255);
-            if (_count == 3) then { _hashtag = "#"; };
-            _return = _hashtag + _return + _hexCode; 
-        } forEach _array; //Get correct Hex color code
-        
-        SETMVAR(GVAR(IGUI_textColor_Walk),_return)
+        SETMVAR(GVAR(IGUI_textColor_Walk),GVAR(IGUI_textColor_Walk) call FUNC(colorToHex));
     }
 ] call CBA_Settings_fnc_init;
 
@@ -284,21 +230,7 @@ GVAR(hexArray) = [
     [1,0,0],
     0,
     {
-        private _array = GVAR(IGUI_textColorLimitReached_Walk);
-        private _return = "";
-        private _hashtag = "";
-        private _hexCode = "";
-        private _count = 0;
-
-        {
-            _count = _count + 1;
-            _x = _x * 255;
-            _hexCode  = GVAR(hexArray) select (((round abs _x) max 0) min 255);
-            if (_count == 3) then { _hashtag = "#"; };
-            _return = _hashtag + _return + _hexCode; 
-        } forEach _array; //Get correct Hex color code
-        
-        SETMVAR(GVAR(IGUI_textColorLimitReached_Walk),_return)
+        SETMVAR(GVAR(IGUI_textColorLimitReached_Walk),GVAR(IGUI_textColorLimitReached_Walk) call FUNC(colorToHex));
     }
 ] call CBA_Settings_fnc_init;
 
@@ -325,6 +257,16 @@ GVAR(hexArray) = [
     }
 ] call CBA_Settings_fnc_init;
 
+// IGUI display duration (walk)
+[
+    QGVAR(IGUI_displayDuration_Walk),
+    "SLIDER",
+    [LLSTRING(SETTING_IGUI_displayDuration), LLSTRING(SETTING_IGUI_displayDuration_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Walk_IGUI)],
+    [0, 30, 5, 0],
+    0
+] call CBA_Settings_fnc_init;
+
 // ------------------------------------------------------------------------------------------------------------------------ TACTICAL
 
 // Enable speed adjustments (tactical)
@@ -334,7 +276,8 @@ GVAR(hexArray) = [
     [LLSTRING(SETTING_Enable_Tactical),LLSTRING(SETTING_Enable_Tactical_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Tactical)],
     [true],
-    0
+    0,
+    DROP_ANIMATION_CACHE
 ] call CBA_Settings_fnc_init;
 
 // Include no raised animations
@@ -345,31 +288,7 @@ GVAR(hexArray) = [
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Tactical)],
     [true],
     1,
-    {
-        if (GVAR(includeNonRaisedAnimations_Tactical)) then {
-
-            [{
-                private _array = GETMVAR(GVAR(allowedAnimationArray_Tactical),[]);
-                typeName _array == "ARRAY";
-            }, 
-            {
-                private _array = GETMVAR(GVAR(allowedAnimationArray_Tactical),[]);
-                _array = _array + ALL_MOVE_TACTICAL_ANIMATIONS_ADDITIONAL; 
-
-                {
-                    _array set [_forEachIndex, toLower _x];
-                } forEach _array;
-                
-                SETMVAR(GVAR(allowedAnimationArray_Tactical),_array);
-
-                // If ace is loaded make sure to not allow it to override walking speed animations
-                if (isClass (configfile >> "CfgPatches" >> "ace_advanced_fatigue")) then {
-                    {ACEGVAR(advanced_fatigue,setAnimExclusions) pushBackUnique _x} forEach _array;
-                };
-            },[]] call CBA_fnc_waitUntilAndExecute;
-        };
-    },
-    true
+    REBUILD_ANIMATIONS
 ] call CBA_Settings_fnc_init;
 
 // Min speed value (tactical)
@@ -419,24 +338,7 @@ GVAR(hexArray) = [
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Tactical)],
     "",
     1,
-    {
-        private _string = GETMVAR(GVAR(allowedAnimationArray_Tactical),[]);
-        private _array = _string call CBA_fnc_removeWhitespace;
-        _array = [_array, ","] call CBA_fnc_split;
-        _array = _array + ALL_MOVE_TACTICAL_ANIMATIONS + ALL_ADJUST_TACTICAL_ANIMATIONS;
-        
-        {
-            _array set [_forEachIndex, toLower _x];
-        } forEach _array;
-        
-        SETMVAR(GVAR(allowedAnimationArray_Tactical),_array);
-
-        // If ace is loaded make sure to not allow it to override walking speed animations
-        if (isClass (configfile >> "CfgPatches" >> "ace_advanced_fatigue")) then {
-            {ACEGVAR(advanced_fatigue,setAnimExclusions) pushBackUnique _x} forEach _array;
-        };
-    },
-    true
+    REBUILD_ANIMATIONS
 ] call CBA_Settings_fnc_init;
 
 // Custom animation blacklist (tactical)
@@ -447,29 +349,7 @@ GVAR(hexArray) = [
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Tactical)],
     "",
     1,
-    {
-        private _removeString = GETMVAR(GVAR(notAllowedAnimationArray_Tactical),[]);
-        private _removeArray = _removeString call CBA_fnc_removeWhitespace;
-        _removeArray = [_removeArray, ","] call CBA_fnc_split;
-        
-        {
-            _removeArray set [_forEachIndex, toLower _x];
-        } forEach _removeArray;
-
-        private _arrayToRemoveFrom = GETMVAR(GVAR(allowedAnimationArray_Tactical),[]);
-        private _updatedArray = _arrayToRemoveFrom - _removeArray;
-        
-        SETMVAR(GVAR(allowedAnimationArray_Tactical),_updatedArray);
-        SETMVAR(GVAR(notAllowedAnimationArray_Tactical),_removeArray);
-        
-        // If ace is loaded make sure to remove it here as well
-        if (isClass (configfile >> "CfgPatches" >> "ace_advanced_fatigue")) then {
-            _arrayToRemoveFrom = ACEGVAR(advanced_fatigue,setAnimExclusions);
-            _updatedArray = _arrayToRemoveFrom - _removeArray;
-            SETMVAR(ACEGVAR(advanced_fatigue,setAnimExclusions),_updatedArray);
-        };
-    },
-    true
+    REBUILD_ANIMATIONS
 ] call CBA_Settings_fnc_init;
 
 // ------------------------------------------------------------------------------------------------------------------------ TACTICAL IGUI
@@ -490,7 +370,7 @@ GVAR(hexArray) = [
     "LIST",
     [LLSTRING(SETTING_speedUpdatedDisplayType), LLSTRING(SETTING_speedUpdatedDisplayType_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Tactical_IGUI)],
-    [[0, 1, 2, 3], [LLSTRING(SETTING_None), LLSTRING(SETTING_Hint), LLSTRING(SETTING_Systemchat), LLSTRING(SETTING_Custom)], 3],
+    [[ARR_4(DISPLAY_NONE,DISPLAY_HINT,DISPLAY_SYSTEMCHAT,DISPLAY_IGUI)], [ARR_4(LLSTRING(SETTING_None),LLSTRING(SETTING_Hint),LLSTRING(SETTING_Systemchat),LLSTRING(SETTING_Custom))], 3],
     0
 ] call CBA_settings_fnc_init;
 
@@ -513,21 +393,7 @@ GVAR(hexArray) = [
     [1,1,1],
     0,
     {
-        private _array = GVAR(IGUI_textColor_Tactical);
-        private _return = "";
-        private _hashtag = "";
-        private _hexCode = "";
-        private _count = 0;
-
-        {
-            _count = _count + 1;
-            _x = _x * 255;
-            _hexCode  = GVAR(hexArray) select (((round abs _x) max 0) min 255);
-            if (_count == 3) then { _hashtag = "#"; };
-            _return = _hashtag + _return + _hexCode; 
-        } forEach _array; //Get correct Hex color code
-        
-        SETMVAR(GVAR(IGUI_textColor_Tactical),_return)
+        SETMVAR(GVAR(IGUI_textColor_Tactical),GVAR(IGUI_textColor_Tactical) call FUNC(colorToHex));
     }
 ] call CBA_Settings_fnc_init;
 
@@ -540,21 +406,7 @@ GVAR(hexArray) = [
     [1,0,0],
     0,
     {
-        private _array = GVAR(IGUI_textColorLimitReached_Tactical);
-        private _return = "";
-        private _hashtag = "";
-        private _hexCode = "";
-        private _count = 0;
-
-        {
-            _count = _count + 1;
-            _x = _x * 255;
-            _hexCode  = GVAR(hexArray) select (((round abs _x) max 0) min 255);
-            if (_count == 3) then { _hashtag = "#"; };
-            _return = _hashtag + _return + _hexCode; 
-        } forEach _array; //Get correct Hex color code
-        
-        SETMVAR(GVAR(IGUI_textColorLimitReached_Tactical),_return)
+        SETMVAR(GVAR(IGUI_textColorLimitReached_Tactical),GVAR(IGUI_textColorLimitReached_Tactical) call FUNC(colorToHex));
     }
 ] call CBA_Settings_fnc_init;
 
@@ -581,6 +433,16 @@ GVAR(hexArray) = [
     }
 ] call CBA_Settings_fnc_init;
 
+// IGUI display duration (tactical)
+[
+    QGVAR(IGUI_displayDuration_Tactical),
+    "SLIDER",
+    [LLSTRING(SETTING_IGUI_displayDuration), LLSTRING(SETTING_IGUI_displayDuration_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Tactical_IGUI)],
+    [0, 30, 5, 0],
+    0
+] call CBA_Settings_fnc_init;
+
 // ------------------------------------------------------------------------------------------------------------------------ CUSTOM
 
 // Enable speed adjustments (custom)
@@ -590,7 +452,8 @@ GVAR(hexArray) = [
     [LLSTRING(SETTING_Enable_Custom),LLSTRING(SETTING_Enable_Custom_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Custom)],
     [false],
-    0
+    0,
+    DROP_ANIMATION_CACHE
 ] call CBA_Settings_fnc_init;
 
 // Min speed value (custom)
@@ -640,23 +503,7 @@ GVAR(hexArray) = [
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Custom)],
     "",
     1,
-    {
-        private _string = GETMVAR(GVAR(allowedAnimationArray_Custom),[]);
-        private _array = _string call CBA_fnc_removeWhitespace;
-        _array = [_array, ","] call CBA_fnc_split;
-        
-        {
-            _array set [_forEachIndex, toLower _x];
-        } forEach _array;
-        
-        SETMVAR(GVAR(allowedAnimationArray_Custom),_array);
-
-        // If ace is loaded make sure to not allow it to override walking speed animations
-        if (isClass (configfile >> "CfgPatches" >> "ace_advanced_fatigue")) then {
-            {ACEGVAR(advanced_fatigue,setAnimExclusions) pushBackUnique _x} forEach _array;
-        };
-    },
-    true
+    REBUILD_ANIMATIONS
 ] call CBA_Settings_fnc_init;
 
 // ------------------------------------------------------------------------------------------------------------------------ CUSTOM IGUI
@@ -677,7 +524,7 @@ GVAR(hexArray) = [
     "LIST",
     [LLSTRING(SETTING_speedUpdatedDisplayType), LLSTRING(SETTING_speedUpdatedDisplayType_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
-    [[0, 1, 2, 3], [LLSTRING(SETTING_None), LLSTRING(SETTING_Hint), LLSTRING(SETTING_Systemchat), LLSTRING(SETTING_Custom)], 3],
+    [[ARR_4(DISPLAY_NONE,DISPLAY_HINT,DISPLAY_SYSTEMCHAT,DISPLAY_IGUI)], [ARR_4(LLSTRING(SETTING_None),LLSTRING(SETTING_Hint),LLSTRING(SETTING_Systemchat),LLSTRING(SETTING_Custom))], 3],
     0
 ] call CBA_settings_fnc_init;
 
@@ -700,21 +547,7 @@ GVAR(hexArray) = [
     [1,1,1],
     0,
     {
-        private _array = GVAR(IGUI_textColor_Custom);
-        private _return = "";
-        private _hashtag = "";
-        private _hexCode = "";
-        private _count = 0;
-
-        {
-            _count = _count + 1;
-            _x = _x * 255;
-            _hexCode  = GVAR(hexArray) select (((round abs _x) max 0) min 255);
-            if (_count == 3) then { _hashtag = "#"; };
-            _return = _hashtag + _return + _hexCode; 
-        } forEach _array; //Get correct Hex color code
-        
-        SETMVAR(GVAR(IGUI_textColor_Custom),_return)
+        SETMVAR(GVAR(IGUI_textColor_Custom),GVAR(IGUI_textColor_Custom) call FUNC(colorToHex));
     }
 ] call CBA_Settings_fnc_init;
 
@@ -727,21 +560,7 @@ GVAR(hexArray) = [
     [1,0,0],
     0,
     {
-        private _array = GVAR(IGUI_textColorLimitReached_Custom);
-        private _return = "";
-        private _hashtag = "";
-        private _hexCode = "";
-        private _count = 0;
-
-        {
-            _count = _count + 1;
-            _x = _x * 255;
-            _hexCode  = GVAR(hexArray) select (((round abs _x) max 0) min 255);
-            if (_count == 3) then { _hashtag = "#"; };
-            _return = _hashtag + _return + _hexCode; 
-        } forEach _array; //Get correct Hex color code
-        
-        SETMVAR(GVAR(IGUI_textColorLimitReached_Custom),_return)
+        SETMVAR(GVAR(IGUI_textColorLimitReached_Custom),GVAR(IGUI_textColorLimitReached_Custom) call FUNC(colorToHex));
     }
 ] call CBA_Settings_fnc_init;
 
@@ -759,13 +578,23 @@ GVAR(hexArray) = [
 [
     QGVAR(IGUI_textSize_Custom),
     "SLIDER",
-    [LLSTRING(SETTING_IGUI_textSize),LLSTRING(SETTING_IGUI_textSize_DESC)],
+    [LLSTRING(SETTING_IGUI_textSize), LLSTRING(SETTING_IGUI_textSize_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
     [0.1, 3, 1, 2],
     0,
     {
         SETMVAR(GVAR(IGUI_textSize_Custom),[ARR_2(GVAR(IGUI_textSize_Custom),2)] call BIS_fnc_cutDecimals);
     }
+] call CBA_Settings_fnc_init;
+
+// IGUI display duration (custom)
+[
+    QGVAR(IGUI_displayDuration_Custom),
+    "SLIDER",
+    [LLSTRING(SETTING_IGUI_displayDuration), LLSTRING(SETTING_IGUI_displayDuration_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
+    [0, 30, 5, 0],
+    0
 ] call CBA_Settings_fnc_init;
 
 ADDON = true;
