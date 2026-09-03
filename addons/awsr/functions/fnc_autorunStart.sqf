@@ -17,7 +17,9 @@
 
 if (!hasInterface) exitWith {};
 
-GVAR(autorun_stance) = (call FUNC(autorunStance)) select 1;
+// Passed explicitly: a bare call leaves _this as whatever the caller had, and the function
+// reads a stance key out of it.
+GVAR(autorun_stance) = ([""] call FUNC(autorunStance)) select 1;
 GVAR(autorun_direction) = "f";
 GVAR(autorun_sprint) = false;
 
