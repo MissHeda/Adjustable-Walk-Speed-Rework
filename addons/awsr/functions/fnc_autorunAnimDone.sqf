@@ -32,9 +32,6 @@ if (
     0 spawn FUNC(autorunStop);
 };
 
-([player] call FUNC(autorunAnimation)) params ["_animation", "_label"];
+GVAR(autorun_animation) = [player] call FUNC(autorunAnimation);
 
-GVAR(autorun_animation) = _animation;
-GVAR(autorun_label) = _label;
-
-player playMoveNow _animation;
+player playMoveNow GVAR(autorun_animation);

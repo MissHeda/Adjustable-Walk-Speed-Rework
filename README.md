@@ -63,22 +63,22 @@ with stamina, terrain, water and injuries.
 - Can be switched off entirely in the CBA settings
 
 - Walk, jog and run as three paces, with one key pair to step up and down through them
-- Follows the movement keys: strafe, back up or hold the sprint key without dropping the run
-- Shows the pace and what the run is actually doing, in a display you place yourself
+- Keeps the animation in step with stamina, terrain, water, stance and injuries
+- Shows the pace in a display you place yourself
 
 The keys are in the CBA keybind menu next to the speed keys, under **Autorun**:
 
 | Action | Default |
 | --- | --- |
-| Stop | `F4` |
 | Run | `F5` |
 | Walk | `F6` |
 | Jog | `F7` |
 | One pace faster | `Ctrl + W` |
 | One pace slower (ends the run below a walk) | `Ctrl + S` |
 
-Faster and slower only do anything while a run is already going, so those keys stay free for
-everything else the rest of the time.
+A run ends by pressing the pace key it is already on, by stepping below a walk, or by reaching
+for a movement key - which then does what it normally does. Faster and slower only do anything
+while a run is going, so those keys stay free for everything else the rest of the time.
 
 ## Bug Report
 

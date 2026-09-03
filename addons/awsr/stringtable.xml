@@ -346,16 +346,16 @@
             <German>Autolauf | Gehen</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_autorun_walk_DESC">
-            <English>Starts walking on its own. Press again to stop.</English>
-            <German>Startet automatisches Gehen. Nochmal drücken zum Stoppen.</German>
+            <English>Starts walking on its own. Press again to stop, or use a movement key.</English>
+            <German>Startet automatisches Gehen. Nochmal drücken zum Stoppen, oder eine Bewegungstaste.</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_autorun_jog">
             <English>Autorun | Jog</English>
             <German>Autolauf | Joggen</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_autorun_jog_DESC">
-            <English>Starts jogging on its own. Press again to stop.</English>
-            <German>Startet automatisches Joggen. Nochmal drücken zum Stoppen.</German>
+            <English>Starts jogging on its own. Press again to stop, or use a movement key.</English>
+            <German>Startet automatisches Joggen. Nochmal drücken zum Stoppen, oder eine Bewegungstaste.</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_autorun_run">
             <English>Autorun | Run</English>
@@ -381,14 +381,6 @@
             <English>Run to jog to walk, while a run is already going. A step below a walk ends the run.</English>
             <German>Rennen zu Joggen zu Gehen, während ein Lauf läuft. Eine Stufe unter Gehen beendet den Lauf.</German>
         </Key>
-        <Key ID="STR_awsr_awsr_KEYBIND_autorun_stop">
-            <English>Autorun | Stop</English>
-            <German>Autolauf | Stoppen</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_KEYBIND_autorun_stop_DESC">
-            <English>Ends the run. Does nothing while no run is on.</English>
-            <German>Beendet den Lauf. Ohne laufenden Autolauf passiert nichts.</German>
-        </Key>
         <Key ID="STR_awsr_awsr_AUTORUN_tier_walk">
             <English>Walk</English>
             <German>Gehen</German>
@@ -400,62 +392,6 @@
         <Key ID="STR_awsr_awsr_AUTORUN_tier_run">
             <English>Run</English>
             <German>Rennen</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_move_walk">
-            <English>Walking</English>
-            <German>Gehen</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_move_jog">
-            <English>Jogging</English>
-            <German>Joggen</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_move_run">
-            <English>Running</English>
-            <German>Rennen</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_move_sprint">
-            <English>Sprinting</English>
-            <German>Sprinten</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_move_limp">
-            <English>Limping</English>
-            <German>Humpeln</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_move_stop">
-            <English>Stopping</English>
-            <German>Anhalten</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_pose_standing">
-            <English>standing</English>
-            <German>stehend</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_pose_crouched">
-            <English>crouched</English>
-            <German>geduckt</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_pose_prone">
-            <English>prone</English>
-            <German>liegend</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_pose_swimming">
-            <English>in the water</English>
-            <German>im Wasser</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_weapon_none">
-            <English>no weapon</English>
-            <German>ohne Waffe</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_weapon_raised">
-            <English>weapon raised</English>
-            <German>Waffe erhoben</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_weapon_lowered">
-            <English>weapon lowered</English>
-            <German>Waffe gesenkt</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_HUD_stop">
-            <English>%1 to stop</English>
-            <German>%1 zum Stoppen</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_Category_General">
             <English>General</English>
@@ -472,50 +408,6 @@
         <Key ID="STR_awsr_awsr_KEYBIND_Category_Custom">
             <English>Custom</English>
             <German>Benutzerdefiniert</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_SETTING_autorun_styles">
-            <English>Autorun Movement Styles</English>
-            <German>Autolauf-Laufstile</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_SETTING_autorun_styles_DESC">
-            <English>Extra movement styles, on top of the built in ones, separated by commas.
-
-An entry starting with _ is a suffix and keeps following your weapon, stance and pace: _v2 turns AmovPercMwlkSlowWrflDf into AmovPercMwlkSlowWrflDf_v2. Anything else is taken as a whole animation name, which is how an animation from another mod gets in.
-
-Built in already: _v1, _v2, _v3, _ver2, _FastVariant. Vanilla only has those for walking upright with a lowered rifle - in any other stance a style that does not exist is simply not applied.</English>
-            <German>Zusätzliche Laufstile über die eingebauten hinaus, durch Komma getrennt.
-
-Ein Eintrag, der mit _ beginnt, ist ein Suffix und folgt weiterhin Waffe, Haltung und Gangart: _v2 macht aus AmovPercMwlkSlowWrflDf ein AmovPercMwlkSlowWrflDf_v2. Alles andere gilt als vollständiger Animationsname - so kommt eine Animation aus einer anderen Mod herein.
-
-Eingebaut sind bereits: _v1, _v2, _v3, _ver2, _FastVariant. Vanilla hat die nur für aufrechtes Gehen mit gesenktem Gewehr - in jeder anderen Haltung wird ein nicht vorhandener Stil einfach nicht angewendet.</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_KEYBIND_autorun_style">
-            <English>Autorun | Next Movement Style</English>
-            <German>Autolauf | Nächster Laufstil</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_KEYBIND_autorun_style_DESC">
-            <English>Steps through the styles from the settings while a run is going, and back to the automatic one.</English>
-            <German>Schaltet während eines Laufs durch die Stile aus den Einstellungen und wieder zurück zum automatischen.</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_style">
-            <English>Style %1/%2</English>
-            <German>Stil %1/%2</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_hint_pace">
-            <English>Pace</English>
-            <German>Gangart</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_AUTORUN_hint_stop">
-            <English>Stop</English>
-            <German>Stoppen</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_SETTING_autorun_enableStyles">
-            <English>Allow Movement Style Switching</English>
-            <German>Laufstil-Umschaltung erlauben</German>
-        </Key>
-        <Key ID="STR_awsr_awsr_SETTING_autorun_enableStyles_DESC">
-            <English>Lets the style key step through the movement styles while a run is going. Off leaves the run on the animation it works out for itself.</English>
-            <German>Erlaubt es, mit der Stil-Taste während eines Laufs durch die Laufstile zu schalten. Aus lässt den Lauf bei der Animation, die er selbst ermittelt.</German>
         </Key>
     </Package>
 </Project>

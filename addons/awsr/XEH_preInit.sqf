@@ -28,15 +28,12 @@ GVAR(autorun_active) = false;
 GVAR(autorun_tier) = AUTORUN_OFF;
 GVAR(autorun_stance) = "Stand";
 GVAR(autorun_animation) = "";
-GVAR(autorun_label) = "";
 GVAR(autorun_updatingStance) = false;
 GVAR(autorun_animDoneEH) = -1;
 GVAR(autorun_pfh) = -1;
 GVAR(autorun_iconFrame) = 1;
 GVAR(autorun_iconTime) = 0;
 GVAR(autorun_nameCache) = createHashMap;
-GVAR(autorun_styleIndex) = 0;
-GVAR(autorun_styleList) = [];
 
 // Displays a run keeps going under. 12 is the map; add your own display IDs from a mission or
 // another mod if a run should survive them being open.
@@ -644,41 +641,6 @@ GVAR(autorun_displayAllow) = [12];
         if (!GVAR(autorun_enable) && {GVAR(autorun_active)}) then {
             0 spawn FUNC(autorunStop);
         };
-    }
-] call CBA_Settings_fnc_init;
-
-// Allow stepping between movement styles at all
-[
-    QGVAR(autorun_enableStyles),
-    "CHECKBOX",
-    [LLSTRING(SETTING_autorun_enableStyles),LLSTRING(SETTING_autorun_enableStyles_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
-    [true],
-    0,
-    {
-        GVAR(autorun_styleIndex) = 0;
-    }
-] call CBA_Settings_fnc_init;
-
-// Movement styles the run can be switched between
-[
-    QGVAR(autorun_styles),
-    "EDITBOX",
-    [LLSTRING(SETTING_autorun_styles),LLSTRING(SETTING_autorun_styles_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
-    "",
-    1,
-    {
-        // Built in first, then whatever the player typed - the same shape as the animation
-        // whitelists, so the box only ever holds the extras.
-        private _list = +AUTORUN_DEFAULT_STYLES;
-
-        {
-            if (_x != "") then {_list pushBackUnique _x};
-        } forEach ([(GETMVAR(GVAR(autorun_styles),"")) call CBA_fnc_removeWhitespace, ","] call CBA_fnc_split);
-
-        GVAR(autorun_styleList) = _list;
-        GVAR(autorun_styleIndex) = 0;
     }
 ] call CBA_Settings_fnc_init;
 

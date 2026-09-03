@@ -20,12 +20,8 @@ if (!hasInterface) exitWith {};
 // Passed explicitly: a bare call leaves _this as whatever the caller had, and the function
 // reads a stance key out of it.
 GVAR(autorun_stance) = ([""] call FUNC(autorunStance)) select 1;
-GVAR(autorun_styleIndex) = 0;
 
-([player] call FUNC(autorunAnimation)) params ["_animation", "_label"];
-
-GVAR(autorun_animation) = _animation;
-GVAR(autorun_label) = _label;
+GVAR(autorun_animation) = [player] call FUNC(autorunAnimation);
 GVAR(autorun_active) = true;
 GVAR(autorun_iconFrame) = 1;
 GVAR(autorun_iconTime) = 0;
@@ -47,4 +43,4 @@ GVAR(autorun_pfh) = [FUNC(autorunUpdate), 0.05] call CBA_fnc_addPerFrameHandler;
 
 call FUNC(autorunIndicator);
 
-player playMoveNow _animation;
+player playMoveNow GVAR(autorun_animation);

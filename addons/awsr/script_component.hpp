@@ -49,7 +49,3 @@
 // so it uses the same controls, the same update path and the same layout tab treatment.
 #define AUTORUN_ICON_FRAMES 6
 
-// Movement style variants vanilla ships, as suffixes. Only erect walking with a lowered rifle
-// actually has them - checked against anims_f.pbo - so the others fall back to the plain
-// animation, which is what an entry that does not exist does anyway.
-#define AUTORUN_DEFAULT_STYLES ["_v1","_v2","_v3","_ver2","_FastVariant"]

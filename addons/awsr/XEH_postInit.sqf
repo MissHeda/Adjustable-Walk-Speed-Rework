@@ -332,37 +332,6 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
     [0x1F, [false, true, false]]
 ] call CBA_fnc_addKeybind;
 
-// Stop Autorun: F4
-[
-    _autorunCategory,
-    QGVAR(autorun_stopKey),
-    [LLSTRING(KEYBIND_autorun_stop), LLSTRING(KEYBIND_autorun_stop_DESC)],
-    {
-        // Harmless on its own, so the key keeps doing whatever else it does when no run is on.
-        if (!GVAR(autorun_active)) exitWith {false};
-
-        0 spawn FUNC(autorunStop);
-        true
-    },
-    "",
-    [0x3E, [false, false, false]]
-] call CBA_fnc_addKeybind;
-
-// Next Movement Style: J
-[
-    _autorunCategory,
-    QGVAR(autorun_styleKey),
-    [LLSTRING(KEYBIND_autorun_style), LLSTRING(KEYBIND_autorun_style_DESC)],
-    {
-        if (!GVAR(autorun_active)) exitWith {false};
-
-        call FUNC(autorunStyleNext);
-        true
-    },
-    "",
-    [0x24, [false, false, false]]
-] call CBA_fnc_addKeybind;
-
 call FUNC(autorunKeyHandler);
 
 // The animation handler follows the player rather than sitting on whichever unit happened to

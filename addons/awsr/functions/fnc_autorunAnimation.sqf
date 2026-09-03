@@ -17,11 +17,10 @@
  * 1: Stop animation instead of a movement one <BOOL> (default: false)
  *
  * Return Value:
- * 0: Animation name <STRING>
- * 1: What to call it on screen <STRING>
+ * Animation name <STRING>
  *
  * Example:
- * ([player] call awsr_awsr_fnc_autorunAnimation) params ["_animation", "_label"];
+ * private _animation = [player] call awsr_awsr_fnc_autorunAnimation;
  *
  * Public: No
  */
@@ -190,10 +189,4 @@ if (_animation == "") then {
     GVAR(autorun_nameCache) set [_key, _animation];
 };
 
-// The style the player stepped to goes on last, so it follows the weapon, the stance and the
-// pace rather than replacing them.
-if (!_stop) then {
-    _animation = [_animation, GVAR(autorun_styleIndex)] call FUNC(autorunStyleAnimation);
-};
-
-[_animation, [_movement, _pose, _stance, _weapon, _isSwimming] call FUNC(autorunLabel)]
+_animation

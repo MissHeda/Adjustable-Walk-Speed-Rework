@@ -28,8 +28,12 @@ if (_tier == AUTORUN_OFF) exitWith {
     0 spawn FUNC(autorunStop);
 };
 
-// Already going: this is a gear change, not a new run.
+// Already going: the pace you are on ends the run, any other one is a gear change.
 if (GVAR(autorun_active)) exitWith {
+    if (_tier == GVAR(autorun_tier)) exitWith {
+        0 spawn FUNC(autorunStop);
+    };
+
     GVAR(autorun_tier) = _tier;
     call FUNC(autorunIndicator);
 };

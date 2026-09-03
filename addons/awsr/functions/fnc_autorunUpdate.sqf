@@ -46,14 +46,9 @@ if (diag_tickTime > GVAR(autorun_iconTime)) then {
 // A stance transition is playing and owns the animation until it is done.
 if (GVAR(autorun_updatingStance)) exitWith {};
 
-([player] call FUNC(autorunAnimation)) params ["_animation", "_label"];
+private _animation = [player] call FUNC(autorunAnimation);
 
 if (_animation != GVAR(autorun_animation)) then {
     GVAR(autorun_animation) = _animation;
     player playMoveNow _animation;
-};
-
-if (_label != GVAR(autorun_label)) then {
-    GVAR(autorun_label) = _label;
-    call FUNC(autorunIndicator);
 };

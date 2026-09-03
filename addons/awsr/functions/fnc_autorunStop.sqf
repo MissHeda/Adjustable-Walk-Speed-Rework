@@ -58,8 +58,6 @@ private _damageEH = _unit addEventHandler ["HandleDamage", {call FUNC(autorunSto
 
 _unit setVelocity [0, 0, 0];
 
-([_unit, true] call FUNC(autorunAnimation)) params ["_animation"];
+GVAR(autorun_animation) = [_unit, true] call FUNC(autorunAnimation);
 
-GVAR(autorun_animation) = _animation;
-
-_unit playMoveNow _animation;
+_unit playMoveNow GVAR(autorun_animation);

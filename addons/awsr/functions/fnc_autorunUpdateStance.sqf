@@ -30,12 +30,10 @@ if (_newStance select 0) then {
     GVAR(autorun_stance) = _newStance select 2;
 
     private _from = GVAR(autorun_animation);
-    ([player] call FUNC(autorunAnimation)) params ["_animation", "_label"];
 
-    GVAR(autorun_animation) = _animation;
-    GVAR(autorun_label) = _label;
+    GVAR(autorun_animation) = [player] call FUNC(autorunAnimation);
 
-    player playMoveNow format ["%1_%2", _from, _animation];
+    player playMoveNow format [ARR_3("%1_%2",_from,GVAR(autorun_animation))];
 
     call FUNC(autorunIndicator);
 };
