@@ -16,6 +16,7 @@ GVAR(type) = AUTORUN_RUN;
 GVAR(stance) = "Stand";
 GVAR(animation) = "";
 GVAR(rscId) = -1;
+GVAR(animDoneEH) = -1;
 
 // Displays autorun keeps running under. 12 is the map; add your own display IDs from a
 // mission or another mod if a run should survive them being open.

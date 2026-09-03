@@ -57,7 +57,13 @@ GVAR(animation) = player call FUNC(getAnimation);
 GVAR(isSwim) = GVAR(animation) select [1, 3] in SWIM_ACTIONS;
 GVAR(active) = true;
 
-player addEventHandler ["AnimDone", {
+// A run that was stopped without its handler firing again leaves the old one behind.
+if (GVAR(animDoneEH) >= 0) then {
+    player removeEventHandler ["AnimDone", GVAR(animDoneEH)];
+    GVAR(animDoneEH) = -1;
+};
+
+GVAR(animDoneEH) = player addEventHandler ["AnimDone", {
     if (
         !alive player ||
         {!GVAR(active)} ||
@@ -70,7 +76,6 @@ player addEventHandler ["AnimDone", {
         {incapacitatedState player == "UNCONSCIOUS"}
     ) exitWith {
         0 spawn FUNC(stopRunning);
-        player removeEventHandler ["AnimDone", _thisEventHandler];
     };
 
     call FUNC(updateStance);

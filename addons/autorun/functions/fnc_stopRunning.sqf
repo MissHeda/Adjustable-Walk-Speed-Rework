@@ -21,6 +21,11 @@ if (!GVAR(active)) exitWith {};
 
 GVAR(active) = false;
 
+if (GVAR(animDoneEH) >= 0) then {
+    player removeEventHandler ["AnimDone", GVAR(animDoneEH)];
+    GVAR(animDoneEH) = -1;
+};
+
 if (GVAR(rscId) >= 0) then {
     GVAR(rscId) cutText ["", "PLAIN"];
 };
