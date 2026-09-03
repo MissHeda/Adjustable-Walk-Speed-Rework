@@ -29,6 +29,7 @@ class CfgUIGrids {
                     SPEED_DISPLAY_PRESET(grid_Walk,0);
                     SPEED_DISPLAY_PRESET(grid_Tactical,1);
                     SPEED_DISPLAY_PRESET(grid_Custom,2);
+                    SPEED_DISPLAY_PRESET(grid_Autorun,3);
                 };
             };
         };
@@ -36,6 +37,7 @@ class CfgUIGrids {
             SPEED_DISPLAY_VARIABLE(grid_Walk,CSTRING(IGUI_DisplayName_Walk),assets\ui\IGUI_Display_Walk.paa);
             SPEED_DISPLAY_VARIABLE(grid_Tactical,CSTRING(IGUI_DisplayName_Tactical),assets\ui\IGUI_Display_Tactical.paa);
             SPEED_DISPLAY_VARIABLE(grid_Custom,CSTRING(IGUI_DisplayName_Custom),assets\ui\IGUI_Display_Default.paa);
+            SPEED_DISPLAY_VARIABLE(grid_Autorun,CSTRING(IGUI_DisplayName_Autorun),assets\ui\running\run_01.paa);
         };
     };
 };

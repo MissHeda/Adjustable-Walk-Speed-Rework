@@ -22,6 +22,24 @@ GVAR(aceExclusions) = [];
 // previous change queued - and only that group's.
 GVAR(displayTokens) = createHashMap;
 
+// Autorun run state. Set up here so nothing ever reads one of these before the first
+// activation - an undefined variable in a display event handler silently kills the handler.
+GVAR(autorun_active) = false;
+GVAR(autorun_tier) = AUTORUN_OFF;
+GVAR(autorun_stance) = "Stand";
+GVAR(autorun_animation) = "";
+GVAR(autorun_label) = "";
+GVAR(autorun_updatingStance) = false;
+GVAR(autorun_animDoneEH) = -1;
+GVAR(autorun_pfh) = -1;
+GVAR(autorun_iconFrame) = 1;
+GVAR(autorun_iconTime) = 0;
+GVAR(autorun_nameCache) = createHashMap;
+
+// Displays a run keeps going under. 12 is the map; add your own display IDs from a mission or
+// another mod if a run should survive them being open.
+GVAR(autorun_displayAllow) = [12];
+
 // Whitelist and blacklist settings all go through the same rebuild.
 #define REBUILD_ANIMATIONS {call FUNC(rebuildAnimations)}
 
@@ -626,6 +644,74 @@ GVAR(displayTokens) = createHashMap;
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
     [true],
     0
+] call CBA_Settings_fnc_init;
+
+// ------------------------------------------------------------------------------------------------------------------------ AUTORUN
+
+// Enable autorun
+[
+    QGVAR(autorun_enable),
+    "CHECKBOX",
+    [LLSTRING(SETTING_autorun_enable),LLSTRING(SETTING_autorun_enable_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [true],
+    0,
+    {
+        if (!GVAR(autorun_enable) && {GVAR(autorun_active)}) then {
+            0 spawn FUNC(autorunStop);
+        };
+    }
+] call CBA_Settings_fnc_init;
+
+// ------------------------------------------------------------------------------------------------------------------------ AUTORUN IGUI
+
+// Show the autorun indicator
+[
+    QGVAR(IGUI_showAutorun),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_showAutorun),LLSTRING(SETTING_IGUI_showAutorun_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [true],
+    0,
+    {
+        if (hasInterface) then {call FUNC(autorunIndicator)};
+    }
+] call CBA_Settings_fnc_init;
+
+// IGUI image color (autorun)
+[
+    QGVAR(IGUI_imageColor_Autorun),
+    "COLOR",
+    [LLSTRING(SETTING_IGUI_imageColor),LLSTRING(SETTING_IGUI_imageColor_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [1,1,1,1],
+    0
+] call CBA_Settings_fnc_init;
+
+// IGUI text color (autorun)
+[
+    QGVAR(IGUI_textColor_Autorun),
+    "COLOR",
+    [LLSTRING(SETTING_IGUI_textColor),LLSTRING(SETTING_IGUI_textColor_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [1,1,1],
+    0,
+    {
+        SETMVAR(GVAR(IGUI_textColor_Autorun),GVAR(IGUI_textColor_Autorun) call FUNC(colorToHex));
+    }
+] call CBA_Settings_fnc_init;
+
+// IGUI Text Size (autorun)
+[
+    QGVAR(IGUI_textSize_Autorun),
+    "SLIDER",
+    [LLSTRING(SETTING_IGUI_textSize), LLSTRING(SETTING_IGUI_textSize_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [0.1, 3, 1, 2],
+    0,
+    {
+        SETMVAR(GVAR(IGUI_textSize_Autorun),[ARR_2(GVAR(IGUI_textSize_Autorun),2)] call BIS_fnc_cutDecimals);
+    }
 ] call CBA_Settings_fnc_init;
 
 ADDON = true;

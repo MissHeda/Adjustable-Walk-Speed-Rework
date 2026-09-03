@@ -10,7 +10,7 @@
  * All of them are closed <BOOL>
  *
  * Example:
- * call awsr_autorun_fnc_checkDisplay;
+ * call awsr_awsr_fnc_autorunCheckDisplay;
  *
  * Public: No
  */
@@ -25,6 +25,6 @@ private _isDisplayClosed = true;
             _isDisplayClosed = isNull (findDisplay _x);
         };
     };
-} forEach (GVAR(displayAllow) select {_x isEqualType 0 && {_x >= 0}});
+} forEach (GVAR(autorun_displayAllow) select {_x isEqualType 0 && {_x >= 0}});
 
 _isDisplayClosed

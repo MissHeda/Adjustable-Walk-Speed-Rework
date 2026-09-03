@@ -309,5 +309,169 @@
             <English>AWSR - Custom Speed</English>
             <German>AWSR - Benutzerdefinierte Geschwindigkeit</German>
         </Key>
+        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Autorun">
+            <English>5) Autorun</English>
+            <German>5) Autolauf</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_SubCategory_Autorun_IGUI">
+            <English>4) Autorun</English>
+            <German>4) Autolauf</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_autorun_enable">
+            <English>Enable autorun</English>
+            <German>Autolauf aktivieren</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_autorun_enable_DESC">
+            <English>Lets the autorun keys start a run that keeps going until you stop it. The keys are in the CBA keybind menu under &quot;Autorun&quot;.</English>
+            <German>Erlaubt es, mit den Autolauf-Tasten einen Lauf zu starten, der weiterläuft, bis du ihn stoppst. Die Tasten stehen im CBA-Tastenmenü unter &quot;Autolauf&quot;.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_IGUI_showAutorun">
+            <English>Show the autorun indicator</English>
+            <German>Autolauf-Anzeige einblenden</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_IGUI_showAutorun_DESC">
+            <English>Shows the current pace and what the run is actually doing while a run is on. Its place and size are set in the layout tab like the other displays.</English>
+            <German>Zeigt während eines Laufs die aktuelle Gangart und was der Lauf gerade tut. Position und Größe werden wie bei den anderen Anzeigen im Layout-Tab gesetzt.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_IGUI_DisplayName_Autorun">
+            <English>AWSR - Autorun</English>
+            <German>AWSR - Autolauf</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_Category_Autorun">
+            <English>Autorun</English>
+            <German>Autolauf</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_walk">
+            <English>Autorun | Walk</English>
+            <German>Autolauf | Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_walk_DESC">
+            <English>Starts walking on its own. Press again to stop.</English>
+            <German>Startet automatisches Gehen. Nochmal drücken zum Stoppen.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_jog">
+            <English>Autorun | Jog</English>
+            <German>Autolauf | Joggen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_jog_DESC">
+            <English>Starts jogging on its own. Press again to stop.</English>
+            <German>Startet automatisches Joggen. Nochmal drücken zum Stoppen.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_run">
+            <English>Autorun | Run</English>
+            <German>Autolauf | Rennen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_run_DESC">
+            <English>Starts running on its own, sprinting while stamina allows it. Press again to stop.</English>
+            <German>Startet automatisches Rennen, mit Sprint solange die Ausdauer reicht. Nochmal drücken zum Stoppen.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_faster">
+            <English>Autorun | One Pace Faster</English>
+            <German>Autolauf | Eine Stufe schneller</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_faster_DESC">
+            <English>Walk to jog to run. From a standstill it starts a walk.</English>
+            <German>Gehen zu Joggen zu Rennen. Aus dem Stand startet es einen Gehlauf.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_slower">
+            <English>Autorun | One Pace Slower</English>
+            <German>Autolauf | Eine Stufe langsamer</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_slower_DESC">
+            <English>Run to jog to walk. A step below a walk ends the run.</English>
+            <German>Rennen zu Joggen zu Gehen. Eine Stufe unter Gehen beendet den Lauf.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_stop">
+            <English>Autorun | Stop</English>
+            <German>Autolauf | Stoppen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_stop_DESC">
+            <English>Ends the run. Does nothing while no run is on.</English>
+            <German>Beendet den Lauf. Ohne laufenden Autolauf passiert nichts.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_tier_walk">
+            <English>Walk</English>
+            <German>Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_tier_jog">
+            <English>Jog</English>
+            <German>Joggen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_tier_run">
+            <English>Run</English>
+            <German>Rennen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_move_walk">
+            <English>Walking</English>
+            <German>Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_move_jog">
+            <English>Jogging</English>
+            <German>Joggen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_move_run">
+            <English>Running</English>
+            <German>Rennen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_move_sprint">
+            <English>Sprinting</English>
+            <German>Sprinten</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_move_limp">
+            <English>Limping</English>
+            <German>Humpeln</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_move_stop">
+            <English>Stopping</English>
+            <German>Anhalten</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_pose_standing">
+            <English>standing</English>
+            <German>stehend</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_pose_crouched">
+            <English>crouched</English>
+            <German>geduckt</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_pose_prone">
+            <English>prone</English>
+            <German>liegend</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_pose_swimming">
+            <English>in the water</English>
+            <German>im Wasser</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_weapon_none">
+            <English>no weapon</English>
+            <German>ohne Waffe</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_weapon_raised">
+            <English>weapon raised</English>
+            <German>Waffe erhoben</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_weapon_lowered">
+            <English>weapon lowered</English>
+            <German>Waffe gesenkt</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_HUD_stop">
+            <English>%1 to stop</English>
+            <German>%1 zum Stoppen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_Category_General">
+            <English>General</English>
+            <German>Allgemein</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_Category_Walk">
+            <English>Walking</English>
+            <German>Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_Category_Tactical">
+            <English>Tactical</English>
+            <German>Taktisch</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_Category_Custom">
+            <English>Custom</English>
+            <German>Benutzerdefiniert</German>
+        </Key>
     </Package>
 </Project>

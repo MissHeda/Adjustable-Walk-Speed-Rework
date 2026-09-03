@@ -68,7 +68,22 @@ Bug fix round based on the reports on the Steam Workshop page.
   *(asked for by dyolF)*
 - **IGUI Hide At Default Speed** per animation group, on by default. Together with a duration of
   0 the display stands exactly as long as that group's speed is not 100%.
-- Autorun, as its own `awsr_autorun` PBO. *(asked for by 42nfl19)*
+- **Autorun**, now part of the mod itself rather than a second PBO beside it - same settings
+  tree, same keybind menu, same layout tab. *(asked for by 42nfl19)*
+- **Autorun follows the movement keys.** A run used to be forwards and nothing else. The
+  animation name is assembled from the same six segments the engine uses and the last of them is
+  the direction, so holding a movement key now strafes or backs up without dropping out of the
+  run, and the sprint and walk keys shift the pace while held. Combinations that have no
+  animation - sprinting sideways, for one - fall back to the nearest one that does, checked
+  against the config rather than guessed.
+- **One key pair steps through the paces.** Faster goes walk to jog to run and starts a walk
+  from a standstill; slower goes back down and ends the run below a walk. The three direct keys
+  are still there.
+- **The autorun indicator says what the run is doing** - the pace you set and the animation it
+  actually ended up in, e.g. "Jog / Jogging - standing - weapon lowered" - and it is a display
+  like the three speed ones, with its own entry in the layout tab.
+- Autorun keys ship bound: `Ctrl+W` faster, `Ctrl+S` slower, `Ctrl+X` stop, `Ctrl+Alt+1/2/3` for
+  a pace directly. The F row is left alone because `F1` to `F12` select team members.
 
 ### Changed
 
@@ -86,6 +101,12 @@ Bug fix round based on the reports on the Steam Workshop page.
   used to default to, F4 to F7, are the vanilla team select keys.
 - With no stop key bound, pressing the walk, jog or run key during a run switched the type
   and stopped the run in the same breath. It only switches the type now.
+- **"Any key stops the run" and the "Ignored Key" binding are gone.** Every way out of a run is
+  a keybind of its own now, so there is nothing left to exempt the map, the compass and the
+  watch from - and a left click fires the weapon instead of ending the run.
+- Autorun keeps its animation in step every frame rather than only when the last one finished,
+  which is also what replaced the separate loops for swimming and for getting back onto land.
+- The keybind menu groups the keys under General, Walking, Tactical, Custom and Autorun.
 - Autorun stops when the player unit changes, and no longer leaves its animation handler on
   the old unit.
 - **Stopping an autorun no longer makes the player invulnerable.** Inherited from the

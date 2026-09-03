@@ -13,7 +13,7 @@
  * 2: New stance <STRING>
  *
  * Example:
- * call awsr_autorun_fnc_getStance;
+ * call awsr_awsr_fnc_autorunStance;
  *
  * Public: No
  */

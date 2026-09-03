@@ -4,9 +4,9 @@
  * Swallows the damage the engine can book against the player in the moment the stop
  * animation is forced on, and nothing else.
  *
- * stopRunning registers this for a fraction of a second and takes it off again. Only damage
- * with no projectile and nobody behind it - a fall, a collision with the terrain - is
- * cancelled. Anything a weapon, an explosion or another unit caused is handed on untouched,
+ * awsr_awsr_fnc_autorunStop registers this for a fraction of a second and takes it off again.
+ * Only damage with no projectile and nobody behind it - a fall, a collision with the terrain -
+ * is cancelled. Anything a weapon, an explosion or another unit caused is handed on untouched,
  * so stopping a run has never been a way to survive being shot.
  *
  * Returning nil rather than a number for those leaves the decision to whoever else handles
@@ -19,7 +19,7 @@
  * Damage to apply, or nil to leave it to the other handlers <NUMBER>
  *
  * Example:
- * player addEventHandler ["HandleDamage", {call awsr_autorun_fnc_handleStopDamage}];
+ * player addEventHandler ["HandleDamage", {call awsr_awsr_fnc_autorunStopDamage}];
  *
  * Public: No
  */

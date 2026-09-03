@@ -16,8 +16,7 @@
 | PBO | What it is |
 | --- | --- |
 | `awsr_main` | Version numbers and the macros every other addon builds on. No gameplay code. |
-| `awsr_awsr` | The speed adjustment itself: settings, keybinds, IGUI. |
-| `awsr_autorun` | Autorun, kept as its own addon so it can be dropped from a build. |
+| `awsr_awsr` | Everything the mod does: speed adjustment, autorun, settings, keybinds, IGUI. |
 
 ## Speed adjustment
 
@@ -63,10 +62,21 @@ with stamina, terrain, water and injuries.
   watch) leave the run alone
 - Can be switched off entirely in the CBA settings
 
-The keys live in the CBA keybind menu, next to the speed keys, under **Adjustable Walking
-Speed - Rework → Autorun**. They start out unbound: the keys autorun used to default to are
-the vanilla team select keys, and a default that fires two actions at once is worse than
-none.
+- Walk, jog and run as three paces, with one key pair to step up and down through them
+- Follows the movement keys: strafe, back up or hold the sprint key without dropping the run
+- Shows the pace and what the run is actually doing, in a display you place yourself
+
+The keys are in the CBA keybind menu next to the speed keys, under **Autorun**:
+
+| Action | Default |
+| --- | --- |
+| One pace faster (starts a walk) | `Ctrl + W` |
+| One pace slower (ends the run below a walk) | `Ctrl + S` |
+| Stop | `Ctrl + X` |
+| Walk / Jog / Run directly | `Ctrl + Alt + 1` / `2` / `3` |
+
+The defaults avoid the F row on purpose - `F1` to `F12` select team members in vanilla, which
+is what autorun's old `F4` to `F7` defaults collided with.
 
 ## Bug Report
 
@@ -93,8 +103,8 @@ hemtt launch    # start Arma with the mod and CBA/ACE loaded
 
 - Rad
 - Leon (leonz2019) and Legion, for [Autorun Rework](https://github.com/LeonZ2019/autorun-rework),
-  which `awsr_autorun` is derived from. That component stays under APL-SA - see
-  [addons/autorun/LICENSE.txt](addons/autorun/LICENSE.txt).
+  which the autorun part is derived from. That part stays under APL-SA - see
+  [addons/awsr/LICENSE_autorun.txt](addons/awsr/LICENSE_autorun.txt).
 
 ## Note from the current Developers
 - Currently there is no active development on this mod.

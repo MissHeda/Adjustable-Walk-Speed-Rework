@@ -13,8 +13,9 @@ class RscStructuredText;
 // uivar   - variable the display is parked under in uiNamespace
 // gridvar - IGUI grid variable, one per group so each can be moved and resized on its own
 // row     - which row the default position sits in
+// rows    - how many lines of text the box under the picture has room for
 // picture - the artwork
-#define SPEED_DISPLAY(cls,uivar,gridvar,row,picture) \
+#define SPEED_DISPLAY(cls,uivar,gridvar,row,rows,picture) \
     class GVAR(cls) { \
         idd = -1; \
         onLoad = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(uivar),_this select 0)]); \
@@ -58,7 +59,8 @@ class RscStructuredText;
     }
 
 class RscTitles {
-    SPEED_DISPLAY(IGUI_Display_Walk,display_Walk,grid_Walk,0,assets\ui\IGUI_Display_Walk.paa);
-    SPEED_DISPLAY(IGUI_Display_Tactical,display_Tactical,grid_Tactical,1,assets\ui\IGUI_Display_Tactical.paa);
-    SPEED_DISPLAY(IGUI_Display_Custom,display_Custom,grid_Custom,2,assets\ui\IGUI_Display_Default.paa);
+    SPEED_DISPLAY(IGUI_Display_Walk,display_Walk,grid_Walk,0,1,assets\ui\IGUI_Display_Walk.paa);
+    SPEED_DISPLAY(IGUI_Display_Tactical,display_Tactical,grid_Tactical,1,1,assets\ui\IGUI_Display_Tactical.paa);
+    SPEED_DISPLAY(IGUI_Display_Custom,display_Custom,grid_Custom,2,1,assets\ui\IGUI_Display_Default.paa);
+    SPEED_DISPLAY(IGUI_Display_Autorun,display_Autorun,grid_Autorun,3,3,assets\ui\running\run_01.paa);
 };

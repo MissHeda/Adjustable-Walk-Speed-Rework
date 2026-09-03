@@ -21,3 +21,25 @@
 #define DISPLAY_H (3.4 * GUI_GRID_H)
 #define DISPLAY_X ((safeZoneX + safeZoneW) - 3.8 * GUI_GRID_W)
 #define DISPLAY_Y(row) (safeZoneY + 0.08 * safeZoneH + row * 3.9 * GUI_GRID_H)
+
+// ---------------------------------------------------------------------------------- AUTORUN
+
+// Animation "action" segments that mean the unit is in the water.
+#define SWIM_ACTIONS ["sdv","bdv","dve","ssw","bsw","swm"]
+
+// Autorun tiers, lowest first. Stepping down out of WALK ends the run.
+#define AUTORUN_OFF 0
+#define AUTORUN_WALK 1
+#define AUTORUN_JOG 2
+#define AUTORUN_RUN 3
+
+// How long the stop keeps its damage handler on. Long enough for the frames the engine needs
+// to settle the forced animation, short enough that it cannot be used to sit out a firefight.
+#define STOP_DAMAGE_GRACE 0.25
+
+// Where the player animations live, so a name can be checked before it is played.
+#define ANIMATION_STATES (configFile >> "CfgMovesMaleSdr" >> "States")
+
+// The autorun indicator is the same shape as a speed display - a picture plus a line of text -
+// so it uses the same controls, the same update path and the same layout tab treatment.
+#define AUTORUN_ICON_FRAMES 6
