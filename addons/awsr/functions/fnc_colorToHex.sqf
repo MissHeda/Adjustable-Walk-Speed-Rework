@@ -22,13 +22,17 @@ params [["_color", [1,1,1]]];
 if (_color isEqualType "") exitWith {_color};
 if (!(_color isEqualType []) || {count _color < 3}) exitWith {"#FFFFFF"};
 
-private _digits = "0123456789ABCDEF";
+// An array rather than a string: pulling a character out of a string with select is not the
+// same thing as pulling an element out of an array, and getting nothing back here turned every
+// colour into a bare "#" - which structured text quietly ignores, so the text simply came out
+// in the default colour with no error to show for it.
+private _digits = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"];
 private _hex = "#";
 
 // Alpha is dropped - structured text takes RGB only.
 {
     private _byte = round (255 * ((_x max 0) min 1));
-    _hex = _hex + (_digits select [floor (_byte / 16), 1]) + (_digits select [_byte mod 16, 1]);
+    _hex = _hex + (_digits select floor (_byte / 16)) + (_digits select (_byte mod 16));
 } forEach (_color select [0, 3]);
 
 _hex

@@ -28,6 +28,18 @@
 
 params ["_unit", ["_stop", false, [false]]];
 
+// A movement style the player picked by hand wins over anything worked out below, as long as it
+// is an animation that exists. Style 0 is "whatever fits the situation".
+private _style = "";
+
+if (!_stop && {GVAR(autorun_styleIndex) > 0}) then {
+    _style = GVAR(autorun_styleList) param [GVAR(autorun_styleIndex) - 1, ""];
+
+    if !(isClass (ANIMATION_STATES >> _style)) then {_style = ""};
+};
+
+if (_style != "") exitWith {[_style, _style]};
+
 private _isWetSuit = getText (configFile >> "CfgWeapons" >> uniform _unit >> "ItemInfo" >> "uniformType") == "Neopren";
 private _isWater = surfaceIsWater (position _unit);
 private _isLegHits = (_unit getHitPointDamage "hitlegs") >= 0.5;
@@ -55,8 +67,7 @@ if (_tier == AUTORUN_JOG) then {
     _fatigue = 1;
 };
 
-// The sprint key toggles the sprint on while the run is at its top pace.
-private _wantsSprint = _tier >= AUTORUN_RUN && {GVAR(autorun_sprint)};
+private _wantsSprint = _tier >= AUTORUN_RUN;
 
 private _cw = currentWeapon _unit;
 private _isRfl = _cw != "" && {_cw == primaryWeapon _unit};
@@ -135,9 +146,8 @@ private _weapon = switch (true) do {
     default {"non"};
 };
 
-// The direction the run is going. A movement key sets it and it stays set - letting go of the
-// key does not send the player back to forwards, it just carries on the way it was pointed.
-private _direction = GVAR(autorun_direction);
+// Forwards. Reaching for a movement key ends the run rather than steering it.
+private _direction = "f";
 
 // Directions the stop and the sitting animations do not have.
 private _directions = switch (true) do {

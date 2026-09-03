@@ -302,6 +302,11 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
     QGVAR(autorun_fasterKey),
     [LLSTRING(KEYBIND_autorun_faster), LLSTRING(KEYBIND_autorun_faster_DESC)],
     {
+        // Not swallowed while no run is going, or holding ctrl would eat the movement
+        // key this is bound alongside - which is exactly what stopped the player dead
+        // the moment they held ctrl to change a speed.
+        if (!GVAR(autorun_active)) exitWith {false};
+
         [1] call FUNC(autorunStepTier);
         true
     },
@@ -315,6 +320,11 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
     QGVAR(autorun_slowerKey),
     [LLSTRING(KEYBIND_autorun_slower), LLSTRING(KEYBIND_autorun_slower_DESC)],
     {
+        // Not swallowed while no run is going, or holding ctrl would eat the movement
+        // key this is bound alongside - which is exactly what stopped the player dead
+        // the moment they held ctrl to change a speed.
+        if (!GVAR(autorun_active)) exitWith {false};
+
         [-1] call FUNC(autorunStepTier);
         true
     },
@@ -336,6 +346,21 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
     },
     "",
     [0x3E, [false, false, false]]
+] call CBA_fnc_addKeybind;
+
+// Next Movement Style: J
+[
+    _autorunCategory,
+    QGVAR(autorun_styleKey),
+    [LLSTRING(KEYBIND_autorun_style), LLSTRING(KEYBIND_autorun_style_DESC)],
+    {
+        if (!GVAR(autorun_active)) exitWith {false};
+
+        call FUNC(autorunStyleNext);
+        true
+    },
+    "",
+    [0x24, [false, false, false]]
 ] call CBA_fnc_addKeybind;
 
 call FUNC(autorunKeyHandler);

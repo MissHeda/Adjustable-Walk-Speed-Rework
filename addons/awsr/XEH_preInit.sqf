@@ -35,9 +35,8 @@ GVAR(autorun_pfh) = -1;
 GVAR(autorun_iconFrame) = 1;
 GVAR(autorun_iconTime) = 0;
 GVAR(autorun_nameCache) = createHashMap;
-GVAR(autorun_direction) = "f";
-GVAR(autorun_heldKeys) = [];
-GVAR(autorun_sprint) = false;
+GVAR(autorun_styleIndex) = 0;
+GVAR(autorun_styleList) = [];
 
 // Displays a run keeps going under. 12 is the map; add your own display IDs from a mission or
 // another mod if a run should survive them being open.
@@ -645,6 +644,26 @@ GVAR(autorun_displayAllow) = [12];
         if (!GVAR(autorun_enable) && {GVAR(autorun_active)}) then {
             0 spawn FUNC(autorunStop);
         };
+    }
+] call CBA_Settings_fnc_init;
+
+// Movement styles the run can be switched between
+[
+    QGVAR(autorun_styles),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_styles),LLSTRING(SETTING_autorun_styles_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    "",
+    1,
+    {
+        private _list = [];
+
+        {
+            if (_x != "") then {_list pushBackUnique _x};
+        } forEach ([(GETMVAR(GVAR(autorun_styles),"")) call CBA_fnc_removeWhitespace, ","] call CBA_fnc_split);
+
+        GVAR(autorun_styleList) = _list;
+        GVAR(autorun_styleIndex) = 0;
     }
 ] call CBA_Settings_fnc_init;
 

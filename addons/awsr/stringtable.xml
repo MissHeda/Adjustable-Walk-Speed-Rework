@@ -473,5 +473,27 @@
             <English>Custom</English>
             <German>Benutzerdefiniert</German>
         </Key>
+        <Key ID="STR_awsr_awsr_SETTING_autorun_styles">
+            <English>Autorun Movement Styles</English>
+            <German>Autolauf-Laufstile</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_autorun_styles_DESC">
+            <English>Animations the run can be switched between while it is going, separated by commas. The first style is always the one the run works out for itself; these come after it. Use it to reach the walk animations another mod brings along.
+Example: AmovPercMwlkSlowWrflDf_ver2, melee_armed_walkf</English>
+            <German>Animationen, zwischen denen der Lauf im Betrieb umgeschaltet werden kann, durch Komma getrennt. Der erste Stil ist immer der, den der Lauf selbst ermittelt; diese kommen danach. Damit erreichst du die Laufanimationen, die eine andere Mod mitbringt.
+Beispiel: AmovPercMwlkSlowWrflDf_ver2, melee_armed_walkf</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_style">
+            <English>Autorun | Next Movement Style</English>
+            <German>Autolauf | Nächster Laufstil</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_KEYBIND_autorun_style_DESC">
+            <English>Steps through the styles from the settings while a run is going, and back to the automatic one.</English>
+            <German>Schaltet während eines Laufs durch die Stile aus den Einstellungen und wieder zurück zum automatischen.</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_AUTORUN_style">
+            <English>Style %1/%2</English>
+            <German>Stil %1/%2</German>
+        </Key>
     </Package>
 </Project>

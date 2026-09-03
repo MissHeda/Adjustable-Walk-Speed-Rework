@@ -32,6 +32,10 @@ private _tier = switch (GVAR(autorun_tier)) do {
 
 private _lines = ["<t size='1.15'>" + _tier + "</t>", GVAR(autorun_label)];
 
+if (GVAR(autorun_styleIndex) > 0) then {
+    _lines pushBack format [LLSTRING(AUTORUN_style), GVAR(autorun_styleIndex), count GVAR(autorun_styleList)];
+};
+
 // Whatever the player has the stop bound to right now, rather than what it was at start up.
 private _keybind = ["AWSR", QGVAR(autorun_stopKey)] call CBA_fnc_getKeybind;
 
