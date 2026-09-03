@@ -28,17 +28,7 @@
 
 params ["_unit", ["_stop", false, [false]]];
 
-// A movement style the player picked by hand wins over anything worked out below, as long as it
-// is an animation that exists. Style 0 is "whatever fits the situation".
-private _style = "";
 
-if (!_stop && {GVAR(autorun_styleIndex) > 0}) then {
-    _style = GVAR(autorun_styleList) param [GVAR(autorun_styleIndex) - 1, ""];
-
-    if !(isClass (ANIMATION_STATES >> _style)) then {_style = ""};
-};
-
-if (_style != "") exitWith {[_style, _style]};
 
 private _isWetSuit = getText (configFile >> "CfgWeapons" >> uniform _unit >> "ItemInfo" >> "uniformType") == "Neopren";
 private _isWater = surfaceIsWater (position _unit);
@@ -198,6 +188,12 @@ if (_animation == "") then {
     };
 
     GVAR(autorun_nameCache) set [_key, _animation];
+};
+
+// The style the player stepped to goes on last, so it follows the weapon, the stance and the
+// pace rather than replacing them.
+if (!_stop) then {
+    _animation = [_animation, GVAR(autorun_styleIndex)] call FUNC(autorunStyleAnimation);
 };
 
 [_animation, [_movement, _pose, _stance, _weapon, _isSwimming] call FUNC(autorunLabel)]

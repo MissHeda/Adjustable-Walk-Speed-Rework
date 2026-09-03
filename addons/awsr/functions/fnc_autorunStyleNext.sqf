@@ -20,6 +20,8 @@
  */
 
 if (!GVAR(autorun_active)) exitWith {};
+if (!GVAR(autorun_enableStyles)) exitWith {};
+if (GVAR(autorun_styleList) isEqualTo []) exitWith {};
 
 GVAR(autorun_styleIndex) = (GVAR(autorun_styleIndex) + 1) % ((count GVAR(autorun_styleList)) + 1);
 

@@ -49,7 +49,7 @@ private _keyName = {
 private _hints = [];
 
 // Only worth mentioning once there is something to switch to.
-if (GVAR(autorun_styleList) isNotEqualTo []) then {
+if (GVAR(autorun_enableStyles) && {GVAR(autorun_styleList) isNotEqualTo []}) then {
     private _key = [QGVAR(autorun_styleKey)] call _keyName;
 
     if (_key != "") then {

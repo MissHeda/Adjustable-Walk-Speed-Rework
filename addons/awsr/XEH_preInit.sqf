@@ -647,6 +647,19 @@ GVAR(autorun_displayAllow) = [12];
     }
 ] call CBA_Settings_fnc_init;
 
+// Allow stepping between movement styles at all
+[
+    QGVAR(autorun_enableStyles),
+    "CHECKBOX",
+    [LLSTRING(SETTING_autorun_enableStyles),LLSTRING(SETTING_autorun_enableStyles_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [true],
+    0,
+    {
+        GVAR(autorun_styleIndex) = 0;
+    }
+] call CBA_Settings_fnc_init;
+
 // Movement styles the run can be switched between
 [
     QGVAR(autorun_styles),
@@ -656,7 +669,9 @@ GVAR(autorun_displayAllow) = [12];
     "",
     1,
     {
-        private _list = [];
+        // Built in first, then whatever the player typed - the same shape as the animation
+        // whitelists, so the box only ever holds the extras.
+        private _list = +AUTORUN_DEFAULT_STYLES;
 
         {
             if (_x != "") then {_list pushBackUnique _x};

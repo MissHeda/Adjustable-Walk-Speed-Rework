@@ -478,14 +478,16 @@
             <German>Autolauf-Laufstile</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_autorun_styles_DESC">
-            <English>Animations the run can be switched between while it is going, separated by commas. The first style is always the one the run works out for itself; these come after it. Use it to reach the walk animations another mod brings along.
-Example: AmovPercMwlkSlowWrflDf_v1, AmovPercMwlkSlowWrflDf_v2, AmovPercMwlkSlowWrflDf_v3
+            <English>Extra movement styles, on top of the built in ones, separated by commas.
 
-Vanilla walking already has several: AmovPercMwlkSlowWrflDf plus _v1, _v2, _v3 and _ver2. Swap Wrfl for Wpst and Perc for Pknl for the pistol and crouched sets.</English>
-            <German>Animationen, zwischen denen der Lauf im Betrieb umgeschaltet werden kann, durch Komma getrennt. Der erste Stil ist immer der, den der Lauf selbst ermittelt; diese kommen danach. Damit erreichst du die Laufanimationen, die eine andere Mod mitbringt.
-Beispiel: AmovPercMwlkSlowWrflDf_v1, AmovPercMwlkSlowWrflDf_v2, AmovPercMwlkSlowWrflDf_v3
+An entry starting with _ is a suffix and keeps following your weapon, stance and pace: _v2 turns AmovPercMwlkSlowWrflDf into AmovPercMwlkSlowWrflDf_v2. Anything else is taken as a whole animation name, which is how an animation from another mod gets in.
 
-Vanilla-Gehen hat schon mehrere: AmovPercMwlkSlowWrflDf sowie _v1, _v2, _v3 und _ver2. Wrfl gegen Wpst und Perc gegen Pknl tauschen ergibt die Pistolen- und Kniesets.</German>
+Built in already: _v1, _v2, _v3, _ver2, _FastVariant. Vanilla only has those for walking upright with a lowered rifle - in any other stance a style that does not exist is simply not applied.</English>
+            <German>Zusätzliche Laufstile über die eingebauten hinaus, durch Komma getrennt.
+
+Ein Eintrag, der mit _ beginnt, ist ein Suffix und folgt weiterhin Waffe, Haltung und Gangart: _v2 macht aus AmovPercMwlkSlowWrflDf ein AmovPercMwlkSlowWrflDf_v2. Alles andere gilt als vollständiger Animationsname - so kommt eine Animation aus einer anderen Mod herein.
+
+Eingebaut sind bereits: _v1, _v2, _v3, _ver2, _FastVariant. Vanilla hat die nur für aufrechtes Gehen mit gesenktem Gewehr - in jeder anderen Haltung wird ein nicht vorhandener Stil einfach nicht angewendet.</German>
         </Key>
         <Key ID="STR_awsr_awsr_KEYBIND_autorun_style">
             <English>Autorun | Next Movement Style</English>
@@ -506,6 +508,14 @@ Vanilla-Gehen hat schon mehrere: AmovPercMwlkSlowWrflDf sowie _v1, _v2, _v3 und 
         <Key ID="STR_awsr_awsr_AUTORUN_hint_stop">
             <English>Stop</English>
             <German>Stoppen</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_autorun_enableStyles">
+            <English>Allow Movement Style Switching</English>
+            <German>Laufstil-Umschaltung erlauben</German>
+        </Key>
+        <Key ID="STR_awsr_awsr_SETTING_autorun_enableStyles_DESC">
+            <English>Lets the style key step through the movement styles while a run is going. Off leaves the run on the animation it works out for itself.</English>
+            <German>Erlaubt es, mit der Stil-Taste während eines Laufs durch die Laufstile zu schalten. Aus lässt den Lauf bei der Animation, die er selbst ermittelt.</German>
         </Key>
     </Package>
 </Project>
