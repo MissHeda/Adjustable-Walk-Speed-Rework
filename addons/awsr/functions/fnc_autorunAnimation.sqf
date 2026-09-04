@@ -37,8 +37,11 @@ private _tier = GVAR(autorun_tier);
 private _isWater = surfaceIsWater (position _unit);
 private _isWetSuit = false;
 private _uw = false;
-private _atl = 0;
 private _asl = 0;
+
+// Never zero: the switch below divides by it, and SQF's && evaluates both sides even when the
+// left one already answered the question, so that division runs on dry land too.
+private _atl = -0.0001;
 
 if (_isWater) then {
     _atl = ASLToATL [ARR_3(position _unit select 0,position _unit select 1,0)] select 2;

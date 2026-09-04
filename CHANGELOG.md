@@ -86,6 +86,8 @@ the reports on the Workshop page; the reporter is named on each.
   hundred strings on every animation state change.
 - Settings, IGUI settings and keybinds all read in the same numbered order, autorun first.
 - The three speed keybinds do nothing while their animation group is switched off.
+- Which movement keys end an autorun is a setting - forward and back by default, sideways off.
+  They follow the vanilla movement actions, so rebinding WASD is picked up on its own.
 - Switching the system, or audibility, off now hands the unit back right away.
 
 ### Known and not changed

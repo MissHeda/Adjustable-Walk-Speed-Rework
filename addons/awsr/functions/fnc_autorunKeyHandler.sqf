@@ -4,8 +4,9 @@
  * Installs the mission display handler that watches the movement and stance keys during a run.
  *
  * Reaching for a movement key means the player wants to steer for themselves, so the run ends
- * and the key goes through to the engine untouched. Holding ctrl is the exception: that is the
- * pace keys, and those belong to the run rather than ending it.
+ * and the key goes through to the engine untouched. Which of the four count is a setting, and
+ * they are matched as vanilla actions, so it follows whatever the player has WASD bound to.
+ * Holding ctrl is the exception: that is the pace keys, and those belong to the run.
  *
  * Stance keys change stance instead, because the player is in a scripted animation and the
  * engine will not do it on its own.
@@ -52,12 +53,23 @@ if (!isNil QGVAR(autorun_keyHandler)) exitWith {};
             true
         };
 
-        if (
-            _key in actionKeys "MoveForward" ||
-            {_key in actionKeys "MoveBack"} ||
-            {_key in actionKeys "MoveLeft"} ||
-            {_key in actionKeys "MoveRight"}
-        ) exitWith {
+        // Which movement keys end a run is a setting. They are read as the vanilla actions
+        // rather than as fixed keys, so this follows whatever the player has WASD bound to.
+        private _endsRun = false;
+
+        {
+            _x params ["_enabled", "_actions"];
+
+            if (_enabled && {_actions findIf {_key in actionKeys _x} > -1}) exitWith {
+                _endsRun = true;
+            };
+        } forEach [
+            [GVAR(autorun_stopOnForward), ["MoveForward"]],
+            [GVAR(autorun_stopOnBack), ["MoveBack"]],
+            [GVAR(autorun_stopOnSideways), ["MoveLeft", "MoveRight"]]
+        ];
+
+        if (_endsRun) exitWith {
             0 spawn FUNC(autorunStop);
 
             // Not swallowed: the player asked to move, so let them.
