@@ -778,7 +778,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_TextPace_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
-    "pace: %1   ",
+    "PACE: %1      ",
     0,
     {
         if (hasInterface) then {call FUNC(autorunIndicator)};
@@ -791,7 +791,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_TextStyle_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
-    "style: %1   ",
+    "STYLE: %1      ",
     0,
     {
         if (hasInterface) then {call FUNC(autorunIndicator)};
@@ -804,7 +804,20 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_TextStop_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
-    "stop: %1",
+    "STOP: %1",
+    0,
+    {
+        if (hasInterface) then {call FUNC(autorunIndicator)};
+    }
+] call CBA_Settings_fnc_init;
+
+// Colour of the keys inside the autorun key line
+[
+    QGVAR(IGUI_keyColor_Autorun),
+    "COLOR",
+    [LLSTRING(SETTING_IGUI_keyColor_Autorun),LLSTRING(SETTING_IGUI_keyColor_Autorun_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [1,0.85,0.4],
     0,
     {
         if (hasInterface) then {call FUNC(autorunIndicator)};

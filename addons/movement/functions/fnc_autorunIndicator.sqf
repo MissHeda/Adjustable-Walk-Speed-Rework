@@ -94,6 +94,7 @@ if (GVAR(IGUI_showAutorunKeys)) then {
 
     // Each part is worded on its own and left out whole when it has no key, so a part that is
     // not available takes its label with it rather than leaving a bare "style:" behind.
+    private _keyColor = [GVAR(IGUI_keyColor_Autorun)] call FUNC(colorToHex);
     private _parts = [];
 
     {
@@ -102,7 +103,8 @@ if (GVAR(IGUI_showAutorunKeys)) then {
         if (_keys == "") then {
             _parts pushBack "";
         } else {
-            _parts pushBack (format [_wording, _keys]);
+            // Only the keys are recoloured - the wording around them stays the text colour.
+            _parts pushBack (format [_wording, "<t color='" + _keyColor + "'>" + _keys + "</t>"]);
         };
     } forEach [
         [_pace, GVAR(IGUI_TextPace_Autorun)],

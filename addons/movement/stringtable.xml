@@ -438,8 +438,8 @@
             <German>Renn-Animation (Pistole)</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
-            <English>Autorun | End Run</English>
-            <German>Autolauf | Lauf beenden</German>
+            <English>Autorun | Stop</English>
+            <German>Autolauf | Stopp</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop_DESC">
             <English>Ends a running autorun.\nDoes nothing otherwise, so the key keeps\nits normal job.</English>
@@ -492,6 +492,14 @@
         <Key ID="STR_awsr_movement_SETTING_IGUI_TextPart_Autorun_DESC">
             <English>%1 is the key or keys.\n\nLeft out entirely when there is no key,\nwhich is what keeps a label from standing\non its own.\n\nTrailing spaces separate it from the next\npart.</English>
             <German>%1 sind die Taste oder Tasten.\n\nFällt ganz weg, wenn es keine Taste gibt -\nso bleibt keine Beschriftung allein stehen.\n\nLeerzeichen am Ende trennen den Teil vom\nnächsten.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_keyColor_Autorun">
+            <English>Keybind Line - Key Colour</English>
+            <German>Tastenzeile - Tastenfarbe</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_keyColor_Autorun_DESC">
+            <English>Colour of the keys in the line.\nThe wording around them keeps the text colour.</English>
+            <German>Farbe der Tasten in der Zeile.\nDie Beschriftung behält die Textfarbe.</German>
         </Key>
     </Package>
 </Project>
