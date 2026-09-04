@@ -34,6 +34,7 @@ GVAR(autorun_pfh) = -1;
 GVAR(autorun_iconFrame) = 1;
 GVAR(autorun_iconTime) = 0;
 GVAR(autorun_nameCache) = createHashMap;
+GVAR(autorun_checkedOverride) = "";
 
 // Displays a run keeps going under. 12 is the map; add your own display IDs from a mission or
 // another mod if a run should survive them being open.

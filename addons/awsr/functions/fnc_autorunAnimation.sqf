@@ -29,34 +29,25 @@ params ["_unit", ["_stop", false, [false]]];
 
 
 
-private _isWetSuit = getText (configFile >> "CfgWeapons" >> uniform _unit >> "ItemInfo" >> "uniformType") == "Neopren";
-private _isWater = surfaceIsWater (position _unit);
-private _isLegHits = (_unit getHitPointDamage "hitlegs") >= 0.5;
-
-private _atl = ASLToATL [position _unit select 0, position _unit select 1, 0] select 2;
-if (_atl == 0) then {_atl = -0.0001};
-private _asl = eyePos _unit select 2;
-private _uw = underwater _unit;
-
 private _tier = GVAR(autorun_tier);
-private _fatigue = getFatigue _unit;
-private _isFW = isForcedWalk _unit || {_tier <= AUTORUN_WALK};
 
-// Steep ground forces a walk, a moderate slope at least takes the sprint away.
-private _terrainAngle = [getPos _unit, getDir _unit] call BIS_fnc_terrainGradAngle;
-if (_terrainAngle >= 30) then {
-    _isFW = true;
-} else {
-    if (_terrainAngle >= 17) then {
-        _fatigue = 1;
-    };
+// Water first, and only the water. This runs twenty times a second, and a pinned animation -
+// which is what every pace ships with - needs nothing else to answer with, so everything the
+// full lookup wants stays below the shortcut rather than being worked out and thrown away.
+private _isWater = surfaceIsWater (position _unit);
+private _isWetSuit = false;
+private _uw = false;
+private _atl = 0;
+private _asl = 0;
+
+if (_isWater) then {
+    _atl = ASLToATL [ARR_3(position _unit select 0,position _unit select 1,0)] select 2;
+    if (_atl == 0) then {_atl = -0.0001};
+
+    _asl = eyePos _unit select 2;
+    _uw = underwater _unit;
+    _isWetSuit = getText (configFile >> "CfgWeapons" >> uniform _unit >> "ItemInfo" >> "uniformType") == "Neopren";
 };
-
-if (_tier == AUTORUN_JOG) then {
-    _fatigue = 1;
-};
-
-private _wantsSprint = _tier >= AUTORUN_RUN;
 
 private _cw = currentWeapon _unit;
 private _isRfl = _cw != "" && {_cw == primaryWeapon _unit};
@@ -78,6 +69,52 @@ private _action = switch (true) do {
     default {"mov"};
 };
 private _isSwimming = _action in SWIM_ACTIONS;
+
+// The pinned animation for this pace, if there is a usable one. Everything past here only runs
+// when there is not - in the water, during a stop, or with a box emptied out.
+private _animation = "";
+
+if (!_stop && {!_isSwimming}) then {
+    private _pistol = ([_unit] call FUNC(autorunWeapon)) isEqualTo "pst";
+
+    private _override = switch (_tier) do {
+        case AUTORUN_WALK: {[ARR_2(GVAR(autorun_animation_Walk),GVAR(autorun_animation_WalkPistol))] select _pistol};
+        case AUTORUN_JOG: {[ARR_2(GVAR(autorun_animation_Jog),GVAR(autorun_animation_JogPistol))] select _pistol};
+        default {[ARR_2(GVAR(autorun_animation_Run),GVAR(autorun_animation_RunPistol))] select _pistol};
+    };
+
+    // Checked against the config once per name rather than twenty times a second - the box only
+    // changes when someone edits it.
+    if (
+        _override != "" &&
+        {_override == GVAR(autorun_checkedOverride) || {isClass (ANIMATION_STATES >> _override)}}
+    ) then {
+        GVAR(autorun_checkedOverride) = _override;
+        _animation = _override;
+    };
+};
+
+if (_animation != "") exitWith {_animation};
+
+private _isLegHits = (_unit getHitPointDamage "hitlegs") >= 0.5;
+private _fatigue = getFatigue _unit;
+private _isFW = isForcedWalk _unit || {_tier <= AUTORUN_WALK};
+
+// Steep ground forces a walk, a moderate slope at least takes the sprint away.
+private _terrainAngle = [getPos _unit, getDir _unit] call BIS_fnc_terrainGradAngle;
+if (_terrainAngle >= 30) then {
+    _isFW = true;
+} else {
+    if (_terrainAngle >= 17) then {
+        _fatigue = 1;
+    };
+};
+
+if (_tier == AUTORUN_JOG) then {
+    _fatigue = 1;
+};
+
+private _wantsSprint = _tier >= AUTORUN_RUN;
 
 private _pose = switch (true) do {
     case (_isSwimming): {"erc"};
@@ -165,7 +202,7 @@ switch (_movement) do {
 // Resolving a name is a handful of config lookups and this runs many times a second, so the
 // answer for a given set of segments is worked out once.
 private _key = format ["%1%2%3%4%5%6", _action, _pose, _movement, _stance, _weapon, _directions param [0, "f"]];
-private _animation = GVAR(autorun_nameCache) getOrDefault [_key, ""];
+_animation = GVAR(autorun_nameCache) getOrDefault [_key, ""];
 
 if (_animation == "") then {
     {
@@ -187,26 +224,6 @@ if (_animation == "") then {
     };
 
     GVAR(autorun_nameCache) set [_key, _animation];
-};
-
-// The animation from the settings wins over the one worked out above, for that pace. It is a
-// whole name, weapon and stance included, so pinning one is also giving up following those -
-// that is the trade, and the boxes are filled in so it is visible rather than implied.
-//
-// Swimming is the one exception. A land animation in the water is not a preference, it is a
-// unit walking along the sea floor.
-if (!_stop && {!_isSwimming}) then {
-    private _pistol = _isPst;
-
-    private _override = switch (_tier) do {
-        case AUTORUN_WALK: {[ARR_2(GVAR(autorun_animation_Walk),GVAR(autorun_animation_WalkPistol))] select _pistol};
-        case AUTORUN_JOG: {[ARR_2(GVAR(autorun_animation_Jog),GVAR(autorun_animation_JogPistol))] select _pistol};
-        default {[ARR_2(GVAR(autorun_animation_Run),GVAR(autorun_animation_RunPistol))] select _pistol};
-    };
-
-    if (_override != "" && {isClass (ANIMATION_STATES >> _override)}) then {
-        _animation = _override;
-    };
 };
 
 _animation
