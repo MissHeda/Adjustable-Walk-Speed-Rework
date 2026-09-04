@@ -65,7 +65,7 @@ with stamina, terrain, water and injuries.
 - Walk, jog and run as three paces, with one key pair to step up and down through them
 - Keeps the animation in step with stamina, terrain, water, stance and injuries
 - Shows the pace in a display you place yourself
-- Each pace can be pinned to an animation of your own from the settings
+- Each pace can be pinned to an animation of your own, one set for a rifle and one for a handgun
 
 The keys are in the CBA keybind menu next to the speed keys, under **Autorun**:
 

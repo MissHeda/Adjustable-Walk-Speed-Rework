@@ -12,6 +12,7 @@ PREP(autorunStepTier);
 PREP(autorunStop);
 PREP(autorunStopDamage);
 PREP(autorunUpdate);
+PREP(autorunWeapon);
 PREP(autorunUpdateStance);
 PREP(applySpeed);
 PREP(colorToHex);

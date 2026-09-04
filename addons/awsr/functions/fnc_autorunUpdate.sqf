@@ -26,7 +26,10 @@ if (
     !alive player ||
     {focusOn != player} ||
     {!isNull objectParent player} ||
-    {incapacitatedState player == "UNCONSCIOUS"}
+    {incapacitatedState player == "UNCONSCIOUS"} ||
+
+    // Switched to a launcher, binoculars or bare hands mid run - there is nothing to run with.
+    {([player] call FUNC(autorunWeapon)) isEqualTo ""}
 ) exitWith {
     0 spawn FUNC(autorunStop);
 };

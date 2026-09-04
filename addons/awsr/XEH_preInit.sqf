@@ -675,6 +675,36 @@ GVAR(autorun_displayAllow) = [12];
     1
 ] call CBA_Settings_fnc_init;
 
+// Animation this pace loops with a handgun in hand
+[
+    QGVAR(autorun_animation_WalkPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_WalkPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    "AmovPercMrunSlowWpstDf",
+    1
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops with a handgun in hand
+[
+    QGVAR(autorun_animation_JogPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_JogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    "AmovPercMrunSrasWpstDf",
+    1
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops with a handgun in hand
+[
+    QGVAR(autorun_animation_RunPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_RunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    "AmovPercMevaSrasWpstDf",
+    1
+] call CBA_Settings_fnc_init;
+
 // ------------------------------------------------------------------------------------------------------------------------ AUTORUN IGUI
 
 // Show the autorun indicator

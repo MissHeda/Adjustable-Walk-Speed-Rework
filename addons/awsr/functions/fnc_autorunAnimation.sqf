@@ -196,10 +196,12 @@ if (_animation == "") then {
 // Swimming is the one exception. A land animation in the water is not a preference, it is a
 // unit walking along the sea floor.
 if (!_stop && {!_isSwimming}) then {
+    private _pistol = _isPst;
+
     private _override = switch (_tier) do {
-        case AUTORUN_WALK: {GVAR(autorun_animation_Walk)};
-        case AUTORUN_JOG: {GVAR(autorun_animation_Jog)};
-        default {GVAR(autorun_animation_Run)};
+        case AUTORUN_WALK: {[ARR_2(GVAR(autorun_animation_Walk),GVAR(autorun_animation_WalkPistol))] select _pistol};
+        case AUTORUN_JOG: {[ARR_2(GVAR(autorun_animation_Jog),GVAR(autorun_animation_JogPistol))] select _pistol};
+        default {[ARR_2(GVAR(autorun_animation_Run),GVAR(autorun_animation_RunPistol))] select _pistol};
     };
 
     if (_override != "" && {isClass (ANIMATION_STATES >> _override)}) then {

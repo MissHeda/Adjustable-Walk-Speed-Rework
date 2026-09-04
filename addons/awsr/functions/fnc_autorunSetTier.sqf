@@ -38,6 +38,10 @@ if (GVAR(autorun_active)) exitWith {
     call FUNC(autorunIndicator);
 };
 
+// A run is pinned to animations that carry a weapon in their name, and there is a set for a
+// rifle and one for a handgun. Anything else has none to run with.
+if (([player] call FUNC(autorunWeapon)) isEqualTo "") exitWith {};
+
 if (!alive player) exitWith {};
 if (focusOn != player) exitWith {};
 if (!isNull objectParent player) exitWith {};
