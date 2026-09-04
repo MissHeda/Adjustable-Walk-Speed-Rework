@@ -453,13 +453,13 @@
             <English>Steps through the alternatives listed for\nthe current pace, and back round.</English>
             <German>Schaltet durch die Alternativen der aktuellen\nGangart und wieder von vorn.</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_IGUI_hideAutorunPace">
-            <English>Hide The Pace Text</English>
-            <German>Gangart-Text ausblenden</German>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showAutorunPace">
+            <English>Show Pace Text</English>
+            <German>Gangart-Text anzeigen</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_IGUI_hideAutorunPace_DESC">
-            <English>Leaves out the Walk / Jog / Run line,\nkeeping only the keys underneath.</English>
-            <German>Lässt die Zeile Gehen / Joggen / Rennen weg\nund behält nur die Tasten darunter.</German>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showAutorunPace_DESC">
+            <English>Shows the Walk / Jog / Run line\nabove the keys.</English>
+            <German>Zeigt die Zeile Gehen / Joggen / Rennen\nüber den Tasten.</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_IGUI_showAutorunKeys">
             <English>Show Keybinds</English>
@@ -470,16 +470,16 @@
             <German>Zeigt unter der Gangart, was die Tasten tun.\nNennt deine eigene Belegung, nicht die Vorgabe.</German>
         </Key>
         <Key ID="STR_awsr_movement_AUTORUN_hint_style">
-            <English>change style</English>
-            <German>Stil wechseln</German>
+            <English>style</English>
+            <German>Stil</German>
         </Key>
         <Key ID="STR_awsr_movement_AUTORUN_hint_pace">
-            <English>change pace</English>
+            <English>pace</English>
             <German>Gangart</German>
         </Key>
         <Key ID="STR_awsr_movement_AUTORUN_hint_stop">
             <English>stop</English>
-            <German>stoppen</German>
+            <German>Stopp</German>
         </Key>
     </Package>
 </Project>

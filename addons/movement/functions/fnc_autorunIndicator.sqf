@@ -26,14 +26,36 @@ if (!GVAR(autorun_active) || {!GVAR(IGUI_showAutorun)}) exitWith {
     [QGVAR(display_Autorun)] call FUNC(hideIGUI);
 };
 
-// Every key an action is bound to, readable.
-private _keyNames = {
+// Every key an action is bound to, as raw [dik, modifiers] entries.
+private _keysOf = {
     params ["_action"];
 
     private _keybind = ["AWSR", _action] call CBA_fnc_getKeybind;
     if (isNil "_keybind") exitWith {[]};
 
-    (_keybind param [8, []]) apply {toUpper (_x call CBA_fnc_localizeKey)}
+    _keybind param [8, []]
+};
+
+// Keys that share a modifier are written with it once - CTRL + W / S rather than CTRL+W / CTRL+S.
+private _readable = {
+    params ["_binds"];
+
+    if (_binds isEqualTo []) exitWith {""};
+
+    private _modifiers = (_binds select 0) param [1, [false, false, false]];
+
+    if (_binds findIf {(_x param [1, [false, false, false]]) isNotEqualTo _modifiers} > -1) exitWith {
+        (_binds apply {toUpper (_x call CBA_fnc_localizeKey)}) joinString " / "
+    };
+
+    _modifiers params ["_shift", "_ctrl", "_alt"];
+
+    private _prefix = "";
+    if (_alt) then {_prefix = _prefix + (toUpper (localize "str_dik_alt")) + " + "};
+    if (_ctrl) then {_prefix = _prefix + (toUpper (localize "str_dik_control")) + " + "};
+    if (_shift) then {_prefix = _prefix + (toUpper (localize "str_dik_shift")) + " + "};
+
+    _prefix + ((_binds apply {toUpper ([ARR_2(_x select 0,[ARR_3(false,false,false)])] call CBA_fnc_localizeKey)}) joinString " / ")
 };
 
 // The pace decides both what it is called and which key ends it, since a pace key pressed on the
@@ -47,16 +69,16 @@ _tier params ["_tierName", "_tierAction"];
 
 private _lines = [];
 
-if (!GVAR(IGUI_hideAutorunPace)) then {
+if (GVAR(IGUI_showAutorunPace)) then {
     _lines pushBack ("<t size='1.15'>" + _tierName + "</t>");
 };
 
 if (GVAR(IGUI_showAutorunKeys)) then {
     private _hints = [];
 
-    private _pace = ([QGVAR(autorun_fasterKey)] call _keyNames) + ([QGVAR(autorun_slowerKey)] call _keyNames);
-    if (_pace isNotEqualTo []) then {
-        _hints pushBack format ["%1: %2", LLSTRING(AUTORUN_hint_pace), _pace joinString " / "];
+    private _pace = [([QGVAR(autorun_fasterKey)] call _keysOf) + ([QGVAR(autorun_slowerKey)] call _keysOf)] call _readable;
+    if (_pace != "") then {
+        _hints pushBack format ["%1: %2", LLSTRING(AUTORUN_hint_pace), _pace];
     };
 
     // Only worth naming when there is more than one animation to step between.
@@ -68,20 +90,20 @@ if (GVAR(IGUI_showAutorunKeys)) then {
     };
 
     if (count _list > 1) then {
-        private _style = [QGVAR(autorun_nextAnimationKey)] call _keyNames;
+        private _style = [[QGVAR(autorun_nextAnimationKey)] call _keysOf] call _readable;
 
-        if (_style isNotEqualTo []) then {
-            _hints pushBack format ["%1: %2", LLSTRING(AUTORUN_hint_style), _style joinString " / "];
+        if (_style != "") then {
+            _hints pushBack format ["%1: %2", LLSTRING(AUTORUN_hint_style), _style];
         };
     };
 
-    private _stop = ([QGVAR(autorun_stopKey)] call _keyNames) + ([_tierAction] call _keyNames);
-    if (_stop isNotEqualTo []) then {
-        _hints pushBack format ["%1: %2", LLSTRING(AUTORUN_hint_stop), _stop joinString " / "];
+    private _stop = [([QGVAR(autorun_stopKey)] call _keysOf) + ([_tierAction] call _keysOf)] call _readable;
+    if (_stop != "") then {
+        _hints pushBack format ["%1: %2", LLSTRING(AUTORUN_hint_stop), _stop];
     };
 
     if (_hints isNotEqualTo []) then {
-        _lines pushBack ("<t size='0.8'>" + (_hints joinString "     ") + "</t>");
+        _lines pushBack ("<t size='0.8'>" + (_hints joinString "   ") + "</t>");
     };
 };
 
@@ -102,5 +124,6 @@ private _color = [GVAR(IGUI_textColor_Autorun)] call FUNC(colorToHex);
     "<t color='" + _color + "'>" + (_lines joinString "<br/>") + "</t>",
     GVAR(IGUI_textSize_Autorun),
     GVAR(IGUI_imageColor_Autorun),
-    0
+    0,
+    9
 ] call FUNC(updateIGUI);

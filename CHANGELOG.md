@@ -75,10 +75,16 @@ the reports on the Workshop page; the reporter is named on each.
   Default Speed**, on by default. Together the display stands exactly as long as that group's
   speed is not 100%. *(asked for by dyolF)*
 
-- The autorun indicator can drop its pace line, and lists what the keys do underneath - pace,
-  animation and the ways out, named after the bindings you actually have. The key that ends a run
-  by being pressed on the pace it is already on changes with the pace, and the animation key is
-  only named when there is more than one animation to step between.
+- The autorun indicator lists what the keys do under the pace, and the pace line itself can be
+  switched off:
+
+  ```
+  pace: CTRL + W / S   style: J   stop: W / S / F5
+  ```
+
+  Every key is named after the binding you actually have, keys sharing a modifier are written
+  with it once, the key that ends a run changes with the pace, and the animation key only appears
+  when there is more than one animation to step between.
 
 ### Changed
 

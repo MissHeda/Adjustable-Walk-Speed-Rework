@@ -733,13 +733,13 @@ GVAR(autorun_displayAllow) = [12];
     }
 ] call CBA_Settings_fnc_init;
 
-// Hide the pace text on the autorun indicator
+// Show the pace text on the autorun indicator
 [
-    QGVAR(IGUI_hideAutorunPace),
+    QGVAR(IGUI_showAutorunPace),
     "CHECKBOX",
-    [LLSTRING(SETTING_IGUI_hideAutorunPace),LLSTRING(SETTING_IGUI_hideAutorunPace_DESC)],
+    [LLSTRING(SETTING_IGUI_showAutorunPace),LLSTRING(SETTING_IGUI_showAutorunPace_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
-    [false],
+    [true],
     0,
     {
         if (hasInterface) then {call FUNC(autorunIndicator)};

@@ -13,6 +13,7 @@
  * 2: Default y for this display <NUMBER>
  * 3: Text size multiplier <NUMBER>
  * 4: Lines of text the box has to hold <NUMBER> (default: 1)
+ * 5: How many picture widths the text box is (default: 3)
  *
  * Return Value:
  * 0: Picture position <ARRAY>
@@ -25,7 +26,7 @@
  * Public: No
  */
 
-params ["_gridVar", ["_defaultX", 0], ["_defaultY", 0], ["_textSize", 1], ["_rows", 1]];
+params ["_gridVar", ["_defaultX", 0], ["_defaultY", 0], ["_textSize", 1], ["_rows", 1], ["_widths", 3]];
 
 // A layout tab that saved something unusable - or nothing at all - must not leave a display at
 // zero size, where it is on screen but impossible to find again.
@@ -52,7 +53,7 @@ private _fontHeight = _h * 0.28 * _textSize;
 
 // The text is wider than the picture and centred under it, so a long line has somewhere to go
 // instead of being cut off at the edge of the artwork.
-private _textW = _w * 3;
+private _textW = _w * _widths;
 
 [
     [_x, _y, _w, _h],

@@ -14,6 +14,7 @@
  * 3: Default x for this display <NUMBER>
  * 4: Default y for this display <NUMBER>
  * 5: Lines of text <NUMBER>
+ * 10: How many picture widths the text box is <NUMBER> (default: 3)
  * 6: Structured text to write <STRING>
  * 7: Text size multiplier <NUMBER>
  * 8: Picture colour <ARRAY>
@@ -30,16 +31,17 @@
 
 params [
     "_resource", "_uiVar", "_gridVar", "_defaultX", "_defaultY", ["_rows", 1],
-    ["_structuredText", ""], ["_textSize", 1], ["_imageColor", [1,1,1,1]], ["_duration", 0]
+    ["_structuredText", ""], ["_textSize", 1], ["_imageColor", [1,1,1,1]], ["_duration", 0],
+    ["_widths", 3]
 ];
 
 private _write = {
-    params ["_uiVar", "_gridVar", "_defaultX", "_defaultY", "_rows", "_structuredText", "_textSize", "_imageColor"];
+    params ["_uiVar", "_gridVar", "_defaultX", "_defaultY", "_rows", "_structuredText", "_textSize", "_imageColor", "_widths"];
 
     private _display = uiNamespace getVariable [_uiVar, displayNull];
     if (isNull _display) exitWith {};
 
-    ([_gridVar, _defaultX, _defaultY, _textSize, _rows] call FUNC(igUIGeometry)) params ["_picture", "_text", "_fontHeight"];
+    ([_gridVar, _defaultX, _defaultY, _textSize, _rows, _widths] call FUNC(igUIGeometry)) params ["_picture", "_text", "_fontHeight"];
 
     private _background = _display displayCtrl IDC_SPEED_BACKGROUND;
     private _label = _display displayCtrl IDC_SPEED_TEXT;
@@ -57,7 +59,7 @@ private _write = {
     _label ctrlShow true;
 };
 
-private _args = [_uiVar, _gridVar, _defaultX, _defaultY, _rows, _structuredText, _textSize, _imageColor];
+private _args = [_uiVar, _gridVar, _defaultX, _defaultY, _rows, _structuredText, _textSize, _imageColor, _widths];
 
 if (isNull (uiNamespace getVariable [_uiVar, displayNull])) then {
     // The title is cut once and then kept for the rest of the mission. Cutting a fresh one per
