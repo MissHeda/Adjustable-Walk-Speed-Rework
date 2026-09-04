@@ -16,7 +16,6 @@ GVAR(patterns_Walk) = [];
 GVAR(patterns_Tactical) = [];
 GVAR(patterns_Custom) = [];
 GVAR(animationTypeCache) = createHashMap;
-GVAR(aceExclusions) = [];
 
 // One hide token per display, so the newest change to a group cancels the hide that group's
 // previous change queued - and only that group's.

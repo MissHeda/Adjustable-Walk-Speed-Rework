@@ -30,6 +30,12 @@ if (GETVAR(_unit,GVAR(appliedSpeed),-1) != _coef) then {
     // and the player still has to get their own speed.
     _unit setAnimSpeedCoef _coef;
 
+    // Tell ACE's advanced fatigue to keep its hands off while we are driving the speed, and
+    // give it back the moment we are not.
+    if (_unit isEqualTo player) then {
+        [_coef != 1] call FUNC(aceAnimClaim);
+    };
+
     if (isMultiplayer) then {
         // One JIP entry per unit, replaced rather than added to.
         [_unit, _coef] remoteExecCall ["setAnimSpeedCoef", -2, QGVAR(speed) + netId _unit];

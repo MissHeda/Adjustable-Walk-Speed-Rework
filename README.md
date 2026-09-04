@@ -52,20 +52,14 @@ included.
 
 ## Autorun
 
-Walk, jog or run without holding the key, with the stance and the animation kept in step
-with stamina, terrain, water and injuries.
-
-- Separate keys for auto walk, auto jog and auto run
-- Stance switching while running, by key or automatically in deep water
-- Swimming, diving and the way back onto land
-- A stop key, or any key when none is bound; keys you bind as "Ignored Key" (map, compass,
-  watch) leave the run alone
-- Can be switched off entirely in the CBA settings
+Walk, jog or run without holding the key.
 
 - Walk, jog and run as three paces, with one key pair to step up and down through them
 - Keeps the animation in step with stamina, terrain, water, stance and injuries
 - Shows the pace in a display you place yourself
+- Stance switching while running, and swimming, diving and the way back onto land
 - Each pace can be pinned to an animation of your own, one set for a rifle and one for a handgun
+- Can be switched off entirely in the CBA settings
 
 The keys are in the CBA keybind menu next to the speed keys, under **Autorun**:
 

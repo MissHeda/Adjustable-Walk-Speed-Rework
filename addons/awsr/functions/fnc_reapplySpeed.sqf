@@ -38,6 +38,10 @@ if ((animationState _unit) call FUNC(animationType) != _type) exitWith {};
 private _wanted = GETVAR(_unit,GVAR(appliedSpeed),-1);
 if (_wanted < 0) exitWith {};
 
+// The default is not ours to defend. Holding it against whoever set something else is how this
+// would end up fighting ACE's advanced fatigue for a value we do not care about.
+if (_wanted == 1) exitWith {};
+
 if (abs (getAnimSpeedCoef _unit - _wanted) > 0.001) then {
     SETVAR(_unit,GVAR(appliedSpeed),-1);
     [_unit, _wanted] call FUNC(applySpeed);

@@ -87,8 +87,6 @@ private _groups = [
     ["Custom", [], GETMVAR(GVAR(allowedAnimationArray_Custom),""), ""]
 ];
 
-private _exclusions = [];
-
 {
     _x params ["_group", "_builtIn", "_allowed", "_notAllowed"];
 
@@ -109,21 +107,7 @@ private _exclusions = [];
     missionNamespace setVariable [format [QGVAR(animations_%1), _group], _names];
     missionNamespace setVariable [format [QGVAR(patterns_%1), _group], _patterns];
 
-    _exclusions append _names;
 } forEach _groups;
 
 GVAR(animationTypeCache) = createHashMap;
 
-// ACE's advanced fatigue sets the animation speed itself. Hand it the animations we own so it
-// leaves them alone - and take back exactly what we handed it last time, rather than
-// subtracting the blacklist from whatever other mods put in there.
-if (isClass (configFile >> "CfgPatches" >> "ace_advanced_fatigue")) then {
-    private _ours = GETMVAR(GVAR(aceExclusions),[]);
-    private _all = GETMVAR(ACEGVAR(advanced_fatigue,setAnimExclusions),[]);
-
-    _all = _all - _ours;
-    {_all pushBackUnique _x} forEach _exclusions;
-
-    SETMVAR(ACEGVAR(advanced_fatigue,setAnimExclusions),_all);
-    SETMVAR(GVAR(aceExclusions),_exclusions);
-};

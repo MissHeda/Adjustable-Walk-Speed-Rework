@@ -1,3 +1,4 @@
+PREP(aceAnimClaim);
 PREP(adjustSpeed);
 PREP(animationType);
 PREP(autorunAnimDone);
