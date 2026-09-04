@@ -21,7 +21,9 @@ the reports on the Workshop page; the reporter is named on each.
 
 - **Speed reverted a moment after being set in some missions.** Ravage, Hetman and Hive drive the
   animation speed from their own loop, and whoever writes `setAnimSpeedCoef` last wins. A new
-  setting, *Reapply Speed If Overwritten* (on by default), puts the value back.
+  setting, *Reapply Speed If Overwritten* (on by default), puts the value back. It is server
+  side: whether this mod outranks a mission's own speed handling is the mission's call, not a
+  thing each player decides for themselves.
   *(reported by HBAOplus, vat hom flaffie and rodrockwell)*
 
 - **Audibility was never given back.** Turning the speed down set `audibleCoef` and nothing ever

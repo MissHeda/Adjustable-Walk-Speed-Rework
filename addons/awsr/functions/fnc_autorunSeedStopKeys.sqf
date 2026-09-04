@@ -27,8 +27,15 @@ if (isNil "_registry") exitWith {};
 
 private _action = toLower ("AWSR$" + QGVAR(autorun_stopKey));
 
-private _existing = [_registry, _action] call CBA_fnc_hashGet;
-if (!isNil "_existing") exitWith {};
+// CBA_fnc_hashGet answers a missing key with the hash's own default rather than with nil, so an
+// isNil check here never fires and the pair never got written. Ask for an empty array instead.
+private _existing = [_registry, _action, []] call CBA_fnc_hashGet;
+
+// Whatever the player chose stays. The exception is the lone W this shipped with while the seed
+// was broken - that was the addKeybind fallback, not a choice anyone made.
+private _staleFallback = [[0x11, [false, false, false]]];
+
+if (_existing isNotEqualTo [] && {_existing isNotEqualTo _staleFallback}) exitWith {};
 
 [
     _registry,

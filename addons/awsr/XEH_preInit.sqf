@@ -96,7 +96,7 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_reapplySpeed),LLSTRING(SETTING_reapplySpeed_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
     [true],
-    0
+    1
 ] call CBA_Settings_fnc_init;
 
 // ------------------------------------------------------------------------------------------------------------------------ WALK

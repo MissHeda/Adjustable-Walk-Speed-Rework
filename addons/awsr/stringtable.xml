@@ -278,8 +278,8 @@
             <German>Geschwindigkeit erneut setzen</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_reapplySpeed_DESC">
-            <English>Puts your speed back when a mission or\nanother mod overwrites it.\n\nTurn off if it fights a mod that should win.</English>
-            <German>Setzt deine Geschwindigkeit erneut, wenn eine\nMission oder Mod sie überschreibt.\n\nAus, wenn es sich mit einer Mod streitet,\ndie gewinnen soll.</German>
+            <English>Puts your speed back when a mission or\nanother mod overwrites it.\n\nServer side: it decides whether this mod\noutranks a mission's own speed handling.</English>
+            <German>Setzt deine Geschwindigkeit erneut, wenn eine\nMission oder Mod sie überschreibt.\n\nServerseitig: entscheidet, ob dieser Mod die\nGeschwindigkeitslogik einer Mission übersteuert.</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_IGUI_displayDuration">
             <English>IGUI Display Duration</English>
