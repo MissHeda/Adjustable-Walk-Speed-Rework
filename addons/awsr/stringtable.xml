@@ -422,14 +422,18 @@
             <German>Renn-Animation</German>
         </Key>
         <Key ID="STR_awsr_awsr_SETTING_autorun_animation_DESC">
-            <English>The animation this pace loops. Leave it empty to let the run pick one that follows your weapon, stance, stamina, the terrain and the water - which is what it does by default.
+            <English>The animation this pace loops. It ships filled in with the one the run would pick for an upright rifleman, so you can see what is being looped and swap it.
 
-A name typed in here is looped exactly as written and stops following any of that, so a rifle animation stays a rifle animation with a pistol in hand. Names that do not exist are ignored.
+Empty it to let the run pick one for itself instead, following your weapon, stance, stamina and the terrain.
+
+A name in here is looped exactly as written and follows none of that, so a rifle animation stays a rifle animation with a pistol in hand. Names that do not exist are ignored, and swimming always uses the automatic one.
 
 The automatic ones look like AmovPercMwlkSlowWrflDf for a walk, AmovPercMrunSlowWrflDf for a jog and AmovPercMevaSlowWrflDf for a run - Perc upright, Pknl crouched, Slow lowered, Sras raised, Wrfl rifle, Wpst pistol.</English>
-            <German>Die Animation, die diese Gangart loopt. Leer lassen heißt: der Lauf sucht sich eine, die Waffe, Haltung, Ausdauer, Gelände und Wasser folgt - so macht er es standardmäßig.
+            <German>Die Animation, die diese Gangart loopt. Vorbelegt mit der, die der Lauf für einen aufrechten Schützen mit Gewehr wählen würde - so siehst du, was geloopt wird, und kannst es tauschen.
 
-Ein hier eingetragener Name wird exakt so geloopt und folgt nichts davon mehr, eine Gewehranimation bleibt also eine Gewehranimation, auch mit Pistole in der Hand. Nicht vorhandene Namen werden ignoriert.
+Leeren lässt den Lauf sich selbst eine suchen, die Waffe, Haltung, Ausdauer und Gelände folgt.
+
+Ein Name hier wird exakt so geloopt und folgt nichts davon, eine Gewehranimation bleibt also eine Gewehranimation, auch mit Pistole in der Hand. Nicht vorhandene Namen werden ignoriert, und beim Schwimmen gilt immer die automatische.
 
 Die automatischen sehen aus wie AmovPercMwlkSlowWrflDf beim Gehen, AmovPercMrunSlowWrflDf beim Joggen und AmovPercMevaSlowWrflDf beim Rennen - Perc aufrecht, Pknl kniend, Slow gesenkt, Sras erhoben, Wrfl Gewehr, Wpst Pistole.</German>
         </Key>

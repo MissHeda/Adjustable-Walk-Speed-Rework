@@ -189,9 +189,13 @@ if (_animation == "") then {
     GVAR(autorun_nameCache) set [_key, _animation];
 };
 
-// An animation typed into the settings wins over the one worked out above, for that pace. A
-// fixed name stops following the weapon and the stance, which is the price of pinning it.
-if (!_stop) then {
+// The animation from the settings wins over the one worked out above, for that pace. It is a
+// whole name, weapon and stance included, so pinning one is also giving up following those -
+// that is the trade, and the boxes are filled in so it is visible rather than implied.
+//
+// Swimming is the one exception. A land animation in the water is not a preference, it is a
+// unit walking along the sea floor.
+if (!_stop && {!_isSwimming}) then {
     private _override = switch (_tier) do {
         case AUTORUN_WALK: {GVAR(autorun_animation_Walk)};
         case AUTORUN_JOG: {GVAR(autorun_animation_Jog)};

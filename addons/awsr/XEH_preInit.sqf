@@ -651,7 +651,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Walk),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
-    "",
+    "AmovPercMwlkSlowWrflDf_ver2",
     1
 ] call CBA_Settings_fnc_init;
 
@@ -661,7 +661,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Jog),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
-    "",
+    "AmovPercMrunSrasWrflDf",
     1
 ] call CBA_Settings_fnc_init;
 
@@ -671,7 +671,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Run),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
-    "",
+    "AmovPercMevaSrasWrflDf",
     1
 ] call CBA_Settings_fnc_init;
 
