@@ -71,6 +71,7 @@ The keys are in the CBA keybind menu next to the speed keys, under **Autorun**:
 | One pace faster | `Ctrl + W` |
 | One pace slower (ends the run below a walk) | `Ctrl + S` |
 | End run | `W`, `S` |
+| Next animation for this pace | `J` |
 
 A run ends by pressing the pace key it is already on, by stepping below a walk, or by reaching
 for a movement key - which then does what it normally does. Faster and slower only do anything

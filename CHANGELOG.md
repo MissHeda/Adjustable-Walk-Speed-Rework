@@ -59,9 +59,9 @@ the reports on the Workshop page; the reporter is named on each.
 
 - **Autorun.** Walk, jog and run as three paces, with one key pair to step up and down through
   them, in a display you place yourself. It keeps the animation in step with stamina, terrain,
-  water, stance and injuries, and each pace can be pinned to an animation of your own - one set
-  for a rifle, one for a handgun. Derived from Leon and Legion's Autorun Rework.
-  *(asked for by 42nfl19)*
+  water, stance and injuries, and each pace has its own animation setting - one set for a rifle,
+  one for a handgun. List several and `J` steps between them mid-run. Derived from Leon and
+  Legion's Autorun Rework. *(asked for by 42nfl19)*
 
 - **Wildcards in the whitelist and blacklist.** `melee_armed_*` covers every animation whose name
   starts that way, so mods with a lot of custom animations no longer have to be listed one entry
