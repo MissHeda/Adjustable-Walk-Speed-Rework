@@ -25,10 +25,7 @@ if (!GVAR(autorun_active)) exitWith {};
 GVAR(autorun_active) = false;
 GVAR(autorun_tier) = AUTORUN_OFF;
 
-if (GVAR(autorun_animDoneEH) >= 0) then {
-    player removeEventHandler ["AnimDone", GVAR(autorun_animDoneEH)];
-    GVAR(autorun_animDoneEH) = -1;
-};
+call FUNC(autorunRemoveAnimDone);
 
 if (GVAR(autorun_pfh) >= 0) then {
     [GVAR(autorun_pfh)] call CBA_fnc_removePerFrameHandler;

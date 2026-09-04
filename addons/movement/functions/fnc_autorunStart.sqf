@@ -23,15 +23,15 @@ GVAR(autorun_stance) = ([""] call FUNC(autorunStance)) select 1;
 
 GVAR(autorun_animation) = [player] call FUNC(autorunAnimation);
 GVAR(autorun_active) = true;
+GVAR(autorun_stanceUntil) = 0;
 GVAR(autorun_animIndex) = 0;
 GVAR(autorun_iconFrame) = 1;
 GVAR(autorun_iconTime) = 0;
 
 // A run that ended without its handler firing again leaves the old one behind.
-if (GVAR(autorun_animDoneEH) >= 0) then {
-    player removeEventHandler ["AnimDone", GVAR(autorun_animDoneEH)];
-};
+call FUNC(autorunRemoveAnimDone);
 
+GVAR(autorun_animDoneUnit) = player;
 GVAR(autorun_animDoneEH) = player addEventHandler ["AnimDone", {call FUNC(autorunAnimDone)}];
 
 if (GVAR(autorun_pfh) >= 0) then {

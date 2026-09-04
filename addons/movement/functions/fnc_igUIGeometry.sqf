@@ -21,7 +21,7 @@
  * 2: Font height <NUMBER>
  *
  * Example:
- * [QUOTE(DOUBLES(IGUI,GVAR(grid_Walk))), DISPLAY_Y(0), 1, 1] call awsr_movement_fnc_igUIGeometry;
+ * [QUOTE(DOUBLES(IGUI,GVAR(grid_Walk))), DISPLAY_X, DISPLAY_Y(0), 1, 1, 3] call awsr_movement_fnc_igUIGeometry;
  *
  * Public: No
  */

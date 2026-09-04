@@ -92,15 +92,23 @@ else is lost - set them again and they stay.
 
 - **Multiplayer traffic.** Every animation state change broadcast a JIP flagged remote call -
   several per second, per player, each adding a queue entry that every joining player replayed. The
-  speed is broadcast only when it changes, with one JIP entry per unit that gets replaced, and it
-  is applied locally first so a mission with a restrictive `CfgRemoteExec` cannot swallow the
-  player's own speed.
+  speed is broadcast only when it changes, with one JIP entry per unit that is replaced rather than
+  added to and dropped once the speed is back at default, and it is applied locally first so a
+  mission with a restrictive `CfgRemoteExec` cannot swallow the player's own speed.
+
+- **`awsr_movement_fnc_setDefaultSpeed`**, the one function missions are meant to call, writes to a
+  variable on the unit that only the machine owning it reads. Called anywhere else it silently did
+  nothing. It now runs on the unit's owner wherever it is called from.
 
 - **Unticking "include non raised animations" did nothing until a restart.** The whitelists were
   built by adding to whatever was already there; they are rebuilt from the settings every time. The
   whitelist and blacklist boxes no longer ask for a restart either.
 
 - **The blacklist could remove other mods' entries from ACE's exclusion list.**
+
+- **A blacklisted animation could not overrule a whitelist wildcard.** Blacklisting a single name
+  out of a `melee_armed_*` sort of entry did nothing - a wildcard was only ever cancelled by
+  another wildcard. The name wins now.
 
 - Toggling settings could grow the whitelists with duplicate entries.
 - The walk group's "include non raised animations" callback referenced an undefined variable.

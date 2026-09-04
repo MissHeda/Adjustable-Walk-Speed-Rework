@@ -23,6 +23,12 @@
 
 params ["_unit", ["_speed", 1], ["_time", -1]];
 
+// The speeds live in a variable on the unit and are read by the handler on the machine that owns
+// it, so setting them anywhere else writes into a copy nobody reads.
+if (!local _unit) exitWith {
+    [_unit, _speed, _time] remoteExecCall [QFUNC(setDefaultSpeed), _unit];
+};
+
 (_unit call FUNC(getSpeedHashMap)) set ["defaultSpeed", _speed];
 
 // Takes effect now rather than at the next animation change.

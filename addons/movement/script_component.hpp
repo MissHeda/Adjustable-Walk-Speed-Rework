@@ -42,6 +42,11 @@
 // to settle the forced animation, short enough that it cannot be used to sit out a firefight.
 #define STOP_DAMAGE_GRACE 0.25
 
+// How long a stance transition owns the animation. A bound rather than the exact length - long
+// enough that AnimDone and the update loop keep their hands off it, short enough that a
+// transition which never lands does not freeze the run.
+#define STANCE_TRANSITION_TIME 0.7
+
 // Where the player animations live, so a name can be checked before it is played.
 #define ANIMATION_STATES (configFile >> "CfgMovesMaleSdr" >> "States")
 

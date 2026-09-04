@@ -38,11 +38,11 @@ if (!isNil QGVAR(autorun_keyHandler)) exitWith {};
         };
 
         if (_stanceKey != "") exitWith {
-            if !(GVAR(autorun_animation) select [1, 3] in SWIM_ACTIONS) then {
-                [_stanceKey] call FUNC(autorunUpdateStance);
-            };
+            // Swallowed only when the run actually took it. In the water there is no stance to
+            // change, and the key belongs to whoever else wants it.
+            if (GVAR(autorun_animation) select [1, 3] in SWIM_ACTIONS) exitWith {false};
 
-            true
+            [_stanceKey] call FUNC(autorunUpdateStance)
         };
 
 

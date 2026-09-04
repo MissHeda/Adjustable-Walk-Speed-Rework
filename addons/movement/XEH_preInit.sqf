@@ -15,6 +15,9 @@ GVAR(animations_Custom) = [];
 GVAR(patterns_Walk) = [];
 GVAR(patterns_Tactical) = [];
 GVAR(patterns_Custom) = [];
+GVAR(blocked_Walk) = [];
+GVAR(blocked_Tactical) = [];
+GVAR(blocked_Custom) = [];
 GVAR(animationTypeCache) = createHashMap;
 
 // One hide token per display, so the newest change to a group cancels the hide that group's
@@ -27,8 +30,9 @@ GVAR(autorun_active) = false;
 GVAR(autorun_tier) = AUTORUN_OFF;
 GVAR(autorun_stance) = "Stand";
 GVAR(autorun_animation) = "";
-GVAR(autorun_updatingStance) = false;
+GVAR(autorun_stanceUntil) = 0;
 GVAR(autorun_animDoneEH) = -1;
+GVAR(autorun_animDoneUnit) = objNull;
 GVAR(autorun_pfh) = -1;
 GVAR(autorun_iconFrame) = 1;
 GVAR(autorun_iconTime) = 0;

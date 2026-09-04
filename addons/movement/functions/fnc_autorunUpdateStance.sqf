@@ -21,12 +21,15 @@ if (!hasInterface) exitWith {false};
 if (!GVAR(autorun_active)) exitWith {false};
 if (!isNull objectParent player) exitWith {false};
 if (getUnitFreefallInfo player select 0) exitWith {false};
-if (GVAR(autorun_updatingStance)) exitWith {false};
+if (diag_tickTime < GVAR(autorun_stanceUntil)) exitWith {false};
 
 private _newStance = [_key] call FUNC(autorunStance);
 
 if (_newStance select 0) then {
-    GVAR(autorun_updatingStance) = true;
+    // Held for the length of the transition rather than the length of this call. Setting a flag
+    // and clearing it two lines later left it never observably true, and the animation the
+    // transition was meant to be protected from overwrote it on the very next AnimDone.
+    GVAR(autorun_stanceUntil) = diag_tickTime + STANCE_TRANSITION_TIME;
     GVAR(autorun_stance) = _newStance select 2;
 
     private _from = GVAR(autorun_animation);
@@ -37,7 +40,5 @@ if (_newStance select 0) then {
 
     call FUNC(autorunIndicator);
 };
-
-GVAR(autorun_updatingStance) = false;
 
 (_newStance select 0)

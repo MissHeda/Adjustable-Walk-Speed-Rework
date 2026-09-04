@@ -384,6 +384,11 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
                 _oldUnit removeEventHandler ["AnimStateChanged", _oldId];
                 SETVAR(_oldUnit,GVAR(animEHId),-1);
             };
+
+            // Hand the body back the way we found it. Nothing is watching it any more, so
+            // whatever coefficient or force walk was left on it would stay there for good.
+            [_oldUnit, 1] call FUNC(applySpeed);
+            [_oldUnit, false] call FUNC(setForceWalk);
         };
 
         // A run belongs to the unit that started it.
@@ -396,11 +401,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
                 GVAR(autorun_pfh) = -1;
             };
 
-            if (!isNull _oldUnit && {GVAR(autorun_animDoneEH) >= 0}) then {
-                _oldUnit removeEventHandler ["AnimDone", GVAR(autorun_animDoneEH)];
-            };
-
-            GVAR(autorun_animDoneEH) = -1;
+            call FUNC(autorunRemoveAnimDone);
 
             call FUNC(autorunIndicator);
         };

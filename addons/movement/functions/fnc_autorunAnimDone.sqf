@@ -17,7 +17,7 @@
  */
 
 if (!GVAR(autorun_active)) exitWith {};
-if (GVAR(autorun_updatingStance)) exitWith {};
+if (diag_tickTime < GVAR(autorun_stanceUntil)) exitWith {};
 
 if (
     !alive player ||

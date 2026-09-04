@@ -37,8 +37,18 @@ if (GETVAR(_unit,GVAR(appliedSpeed),-1) != _coef) then {
     };
 
     if (isMultiplayer) then {
-        // One JIP entry per unit, replaced rather than added to.
-        [_unit, _coef] remoteExecCall ["setAnimSpeedCoef", -2, QGVAR(speed) + netId _unit];
+        // Everyone, including this machine - applying the same coefficient twice costs nothing,
+        // and a negative target would have meant "all except owner id 2", which is the server:
+        // on a listen server the host would never have seen anyone else's speed.
+        private _jip = QGVAR(speed) + netId _unit;
+
+        [_unit, _coef] remoteExecCall ["setAnimSpeedCoef", 0, _jip];
+
+        // A string JIP id is only ever replaced, never dropped, so the default is the moment to
+        // take the entry back out rather than leave one per unit in the queue for the mission.
+        if (_coef == 1) then {
+            remoteExecCall ["", _jip];
+        };
     };
 };
 

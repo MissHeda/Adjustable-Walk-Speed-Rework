@@ -30,18 +30,23 @@ if (!isNil "_cached") exitWith {_cached};
 private _type = "";
 
 {
-    _x params ["_group", "_enabled", "_names", "_patterns"];
+    _x params ["_group", "_enabled", "_names", "_patterns", "_blocked"];
 
     if (
         _enabled &&
-        {_animation in _names || {_patterns findIf {_animation regexMatch _x} > -1}}
+        {
+            // A name on the blacklist wins over a wildcard that would otherwise match it. Plain
+            // names are already gone from _names by the time they get here.
+            _animation in _names ||
+            {!(_animation in _blocked) && {_patterns findIf {_animation regexMatch _x} > -1}}
+        }
     ) exitWith {
         _type = _group;
     };
 } forEach [
-    ["walk", GVAR(Enable_Walk), GVAR(animations_Walk), GVAR(patterns_Walk)],
-    ["tactical", GVAR(Enable_Tactical), GVAR(animations_Tactical), GVAR(patterns_Tactical)],
-    ["custom", GVAR(Enable_Custom), GVAR(animations_Custom), GVAR(patterns_Custom)]
+    ["walk", GVAR(Enable_Walk), GVAR(animations_Walk), GVAR(patterns_Walk), GVAR(blocked_Walk)],
+    ["tactical", GVAR(Enable_Tactical), GVAR(animations_Tactical), GVAR(patterns_Tactical), GVAR(blocked_Tactical)],
+    ["custom", GVAR(Enable_Custom), GVAR(animations_Custom), GVAR(patterns_Custom), GVAR(blocked_Custom)]
 ];
 
 GVAR(animationTypeCache) set [_animation, _type];

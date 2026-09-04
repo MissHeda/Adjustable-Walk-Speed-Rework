@@ -47,7 +47,7 @@ if (diag_tickTime > GVAR(autorun_iconTime)) then {
 };
 
 // A stance transition is playing and owns the animation until it is done.
-if (GVAR(autorun_updatingStance)) exitWith {};
+if (diag_tickTime < GVAR(autorun_stanceUntil)) exitWith {};
 
 // The key hints name the animations for whatever is in the hands, so a weapon swap redraws them.
 private _weapon = [player] call FUNC(autorunWeapon);

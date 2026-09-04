@@ -22,4 +22,11 @@ params [["_delta", 1]];
 // are bound to - stepping up out of nothing would take the key away from the player entirely.
 if (!GVAR(autorun_active)) exitWith {};
 
-[GVAR(autorun_tier) + _delta] call FUNC(autorunSetTier);
+private _tier = GVAR(autorun_tier) + _delta;
+
+// Stepping up from the top pace is a no-op. Without this the clamp in awsr_movement_fnc_autorunSetTier
+// turns it back into the current pace, which the pace-key toggle there reads as a request to stop.
+// Stepping below a walk still falls through, because ending the run is what that means.
+if (_tier > AUTORUN_RUN) exitWith {};
+
+[_tier] call FUNC(autorunSetTier);

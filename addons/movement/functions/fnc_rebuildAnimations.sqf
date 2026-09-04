@@ -107,6 +107,11 @@ private _groups = [
     missionNamespace setVariable [format [QGVAR(animations_%1), _group], _names];
     missionNamespace setVariable [format [QGVAR(patterns_%1), _group], _patterns];
 
+    // Kept so a plain blacklisted name can still overrule a whitelist wildcard that matches it.
+    // The name cannot be subtracted from the wildcard here - the wildcard is only resolved when
+    // an animation is looked up.
+    missionNamespace setVariable [format [QGVAR(blocked_%1), _group], _removeNames];
+
 } forEach _groups;
 
 GVAR(animationTypeCache) = createHashMap;
