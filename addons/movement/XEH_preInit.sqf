@@ -34,6 +34,7 @@ GVAR(autorun_iconFrame) = 1;
 GVAR(autorun_iconTime) = 0;
 GVAR(autorun_nameCache) = createHashMap;
 GVAR(autorun_animIndex) = 0;
+GVAR(autorun_lastWeapon) = "";
 
 // Displays a run keeps going under. 12 is the map; add your own display IDs from a mission or
 // another mod if a run should survive them being open.
@@ -724,6 +725,32 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_showAutorun),
     "CHECKBOX",
     [LLSTRING(SETTING_IGUI_showAutorun),LLSTRING(SETTING_IGUI_showAutorun_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [true],
+    0,
+    {
+        if (hasInterface) then {call FUNC(autorunIndicator)};
+    }
+] call CBA_Settings_fnc_init;
+
+// Hide the pace text on the autorun indicator
+[
+    QGVAR(IGUI_hideAutorunPace),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_hideAutorunPace),LLSTRING(SETTING_IGUI_hideAutorunPace_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [false],
+    0,
+    {
+        if (hasInterface) then {call FUNC(autorunIndicator)};
+    }
+] call CBA_Settings_fnc_init;
+
+// Show the keybinds on the autorun indicator
+[
+    QGVAR(IGUI_showAutorunKeys),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_showAutorunKeys),LLSTRING(SETTING_IGUI_showAutorunKeys_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
     [true],
     0,

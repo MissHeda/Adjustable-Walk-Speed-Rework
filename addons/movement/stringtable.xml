@@ -422,8 +422,8 @@
             <German>Renn-Animation (Gewehr)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_DESC">
-            <English>Animation this pace loops.\nEmpty lets the run pick one itself.\n\nName parts:\nPerc upright, Pknl crouched\nMwlk walk, Mrun jog, Meva run\nSlow lowered, Sras raised\nWrfl rifle, Wpst pistol\n\nUnknown names are ignored.\nSwimming always picks its own.</English>
-            <German>Animation, die diese Gangart loopt.\nLeer lässt den Lauf selbst wählen.\n\nNamensteile:\nPerc aufrecht, Pknl kniend\nMwlk gehen, Mrun joggen, Meva rennen\nSlow gesenkt, Sras erhoben\nWrfl Gewehr, Wpst Pistole\n\nUnbekannte Namen werden ignoriert.\nBeim Schwimmen wählt der Lauf selbst.</German>
+            <English>The animation this pace loops.\nWrite the name plain, no quotes.\n\nSeveral, separated by commas, are\nalternatives - the first plays, the\nnext-animation key steps through the rest.\n\nName parts:\nPerc upright, Pknl crouched\nMwlk walk, Mrun jog, Meva run\nSlow lowered, Sras raised\nWrfl rifle, Wpst pistol\n\nUnknown names are dropped.\nSwimming always picks its own.</English>
+            <German>Die Animation, die diese Gangart loopt.\nNamen einfach hinschreiben, ohne Anführungszeichen.\n\nMehrere, per Komma getrennt, sind\nAlternativen - die erste läuft, die Taste\nfür die nächste Animation schaltet weiter.\n\nNamensteile:\nPerc aufrecht, Pknl kniend\nMwlk gehen, Mrun joggen, Meva rennen\nSlow gesenkt, Sras erhoben\nWrfl Gewehr, Wpst Pistole\n\nUnbekannte Namen fliegen raus.\nBeim Schwimmen wählt der Lauf selbst.</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_WalkPistol">
             <English>Walk Animation (Handgun)</English>
@@ -452,6 +452,34 @@
         <Key ID="STR_awsr_movement_KEYBIND_autorun_nextAnimation_DESC">
             <English>Steps through the alternatives listed for\nthe current pace, and back round.</English>
             <German>Schaltet durch die Alternativen der aktuellen\nGangart und wieder von vorn.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_hideAutorunPace">
+            <English>Hide The Pace Text</English>
+            <German>Gangart-Text ausblenden</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_hideAutorunPace_DESC">
+            <English>Leaves out the Walk / Jog / Run line,\nkeeping only the keys underneath.</English>
+            <German>Lässt die Zeile Gehen / Joggen / Rennen weg\nund behält nur die Tasten darunter.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showAutorunKeys">
+            <English>Show Keybinds</English>
+            <German>Tastenbelegung anzeigen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showAutorunKeys_DESC">
+            <English>Shows what the keys do under the pace.\nNames your own bindings, not the defaults.</English>
+            <German>Zeigt unter der Gangart, was die Tasten tun.\nNennt deine eigene Belegung, nicht die Vorgabe.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_AUTORUN_hint_style">
+            <English>change style</English>
+            <German>Stil wechseln</German>
+        </Key>
+        <Key ID="STR_awsr_movement_AUTORUN_hint_pace">
+            <English>change pace</English>
+            <German>Gangart</German>
+        </Key>
+        <Key ID="STR_awsr_movement_AUTORUN_hint_stop">
+            <English>stop</English>
+            <German>stoppen</German>
         </Key>
     </Package>
 </Project>
