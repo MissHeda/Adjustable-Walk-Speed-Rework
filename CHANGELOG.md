@@ -2,14 +2,14 @@
 
 ## 2.0.0
 
-Measured against 1.1.0, the version on the Workshop. The bug fixes come from the reports on the
+Measured against **1.0.6**, the version on the Workshop. The bug fixes come from the reports on the
 Workshop page; the reporter is named on each.
 
 ### Upgrading
 
-The addon inside the mod was renamed, so every setting, keybind and IGUI position carries a new
-name. **They all fall back to their defaults once on first launch.** Nothing else is lost - set
-them again and they stay.
+The addon inside the mod is called `movement` instead of `core`, so every setting, keybind and IGUI
+position carries a new name. **They all fall back to their defaults once on first launch.** Nothing
+else is lost - set them again and they stay.
 
 ### Added
 
@@ -23,7 +23,12 @@ them again and they stay.
   binoculars have no animations to run with.
 
   Derived from Leon and Legion's [Autorun Rework](https://github.com/LeonZ2019/autorun-rework),
-  which stays under APL-SA. *(asked for by 42nfl19)*
+  which stays under APL-SA. One thing works differently from that mod: stopping a run there turned
+  damage off outright and gave it back when the stop animation ended, so every stop bought seconds
+  of invulnerability. Here the stop hangs a damage handler on the unit for a quarter of a second
+  that cancels only damage with no projectile and nobody behind it - the fall the forced animation
+  can provoke. Being shot while stopping hurts exactly as much as it should.
+  *(asked for by 42nfl19)*
 
 - **An indicator for the autorun**, placed and sized in the layout tab like everything else. It
   shows the pace and what the keys do:
@@ -104,21 +109,13 @@ them again and they stay.
 
 ### Changed
 
-- **Stopping an autorun no longer makes the player invulnerable.** Inherited from the original
-  autorun mod, the stop turned damage off outright and gave it back when the stop animation ended,
-  or after three seconds. That was never a design: `allowDamage false` shipped there with no
-  restore at all, and the three seconds are an artefact of the hotfix that added one. The stop now
-  hangs a damage handler on the unit for a quarter of a second that cancels only damage with no
-  projectile and nobody behind it. Being shot while stopping hurts exactly as much as it should.
-
-- Settings, IGUI settings and keybinds all read in the same numbered order, autorun first.
 - Speed keybinds do nothing while their animation group is switched off, rather than storing a
   value that would never be applied.
 - Switching the whole system, or audibility, off hands the unit back straight away instead of at
   the next animation change.
 - The animation lookup is cached per animation name instead of concatenating and searching a few
   hundred strings on every animation state change.
-- The two PBOs are `awsr_main` and `awsr_movement`; autorun is no longer a third.
+- Settings, IGUI settings and keybinds are numbered so they read in the same order everywhere.
 
 ### Known and not changed
 
@@ -126,8 +123,3 @@ them again and they stay.
   switch the player into a walk animation, which is the group they just left.
   *(asked for by A. Ares and nigel)*
 - **AI are not affected.** The mod only ever touches the player's own unit.
-
-## 1.1.0
-
-- IGUI fix for the newest Arma version
-- Two missing pistol animations
