@@ -129,6 +129,26 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
     [0x1F, [false, true, false]]
 ] call CBA_fnc_addKeybind;
 
+// End Run: W and S
+call FUNC(autorunSeedStopKeys);
+
+[
+    _autorunCategory,
+    QGVAR(autorun_stopKey),
+    [LLSTRING(KEYBIND_autorun_stop), LLSTRING(KEYBIND_autorun_stop_DESC)],
+    {
+        if (!GVAR(autorun_active)) exitWith {false};
+
+        0 spawn FUNC(autorunStop);
+
+        // Never swallowed. These are movement keys - the player pressed one because they want to
+        // move, and the run getting out of the way is the whole point.
+        false
+    },
+    "",
+    [0x11, [false, false, false]]
+] call CBA_fnc_addKeybind;
+
 call FUNC(autorunKeyHandler);
 
 // Every keybind sits under one heading, so the menu reads the same way the settings do.

@@ -6,6 +6,7 @@ PREP(autorunAnimation);
 PREP(autorunCheckDisplay);
 PREP(autorunIndicator);
 PREP(autorunKeyHandler);
+PREP(autorunSeedStopKeys);
 PREP(autorunSetTier);
 PREP(autorunStance);
 PREP(autorunStart);

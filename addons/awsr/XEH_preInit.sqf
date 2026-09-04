@@ -645,35 +645,8 @@ GVAR(autorun_displayAllow) = [12];
 ] call CBA_Settings_fnc_init;
 
 
-// Forward key ends a run
-[
-    QGVAR(autorun_stopOnForward),
-    "CHECKBOX",
-    [LLSTRING(SETTING_autorun_stopOnForward),LLSTRING(SETTING_autorun_stopOn_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
-    [true],
-    0
-] call CBA_Settings_fnc_init;
 
-// Back key ends a run
-[
-    QGVAR(autorun_stopOnBack),
-    "CHECKBOX",
-    [LLSTRING(SETTING_autorun_stopOnBack),LLSTRING(SETTING_autorun_stopOn_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
-    [true],
-    0
-] call CBA_Settings_fnc_init;
 
-// Sideways keys end a run
-[
-    QGVAR(autorun_stopOnSideways),
-    "CHECKBOX",
-    [LLSTRING(SETTING_autorun_stopOnSideways),LLSTRING(SETTING_autorun_stopOn_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
-    [false],
-    0
-] call CBA_Settings_fnc_init;
 
 // Animation this pace loops instead of the one worked out for the situation
 [
