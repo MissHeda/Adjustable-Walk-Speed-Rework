@@ -16,7 +16,7 @@
 | PBO | What it is |
 | --- | --- |
 | `awsr_main` | Version numbers and the macros every other addon builds on. No gameplay code. |
-| `awsr_awsr` | Everything the mod does: speed adjustment, autorun, settings, keybinds, IGUI. |
+| `awsr_movement` | Everything the mod does: speed adjustment, autorun, settings, keybinds, IGUI. |
 
 ## Speed adjustment
 

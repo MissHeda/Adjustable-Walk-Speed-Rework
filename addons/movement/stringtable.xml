@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="awsr">
+    <Package name="awsr">
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_General">
+            <English>2) General</English>
+            <German>2) Allgemein</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Walk">
+            <English>3) Walking</English>
+            <German>3) Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical">
+            <English>4) Tactical</English>
+            <German>4) Taktisch</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom">
+            <English>5) Custom</English>
+            <German>5) Benutzerdefiniert</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Walk_IGUI">
+            <English>2) Walking</English>
+            <German>2) Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical_IGUI">
+            <English>3) Tactical</English>
+            <German>3) Taktisch</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom_IGUI">
+            <English>4) Custom</English>
+            <German>4) Benutzerdefiniert</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Enable">
+            <English>Enable AWSR (whole system)</English>
+            <German>Aktiviere AWSR (gesamtes System)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Enable_DESC">
+            <English>Turns the whole mod on or off.</English>
+            <German>Schaltet den gesamten Mod ein oder aus.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_adjustAudioDetection">
+            <English>Audio Detection Adjustment</English>
+            <German>Anpassung der Geräuscherkennung</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_adjustAudioDetection_DESC">
+            <English>Moving slower makes you quieter to AI.\nFollows the speed you set.</English>
+            <German>Langsamer macht dich für KI leiser.\nFolgt der eingestellten Geschwindigkeit.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_onlyChangeSpeedWhileAnimationIsPlaying">
+            <English>Only Change Speed While Doing The Animation</English>
+            <German>Geschwindigkeitsänderrung nur wärend Animation</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_onlyChangeSpeedWhileAnimationIsPlaying_DESC">
+            <English>Speed can only be changed while an\nanimation of that group is playing.</English>
+            <German>Geschwindigkeit nur änderbar, während eine\nAnimation der Gruppe läuft.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Enable_Walk">
+            <English>Enable Walk Module</English>
+            <German>Aktiviere Geh Modul</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Enable_Walk_DESC">
+            <English>Turns the walking group on or off.</English>
+            <German>Schaltet die Geh-Gruppe ein oder aus.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Enable_Tactical">
+            <English>Enable Tactical Module</English>
+            <German>Aktiviere Taktik Modul</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Enable_Tactical_DESC">
+            <English>Turns the tactical group on or off.</English>
+            <German>Schaltet die taktische Gruppe ein oder aus.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Enable_Custom">
+            <English>Enable Custom Module</English>
+            <German>Aktiviert Benutzerdefiniert Modul</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Enable_Custom_DESC">
+            <English>Turns the custom group on or off.\nIt is empty until you whitelist something.</English>
+            <German>Schaltet die eigene Gruppe ein oder aus.\nSie ist leer, bis du etwas einträgst.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_includeNonRaisedAnimations">
+            <English>Include Non Weapon Raised Animations</English>
+            <German>Animationen ohne gehobene Waffe einbeziehen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_includeNonRaisedAnimations_DESC">
+            <English>Also covers the same movement with the\nweapon lowered.</English>
+            <German>Erfasst dieselbe Bewegung auch mit\ngesenkter Waffe.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_forceWalkWhenValueIsNotDefault">
+            <English>Force Walk When Not Default</English>
+            <German>Force Walk wenn nicht Standard</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_forceWalkWhenValueIsNotDefault_DESC">
+            <English>Forces walking while the walk speed\nis not 100%.</English>
+            <German>Erzwingt Gehen, solange die Geh-\ngeschwindigkeit nicht 100% ist.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_minAdjustSpeed">
+            <English>Minimum Speed</English>
+            <German>Minimale Geschwindigkeit</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_minAdjustSpeed_DESC">
+            <English>Lowest speed this group can be set to.</English>
+            <German>Niedrigste Geschwindigkeit dieser Gruppe.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_maxAdjustSpeed">
+            <English>Maximum Speed</English>
+            <German>Maximale Geschwindigkeit</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_maxAdjustSpeed_DESC">
+            <English>Highest speed this group can be set to.</English>
+            <German>Höchste Geschwindigkeit dieser Gruppe.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_speedAdjustCoefficient">
+            <English>Speed Adjust Coefficient</English>
+            <German>Geschwindigkeitsanpassungskoeffizient</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_speedAdjustCoefficient_DESC">
+            <English>How much one key press changes the speed.</English>
+            <German>Wie viel ein Tastendruck ändert.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_allowedAnimationArray">
+            <English>Animation Whitelist</English>
+            <German>Animations Whitelist</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_allowedAnimationArray_DESC">
+            <English>Extra animations for this group,\ncomma separated. Case does not matter.\n\n* works as a wildcard: melee_armed_*\ncovers every name starting that way.\n\nExample: melee_armed_walkf, melee_turnl</English>
+            <German>Zusätzliche Animationen dieser Gruppe,\nper Komma getrennt. Groß/klein egal.\n\n* ist ein Platzhalter: melee_armed_*\nerfasst jeden Namen, der so beginnt.\n\nBeispiel: melee_armed_walkf, melee_turnl</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_notAllowedAnimationArray">
+            <English>Animation Blacklist</English>
+            <German>Animations Blacklist</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_notAllowedAnimationArray_DESC">
+            <English>Animations to take back out of this group,\ncomma separated. Same syntax as the\nwhitelist, wildcards included.</English>
+            <German>Animationen, die wieder aus dieser Gruppe\nfliegen, per Komma getrennt. Gleiche\nSyntax wie die Whitelist, mit Platzhaltern.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_allowIGUIRedLimitValue">
+            <English>Show Limit Values in Red</English>
+            <German>Grenzwerte in Rot anzeigen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_allowIGUIRedLimitValue_DESC">
+            <English>Draws the value in the limit colour when\nit sits at the minimum or maximum.</English>
+            <German>Zeigt den Wert in der Limitfarbe, wenn er\nam Minimum oder Maximum steht.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_speedUpdatedDisplayType">
+            <English>Hint Display Type</English>
+            <German>Hinweis-Anzeigetyp</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_speedUpdatedDisplayType_DESC">
+            <English>Where a new speed is shown.\n\nNone, a hint, the system chat, or this\ngroup's own display.</English>
+            <German>Wo eine neue Geschwindigkeit erscheint.\n\nGar nicht, als Hinweis, im Systemchat,\noder in der eigenen Anzeige der Gruppe.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_None">
+            <English>Don't Display</English>
+            <German>Garnicht</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Hint">
+            <English>Hint</English>
+            <German>Hinweis</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Systemchat">
+            <English>Chat</English>
+            <German>Chat</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_Custom">
+            <English>Custom</English>
+            <German>Benutzerdefiniert</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textSize">
+            <English>IGUI Text Size</English>
+            <German>IGUI Text Größe</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textSize_DESC">
+            <English>Text size of this display.\nPosition and size are in the layout tab.</English>
+            <German>Textgröße dieser Anzeige.\nPosition und Größe stehen im Layout-Tab.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_imageColor">
+            <English>IGUI Image Color</English>
+            <German>IGUI Bild Farbe</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_imageColor_DESC">
+            <English>Colour of this display's picture.</English>
+            <German>Farbe des Bildes dieser Anzeige.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textColor">
+            <English>IGUI Text Color</English>
+            <German>IGUI Text Farbe</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textColor_DESC">
+            <English>Colour of this display's text.</English>
+            <German>Farbe des Textes dieser Anzeige.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textColorLimitReached">
+            <English>IGUI Text Limit Color</English>
+            <German>IGUI Text Limit Farbe</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textColorLimitReached_DESC">
+            <English>Colour for a value at its limit.</English>
+            <German>Farbe für einen Wert am Limit.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_Text">
+            <English>Hint Text</English>
+            <German>Hinweis Text</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_Text_DESC">
+            <English>Text of this display. %1 is the value.\n\nExample: Speed %1</English>
+            <German>Text dieser Anzeige. %1 ist der Wert.\n\nBeispiel: Tempo %1</German>
+        </Key>
+        <Key ID="STR_awsr_movement_IGUI_Description">
+            <English>Adjusted walk speed display that pops up when you change your walk speed</English>
+            <German>Angepasste Geschwindigkeits Anzeige die erscheint sobald du deine Geschwindigkeit änderst</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_general_forceWalkHold">
+            <English>General | Force Walk While Holding Key</English>
+            <German>Allgemein | Gehen Erzwingen Wärend Tastendruck</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_walk_increaseSpeed">
+            <English>Walk | Increase Speed</English>
+            <German>Gehen | Geschwindigkeit Erhöhen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_walk_decreaseSpeed">
+            <English>Walk | Decrease Speed</English>
+            <German>Gehen | Geschwindigkeit Senken</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_walk_resetSpeed">
+            <English>Walk | Reset Speed To Default</English>
+            <German>Gehen | Geschwindigkeit Zum Standard Zurücksetzen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_walk_setMin">
+            <English>Walk | Set To Minimum</English>
+            <German>Gehen | Zum Minimum Setzen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_walk_setMax">
+            <English>Walk | Set To Maximum</English>
+            <German>Gehen | Zum Maximum Setzen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_tactical_increaseSpeed">
+            <English>Tactical | Increase Speed</English>
+            <German>Taktisch | Geschwindigkeit Erhöhen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_tactical_decreaseSpeed">
+            <English>Tactical | Decrease Speed</English>
+            <German>Taktisch | Geschwindigkeit Senken</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_tactical_resetSpeed">
+            <English>Tactical | Reset Speed To Default</English>
+            <German>Taktisch | Geschwindigkeit Zum Standard Zurücksetzen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_tactical_setMin">
+            <English>Tactical | Set To Minimum</English>
+            <German>Taktisch | Zum Minimum Setzen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_tactical_setMax">
+            <English>Tactical | Set To Maximum</English>
+            <German>Taktisch | Zum Maximum Setzen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_custom_increaseSpeed">
+            <English>Custom | Increase Speed</English>
+            <German>Benutzerdefiniert | Geschwindigkeit Erhöhen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_custom_decreaseSpeed">
+            <English>Custom | Decrease Speed</English>
+            <German>Benutzerdefiniert | Geschwindigkeit Senken</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_custom_resetSpeed">
+            <English>Custom | Reset Speed To Default</English>
+            <German>Benutzerdefiniert | Geschwindigkeit Zum Standard Zurücksetzen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_custom_setMin">
+            <English>Custom | Set To Minimum</English>
+            <German>Benutzerdefiniert | Zum Minimum Setzen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_custom_setMax">
+            <English>Custom | Set To Maximum</English>
+            <German>Benutzerdefiniert | Zum Maximum Setzen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_reapplySpeed">
+            <English>Reapply Speed If Overwritten</English>
+            <German>Geschwindigkeit erneut setzen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_reapplySpeed_DESC">
+            <English>Puts your speed back when a mission or\nanother mod overwrites it.\n\nServer side: it decides whether this mod\noutranks a mission's own speed handling.</English>
+            <German>Setzt deine Geschwindigkeit erneut, wenn eine\nMission oder Mod sie überschreibt.\n\nServerseitig: entscheidet, ob dieser Mod die\nGeschwindigkeitslogik einer Mission übersteuert.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_displayDuration">
+            <English>IGUI Display Duration</English>
+            <German>IGUI Anzeigedauer</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_displayDuration_DESC">
+            <English>Seconds this display stays after a change.\n0 keeps it up.</English>
+            <German>Sekunden, die diese Anzeige nach einer\nÄnderung bleibt. 0 lässt sie stehen.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_hideAtDefault">
+            <English>IGUI Hide At Default Speed</English>
+            <German>IGUI bei Standardgeschwindigkeit ausblenden</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_hideAtDefault_DESC">
+            <English>Hides this display once the speed is back\nat 100%.\n\nWith duration 0 it stands exactly while\nthe speed is not default.</English>
+            <German>Blendet diese Anzeige aus, sobald die\nGeschwindigkeit wieder 100% ist.\n\nMit Dauer 0 steht sie genau so lange,\nwie die Geschwindigkeit abweicht.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_IGUI_DisplayName_Walk">
+            <English>AWSR - Walking Speed</English>
+            <German>AWSR - Gehgeschwindigkeit</German>
+        </Key>
+        <Key ID="STR_awsr_movement_IGUI_DisplayName_Tactical">
+            <English>AWSR - Tactical Speed</English>
+            <German>AWSR - Taktische Geschwindigkeit</German>
+        </Key>
+        <Key ID="STR_awsr_movement_IGUI_DisplayName_Custom">
+            <English>AWSR - Custom Speed</English>
+            <German>AWSR - Benutzerdefinierte Geschwindigkeit</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun">
+            <English>1) Autorun</English>
+            <German>1) Autolauf</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_IGUI">
+            <English>1) Autorun</English>
+            <German>1) Autolauf</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_enable">
+            <English>Enable autorun</English>
+            <German>Autolauf aktivieren</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_enable_DESC">
+            <English>Lets the autorun keys start a run.\nThe keys are in the CBA keybind menu.</English>
+            <German>Erlaubt den Autolauf-Tasten, einen Lauf\nzu starten. Tasten im CBA-Tastenmenü.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showAutorun">
+            <English>Show the autorun indicator</English>
+            <German>Autolauf-Anzeige einblenden</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showAutorun_DESC">
+            <English>Shows the current pace while a run is going.\nPlace it in the layout tab.</English>
+            <German>Zeigt die aktuelle Gangart während eines\nLaufs. Platzierung im Layout-Tab.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_IGUI_DisplayName_Autorun">
+            <English>AWSR - Autorun</English>
+            <German>AWSR - Autolauf</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_Category_Autorun">
+            <English>1) Autorun</English>
+            <German>1) Autolauf</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_walk">
+            <English>Autorun | Walk</English>
+            <German>Autolauf | Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_walk_DESC">
+            <English>Starts walking on its own.\nPress again to stop.</English>
+            <German>Startet automatisches Gehen.\nNochmal drücken zum Stoppen.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_jog">
+            <English>Autorun | Jog</English>
+            <German>Autolauf | Joggen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_jog_DESC">
+            <English>Starts jogging on its own.\nPress again to stop.</English>
+            <German>Startet automatisches Joggen.\nNochmal drücken zum Stoppen.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_run">
+            <English>Autorun | Run</English>
+            <German>Autolauf | Rennen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_run_DESC">
+            <English>Starts running on its own, sprinting while\nstamina allows. Press again to stop.</English>
+            <German>Startet automatisches Rennen, mit Sprint\nsolange die Ausdauer reicht.\nNochmal drücken zum Stoppen.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_faster">
+            <English>Autorun | One Pace Faster</English>
+            <German>Autolauf | Eine Stufe schneller</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_faster_DESC">
+            <English>Walk to jog to run, while a run is going.\nDoes nothing from a standstill.</English>
+            <German>Gehen zu Joggen zu Rennen, während ein\nLauf läuft. Aus dem Stand passiert nichts.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_slower">
+            <English>Autorun | One Pace Slower</English>
+            <German>Autolauf | Eine Stufe langsamer</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_slower_DESC">
+            <English>Run to jog to walk, while a run is going.\nA step below a walk ends the run.</English>
+            <German>Rennen zu Joggen zu Gehen, während ein Lauf\nläuft. Unter Gehen endet der Lauf.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_AUTORUN_tier_walk">
+            <English>Walk</English>
+            <German>Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_AUTORUN_tier_jog">
+            <English>Jog</English>
+            <German>Joggen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_AUTORUN_tier_run">
+            <English>Run</English>
+            <German>Rennen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_Category_General">
+            <English>2) General</English>
+            <German>2) Allgemein</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_Category_Walk">
+            <English>3) Walking</English>
+            <German>3) Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_Category_Tactical">
+            <English>4) Tactical</English>
+            <German>4) Taktisch</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_Category_Custom">
+            <English>5) Custom</English>
+            <German>5) Benutzerdefiniert</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_Walk">
+            <English>Walk Animation (Rifle)</English>
+            <German>Geh-Animation (Gewehr)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_Jog">
+            <English>Jog Animation (Rifle)</English>
+            <German>Jogg-Animation (Gewehr)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_Run">
+            <English>Run Animation (Rifle)</English>
+            <German>Renn-Animation (Gewehr)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_DESC">
+            <English>Animation this pace loops.\nEmpty lets the run pick one itself.\n\nName parts:\nPerc upright, Pknl crouched\nMwlk walk, Mrun jog, Meva run\nSlow lowered, Sras raised\nWrfl rifle, Wpst pistol\n\nUnknown names are ignored.\nSwimming always picks its own.</English>
+            <German>Animation, die diese Gangart loopt.\nLeer lässt den Lauf selbst wählen.\n\nNamensteile:\nPerc aufrecht, Pknl kniend\nMwlk gehen, Mrun joggen, Meva rennen\nSlow gesenkt, Sras erhoben\nWrfl Gewehr, Wpst Pistole\n\nUnbekannte Namen werden ignoriert.\nBeim Schwimmen wählt der Lauf selbst.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_WalkPistol">
+            <English>Walk Animation (Handgun)</English>
+            <German>Geh-Animation (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_JogPistol">
+            <English>Jog Animation (Handgun)</English>
+            <German>Jogg-Animation (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_RunPistol">
+            <English>Run Animation (Handgun)</English>
+            <German>Renn-Animation (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
+            <English>Autorun | End Run</English>
+            <German>Autolauf | Lauf beenden</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_stop_DESC">
+            <English>Ends a running autorun.\nDoes nothing otherwise, so the key keeps\nits normal job.</English>
+            <German>Beendet einen laufenden Autolauf.\nSonst passiert nichts, die Taste behält\nihre normale Funktion.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_nextAnimation">
+            <English>Autorun | Next Animation</English>
+            <German>Autolauf | Nächste Animation</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_autorun_nextAnimation_DESC">
+            <English>Steps through the alternatives listed for\nthe current pace, and back round.</English>
+            <German>Schaltet durch die Alternativen der aktuellen\nGangart und wieder von vorn.</German>
+        </Key>
+    </Package>
+</Project>
