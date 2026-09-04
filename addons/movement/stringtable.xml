@@ -469,17 +469,13 @@
             <English>Shows what the keys do under the pace.\nNames your own bindings, not the defaults.</English>
             <German>Zeigt unter der Gangart, was die Tasten tun.\nNennt deine eigene Belegung, nicht die Vorgabe.</German>
         </Key>
-        <Key ID="STR_awsr_movement_AUTORUN_hint_style">
-            <English>style</English>
-            <German>Stil</German>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_Text_Autorun">
+            <English>Keybind Line Text</English>
+            <German>Text der Tastenzeile</German>
         </Key>
-        <Key ID="STR_awsr_movement_AUTORUN_hint_pace">
-            <English>pace</English>
-            <German>Gangart</German>
-        </Key>
-        <Key ID="STR_awsr_movement_AUTORUN_hint_stop">
-            <English>stop</English>
-            <German>Stopp</German>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_Text_Autorun_DESC">
+            <English>The keybind line under the pace.\n\n%1 the pace keys\n%2 the animation key\n%3 the keys that end the run\n\n%2 is empty while the pace has only one\nanimation, since there is nothing to step to.</English>
+            <German>Die Tastenzeile unter der Gangart.\n\n%1 die Gangart-Tasten\n%2 die Animations-Taste\n%3 die Tasten, die den Lauf beenden\n\n%2 bleibt leer, solange die Gangart nur eine\nAnimation hat - es gibt dann nichts zu wechseln.</German>
         </Key>
     </Package>
 </Project>

@@ -759,6 +759,19 @@ GVAR(autorun_displayAllow) = [12];
     }
 ] call CBA_Settings_fnc_init;
 
+// Text of the autorun key line
+[
+    QGVAR(IGUI_Text_Autorun),
+    "EDITBOX",
+    [LLSTRING(SETTING_IGUI_Text_Autorun),LLSTRING(SETTING_IGUI_Text_Autorun_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    "pace: %1   style: %2   stop: %3",
+    0,
+    {
+        if (hasInterface) then {call FUNC(autorunIndicator)};
+    }
+] call CBA_Settings_fnc_init;
+
 // IGUI image color (autorun)
 [
     QGVAR(IGUI_imageColor_Autorun),

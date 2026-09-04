@@ -74,12 +74,7 @@ if (GVAR(IGUI_showAutorunPace)) then {
 };
 
 if (GVAR(IGUI_showAutorunKeys)) then {
-    private _hints = [];
-
     private _pace = [([QGVAR(autorun_fasterKey)] call _keysOf) + ([QGVAR(autorun_slowerKey)] call _keysOf)] call _readable;
-    if (_pace != "") then {
-        _hints pushBack format ["%1: %2", LLSTRING(AUTORUN_hint_pace), _pace];
-    };
 
     // Only worth naming when there is more than one animation to step between.
     private _pistol = ([player] call FUNC(autorunWeapon)) isEqualTo "pst";
@@ -89,27 +84,22 @@ if (GVAR(IGUI_showAutorunKeys)) then {
         default {[ARR_2(GVAR(autorun_animList_Run),GVAR(autorun_animList_RunPistol))] select _pistol};
     };
 
+    // Empty when there is nothing to step to, so the line does not offer a key that does nothing.
+    private _style = "";
     if (count _list > 1) then {
-        private _style = [[QGVAR(autorun_nextAnimationKey)] call _keysOf] call _readable;
-
-        if (_style != "") then {
-            _hints pushBack format ["%1: %2", LLSTRING(AUTORUN_hint_style), _style];
-        };
+        _style = [[QGVAR(autorun_nextAnimationKey)] call _keysOf] call _readable;
     };
 
     private _stop = [([QGVAR(autorun_stopKey)] call _keysOf) + ([_tierAction] call _keysOf)] call _readable;
-    if (_stop != "") then {
-        _hints pushBack format ["%1: %2", LLSTRING(AUTORUN_hint_stop), _stop];
-    };
 
-    if (_hints isNotEqualTo []) then {
-        _lines pushBack ("<t size='0.8'>" + (_hints joinString "   ") + "</t>");
+    private _line = format [GVAR(IGUI_Text_Autorun), _pace, _style, _stop];
+
+    if (_line != "") then {
+        _lines pushBack ("<t size='0.8'>" + _line + "</t>");
     };
 };
 
-if (_lines isEqualTo []) exitWith {
-    [QGVAR(display_Autorun)] call FUNC(hideIGUI);
-};
+// No text at all still leaves the picture: the run is on, and that is what the picture says.
 
 // Converted here rather than in the settings callback - see awsr_movement_fnc_displayUpdatedInfo.
 private _color = [GVAR(IGUI_textColor_Autorun)] call FUNC(colorToHex);
@@ -120,7 +110,7 @@ private _color = [GVAR(IGUI_textColor_Autorun)] call FUNC(colorToHex);
     QUOTE(DOUBLES(IGUI,GVAR(grid_Autorun))),
     AUTORUN_X,
     AUTORUN_Y,
-    count _lines,
+    1 max count _lines,
     "<t color='" + _color + "'>" + (_lines joinString "<br/>") + "</t>",
     GVAR(IGUI_textSize_Autorun),
     GVAR(IGUI_imageColor_Autorun),
