@@ -470,12 +470,28 @@
             <German>Zeigt unter der Gangart, was die Tasten tun.\nNennt deine eigene Belegung, nicht die Vorgabe.</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_IGUI_Text_Autorun">
-            <English>Keybind Line Text</English>
-            <German>Text der Tastenzeile</German>
+            <English>Keybind Line</English>
+            <German>Tastenzeile</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_IGUI_Text_Autorun_DESC">
-            <English>The keybind line under the pace.\n\n%1 the pace keys\n%2 the animation key\n%3 the keys that end the run\n\n%2 is empty while the pace has only one\nanimation, since there is nothing to step to.</English>
-            <German>Die Tastenzeile unter der Gangart.\n\n%1 die Gangart-Tasten\n%2 die Animations-Taste\n%3 die Tasten, die den Lauf beenden\n\n%2 bleibt leer, solange die Gangart nur eine\nAnimation hat - es gibt dann nichts zu wechseln.</German>
+            <English>How the parts of the keybind line are put\ntogether.\n\n%1 pace   %2 style   %3 stop\n\nEach part is worded in its own box below.\nA part with no key is left out whole, so\nput the spacing between parts at the end\nof those boxes.</English>
+            <German>Wie die Teile der Tastenzeile zusammengesetzt\nwerden.\n\n%1 Gangart   %2 Stil   %3 Stopp\n\nJeder Teil wird unten einzeln formuliert.\nEin Teil ohne Taste fällt ganz weg - setze\nden Abstand zwischen den Teilen also ans\nEnde jener Felder.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_TextPace_Autorun">
+            <English>Keybind Line - Pace</English>
+            <German>Tastenzeile - Gangart</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_TextStyle_Autorun">
+            <English>Keybind Line - Style</English>
+            <German>Tastenzeile - Stil</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_TextStop_Autorun">
+            <English>Keybind Line - Stop</English>
+            <German>Tastenzeile - Stopp</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_TextPart_Autorun_DESC">
+            <English>%1 is the key or keys.\n\nLeft out entirely when there is no key,\nwhich is what keeps a label from standing\non its own.\n\nTrailing spaces separate it from the next\npart.</English>
+            <German>%1 sind die Taste oder Tasten.\n\nFällt ganz weg, wenn es keine Taste gibt -\nso bleibt keine Beschriftung allein stehen.\n\nLeerzeichen am Ende trennen den Teil vom\nnächsten.</German>
         </Key>
     </Package>
 </Project>

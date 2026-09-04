@@ -82,10 +82,10 @@ the reports on the Workshop page; the reporter is named on each.
   pace: CTRL + W / S   style: J   stop: W / S / F5
   ```
 
-  The wording is a text box like the other groups have - `%1` the pace keys, `%2` the animation
-  key, `%3` the ways out. Every key is named after the binding you actually have, keys sharing a
-  modifier are written with it once, the key that ends a run changes with the pace, and the
-  animation key is empty while a pace has only one animation to step between.
+  The wording is yours: one box assembles the parts, three more word each part on its own. A part
+  with no key is left out whole, so the animation part takes its label with it while a pace has
+  only one animation to step between. Every key is named after the binding you actually have, and
+  keys sharing a modifier are written with it once.
 
 ### Changed
 

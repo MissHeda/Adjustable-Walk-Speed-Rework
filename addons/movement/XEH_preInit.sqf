@@ -765,7 +765,46 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_Text_Autorun),LLSTRING(SETTING_IGUI_Text_Autorun_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
-    "pace: %1   style: %2   stop: %3",
+    "%1%2%3",
+    0,
+    {
+        if (hasInterface) then {call FUNC(autorunIndicator)};
+    }
+] call CBA_Settings_fnc_init;
+
+// Wording of one part of the autorun key line
+[
+    QGVAR(IGUI_TextPace_Autorun),
+    "EDITBOX",
+    [LLSTRING(SETTING_IGUI_TextPace_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    "pace: %1   ",
+    0,
+    {
+        if (hasInterface) then {call FUNC(autorunIndicator)};
+    }
+] call CBA_Settings_fnc_init;
+
+// Wording of one part of the autorun key line
+[
+    QGVAR(IGUI_TextStyle_Autorun),
+    "EDITBOX",
+    [LLSTRING(SETTING_IGUI_TextStyle_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    "style: %1   ",
+    0,
+    {
+        if (hasInterface) then {call FUNC(autorunIndicator)};
+    }
+] call CBA_Settings_fnc_init;
+
+// Wording of one part of the autorun key line
+[
+    QGVAR(IGUI_TextStop_Autorun),
+    "EDITBOX",
+    [LLSTRING(SETTING_IGUI_TextStop_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    "stop: %1",
     0,
     {
         if (hasInterface) then {call FUNC(autorunIndicator)};

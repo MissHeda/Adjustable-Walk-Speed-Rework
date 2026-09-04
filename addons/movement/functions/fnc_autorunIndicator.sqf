@@ -92,7 +92,27 @@ if (GVAR(IGUI_showAutorunKeys)) then {
 
     private _stop = [([QGVAR(autorun_stopKey)] call _keysOf) + ([_tierAction] call _keysOf)] call _readable;
 
-    private _line = format [GVAR(IGUI_Text_Autorun), _pace, _style, _stop];
+    // Each part is worded on its own and left out whole when it has no key, so a part that is
+    // not available takes its label with it rather than leaving a bare "style:" behind.
+    private _parts = [];
+
+    {
+        _x params ["_keys", "_wording"];
+
+        if (_keys == "") then {
+            _parts pushBack "";
+        } else {
+            _parts pushBack (format [_wording, _keys]);
+        };
+    } forEach [
+        [_pace, GVAR(IGUI_TextPace_Autorun)],
+        [_style, GVAR(IGUI_TextStyle_Autorun)],
+        [_stop, GVAR(IGUI_TextStop_Autorun)]
+    ];
+
+    _parts params ["_paceText", "_styleText", "_stopText"];
+
+    private _line = format [GVAR(IGUI_Text_Autorun), _paceText, _styleText, _stopText];
 
     if (_line != "") then {
         _lines pushBack ("<t size='0.8'>" + _line + "</t>");
