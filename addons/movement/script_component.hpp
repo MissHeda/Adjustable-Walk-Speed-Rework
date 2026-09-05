@@ -6,6 +6,9 @@
 #include "\a3\ui_f\hpp\defineCommonGrids.inc"
 
 // How the new speed is shown - the order the CBA list setting offers them in.
+// How many animation names the debug setting keeps on the clipboard.
+#define DEBUG_ANIMATION_COUNT 20
+
 #define DISPLAY_NONE 0
 #define DISPLAY_HINT 1
 #define DISPLAY_SYSTEMCHAT 2

@@ -19,6 +19,7 @@ GVAR(blocked_Walk) = [];
 GVAR(blocked_Tactical) = [];
 GVAR(blocked_Custom) = [];
 GVAR(animationTypeCache) = createHashMap;
+GVAR(debugAnimations) = [];
 
 // One hide token per display, so the newest change to a group cancels the hide that group's
 // previous change queued - and only that group's.
@@ -95,6 +96,19 @@ GVAR(autorun_displayAllow) = [12];
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
     [false],
     0
+] call CBA_Settings_fnc_init;
+
+// Print every animation and keep the last few on the clipboard
+[
+    QGVAR(debug),
+    "CHECKBOX",
+    [LLSTRING(SETTING_debug),LLSTRING(SETTING_debug_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
+    [false],
+    0,
+    {
+        GVAR(debugAnimations) = [];
+    }
 ] call CBA_Settings_fnc_init;
 
 // Put our speed back when another mod or mission overwrites it

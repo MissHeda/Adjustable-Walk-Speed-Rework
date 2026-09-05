@@ -19,6 +19,10 @@
 
 params ["_unit", ["_animation", ""]];
 
+if (GVAR(debug)) then {
+    [_animation] call FUNC(debugAnimation);
+};
+
 // Switched off mid mission: hand the unit back before going quiet.
 if (!GVAR(Enable)) exitWith {
     if (GETVAR(_unit,GVAR(activeType),"") isEqualTo "" && {GETVAR(_unit,GVAR(appliedSpeed),1) == 1}) exitWith {};

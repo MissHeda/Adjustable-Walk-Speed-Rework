@@ -501,5 +501,21 @@
             <English>Colour of the keys in the line.\nThe wording around them keeps the text colour.</English>
             <German>Farbe der Tasten in der Zeile.\nDie Beschriftung behält die Textfarbe.</German>
         </Key>
+        <Key ID="STR_awsr_movement_SETTING_debug">
+            <English>Debug: Collect Animation Names</English>
+            <German>Debug: Animationsnamen sammeln</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_debug_DESC">
+            <English>Names every animation you play and keeps the\nlast 20 on your clipboard.\n\nTo collect names for a whitelist:\n1. Switch this on\n2. Do the movements you want covered\n3. Switch it off and paste into a whitelist\n\nThe clipboard is comma separated already, so\nit pastes straight into any animation box.\n\nOff by default - it shows a hint on every\nanimation change.</English>
+            <German>Nennt jede Animation, die du spielst, und hält\ndie letzten 20 in der Zwischenablage.\n\nNamen für eine Whitelist sammeln:\n1. Hier einschalten\n2. Die Bewegungen ausführen, die rein sollen\n3. Ausschalten und in eine Whitelist einfügen\n\nDie Zwischenablage ist bereits kommagetrennt,\npasst also direkt in jedes Animationsfeld.\n\nStandardmäßig aus - zeigt bei jedem Wechsel\neinen Hinweis.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_title">
+            <English>AWSR - Animation</English>
+            <German>AWSR - Animation</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_copied">
+            <English>Last %1 copied to your clipboard:</English>
+            <German>Letzte %1 in der Zwischenablage:</German>
+        </Key>
     </Package>
 </Project>

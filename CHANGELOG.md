@@ -60,6 +60,12 @@ else is lost - set them again and they stay.
   whether this mod outranks a mission's own speed handling is the mission's call, not something
   each player decides. *(from the reports below)*
 
+- **Debug**, off by default. With it on, every animation the player enters is shown in a hint and
+  the last 20 - one entry per animation, not one per loop - are kept in the clipboard as a comma
+  separated list, which is exactly the format the whitelist and animation boxes take. Meant for
+  finding the name of an animation without opening the config viewer: switch it on, do the move,
+  switch it off, paste. It works with the rest of the mod switched off.
+
 ### Fixed
 
 - **ACE advanced fatigue stopped working as soon as this mod loaded.** Every whitelisted animation

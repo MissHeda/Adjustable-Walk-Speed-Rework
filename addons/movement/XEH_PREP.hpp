@@ -21,6 +21,7 @@ PREP(autorunWeapon);
 PREP(autorunUpdateStance);
 PREP(applySpeed);
 PREP(colorToHex);
+PREP(debugAnimation);
 PREP(displayUpdatedInfo);
 PREP(getSpeedHashMap);
 PREP(handleAnimation);
