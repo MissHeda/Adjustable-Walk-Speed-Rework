@@ -41,6 +41,7 @@ GVAR(autorun_stance) = "Stand";
 GVAR(autorun_animation) = "";
 GVAR(autorun_stanceUntil) = 0;
 GVAR(autorun_exhaustedUntil) = 0;
+GVAR(notifyToken) = 0;
 GVAR(autorun_animDoneEH) = -1;
 GVAR(autorun_animDoneUnit) = objNull;
 GVAR(autorun_pfh) = -1;
@@ -112,8 +113,8 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(animationSpeedArray),
     "EDITBOX",
     [LLSTRING(SETTING_animationSpeedArray),LLSTRING(SETTING_animationSpeedArray_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
-    "",
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_PerAnimation)],
+    "Ladder*=1, Aswm*=1, Assw*=1, Absw*=1, Adve*=1, Abdv*=1, Asdv*=1",
     1,
     REBUILD_ANIMATIONS
 ] call CBA_Settings_fnc_init;
@@ -143,11 +144,14 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(debug),
     "CHECKBOX",
     [LLSTRING(SETTING_debug),LLSTRING(SETTING_debug_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Debug)],
     [false],
     0,
     {
         GVAR(debugAnimations) = [];
+
+        // So it can switch itself off again in the next mission - see XEH_postInit.
+        profileNamespace setVariable [ARR_2(QGVAR(debugMission),[ARR_2(missionName,"")] select (!GVAR(debug)))];
     }
 ] call CBA_Settings_fnc_init;
 

@@ -7,7 +7,15 @@
 
 // How the new speed is shown - the order the CBA list setting offers them in.
 // How many animation names the debug setting keeps on the clipboard.
+// Per-animation speeds live in the same hashmap as the groups, under their own prefix.
+#define ANIM_KEY(anim) ("anim:" + anim)
+#define ANIM_MIN_SPEED 0.1
+
 #define DEBUG_ANIMATION_COUNT 20
+
+// Kept here so the commas inside them never reach a macro argument list.
+#define ARR_SEPARATOR ",<br/>"
+#define DEBUG_MARKUP "<t size='1.1'>%1</t><br/><t size='1.2' color='#FFD766'>%2</t><br/><t size='0.85'>%3</t><br/><t size='0.8'>%4</t><br/><t size='0.75' color='#AAAAAA'>%5</t>"
 
 #define DISPLAY_NONE 0
 #define DISPLAY_HINT 1
@@ -23,7 +31,7 @@
 #define DISPLAY_W (3.4 * GUI_GRID_W)
 #define DISPLAY_H (3.4 * GUI_GRID_H)
 #define DISPLAY_X ((safeZoneX + safeZoneW) - 3.8 * GUI_GRID_W)
-#define DISPLAY_Y(row) (safeZoneY + 0.16 * safeZoneH + row * 3.9 * GUI_GRID_H)
+#define DISPLAY_Y(row) (safeZoneY + 0.125 * safeZoneH + row * 3.9 * GUI_GRID_H)
 
 // The autorun indicator sits low and centred, where it was before it became a display like the
 // others - it is read while moving, not while aiming at it.

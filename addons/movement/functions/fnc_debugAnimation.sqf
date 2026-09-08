@@ -41,10 +41,33 @@ GVAR(debugAnimations) = _list;
 // animation boxes take - paste straight in, no editing.
 copyToClipboard (_list joinString ", ");
 
-hintSilent parseText format [
-    "<t size='1.2'>%1</t><br/><br/><t size='1.1' color='#FFD766'>%2</t><br/><br/><t size='0.8'>%3</t><br/><t size='0.75' color='#AAAAAA'>%4</t>",
+// The speed alongside the name, because the two questions people open Debug for are "what is
+// this animation called" and "is my speed actually being applied to it".
+private _pinned = _animation call FUNC(animationSpeed);
+private _group = _animation call FUNC(animationType);
+
+private _groupText = LLSTRING(DEBUG_noGroup);
+if (_group isNotEqualTo "") then {_groupText = _group};
+
+private _pinnedText = LLSTRING(DEBUG_noPinned);
+if (_pinned > 0) then {_pinnedText = str _pinned};
+
+private _detail = format [
+    LLSTRING(DEBUG_speed),
+    getAnimSpeedCoef player,
+    _groupText,
+    _pinnedText
+];
+
+private _joined = _list joinString ARR_SEPARATOR;
+
+private _text = format [
+    DEBUG_MARKUP,
     LLSTRING(DEBUG_title),
     _animation,
-    format [LLSTRING(DEBUG_copied), count _list],
-    _list joinString ",<br/>"
+    _detail,
+    format [ARR_2(LLSTRING(DEBUG_copied),count _list)],
+    _joined
 ];
+
+[_text, 6] call FUNC(notify);

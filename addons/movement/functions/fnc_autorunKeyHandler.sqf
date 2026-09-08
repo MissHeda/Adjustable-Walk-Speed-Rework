@@ -34,13 +34,19 @@ if (!isNil QGVAR(autorun_keyHandler)) exitWith {};
         // Stand, Crouch and Prone are what the stance keys are actually bound to - MoveUp and
         // MoveDown ship unbound, which is why none of this used to fire on a default profile.
         // Both sets are read so a player who has bound the step keys keeps them.
+        // Named before stepped: a key bound to both should do what its name says, which is what
+        // it does outside a run.
         private _stanceKey = switch (true) do {
-            case (_key in actionKeys "Prone"): {"prone"};
             case (_key in actionKeys "Crouch"): {"crouch"};
+            case (_key in actionKeys "Prone"): {"prone"};
             case (_key in actionKeys "Stand"): {"stand"};
             case (_key in actionKeys "MoveUp"): {"up"};
             case (_key in actionKeys "MoveDown"): {"down"};
             default {""};
+        };
+
+        if (GVAR(debug) && {_stanceKey != ""}) then {
+            [format [ARR_4("%1 -> %2 (%3)",_key,_stanceKey,GVAR(autorun_stance))], 3] call FUNC(notify);
         };
 
         if (_stanceKey != "") exitWith {

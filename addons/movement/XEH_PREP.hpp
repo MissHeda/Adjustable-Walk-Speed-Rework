@@ -34,6 +34,7 @@ PREP(hideIGUI);
 PREP(igUIGeometry);
 PREP(isAceExhaustionWalk);
 PREP(isForceWalkedByOther);
+PREP(notify);
 PREP(reapplySpeed);
 PREP(rebuildAnimations);
 PREP(setDefaultSpeed);

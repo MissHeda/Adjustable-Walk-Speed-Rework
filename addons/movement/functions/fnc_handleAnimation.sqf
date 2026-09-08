@@ -42,9 +42,15 @@ SETVAR(_unit,GVAR(activeType),_type);
 private _pinned = _animation call FUNC(animationSpeed);
 
 if (_pinned > 0) exitWith {
-    if (_pinned > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {_pinned = 1};
+    // The setting is where this animation starts and the fastest it goes. The keys still work
+    // inside that, and what they set is remembered per animation - so a ladder set to 5 starts
+    // at 5, can be taken down to a crawl and put back up to 5, but no further.
+    private _coef = _speeds getOrDefault [ANIM_KEY(_animation), _pinned];
+    _coef = (_coef min _pinned) max ANIM_MIN_SPEED;
 
-    [_unit, _pinned] call FUNC(applySpeed);
+    if (_coef > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {_coef = 1};
+
+    [_unit, _coef] call FUNC(applySpeed);
     [_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);
 };
 

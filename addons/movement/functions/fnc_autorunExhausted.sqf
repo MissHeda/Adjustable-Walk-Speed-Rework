@@ -28,7 +28,4 @@ if (diag_tickTime < GVAR(autorun_exhaustedUntil)) exitWith {};
 
 GVAR(autorun_exhaustedUntil) = diag_tickTime + EXHAUSTED_MESSAGE_COOLDOWN;
 
-hintSilent parseText format [
-    "<t align='center' color='#FFD766'>%1</t>",
-    LLSTRING(LIMIT_exhausted)
-];
+[format [ARR_2("<t color='#FFD766'>%1</t>",LLSTRING(LIMIT_exhausted))], 2] call FUNC(notify);

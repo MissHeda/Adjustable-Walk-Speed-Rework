@@ -69,7 +69,8 @@ else is lost - set them again and they stay.
 - **Per-Animation Speeds.** A speed for single animations by name, whatever group they are or are
   not in - `Aswm*=2, Ladder*=1.5`. Swimming, ladders and crawling are in no group at all, which is
   why they were out of reach until now. It beats all three groups, so the number on the display is
-  always the number being applied.
+  always the number being applied. The number is also the ceiling the speed keys can reach, so an
+  animation listed at 5 starts at 5, can be turned down, and goes back up to 5 and no further.
 
 - **Stamina limits the autorun.** Out of breath drops the run a pace and refuses a faster one, at
   the same points ACE takes the sprint away and forces a walk. Where ACE advanced fatigue is
@@ -143,6 +144,9 @@ else is lost - set them again and they stay.
   nothing compared the animation against the unit, so once the engine took it away the run was
   dead while the indicator carried on. A run now heals itself on the next tick whatever takes the
   animation, which also covers other mods and scripted sequences.
+- **Speed was left behind when taking over another unit.** Zeus remote control and team switch
+  handed the new body a default speed while the display still showed what was set. The speeds
+  follow the player now, since they are the player's choice and not the body's.
 - Toggling settings could grow the whitelists with duplicate entries.
 - The walk group's "include non raised animations" callback referenced an undefined variable.
 - A script error on the first animation change of a mission with ACE loaded, from looking up our
@@ -164,6 +168,14 @@ else is lost - set them again and they stay.
 - The autorun indicator artwork is original work now, drawn at 512x512 instead of 64x64 - the old
   frames were upscaled eight times over at the size the indicator is actually drawn.
 - The displays start a little lower, clear of the vanilla interface.
+- Messages go through ACE's notification where ACE is loaded, instead of a hint that takes over
+  the corner of the screen and stays there.
+- **Debug switches itself off in the next mission**, so it cannot be left on by accident, and it
+  now shows the speed being applied and which group the animation belongs to.
+- Autorun animation settings are named `Stance - Pace (Weapon)` throughout, so the rifle set says
+  it is the rifle set.
+- Debug and Per-Animation Speeds have sub-categories of their own rather than sitting in General.
+- Ladders and swimming are filled into Per-Animation Speeds at 1, ready to be changed.
 
 ### Known and not changed
 

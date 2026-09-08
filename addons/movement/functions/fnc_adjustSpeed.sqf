@@ -56,6 +56,35 @@ if ( // Exit if:
 ) exitWith {};
 
 private _speeds = _unit call FUNC(getSpeedHashMap);
+
+// An animation with a speed of its own is adjusted on its own, whichever group's key was
+// pressed - the animations this is for, swimming and ladders, belong to no group, so waiting
+// for the right group's key would mean waiting forever.
+private _animation = toLowerANSI (animationState _unit);
+private _pinned = _animation call FUNC(animationSpeed);
+
+if (_pinned > 0) exitWith {
+    private _was = _speeds getOrDefault [ANIM_KEY(_animation), _pinned];
+
+    private _to = switch (_mode) do {
+        case "increase": {_was + _step};
+        case "decrease": {_was - _step};
+        case "reset": {_pinned};
+        case "min": {ANIM_MIN_SPEED};
+        case "max": {_pinned};
+        default {_was};
+    };
+
+    // The setting is the ceiling: it is what the player asked this animation to run at.
+    _to = [((_to max ANIM_MIN_SPEED) min _pinned), 2] call BIS_fnc_cutDecimals;
+
+    _speeds set [ANIM_KEY(_animation), _to];
+
+    [_unit, animationState _unit] call FUNC(handleAnimation);
+
+    [_unit, _to * 100, _type, _to == _pinned || {_to == ANIM_MIN_SPEED}, ""] call FUNC(displayUpdatedInfo);
+};
+
 private _current = _speeds getOrDefault [_type, 1];
 
 private _new = switch (_mode) do {

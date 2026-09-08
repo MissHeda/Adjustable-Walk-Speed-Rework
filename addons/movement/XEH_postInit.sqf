@@ -377,6 +377,15 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     {
         params ["_newUnit", "_oldUnit"];
 
+        // The speeds are the player's choice, not the body's - taking over a unit through Zeus
+        // or a team switch has to carry them across, or the new body starts at default while the
+        // display still shows what was set.
+        private _carry = createHashMap;
+
+        if (!isNull _oldUnit) then {
+            _carry = +(_oldUnit call FUNC(getSpeedHashMap));
+        };
+
         if (!isNull _oldUnit) then {
             private _oldId = GETVAR(_oldUnit,GVAR(animEHId),-1);
 
@@ -408,6 +417,8 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
 
         if (isNull _newUnit) exitWith {};
 
+        SETVAR(_newUnit,GVAR(unitAnimationSpeed),_carry);
+
         private _newId = _newUnit addEventHandler ["AnimStateChanged", {_this call FUNC(handleAnimation)}];
         SETVAR(_newUnit,GVAR(animEHId),_newId);
 
@@ -416,6 +427,15 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     },
     true
 ] call CBA_fnc_addPlayerEventHandler;
+
+// Debug is a tool, not a setting people mean to keep. Left on it talks over every animation
+// change for the rest of the session, so it only survives inside the mission it was switched on
+// in - a different one starts with it off again.
+if (GVAR(debug)) then {
+    if ((profileNamespace getVariable [QGVAR(debugMission), ""]) != missionName) then {
+        [QGVAR(debug), false] call CBA_settings_fnc_set;
+    };
+};
 
 // Watches for another mod overwriting the speed we set - see awsr_movement_fnc_reapplySpeed.
 [FUNC(reapplySpeed), 0.25] call CBA_fnc_addPerFrameHandler;
