@@ -108,6 +108,9 @@ hemtt launch    # start Arma with the mod and CBA/ACE loaded
 ## Big thanks to
 
 - Rad
+- Everyone who reported something, sat in a voice channel to show it, or recorded it: Pat,
+  malice20191, dyolF, HBAOplus, vat hom flaffie, rodrockwell, SSG, QWRT0987, 42nfl19, nigel,
+  A. Ares, Pixelated_Grunt and Scarecrow1625
 - Leon (leonz2019) and Legion, for [Autorun Rework](https://github.com/LeonZ2019/autorun-rework),
   which the autorun part is derived from. That part stays under APL-SA - see
   [addons/movement/LICENSE_autorun.txt](addons/movement/LICENSE_autorun.txt).

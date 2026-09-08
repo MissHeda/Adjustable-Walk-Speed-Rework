@@ -73,12 +73,13 @@ else is lost - set them again and they stay.
   it is a list of claim tags, and ACE only ever asks whether it is empty. A list that never emptied
   meant ACE left `setAnimSpeedCoef` alone for the rest of the mission, so its exhaustion slowdown
   and its reset to default were both silently dead. One tag goes in now while this mod is actually
-  driving the speed, and comes back out when it is not.
+  driving the speed, and comes back out when it is not. *(reported by Pixelated_Grunt on Discord,
+  with a video, on a server running ACE advanced fatigue)*
 
 - **The custom display only showed the first change.** Every key press cut a fresh title onto the
   layer, which tore down the display the number was about to be written into - so the second change
   and every one after it blanked the value instead of updating it, until the title timed out and
-  the next press worked again. *(reported by Pat and malice20191)*
+  the next press worked again. *(reported by Pat, malice20191 and A. Ares on Discord)*
 
 - **Speed reverted a moment after being set in some missions.** Ravage, Hetman and Hive drive the
   animation speed from their own loop, and whoever writes it last wins. See *Reapply Speed If
@@ -90,7 +91,8 @@ else is lost - set them again and they stay.
 
 - **Force walk could be lost while a reduced speed was still set.** It was set from the keybind and
   cleared by the animation handler, so the two undid each other on the next animation change. It
-  hangs off the walk speed alone now, decided in one place. *(reported by dyolF)*
+  hangs off the walk speed alone now, decided in one place. *(reported by dyolF, and by A. Ares on
+  Discord, who could not get back to a tactical pace until the speed was at 100% again)*
 
 - **The mod stopped working after respawning.** The animation handler was added once to whatever
   `player` was at mission start. It follows the player now, through respawn, team switch and Zeus
@@ -137,3 +139,12 @@ else is lost - set them again and they stay.
   switch the player into a walk animation, which is the group they just left.
   *(asked for by A. Ares and nigel)*
 - **AI are not affected.** The mod only ever touches the player's own unit.
+
+### Thanks
+
+To everyone who reported something, sat in a voice channel to show it, or recorded it: Pat,
+malice20191, dyolF, HBAOplus, vat hom flaffie, rodrockwell, SSG, QWRT0987, 42nfl19, nigel,
+A. Ares, Pixelated_Grunt and Scarecrow1625.
+
+And to Leon (LeonZ) and Legion for [Autorun Rework](https://github.com/LeonZ2019/autorun-rework),
+which the autorun here is derived from and which stays under APL-SA.
