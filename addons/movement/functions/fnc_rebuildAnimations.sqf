@@ -116,3 +116,31 @@ private _groups = [
 
 GVAR(animationTypeCache) = createHashMap;
 
+// Per-animation speeds, parsed here for the same reason as everything above: so the hot path is
+// a hashmap probe rather than a parse. `name=speed`, comma separated, wildcards allowed. The
+// name half goes through the same escaper as the whitelists, so the syntax is the one people
+// already know.
+private _speedNames = createHashMap;
+private _speedPatterns = [];
+
+{
+    private _pair = [_x, "="] call CBA_fnc_split;
+
+    if (count _pair == 2) then {
+        private _speed = parseNumber (_pair select 1);
+
+        // A speed of 0 would stop the animation dead, and parseNumber hands back 0 for anything
+        // it cannot read - so a typo drops out here rather than freezing the player.
+        if (_speed > 0) then {
+            ([_pair select 0] call _parse) params ["_pairNames", "_pairPatterns"];
+
+            {_speedNames set [_x, _speed]} forEach _pairNames;
+            {_speedPatterns pushBack [_x, _speed]} forEach _pairPatterns;
+        };
+    };
+} forEach ([GETMVAR(GVAR(animationSpeedArray),"") call CBA_fnc_removeWhitespace, ","] call CBA_fnc_split);
+
+GVAR(animationSpeeds) = _speedNames;
+GVAR(animationSpeedPatterns) = _speedPatterns;
+GVAR(animationSpeedCache) = createHashMap;
+

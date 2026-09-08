@@ -1,16 +1,16 @@
 #include "..\script_component.hpp"
 /*
  * Author: leonz2019, Miss Heda
- * Plays the transition into a new stance while a run is going.
+ * Puts the run into a new stance while it is going.
  *
  * Arguments:
- * 0: Stance key that was pressed - "up" or "down" <STRING>
+ * 0: Stance key that was pressed <STRING>
  *
  * Return Value:
  * Stance changed <BOOL>
  *
  * Example:
- * ["up"] call awsr_movement_fnc_autorunUpdateStance;
+ * ["crouch"] call awsr_movement_fnc_autorunUpdateStance;
  *
  * Public: No
  */
@@ -32,11 +32,12 @@ if (_newStance select 0) then {
     GVAR(autorun_stanceUntil) = diag_tickTime + STANCE_TRANSITION_TIME;
     GVAR(autorun_stance) = _newStance select 2;
 
-    private _from = GVAR(autorun_animation);
-
+    // Straight into the new stance's animation. There is no "<from>_<to>" state to play: of the
+    // 314 combined transitions the game ships, none has identical halves and every one of them
+    // ends standing still, which would end the run. The engine interpolates well enough.
     GVAR(autorun_animation) = [player] call FUNC(autorunAnimation);
 
-    player playMoveNow format [ARR_3("%1_%2",_from,GVAR(autorun_animation))];
+    player playMoveNow GVAR(autorun_animation);
 
     call FUNC(autorunIndicator);
 };

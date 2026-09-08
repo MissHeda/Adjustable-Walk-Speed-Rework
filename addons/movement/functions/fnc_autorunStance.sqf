@@ -5,7 +5,7 @@
  * keys and the water depth.
  *
  * Arguments:
- * 0: Stance key that was pressed - "up", "down", or "" for none <STRING> (default: "")
+ * 0: Key pressed - "stand", "crouch", "prone", "up", "down", or "" for none <STRING> (default: "")
  *
  * Return Value:
  * 0: Stance changed <BOOL>
@@ -13,7 +13,7 @@
  * 2: New stance <STRING>
  *
  * Example:
- * ["up"] call awsr_movement_fnc_autorunStance;
+ * ["crouch"] call awsr_movement_fnc_autorunStance;
  *
  * Public: No
  */
@@ -28,16 +28,31 @@ private _currentStance = switch (true) do {
     default {"Stand"};
 };
 
-// Stance keys toggle between the stance they stand for and standing up again. The key comes
-// from the display handler rather than from inputAction, which reports nothing while a scripted
-// animation is playing.
-private _isCrouch = _key == "up";
-private _isProne = _key == "down";
-private _stance = switch (true) do {
-    case (_isProne && _currentStance == "Prone"): {"Stand"};
-    case (_isProne): {"Prone"};
-    case (_isCrouch && _currentStance == "Crouch"): {"Stand"};
-    case (_isCrouch): {"Crouch"};
+// The named keys toggle against standing, the way they do outside a run; the step keys move one
+// stance at a time. The key comes from the display handler rather than from inputAction, which
+// reports nothing while a scripted animation is playing.
+private _stance = switch (_key) do {
+    case "stand": {"Stand"};
+    case "crouch": {["Crouch", "Stand"] select (_currentStance == "Crouch")};
+    case "prone": {["Prone", "Stand"] select (_currentStance == "Prone")};
+
+    case "up": {
+        switch (_currentStance) do {
+            case "Prone": {"Crouch"};
+            case "Crouch": {"Stand"};
+            case "Sit": {"Stand"};
+            default {_currentStance};
+        }
+    };
+
+    case "down": {
+        switch (_currentStance) do {
+            case "Stand": {"Crouch"};
+            case "Crouch": {"Prone"};
+            default {_currentStance};
+        }
+    };
+
     default {_currentStance};
 };
 

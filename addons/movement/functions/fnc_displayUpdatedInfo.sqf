@@ -8,17 +8,18 @@
  * 1: Value in percent <NUMBER>
  * 2: Animation group - "walk", "tactical" or "custom" <STRING>
  * 3: Draw the value in the limit colour <BOOL> (default: false)
+ * 4: Why the value was capped, already localised - "" for no reason <STRING> (default: "")
  *
  * Return Value:
  * None
  *
  * Example:
- * [player, 70, "walk", false] call awsr_movement_fnc_displayUpdatedInfo;
+ * [player, 70, "walk", false, ""] call awsr_movement_fnc_displayUpdatedInfo;
  *
  * Public: No
  */
 
-params ["_unit", ["_value", 100], ["_type", ""], ["_limitReached", false]];
+params ["_unit", ["_value", 100], ["_type", ""], ["_limitReached", false], ["_reason", ""]];
 
 if (!hasInterface) exitWith {};
 
@@ -79,7 +80,13 @@ _limitColor = [_limitColor] call FUNC(colorToHex);
 
 if (_displayType == DISPLAY_NONE) exitWith {};
 
-private _valueText = str _value + "%";
+// Percent reads better for most people; the coefficient is what setAnimSpeedCoef actually takes,
+// which is what a mission maker wants to see.
+private _valueText = if (GVAR(valueStyle) == VALUE_COEFFICIENT) then {
+    str ([_value / 100, 2] call BIS_fnc_cutDecimals)
+} else {
+    str _value + "%"
+};
 
 if (_limitReached || {_showLimit && {_value / 100 == _min || {_value / 100 == _max}}}) then {
     _valueText = "<t color='" + _limitColor + "'>" + _valueText + "</t>";
@@ -89,13 +96,23 @@ if (_limitReached || {_showLimit && {_value / 100 == _min || {_value / 100 == _m
 // markup was assembled out of them; they are kept as empty so an old custom text still works.
 private _text = "<t color='" + _color + "'>" + (format [_format, _valueText, "", ""]) + "</t>";
 
+// A capped value on its own only says "it stopped here". The reason says why, in the limit
+// colour, so it reads as belonging to the cap rather than as a second value.
+private _rows = 1;
+if (_reason != "") then {
+    _text = _text + "<br/><t size='0.75' color='" + _limitColor + "'>" + _reason + "</t>";
+    _rows = 2;
+};
+
 switch (_displayType) do {
     case DISPLAY_HINT: {
         hintSilent parseText _text;
     };
 
     case DISPLAY_SYSTEMCHAT: {
-        systemChat format [_format, str _value + "%", "", ""];
+        private _line = format [_format, _valueText, "", ""];
+        if (_reason != "") then {_line = _line + " - " + _reason};
+        systemChat _line;
     };
 
     case DISPLAY_IGUI: {
@@ -104,7 +121,7 @@ switch (_displayType) do {
             [_uiVar] call FUNC(hideIGUI);
         };
 
-        [_resource, _uiVar, _gridVar, _defaultX, _defaultY, 1, _text, _size, _imageColor, _duration] call FUNC(updateIGUI);
+        [_resource, _uiVar, _gridVar, _defaultX, _defaultY, _rows, _text, _size, _imageColor, _duration] call FUNC(updateIGUI);
     };
 
     default {};

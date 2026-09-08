@@ -78,11 +78,7 @@ if (GVAR(IGUI_showAutorunKeys)) then {
 
     // Only worth naming when there is more than one animation to step between.
     private _pistol = ([player] call FUNC(autorunWeapon)) isEqualTo "pst";
-    private _list = switch (GVAR(autorun_tier)) do {
-        case AUTORUN_WALK: {[ARR_2(GVAR(autorun_animList_Walk),GVAR(autorun_animList_WalkPistol))] select _pistol};
-        case AUTORUN_JOG: {[ARR_2(GVAR(autorun_animList_Jog),GVAR(autorun_animList_JogPistol))] select _pistol};
-        default {[ARR_2(GVAR(autorun_animList_Run),GVAR(autorun_animList_RunPistol))] select _pistol};
-    };
+    private _list = [GVAR(autorun_tier), GVAR(autorun_stance), _pistol] call FUNC(autorunAnimList);
 
     // Empty when there is nothing to step to, so the line does not offer a key that does nothing.
     private _style = "";

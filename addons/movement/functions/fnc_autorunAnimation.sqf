@@ -79,12 +79,7 @@ private _animation = "";
 
 if (!_stop && {!_isSwimming}) then {
     private _pistol = ([_unit] call FUNC(autorunWeapon)) isEqualTo "pst";
-
-    private _list = switch (_tier) do {
-        case AUTORUN_WALK: {[ARR_2(GVAR(autorun_animList_Walk),GVAR(autorun_animList_WalkPistol))] select _pistol};
-        case AUTORUN_JOG: {[ARR_2(GVAR(autorun_animList_Jog),GVAR(autorun_animList_JogPistol))] select _pistol};
-        default {[ARR_2(GVAR(autorun_animList_Run),GVAR(autorun_animList_RunPistol))] select _pistol};
-    };
+    private _list = [_tier, GVAR(autorun_stance), _pistol] call FUNC(autorunAnimList);
 
     // Already checked against the config when the setting was parsed, so nothing to verify here.
     // The index is wrapped by this list, so stepping past the end comes back to the first.

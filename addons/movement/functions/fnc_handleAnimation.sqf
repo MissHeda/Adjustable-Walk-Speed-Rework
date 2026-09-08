@@ -37,6 +37,17 @@ private _type = _animation call FUNC(animationType);
 
 SETVAR(_unit,GVAR(activeType),_type);
 
+// A speed set for this animation by name beats every group, including no group at all - that is
+// how swimming, ladders and crawling get a speed without being whitelisted into one.
+private _pinned = _animation call FUNC(animationSpeed);
+
+if (_pinned > 0) exitWith {
+    if (_pinned > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {_pinned = 1};
+
+    [_unit, _pinned] call FUNC(applySpeed);
+    [_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);
+};
+
 // Not one of ours: default speed, default audibility, and drop our force walk if we set one.
 if (_type isEqualTo "") exitWith {
     [_unit, _speeds getOrDefault ["defaultSpeed", 1]] call FUNC(applySpeed);

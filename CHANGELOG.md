@@ -66,6 +66,24 @@ else is lost - set them again and they stay.
   finding the name of an animation without opening the config viewer: switch it on, do the move,
   switch it off, paste. It works with the rest of the mod switched off.
 
+- **Per-Animation Speeds.** A speed for single animations by name, whatever group they are or are
+  not in - `Aswm*=2, Ladder*=1.5`. Swimming, ladders and crawling are in no group at all, which is
+  why they were out of reach until now. It beats all three groups, so the number on the display is
+  always the number being applied.
+
+- **Stamina limits the autorun.** Out of breath drops the run a pace and refuses a faster one, at
+  the same points ACE takes the sprint away and forces a walk. Where ACE advanced fatigue is
+  running it reads ACE's reserves; otherwise the engine's own fatigue. Can be switched off.
+
+- **A reason when a limit is hit**, instead of a value that just looks stuck - "Too exhausted"
+  while ACE holds a force walk for fatigue, and when a pace is refused. It is only ever named when
+  the reason is actually known.
+
+- **Percent or coefficient** for every speed shown - 150% or 1.5, whichever you think in.
+
+- **An animation setting per stance.** Crouched and prone each have their own six boxes, so a
+  stance change during a run plays something built for that stance.
+
 ### Fixed
 
 - **ACE advanced fatigue stopped working as soon as this mod loaded.** Every whitelisted animation
@@ -118,6 +136,13 @@ else is lost - set them again and they stay.
   out of a `melee_armed_*` sort of entry did nothing - a wildcard was only ever cancelled by
   another wildcard. The name wins now.
 
+- **Stance keys did nothing during an autorun, and left the indicator lying.** Four things at
+  once: the handler watched `MoveUp` and `MoveDown`, which ship unbound, while the stance keys are
+  `Stand`, `Crouch` and `Prone`; the transition animation it built - `<from>_<to>` - exists for no
+  pair the run can produce; the pinned animation was returned before the stance was ever read; and
+  nothing compared the animation against the unit, so once the engine took it away the run was
+  dead while the indicator carried on. A run now heals itself on the next tick whatever takes the
+  animation, which also covers other mods and scripted sequences.
 - Toggling settings could grow the whitelists with duplicate entries.
 - The walk group's "include non raised animations" callback referenced an undefined variable.
 - A script error on the first animation change of a mission with ACE loaded, from looking up our
@@ -132,6 +157,13 @@ else is lost - set them again and they stay.
 - The animation lookup is cached per animation name instead of concatenating and searching a few
   hundred strings on every animation state change.
 - Settings, IGUI settings and keybinds are numbered so they read in the same order everywhere.
+- **Settings are split by feature into `AWSR - Autorun`, `AWSR - Speed Adjustment` and
+  `AWSR - Speed Display`**, rather than by whether a setting draws something. Autorun and Walking
+  each used to appear twice, on two different pages. No value is lost: CBA stores a setting under
+  its own name, never under its category.
+- The autorun indicator artwork is original work now, drawn at 512x512 instead of 64x64 - the old
+  frames were upscaled eight times over at the size the indicator is actually drawn.
+- The displays start a little lower, clear of the vanilla interface.
 
 ### Known and not changed
 
