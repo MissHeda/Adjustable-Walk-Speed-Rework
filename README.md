@@ -50,6 +50,13 @@ melee_armed_*, Rotary_Proper_Walk*
 The blacklist box takes the same syntax and removes animations from the group again, wildcards
 included.
 
+### Finding an animation name
+
+Switch **Debug** on in the settings, do the move you want the name of, then switch it off. Every
+animation is shown in a hint as you enter it, and the last 20 distinct ones sit in your clipboard
+as a comma separated list - paste it straight into a whitelist box. It works with the rest of the
+mod switched off.
+
 ## Autorun
 
 Walk, jog or run without holding the key.
@@ -103,8 +110,7 @@ hemtt launch    # start Arma with the mod and CBA/ACE loaded
 - Rad
 - Leon (leonz2019) and Legion, for [Autorun Rework](https://github.com/LeonZ2019/autorun-rework),
   which the autorun part is derived from. That part stays under APL-SA - see
-  [addons/awsr/LICENSE_autorun.txt](addons/awsr/LICENSE_autorun.txt).
+  [addons/movement/LICENSE_autorun.txt](addons/movement/LICENSE_autorun.txt).
 
 ## Note from the current Developers
-- Currently there is no active development on this mod.
-- Feel free to request features.
+- Feel free to request features, on Discord or as a GitHub issue.
