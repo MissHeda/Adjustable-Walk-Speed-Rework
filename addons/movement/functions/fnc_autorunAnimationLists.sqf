@@ -1,7 +1,8 @@
 #include "..\script_component.hpp"
 /*
  * Author: Miss Heda
- * Turns the six animation settings into lists the run can step through.
+ * Turns the animation settings into lists the run can step through - one per pace, per
+ * stance and per weapon.
  *
  * One name in a box is the animation that pace loops. Several, comma separated, are alternatives:
  * the first is played, and the next-animation key walks through the rest and back round.
@@ -34,6 +35,13 @@
     };
 
     missionNamespace setVariable [format [QGVAR(autorun_animList_%1), _x], _list];
-} forEach ["Walk", "Jog", "Run", "WalkPistol", "JogPistol", "RunPistol"];
+} forEach [
+    "Walk", "Jog", "Run",
+    "WalkPistol", "JogPistol", "RunPistol",
+    "CrouchWalk", "CrouchJog", "CrouchRun",
+    "CrouchWalkPistol", "CrouchJogPistol", "CrouchRunPistol",
+    "ProneWalk", "ProneJog", "ProneRun",
+    "ProneWalkPistol", "ProneJogPistol", "ProneRunPistol"
+];
 
 GVAR(autorun_animIndex) = 0;

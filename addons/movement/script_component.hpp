@@ -23,7 +23,7 @@
 #define DISPLAY_W (3.4 * GUI_GRID_W)
 #define DISPLAY_H (3.4 * GUI_GRID_H)
 #define DISPLAY_X ((safeZoneX + safeZoneW) - 3.8 * GUI_GRID_W)
-#define DISPLAY_Y(row) (safeZoneY + 0.08 * safeZoneH + row * 3.9 * GUI_GRID_H)
+#define DISPLAY_Y(row) (safeZoneY + 0.16 * safeZoneH + row * 3.9 * GUI_GRID_H)
 
 // The autorun indicator sits low and centred, where it was before it became a display like the
 // others - it is read while moving, not while aiming at it.
@@ -36,6 +36,17 @@
 #define SWIM_ACTIONS ["sdv","bdv","dve","ssw","bsw","swm"]
 
 // Autorun tiers, lowest first. Stepping down out of WALK ends the run.
+// ACE's own fatigue thresholds - it blocks sprint at 0.7 and frees it at 0.6, forces a walk at
+// 1 and lets go at 0.7. Matched so an ACE player meets one limit, not two.
+#define FATIGUE_RUN_ENTER 0.6
+#define FATIGUE_RUN_LEAVE 0.7
+#define FATIGUE_JOG_ENTER 0.7
+#define FATIGUE_JOG_LEAVE 1
+
+// How a speed is written out
+#define VALUE_PERCENT 0
+#define VALUE_COEFFICIENT 1
+
 #define AUTORUN_OFF 0
 #define AUTORUN_WALK 1
 #define AUTORUN_JOG 2
@@ -49,6 +60,9 @@
 // enough that AnimDone and the update loop keep their hands off it, short enough that a
 // transition which never lands does not freeze the run.
 #define STANCE_TRANSITION_TIME 0.7
+
+// Long enough that a breather is explained once, not once a frame.
+#define EXHAUSTED_MESSAGE_COOLDOWN 6
 
 // Where the player animations live, so a name can be checked before it is played.
 #define ANIMATION_STATES (configFile >> "CfgMovesMaleSdr" >> "States")

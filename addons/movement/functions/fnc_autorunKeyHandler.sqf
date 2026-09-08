@@ -31,18 +31,29 @@ if (!isNil QGVAR(autorun_keyHandler)) exitWith {};
         if (!GVAR(autorun_active)) exitWith {false};
         if !(call FUNC(autorunCheckDisplay)) exitWith {false};
 
+        // Stand, Crouch and Prone are what the stance keys are actually bound to - MoveUp and
+        // MoveDown ship unbound, which is why none of this used to fire on a default profile.
+        // Both sets are read so a player who has bound the step keys keeps them.
         private _stanceKey = switch (true) do {
+            case (_key in actionKeys "Prone"): {"prone"};
+            case (_key in actionKeys "Crouch"): {"crouch"};
+            case (_key in actionKeys "Stand"): {"stand"};
             case (_key in actionKeys "MoveUp"): {"up"};
             case (_key in actionKeys "MoveDown"): {"down"};
             default {""};
         };
 
         if (_stanceKey != "") exitWith {
-            // Swallowed only when the run actually took it. In the water there is no stance to
-            // change, and the key belongs to whoever else wants it.
+            // In the water there is no stance to change, and the key belongs to whoever else
+            // wants it.
             if (GVAR(autorun_animation) select [1, 3] in SWIM_ACTIONS) exitWith {false};
 
-            [_stanceKey] call FUNC(autorunUpdateStance)
+            [_stanceKey] call FUNC(autorunUpdateStance);
+
+            // Swallowed whether or not the stance changed. A press inside the transition window
+            // is refused, and key repeat produces plenty of those - handing those on let the
+            // engine change stance itself and tear the run's animation down.
+            true
         };
 
 

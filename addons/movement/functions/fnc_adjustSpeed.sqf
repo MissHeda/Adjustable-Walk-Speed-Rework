@@ -72,9 +72,16 @@ _new = [((_new max _min) min _max), 2] call BIS_fnc_cutDecimals;
 // Something other than us is forcing walk, so going faster than default is off the table.
 // The display says so by drawing the value in the limit colour.
 private _limitReached = false;
+private _reason = "";
 if (_new > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {
     _new = 1;
     _limitReached = true;
+
+    // Named only when we can actually name it. Without ACE nothing else registers a reason, and
+    // guessing "exhausted" at a force walk that came from dragging a body would be a lie.
+    if (GVAR(explainLimit) && {_unit call FUNC(isAceExhaustionWalk)}) then {
+        _reason = LLSTRING(LIMIT_exhausted);
+    };
 };
 
 _speeds set [_type, _new];
@@ -85,4 +92,4 @@ _speeds set [_type, _new];
 // sit unused until the next animation change.
 [_unit, animationState _unit] call FUNC(handleAnimation);
 
-[_unit, _new * 100, _type, _limitReached] call FUNC(displayUpdatedInfo);
+[_unit, _new * 100, _type, _limitReached, _reason] call FUNC(displayUpdatedInfo);

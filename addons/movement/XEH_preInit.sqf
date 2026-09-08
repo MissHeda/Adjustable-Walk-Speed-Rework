@@ -4,8 +4,13 @@ ADDON = false;
 
 #include "XEH_PREP.hpp"
 
-#define CBA_SETTINGS_AWSR "Adjustable Walking Speed - Rework"
-#define CBA_SETTINGS_AWSR_GUI "Adjustable Walking Speed - Rework IGUI"
+// Three categories, split by feature rather than by how a setting happens to be drawn. The
+// shared prefix keeps them next to each other: CBA sorts categories alphabetically by their
+// display text. Only the variable name decides where a value is stored, so re-categorising
+// never costs a player their settings - renaming would.
+#define CBA_SETTINGS_AWSR_AUTORUN "AWSR - Autorun"
+#define CBA_SETTINGS_AWSR "AWSR - Speed Adjustment"
+#define CBA_SETTINGS_AWSR_GUI "AWSR - Speed Display"
 
 // Resolved whitelists. The settings themselves stay the strings the player typed;
 // awsr_movement_fnc_rebuildAnimations turns them into these, and drops the lookup cache with it.
@@ -20,6 +25,9 @@ GVAR(blocked_Tactical) = [];
 GVAR(blocked_Custom) = [];
 GVAR(animationTypeCache) = createHashMap;
 GVAR(debugAnimations) = [];
+GVAR(animationSpeeds) = createHashMap;
+GVAR(animationSpeedPatterns) = [];
+GVAR(animationSpeedCache) = createHashMap;
 
 // One hide token per display, so the newest change to a group cancels the hide that group's
 // previous change queued - and only that group's.
@@ -32,6 +40,7 @@ GVAR(autorun_tier) = AUTORUN_OFF;
 GVAR(autorun_stance) = "Stand";
 GVAR(autorun_animation) = "";
 GVAR(autorun_stanceUntil) = 0;
+GVAR(autorun_exhaustedUntil) = 0;
 GVAR(autorun_animDoneEH) = -1;
 GVAR(autorun_animDoneUnit) = objNull;
 GVAR(autorun_pfh) = -1;
@@ -95,6 +104,37 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_onlyChangeSpeedWhileAnimationIsPlaying),LLSTRING(SETTING_onlyChangeSpeedWhileAnimationIsPlaying_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
     [false],
+    0
+] call CBA_Settings_fnc_init;
+
+// Speed for one animation by name, whatever group it is or is not in
+[
+    QGVAR(animationSpeedArray),
+    "EDITBOX",
+    [LLSTRING(SETTING_animationSpeedArray),LLSTRING(SETTING_animationSpeedArray_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
+    "",
+    1,
+    REBUILD_ANIMATIONS
+] call CBA_Settings_fnc_init;
+
+// Say why a speed or a pace was capped
+[
+    QGVAR(explainLimit),
+    "CHECKBOX",
+    [LLSTRING(SETTING_explainLimit),LLSTRING(SETTING_explainLimit_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
+// Percent or coefficient
+[
+    QGVAR(valueStyle),
+    "LIST",
+    [LLSTRING(SETTING_valueStyle),LLSTRING(SETTING_valueStyle_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Display_General)],
+    [[ARR_2(VALUE_PERCENT,VALUE_COEFFICIENT)], [ARR_2(LLSTRING(SETTING_valueStyle_percent),LLSTRING(SETTING_valueStyle_coefficient))], VALUE_PERCENT],
     0
 ] call CBA_Settings_fnc_init;
 
@@ -656,7 +696,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_enable),
     "CHECKBOX",
     [LLSTRING(SETTING_autorun_enable),LLSTRING(SETTING_autorun_enable_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_General)],
     [true],
     0,
     {
@@ -675,7 +715,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_Walk),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Walk),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMwlkSlowWrflDf_ver2, AmovPercMwlkSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -686,7 +726,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_Jog),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Jog),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMrunSrasWrflDf, AmovPercMrunSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -697,7 +737,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_Run),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Run),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMevaSrasWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -708,7 +748,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_WalkPistol),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_WalkPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMrunSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -719,7 +759,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_JogPistol),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_JogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMrunSrasWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -730,10 +770,154 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_RunPistol),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_RunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMevaSrasWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+
+// Animation this pace loops crouched with a rifle in hand
+[
+    QGVAR(autorun_animation_CrouchWalk),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchWalk),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMwlkSrasWrflDf, AmovPknlMwlkSlowWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops crouched with a rifle in hand
+[
+    QGVAR(autorun_animation_CrouchJog),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchJog),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMrunSrasWrflDf, AmovPknlMrunSlowWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops crouched with a rifle in hand
+[
+    QGVAR(autorun_animation_CrouchRun),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchRun),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMevaSrasWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops crouched with a handgun in hand
+[
+    QGVAR(autorun_animation_CrouchWalkPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchWalkPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMwlkSrasWpstDf, AmovPknlMwlkSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops crouched with a handgun in hand
+[
+    QGVAR(autorun_animation_CrouchJogPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchJogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMrunSrasWpstDf, AmovPknlMrunSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops crouched with a handgun in hand
+[
+    QGVAR(autorun_animation_CrouchRunPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchRunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMevaSrasWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a rifle in hand
+[
+    QGVAR(autorun_animation_ProneWalk),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneWalk),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMevaSlowWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a rifle in hand
+[
+    QGVAR(autorun_animation_ProneJog),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneJog),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMrunSlowWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a rifle in hand
+[
+    QGVAR(autorun_animation_ProneRun),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneRun),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMsprSlowWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a handgun in hand
+[
+    QGVAR(autorun_animation_ProneWalkPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneWalkPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMrunSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a handgun in hand
+[
+    QGVAR(autorun_animation_ProneJogPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneJogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMrunSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a handgun in hand
+[
+    QGVAR(autorun_animation_ProneRunPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneRunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMsprSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+
+// Let stamina limit the pace
+[
+    QGVAR(autorun_useStamina),
+    "CHECKBOX",
+    [LLSTRING(SETTING_autorun_useStamina),LLSTRING(SETTING_autorun_useStamina_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_General)],
+    [true],
+    1
 ] call CBA_Settings_fnc_init;
 
 // ------------------------------------------------------------------------------------------------------------------------ AUTORUN IGUI
@@ -743,7 +927,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_showAutorun),
     "CHECKBOX",
     [LLSTRING(SETTING_IGUI_showAutorun),LLSTRING(SETTING_IGUI_showAutorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [true],
     0,
     {
@@ -756,7 +940,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_showAutorunPace),
     "CHECKBOX",
     [LLSTRING(SETTING_IGUI_showAutorunPace),LLSTRING(SETTING_IGUI_showAutorunPace_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [true],
     0,
     {
@@ -769,7 +953,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_showAutorunKeys),
     "CHECKBOX",
     [LLSTRING(SETTING_IGUI_showAutorunKeys),LLSTRING(SETTING_IGUI_showAutorunKeys_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [true],
     0,
     {
@@ -782,7 +966,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_Text_Autorun),
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_Text_Autorun),LLSTRING(SETTING_IGUI_Text_Autorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     "%1%2%3",
     0,
     {
@@ -795,7 +979,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_TextPace_Autorun),
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_TextPace_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     "PACE: %1      ",
     0,
     {
@@ -808,7 +992,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_TextStyle_Autorun),
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_TextStyle_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     "STYLE: %1      ",
     0,
     {
@@ -821,7 +1005,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_TextStop_Autorun),
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_TextStop_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     "STOP: %1",
     0,
     {
@@ -834,7 +1018,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_keyColor_Autorun),
     "COLOR",
     [LLSTRING(SETTING_IGUI_keyColor_Autorun),LLSTRING(SETTING_IGUI_keyColor_Autorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [1,0.85,0.4],
     0,
     {
@@ -847,7 +1031,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_imageColor_Autorun),
     "COLOR",
     [LLSTRING(SETTING_IGUI_imageColor),LLSTRING(SETTING_IGUI_imageColor_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [1,1,1,1],
     0
 ] call CBA_Settings_fnc_init;
@@ -857,7 +1041,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_textColor_Autorun),
     "COLOR",
     [LLSTRING(SETTING_IGUI_textColor),LLSTRING(SETTING_IGUI_textColor_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [1,1,1],
     0
 ] call CBA_Settings_fnc_init;
@@ -867,7 +1051,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_textSize_Autorun),
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize), LLSTRING(SETTING_IGUI_textSize_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [0.1, 3, 1, 2],
     0,
     {

@@ -2,20 +2,28 @@
 <Project name="awsr">
     <Package name="awsr">
         <Key ID="STR_awsr_movement_SETTING_SubCategory_General">
-            <English>2) General</English>
-            <German>2) Allgemein</German>
+            <English>1) General</English>
+            <German>1) Allgemein</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Display_General">
+            <English>1) General</English>
+            <German>1) Allgemein</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_Animations">
+            <English>2) Animations</English>
+            <German>2) Animationen</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_SubCategory_Walk">
-            <English>3) Walking</English>
-            <German>3) Gehen</German>
+            <English>2) Walking</English>
+            <German>2) Gehen</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical">
-            <English>4) Tactical</English>
-            <German>4) Taktisch</German>
+            <English>3) Tactical</English>
+            <German>3) Taktisch</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom">
-            <English>5) Custom</English>
-            <German>5) Benutzerdefiniert</German>
+            <English>4) Custom</English>
+            <German>4) Benutzerdefiniert</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_SubCategory_Walk_IGUI">
             <English>2) Walking</English>
@@ -309,13 +317,13 @@
             <English>AWSR - Custom Speed</English>
             <German>AWSR - Benutzerdefinierte Geschwindigkeit</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun">
-            <English>1) Autorun</English>
-            <German>1) Autolauf</German>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_General">
+            <English>1) General</English>
+            <German>1) Allgemein</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_IGUI">
-            <English>1) Autorun</English>
-            <German>1) Autolauf</German>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_Indicator">
+            <English>3) Indicator</English>
+            <German>3) Anzeige</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_enable">
             <English>Enable autorun</English>
@@ -422,8 +430,8 @@
             <German>Renn-Animation (Gewehr)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_DESC">
-            <English>The animation this pace loops.\nWrite the name plain, no quotes.\n\nSeveral, separated by commas, are\nalternatives - the first plays, the\nnext-animation key steps through the rest.\n\nName parts:\nPerc upright, Pknl crouched\nMwlk walk, Mrun jog, Meva run\nSlow lowered, Sras raised\nWrfl rifle, Wpst pistol\n\nUnknown names are dropped.\nSwimming always picks its own.</English>
-            <German>Die Animation, die diese Gangart loopt.\nNamen einfach hinschreiben, ohne Anführungszeichen.\n\nMehrere, per Komma getrennt, sind\nAlternativen - die erste läuft, die Taste\nfür die nächste Animation schaltet weiter.\n\nNamensteile:\nPerc aufrecht, Pknl kniend\nMwlk gehen, Mrun joggen, Meva rennen\nSlow gesenkt, Sras erhoben\nWrfl Gewehr, Wpst Pistole\n\nUnbekannte Namen fliegen raus.\nBeim Schwimmen wählt der Lauf selbst.</German>
+            <English>The animation this pace loops.\nWrite the name plain, no quotes.\n\nSeveral, separated by commas, are\nalternatives - the first plays, the\nnext-animation key steps through the rest.\n\nName parts:\nPerc upright, Pknl crouched, Ppne prone\nMwlk walk, Mrun jog, Meva run, Mspr sprint\nSlow lowered, Sras raised\nWrfl rifle, Wpst pistol\n\nUnknown names are dropped.\nAn empty box lets the run work it out.\nSwimming always picks its own.</English>
+            <German>Die Animation, die diese Gangart loopt.\nNamen einfach hinschreiben, ohne Anführungszeichen.\n\nMehrere, per Komma getrennt, sind\nAlternativen - die erste läuft, die Taste\nfür die nächste Animation schaltet weiter.\n\nNamensteile:\nPerc aufrecht, Pknl kniend, Ppne liegend\nMwlk gehen, Mrun joggen, Meva rennen, Mspr sprinten\nSlow gesenkt, Sras erhoben\nWrfl Gewehr, Wpst Pistole\n\nUnbekannte Namen fliegen raus.\nLeeres Feld: der Lauf wählt selbst.\nBeim Schwimmen wählt der Lauf selbst.</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_WalkPistol">
             <English>Walk Animation (Handgun)</English>
@@ -436,6 +444,98 @@
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_RunPistol">
             <English>Run Animation (Handgun)</English>
             <German>Renn-Animation (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchWalk">
+            <English>Walk Animation (Crouched)</English>
+            <German>Geh-Animation (kniend)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchJog">
+            <English>Jog Animation (Crouched)</English>
+            <German>Jogg-Animation (kniend)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchRun">
+            <English>Run Animation (Crouched)</English>
+            <German>Renn-Animation (kniend)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchWalkPistol">
+            <English>Walk Animation (Crouched, Handgun)</English>
+            <German>Geh-Animation (kniend, Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchJogPistol">
+            <English>Jog Animation (Crouched, Handgun)</English>
+            <German>Jogg-Animation (kniend, Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchRunPistol">
+            <English>Run Animation (Crouched, Handgun)</English>
+            <German>Renn-Animation (kniend, Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneWalk">
+            <English>Crawl Animation (Prone)</English>
+            <German>Kriech-Animation (liegend)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneJog">
+            <English>Crawl Animation (Prone, Faster)</English>
+            <German>Kriech-Animation (liegend, schneller)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneRun">
+            <English>Crawl Animation (Prone, Fastest)</English>
+            <German>Kriech-Animation (liegend, am schnellsten)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneWalkPistol">
+            <English>Crawl Animation (Prone, Handgun)</English>
+            <German>Kriech-Animation (liegend, Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneJogPistol">
+            <English>Crawl Animation (Prone, Handgun, Faster)</English>
+            <German>Kriech-Animation (liegend, Pistole, schneller)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneRunPistol">
+            <English>Crawl Animation (Prone, Handgun, Fastest)</English>
+            <German>Kriech-Animation (liegend, Pistole, am schnellsten)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_useStamina">
+            <English>Stamina Limits The Pace</English>
+            <German>Ausdauer begrenzt die Gangart</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_useStamina_DESC">
+            <English>Out of breath drops the run a pace,\nand refuses a faster one.\n\nUses ACE advanced fatigue where it is\nrunning, the engine's own otherwise -\nat the same points ACE itself uses.\n\nOff: the run ignores stamina.</English>
+            <German>Außer Puste fällt der Lauf eine\nGangart zurück und verweigert\neine schnellere.\n\nNutzt ACE Advanced Fatigue, wenn es\nläuft, sonst die Engine-Ausdauer -\nan denselben Punkten wie ACE.\n\nAus: der Lauf ignoriert Ausdauer.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSpeedArray">
+            <English>Per-Animation Speeds</English>
+            <German>Geschwindigkeit je Animation</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSpeedArray_DESC">
+            <English>A speed for single animations by name,\nwhatever group they are or are not in.\n\nname=speed, comma separated:\nAswm*=2, Ladder*=1.5\n\n1 is normal, 2 is twice as fast.\n* works like in the whitelists.\n\nBeats all three groups. Use Debug to\ncollect the names you need.</English>
+            <German>Geschwindigkeit für einzelne Animationen\nper Name, unabhängig von den Gruppen.\n\nname=speed, per Komma getrennt:\nAswm*=2, Ladder*=1.5\n\n1 ist normal, 2 doppelt so schnell.\n* funktioniert wie in den Whitelists.\n\nSchlägt alle drei Gruppen. Namen\nsammelst du mit Debug.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_explainLimit">
+            <English>Say Why A Limit Was Hit</English>
+            <German>Grund für ein Limit anzeigen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_explainLimit_DESC">
+            <English>Adds a short line when a speed or a\npace was capped, instead of leaving\nthe value looking stuck.\n\nOnly named when the reason is known.</English>
+            <German>Zeigt eine kurze Zeile, wenn eine\nGeschwindigkeit oder Gangart begrenzt\nwurde, statt den Wert nur festhängen\nzu lassen.\n\nNur wenn der Grund bekannt ist.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_valueStyle">
+            <English>Value Style</English>
+            <German>Wertformat</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_valueStyle_DESC">
+            <English>How a speed is written out.\n\nPercent: 150%\nCoefficient: 1.5\n\nThe coefficient is what missions and\nsetAnimSpeedCoef take.</English>
+            <German>Wie eine Geschwindigkeit geschrieben wird.\n\nProzent: 150%\nKoeffizient: 1.5\n\nDen Koeffizienten nehmen Missionen\nund setAnimSpeedCoef.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_valueStyle_percent">
+            <English>Percent</English>
+            <German>Prozent</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_valueStyle_coefficient">
+            <English>Coefficient</English>
+            <German>Koeffizient</German>
+        </Key>
+        <Key ID="STR_awsr_movement_LIMIT_exhausted">
+            <English>Too exhausted</English>
+            <German>Zu erschöpft</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>
