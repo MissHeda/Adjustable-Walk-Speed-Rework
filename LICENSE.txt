@@ -1,3 +1,8 @@
+Note on the autorun component:
+The autorun code in addons/movement is derived from "Autorun Rework" by Leon and Legion and
+stays under the Arma Public License Share Alike (APL-SA), not under the licence below. See
+addons/movement/LICENSE_autorun.txt.
+
 Note from the mod author:
 If you want to use this mod anywhere in a custom mod / modpack provide credit like shown below on the steam workshop!
 Every uncredited usage of this mod will result in a workshop strike and takedown without any prior notice!

@@ -11,16 +11,14 @@
     Visit us on <a href="https://discord.gg/Jud6gyzFYx">Discord</a></strong></sup>
 </p>
 
+## Addons
 
-## Big thanks to
+| PBO | What it is |
+| --- | --- |
+| `awsr_main` | Version numbers and the macros every other addon builds on. No gameplay code. |
+| `awsr_movement` | Everything the mod does: speed adjustment, autorun, settings, keybinds, IGUI. |
 
-- Rad
-
-## Note from the current Developers
-- Currently there is no active development on this mod.
-- Feel free to request features.
-
-## Core features
+## Speed adjustment
 
 - Walk animation group speed (raised weapon only)
 - Tactical animation group speed (raised weapon only)
@@ -30,13 +28,92 @@
 - Works as client-side only (server can override this)
 - CBA keybinds (keybinds for animation groups & more)
 - CBA options (functionality things like min / max speed)
-- CBA IGUI options (settings for speed change display)
+- CBA IGUI options (settings for speed change display, including how long it stays up)
 - Custom IGUI (can be resized in the layout tab from Arma)
+- Puts the speed back when a mission or another mod overwrites it
+
+## Whitelisting animations
+
+Each animation group has a whitelist box in the CBA settings. Type animation names separated
+by commas - capitalisation does not matter, and the change applies without a restart:
+
+```
+melee_armed_walkf, melee_armed_walkb, Rotary_Proper_Walk
+```
+
+An entry may contain `*` as a wildcard, which saves listing a mod's animations one by one:
+
+```
+melee_armed_*, Rotary_Proper_Walk*
+```
+
+The blacklist box takes the same syntax and removes animations from the group again, wildcards
+included.
+
+### Finding an animation name
+
+Switch **Debug** on in the settings, do the move you want the name of, then switch it off. Every
+animation is shown in a hint as you enter it, and the last 20 distinct ones sit in your clipboard
+as a comma separated list - paste it straight into a whitelist box. It works with the rest of the
+mod switched off.
+
+## Autorun
+
+Walk, jog or run without holding the key.
+
+- Walk, jog and run as three paces, with one key pair to step up and down through them
+- Keeps the animation in step with stamina, terrain, water, stance and injuries
+- Shows the pace in a display you place yourself
+- Stance switching while running, and swimming, diving and the way back onto land
+- Each pace can be pinned to an animation of your own, one set for a rifle and one for a handgun
+- Can be switched off entirely in the CBA settings
+
+The keys are in the CBA keybind menu next to the speed keys, under **Autorun**:
+
+| Action | Default |
+| --- | --- |
+| Walk | `F5` |
+| Jog | `F6` |
+| Run | `F7` |
+| One pace faster | `Ctrl + W` |
+| One pace slower (ends the run below a walk) | `Ctrl + S` |
+| End run | `W`, `S` |
+| Next animation for this pace | `J` |
+
+A run ends by pressing the pace key it is already on, by stepping below a walk, or by reaching
+for a movement key - which then does what it normally does. Faster and slower only do anything
+while a run is going, so those keys stay free for everything else the rest of the time.
 
 ## Bug Report
 
+- [GitHub issues](https://github.com/MissHeda/Adjustable-Walk-Speed-Rework/issues)
 - [Discord](https://discord.gg/Jud6gyzFYx)
+
+Changes per version are in [CHANGELOG.md](CHANGELOG.md).
 
 ## Requirements
 
 - [CBA_A3 v3.17.1.240424 or later](https://steamcommunity.com/sharedfiles/filedetails/?id=450814997)
+
+## Building
+
+[HEMTT](https://github.com/BrettMayson/HEMTT) 1.11.2:
+
+```
+hemtt check     # config and SQF checks, same thing CI runs
+hemtt build     # unsigned PBOs in .hemttout/build
+hemtt launch    # start Arma with the mod and CBA/ACE loaded
+```
+
+## Big thanks to
+
+- Rad
+- Everyone who reported something, sat in a voice channel to show it, or recorded it: Pat,
+  malice20191, dyolF, HBAOplus, vat hom flaffie, rodrockwell, SSG, QWRT0987, 42nfl19, nigel,
+  A. Ares, Pixelated_Grunt and Scarecrow1625
+- Leon (leonz2019) and Legion, for [Autorun Rework](https://github.com/LeonZ2019/autorun-rework),
+  which the autorun part is derived from. That part stays under APL-SA - see
+  [addons/movement/LICENSE_autorun.txt](addons/movement/LICENSE_autorun.txt).
+
+## Note from the current Developers
+- Feel free to request features, on Discord or as a GitHub issue.

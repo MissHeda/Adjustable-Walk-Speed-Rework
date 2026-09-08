@@ -1,0 +1,19 @@
+# Nail down line endings.
+#
+# Without this Git converts to CRLF on checkout under Windows, which makes for mixed trees
+# and unreadable diffs. Arma's preprocessor is happy either way.
+* text=auto eol=lf
+
+# Never touch binaries
+*.paa       binary
+*.pbo       binary
+*.bisign    binary
+*.bikey     binary
+*.png       binary
+*.jpg       binary
+
+# These are text, even though the extension is unusual
+*.sqf       text eol=lf
+*.hpp       text eol=lf
+*.cpp       text eol=lf
+*.inc       text eol=lf
