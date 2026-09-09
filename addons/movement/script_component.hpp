@@ -48,10 +48,12 @@
 
 // Where a display sits before the player moves it in the layout tab. Each group gets its own
 // row so all three can be up at once without covering each other.
-// The same size as Arma's own stance indicator, which is 2.3 x 3.7 of the weapon-info grid -
-// and IGUI_GRID_WEAPON_W/H are GUI_GRID_W/H (a3/ui_f/hpp/definecommongrids.inc:112).
+// As wide as Arma's own stance indicator, which is 2.3 of the weapon-info grid - and
+// IGUI_GRID_WEAPON_W/H are GUI_GRID_W/H (a3/ui_f/hpp/definecommongrids.inc:112). The height is
+// the same count of cells rather than the indicator's 3.7: that shape is drawn for a standing
+// figure, and this artwork is square, so matching it exactly only squashed it.
 #define DISPLAY_W (2.3 * GUI_GRID_W)
-#define DISPLAY_H (3.7 * GUI_GRID_H)
+#define DISPLAY_H (2.3 * GUI_GRID_H)
 #define DISPLAY_X ((safeZoneX + safeZoneW) - 3.8 * GUI_GRID_W)
 #define DISPLAY_Y(row) (safeZoneY + 0.105 * safeZoneH + row * 4.1 * GUI_GRID_H)
 

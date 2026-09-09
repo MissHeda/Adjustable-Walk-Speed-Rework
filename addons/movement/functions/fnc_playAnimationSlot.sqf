@@ -52,12 +52,13 @@ GVAR(animationSlotActive) = _slot;
 
 call FUNC(animationIndicator);
 
-// The engine is kept one animation ahead. playMoveNow only interrupts what is playing; the ones
-// after it are queued with playMove, and the queue is topped up as each finishes. Let the queue
-// run dry and the engine drops into the connected idle for a frame before the next one starts,
-// which is the flicker into a third animation you would otherwise see between two.
-private _id = _unit addEventHandler ["AnimDone", {
-    params ["_unit"];
+// Watched on the animation state itself rather than on AnimDone. Neither playMove nor a queue
+// avoids the flicker: both route through the transition graph, and between two walk animations
+// that route runs through the connected idle, which is the third animation that shows up. So
+// the moment the unit lands anywhere that is not what this slot asked for, the next one is put
+// on with switchMove, which takes no transition at all.
+private _id = _unit addEventHandler ["AnimStateChanged", {
+    params ["_unit", "_state"];
 
     if (GVAR(animationSlotActive) == 0) exitWith {};
 
@@ -76,6 +77,9 @@ private _id = _unit addEventHandler ["AnimDone", {
         [_unit] call FUNC(stopAnimationSlot);
     };
 
+    // Still in the one that was asked for: nothing to do.
+    if (toLowerANSI _state isEqualTo toLowerANSI (_names select GVAR(animationSlotIndex))) exitWith {};
+
     private _next = GVAR(animationSlotIndex) + 1;
 
     if (_next >= count _names) then {
@@ -91,16 +95,10 @@ private _id = _unit addEventHandler ["AnimDone", {
     };
 
     GVAR(animationSlotIndex) = _next;
-    _unit playMove (_names select _next);
+    _unit switchMove (_names select _next);
 }];
 
 SETVAR(_unit,GVAR(animationSlotEH),_id);
 
 GVAR(animationSlotIndex) = 0;
-_unit playMoveNow (_names select 0);
-
-// The second one goes in straight away, so there is always something queued behind what plays.
-if (count _names > 1 || {_loop}) then {
-    GVAR(animationSlotIndex) = 1 % (count _names);
-    _unit playMove (_names select GVAR(animationSlotIndex));
-};
+_unit switchMove (_names select 0);

@@ -19,10 +19,6 @@
 
 params ["_unit", ["_animation", ""]];
 
-if (GVAR(debug)) then {
-    [_animation] call FUNC(debugAnimation);
-};
-
 // Switched off mid mission: hand the unit back before going quiet.
 if (!GVAR(Enable)) exitWith {
     if (GETVAR(_unit,GVAR(activeType),"") isEqualTo "" && {GETVAR(_unit,GVAR(appliedSpeed),1) == 1}) exitWith {};
@@ -30,6 +26,8 @@ if (!GVAR(Enable)) exitWith {
     SETVAR(_unit,GVAR(activeType),"");
     [_unit, 1] call FUNC(applySpeed);
     [_unit, false] call FUNC(setForceWalk);
+
+    if (GVAR(debug)) then {[_animation] call FUNC(debugAnimation)};
 };
 
 private _speeds = _unit call FUNC(getSpeedHashMap);
@@ -56,9 +54,16 @@ if (_pinned > 0) exitWith {
 
     [_unit, _coef] call FUNC(applySpeed);
 
-    if (_changed && {_type isNotEqualTo ""} && {_unit isEqualTo CURRENT_UNIT}) then {
-        [_unit, _coef * 100, _type, false, ""] call FUNC(displayUpdatedInfo);
+    // An animation with a speed of its own often belongs to no group at all - swimming, ladders -
+    // and it still has to be shown somewhere, so the custom display takes those.
+    if (_changed && {_unit isEqualTo CURRENT_UNIT}) then {
+        private _shown = _type;
+        if (_shown isEqualTo "") then {_shown = "custom"};
+
+        [_unit, _coef * 100, _shown, false, ""] call FUNC(displayUpdatedInfo);
     };
+
+    if (GVAR(debug)) then {[_animation] call FUNC(debugAnimation)};
     [_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);
 };
 
@@ -66,6 +71,8 @@ if (_pinned > 0) exitWith {
 if (_type isEqualTo "") exitWith {
     [_unit, _speeds getOrDefault ["defaultSpeed", 1]] call FUNC(applySpeed);
     [_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);
+
+    if (GVAR(debug)) then {[_animation] call FUNC(debugAnimation)};
 };
 
 private _coef = _speeds getOrDefault [_type, 1];
@@ -82,3 +89,7 @@ if (_coef > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {
 // Deciding it here and nowhere else is what stops it being set in one place and cleared in the
 // other on the very next animation change.
 [_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);
+
+// Last, so the numbers on it are the ones that were just applied rather than the ones that
+// were there when this call started.
+if (GVAR(debug)) then {[_animation] call FUNC(debugAnimation)};

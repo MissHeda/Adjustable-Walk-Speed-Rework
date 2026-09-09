@@ -20,7 +20,7 @@ params ["_unit"];
 private _id = GETVAR(_unit,GVAR(animationSlotEH),-1);
 
 if (_id >= 0) then {
-    _unit removeEventHandler ["AnimDone", _id];
+    _unit removeEventHandler ["AnimStateChanged", _id];
     SETVAR(_unit,GVAR(animationSlotEH),-1);
 };
 

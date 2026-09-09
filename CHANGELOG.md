@@ -161,13 +161,15 @@ else is lost - set them again and they stay.
   did nothing to it and landed on the player's own body instead, showing up the moment control was
   handed back. They follow the controlled unit now, the same one CBA's own player event handler
   watches. Taking over also hides the speed displays, since each body keeps its own speeds.
-- **A sequence flickered through a third animation between its own two.** The engine's animation
-  queue was allowed to run dry between them, and a dry queue drops the unit into the connected
-  idle for a frame. It is kept one animation ahead now, so the next is already queued when the
-  current one ends.
+- **A sequence flickered through a third animation between its own two.** Both `playMove` and
+  `playMoveNow` follow the game's transition graph, and between two walk animations that route
+  runs through the connected idle - which is the animation that kept appearing. The sequence
+  watches the animation state instead and puts the next one on with `switchMove`, which takes no
+  transition at all.
 - **A speed set per animation did not reach the display.** It was only redrawn on a key press, so
   a sequence stepping through animations with different speeds left the display showing the one
-  before. It follows the applied value now.
+  before. It follows the applied value now, and an animation that is in no group - swimming, a
+  ladder - is shown on the custom display rather than nowhere.
 - **An animation key would walk you into the sea.** Land animations do not stop at the waterline
   and the engine plays what it is told, so a slot now refuses to start in water and ends when it
   reaches it.
@@ -196,12 +198,14 @@ else is lost - set them again and they stay.
   Walking each used to appear twice, on two different pages; a group's speed and its display now
   sit in one place. No value is lost: CBA stores a setting under its own name, never under its
   category.
-- Every display is the size of Arma's own stance indicator by default, and starts clear of the
+- Every display is as wide as Arma's own stance indicator by default, and starts clear of the
   vanilla interface. The artwork keeps its aspect inside the box, and the box is the one the
   layout tab saved rather than a square worked out from its width - the two used to disagree,
   which is what made the layout tab look wrong.
 - **Debug redraws on a loop as well as on an animation change**, so the speed on it keeps up -
-  the speed moves while the animation stays the same, which is the whole point of the mod.
+  the speed moves while the animation stays the same, which is the whole point of the mod. It
+  also reports after the speed has been applied rather than before, so the number on it is the
+  one in force and not the one from the animation before.
 - **Debug is a server setting** and says `AWSR DEBUG` on the hint, so nobody wonders whose it is
   or turns it on mid mission - it draws on every animation change. It also shows the speed being
   applied and which group the animation belongs to.
