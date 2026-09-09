@@ -161,6 +161,16 @@ else is lost - set them again and they stay.
   did nothing to it and landed on the player's own body instead, showing up the moment control was
   handed back. They follow the controlled unit now, the same one CBA's own player event handler
   watches. Taking over also hides the speed displays, since each body keeps its own speeds.
+- **A sequence flickered through a third animation between its own two.** The engine's animation
+  queue was allowed to run dry between them, and a dry queue drops the unit into the connected
+  idle for a frame. It is kept one animation ahead now, so the next is already queued when the
+  current one ends.
+- **A speed set per animation did not reach the display.** It was only redrawn on a key press, so
+  a sequence stepping through animations with different speeds left the display showing the one
+  before. It follows the applied value now.
+- **An animation key would walk you into the sea.** Land animations do not stop at the waterline
+  and the engine plays what it is told, so a slot now refuses to start in water and ends when it
+  reaches it.
 - **The animation keys stuttered every few metres.** The sequence was driven by a poll, which
   only notices an animation has ended a tick late - and in that gap the engine has already
   dropped the unit into a standing idle. It runs off `AnimDone` now, the same as the autorun.

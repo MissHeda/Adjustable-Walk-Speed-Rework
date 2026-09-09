@@ -609,6 +609,14 @@
             <English>AWSR - Animation Indicator</English>
             <German>AWSR - Animationsanzeige</German>
         </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textSize_Animation">
+            <English>Animation Indicator Size</English>
+            <German>Größe der Animationsanzeige</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textSize_Animation_DESC">
+            <English>How large the animation indicator text\nis drawn.</English>
+            <German>Wie groß der Text der Animationsanzeige\ngezeichnet wird.</German>
+        </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>
             <German>Autolauf | Stopp</German>

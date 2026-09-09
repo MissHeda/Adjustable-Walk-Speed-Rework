@@ -39,7 +39,7 @@ private _text = "<t color='" + _color + "'>" +
     ANIMATION_Y,
     1,
     _text,
-    1,
+    GVAR(IGUI_textSize_Animation),
     [0, 0, 0, 0],
     0,
     1,

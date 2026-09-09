@@ -1168,6 +1168,16 @@ GVAR(autorun_displayAllow) = [12];
     0
 ] call CBA_Settings_fnc_init;
 
+// Size of the animation indicator text
+[
+    QGVAR(IGUI_textSize_Animation),
+    "SLIDER",
+    [LLSTRING(SETTING_IGUI_textSize_Animation),LLSTRING(SETTING_IGUI_textSize_Animation_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [ARR_5(0.5,3,1.4,1,true)],
+    0
+] call CBA_Settings_fnc_init;
+
 // Colour of the animation indicator
 [
     QGVAR(IGUI_textColor_Animation),

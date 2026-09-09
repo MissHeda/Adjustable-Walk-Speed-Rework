@@ -49,7 +49,16 @@ if (_pinned > 0) exitWith {
 
     if (_coef > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {_coef = 1};
 
+    // The display is redrawn whenever the applied value changes, not only when a key was
+    // pressed. A sequence that steps through animations with different speeds changes it
+    // without anyone touching a key, and a display still showing the one before is a lie.
+    private _changed = GETVAR(_unit,GVAR(appliedSpeed),-1) != _coef;
+
     [_unit, _coef] call FUNC(applySpeed);
+
+    if (_changed && {_type isNotEqualTo ""} && {_unit isEqualTo CURRENT_UNIT}) then {
+        [_unit, _coef * 100, _type, false, ""] call FUNC(displayUpdatedInfo);
+    };
     [_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);
 };
 
