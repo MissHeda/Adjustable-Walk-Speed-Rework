@@ -46,7 +46,7 @@ private _type = "";
 } forEach [
     ["walk", GVAR(Enable_Walk), GVAR(animations_Walk), GVAR(patterns_Walk), GVAR(blocked_Walk)],
     ["tactical", GVAR(Enable_Tactical), GVAR(animations_Tactical), GVAR(patterns_Tactical), GVAR(blocked_Tactical)],
-    ["custom", GVAR(Enable_Custom), GVAR(animations_Custom), GVAR(patterns_Custom), GVAR(blocked_Custom)]
+    ["custom", GVAR(customMode) == CUSTOM_MODE_GROUP, GVAR(animations_Custom), GVAR(patterns_Custom), GVAR(blocked_Custom)]
 ];
 
 GVAR(animationTypeCache) set [_animation, _type];

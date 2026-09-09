@@ -44,6 +44,7 @@ GVAR(autorun_animation) = "";
 GVAR(autorun_stanceUntil) = 0;
 GVAR(autorun_exhaustedUntil) = 0;
 GVAR(notifyToken) = 0;
+GVAR(customToken) = 0;
 GVAR(animationSlotActive) = 0;
 GVAR(animationSlotIndex) = 0;
 GVAR(autorun_animDoneEH) = -1;
@@ -540,11 +541,11 @@ GVAR(autorun_displayAllow) = [12];
 
 // Enable speed adjustments (custom)
 [
-    QGVAR(Enable_Custom),
-    "CHECKBOX",
-    [LLSTRING(SETTING_Enable_Custom),LLSTRING(SETTING_Enable_Custom_DESC)],
+    QGVAR(customMode),
+    "LIST",
+    [LLSTRING(SETTING_customMode),LLSTRING(SETTING_customMode_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Custom)],
-    [false],
+    [[ARR_2(CUSTOM_MODE_GROUP,CUSTOM_MODE_ANIMATION)], [ARR_2(LLSTRING(SETTING_customMode_group),LLSTRING(SETTING_customMode_animation))], CUSTOM_MODE_ANIMATION],
     0,
     DROP_ANIMATION_CACHE
 ] call CBA_Settings_fnc_init;

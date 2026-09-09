@@ -85,14 +85,6 @@
             <English>Turns the tactical group on or off.</English>
             <German>Schaltet die taktische Gruppe ein oder aus.</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_Enable_Custom">
-            <English>Enable Custom Module</English>
-            <German>Aktiviert Benutzerdefiniert Modul</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_Enable_Custom_DESC">
-            <English>Turns the custom group on or off.\nIt is empty until you whitelist something.</English>
-            <German>Schaltet die eigene Gruppe ein oder aus.\nSie ist leer, bis du etwas einträgst.</German>
-        </Key>
         <Key ID="STR_awsr_movement_SETTING_includeNonRaisedAnimations">
             <English>Include Non Weapon Raised Animations</English>
             <German>Animationen ohne gehobene Waffe einbeziehen</German>
@@ -612,6 +604,22 @@
         <Key ID="STR_awsr_movement_SETTING_IGUI_textSize_Animation_DESC">
             <English>How large the animation indicator text\nis drawn.</English>
             <German>Wie groß der Text der Animationsanzeige\ngezeichnet wird.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_customMode">
+            <English>Custom Category Does</English>
+            <German>Custom-Kategorie macht</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_customMode_DESC">
+            <English>What the Custom category and its keys\nare for.\n\nPer-Animation Speed (default):\nthe keys change the speed of whatever\nanimation is playing, and what you set\noutranks the group from then on.\nIts whitelist, min and max are unused -\nthe range comes from the animation and\nthe group it is in.\n\nThird Animation Group:\nas Walking and Tactical, with its own\nwhitelist and range.</English>
+            <German>Wofür die Custom-Kategorie und ihre\nTasten da sind.\n\nGeschwindigkeit je Animation (Standard):\ndie Tasten ändern die Geschwindigkeit\nder laufenden Animation, und was du\nsetzt, schlägt ab dann die Gruppe.\nWhitelist, Min und Max bleiben ungenutzt -\ndie Grenzen kommen aus der Animation und\nihrer Gruppe.\n\nDritte Animationsgruppe:\nwie Gehen und Taktisch, mit eigener\nWhitelist und eigenen Grenzen.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_customMode_animation">
+            <English>Per-Animation Speed</English>
+            <German>Geschwindigkeit je Animation</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_customMode_group">
+            <English>Third Animation Group</English>
+            <German>Dritte Animationsgruppe</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

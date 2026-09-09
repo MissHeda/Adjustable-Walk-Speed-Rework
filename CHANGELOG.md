@@ -66,6 +66,21 @@ else is lost - set them again and they stay.
   finding the name of an animation without opening the config viewer: switch it on, do the move,
   switch it off, paste. It works with the rest of the mod switched off.
 
+- **The Custom category is a mode now, not an on/off**, and it is on out of the box. Left at its
+  default it turns the Custom keys into a speed control for whatever animation is playing, bound
+  to `Ctrl + Alt + Shift + mouse wheel`. Set the other way it is the third animation group it
+  always was, with its own whitelist and range.
+
+  Three sources of speed, in order: what you set for this animation with those keys, then the
+  group's speed while the group is off default, then the speed the animation was given by name.
+  So a group left alone does not overrule a per-animation speed, and a speed you set by hand is
+  not overruled by anything.
+
+- **The Custom display says what is actually in force**, whatever set it, with a bar under it
+  showing how far the keys reach - default speed in the middle, the two halves read separately so
+  an ordinary value does not sit squashed against one end. It goes a moment after the speed is
+  back to normal rather than at once.
+
 - **Per-Animation Speeds.** A speed for single animations by name, whatever group they are or are
   not in - `Aswm*=2, Ladder*=1.5`. Swimming, ladders and crawling are in no group at all, which is
   why they were out of reach until now. It beats all three groups, so the number on the display is
@@ -166,6 +181,8 @@ else is lost - set them again and they stay.
   runs through the connected idle - which is the animation that kept appearing. The sequence
   watches the animation state instead and puts the next one on with `switchMove`, which takes no
   transition at all.
+- **A group's display showed values that were not its own.** A change from anywhere redrew every
+  group. Each one answers for its own group now, and only while that group is off default.
 - **A speed set per animation did not reach the display.** It was only redrawn on a key press, so
   a sequence stepping through animations with different speeds left the display showing the one
   before. It follows the applied value now, and an animation that is in no group - swimming, a
@@ -212,6 +229,9 @@ else is lost - set them again and they stay.
 - Autorun animation settings are named `Stance - Pace (Weapon)` throughout, so the rifle set says
   it is the rifle set.
 - Debug and Per-Animation Speeds have sub-categories of their own rather than sitting in General.
+- The debug list runs newest-green to oldest-red, so which end you are reading takes a glance
+  rather than a count.
+- Keybind headings lost their numbers, and General moved in with the speed keys.
 - The three speed groups share one keybind heading instead of one each, so the menu reads as the
   three things the mod does rather than as five sections you have to know apart.
 - Ladders and swimming are filled into Per-Animation Speeds at 1, ready to be changed.

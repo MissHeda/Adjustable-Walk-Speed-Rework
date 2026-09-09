@@ -30,6 +30,22 @@
 // CBA reads 0 as "no key", which is what an unbound default is.
 #define DIK_UNBOUND 0
 
+// The custom category is either a third animation group or the thing that adjusts one animation
+// at a time. The second is the default: the group was switched off out of the box anyway, and
+// per-animation speeds are the reason most people open it.
+#define CUSTOM_MODE_GROUP 0
+#define CUSTOM_MODE_ANIMATION 1
+
+// The bar under the custom display. An odd count so there is a true middle cell for default
+// speed, and box-drawing characters because RobotoCondensed has them at a consistent width.
+#define SPEED_SLIDER_CELLS 21
+#define SPEED_SLIDER_TRACK "-"
+#define SPEED_SLIDER_MARK "|"
+#define SPEED_SLIDER_MARKUP "<t size='0.7'>%1 %2 %3</t>"
+
+// How long the custom display stays after the speed is back to normal.
+#define CUSTOM_FADE_TIME 1.5
+
 #define DEBUG_ANIMATION_COUNT 20
 #define DEBUG_REFRESH_INTERVAL 0.25
 

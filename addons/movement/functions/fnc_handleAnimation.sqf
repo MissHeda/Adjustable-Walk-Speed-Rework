@@ -35,36 +35,40 @@ private _type = _animation call FUNC(animationType);
 
 SETVAR(_unit,GVAR(activeType),_type);
 
-// A speed set for this animation by name beats every group, including no group at all - that is
-// how swimming, ladders and crawling get a speed without being whitelisted into one.
+// Three sources, in this order:
+//
+//   1. what the player set for this animation with the custom keys - the highest, because it is
+//      the one thing here they chose deliberately for the animation in front of them
+//   2. the group's speed, when the group has been moved off default
+//   3. the speed the animation was given by name in the settings
+//
+// A group left at default does not outrank a per-animation speed, which is what lets swimming
+// keep its own speed while the walk group sits at 100%.
 private _pinned = _animation call FUNC(animationSpeed);
+private _manual = _speeds getOrDefault [ANIM_KEY(_animation), -1];
+private _group = _speeds getOrDefault [_type, 1];
 
-if (_pinned > 0) exitWith {
-    // The setting is where this animation starts. The keys still work from there, within a range
-    // the setting widens - see awsr_movement_fnc_adjustSpeed - and what they set is remembered
-    // per animation.
-    private _coef = _speeds getOrDefault [ANIM_KEY(_animation), _pinned];
+private _coef = -1;
 
+switch (true) do {
+    case (_manual > 0): {_coef = _manual};
+    case (_type isNotEqualTo "" && {_group != 1}): {_coef = _group};
+    case (_pinned > 0): {_coef = _pinned};
+};
+
+if (_coef > 0) exitWith {
     if (_coef > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {_coef = 1};
 
-    // The display is redrawn whenever the applied value changes, not only when a key was
-    // pressed. A sequence that steps through animations with different speeds changes it
-    // without anyone touching a key, and a display still showing the one before is a lie.
     private _changed = GETVAR(_unit,GVAR(appliedSpeed),-1) != _coef;
 
     [_unit, _coef] call FUNC(applySpeed);
+    [_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);
 
-    // An animation with a speed of its own often belongs to no group at all - swimming, ladders -
-    // and it still has to be shown somewhere, so the custom display takes those.
     if (_changed && {_unit isEqualTo CURRENT_UNIT}) then {
-        private _shown = _type;
-        if (_shown isEqualTo "") then {_shown = "custom"};
-
-        [_unit, _coef * 100, _shown, false, ""] call FUNC(displayUpdatedInfo);
+        [_unit, _coef, _type] call FUNC(showSpeed);
     };
 
     if (GVAR(debug)) then {[_animation] call FUNC(debugAnimation)};
-    [_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);
 };
 
 // Not one of ours: default speed, default audibility, and drop our force walk if we set one.
@@ -75,7 +79,7 @@ if (_type isEqualTo "") exitWith {
     if (GVAR(debug)) then {[_animation] call FUNC(debugAnimation)};
 };
 
-private _coef = _speeds getOrDefault [_type, 1];
+_coef = _group;
 
 // Something else is holding the unit at walking pace - speeding the animation up would let
 // the player walk out from under it.
@@ -83,7 +87,13 @@ if (_coef > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {
     _coef = 1;
 };
 
+private _changed = GETVAR(_unit,GVAR(appliedSpeed),-1) != _coef;
+
 [_unit, _coef] call FUNC(applySpeed);
+
+if (_changed && {_unit isEqualTo CURRENT_UNIT}) then {
+    [_unit, _coef, _type] call FUNC(showSpeed);
+};
 
 // Force walk hangs off the walk speed itself, not off the animation the unit happens to be in.
 // Deciding it here and nowhere else is what stops it being set in one place and cleared in the

@@ -340,7 +340,7 @@ private _customCategory = _walkCategory;
         [CURRENT_UNIT, "increase", "custom"] call FUNC(adjustSpeed);
     },
     "",
-    []
+    [0xF8, [ARR_3(true,true,true)]]
 ] call CBA_fnc_addKeybind;
 
 // Decrease Speed Keybind: Undefined
@@ -352,7 +352,7 @@ private _customCategory = _walkCategory;
         [CURRENT_UNIT, "decrease", "custom"] call FUNC(adjustSpeed);
     },
     "",
-    []
+    [0xF9, [ARR_3(true,true,true)]]
 ] call CBA_fnc_addKeybind;
 
 // Reset Speed Keybind: Undefined

@@ -31,7 +31,7 @@ private _settings = switch (_type) do {
         [GVAR(Enable_Tactical), GVAR(minAdjustSpeed_Tactical), GVAR(maxAdjustSpeed_Tactical), GVAR(speedAdjustCoefficient_Tactical)]
     };
     case "custom": {
-        [GVAR(Enable_Custom), GVAR(minAdjustSpeed_Custom), GVAR(maxAdjustSpeed_Custom), GVAR(speedAdjustCoefficient_Custom)]
+        [true, GVAR(minAdjustSpeed_Custom), GVAR(maxAdjustSpeed_Custom), GVAR(speedAdjustCoefficient_Custom)]
     };
     default {[]};
 };
@@ -56,11 +56,35 @@ if ( // Exit if:
 ) exitWith {};
 
 private _speeds = _unit call FUNC(getSpeedHashMap);
+private _animation = toLowerANSI (animationState _unit);
+
+// The custom keys, set to adjust animations, work on whatever is playing - and what they set
+// outranks the group from then on, which is the point of them: a group speed you did not choose
+// should not be the last word on an animation you did.
+if (_type isEqualTo "custom" && {GVAR(customMode) == CUSTOM_MODE_ANIMATION}) exitWith {
+    ([_unit, _animation] call FUNC(customBounds)) params ["_low", "_high", "_anchor"];
+
+    private _was = _speeds getOrDefault [ANIM_KEY(_animation), GETVAR(_unit,GVAR(appliedSpeed),1)];
+
+    private _to = switch (_mode) do {
+        case "increase": {_was + _step};
+        case "decrease": {_was - _step};
+        case "reset": {_anchor};
+        case "min": {_low};
+        case "max": {_high};
+        default {_was};
+    };
+
+    _to = [((_to max _low) min _high), 2] call BIS_fnc_cutDecimals;
+
+    _speeds set [ANIM_KEY(_animation), _to];
+
+    [_unit, animationState _unit] call FUNC(handleAnimation);
+};
 
 // An animation with a speed of its own is adjusted on its own, whichever group's key was
 // pressed - the animations this is for, swimming and ladders, belong to no group, so waiting
 // for the right group's key would mean waiting forever.
-private _animation = toLowerANSI (animationState _unit);
 private _pinned = _animation call FUNC(animationSpeed);
 
 if (_pinned > 0) exitWith {
@@ -88,7 +112,7 @@ if (_pinned > 0) exitWith {
 
     [_unit, animationState _unit] call FUNC(handleAnimation);
 
-    [_unit, _to * 100, _type, _to == _low || {_to == _high}, ""] call FUNC(displayUpdatedInfo);
+    [_unit, _to, _type] call FUNC(showSpeed);
 };
 
 private _current = _speeds getOrDefault [_type, 1];
@@ -127,4 +151,10 @@ _speeds set [_type, _new];
 // sit unused until the next animation change.
 [_unit, animationState _unit] call FUNC(handleAnimation);
 
+// The group's own display always answers a key press on that group, whether or not the value
+// it set is the one in force - the player pressed it, so it has to say what it did.
 [_unit, _new * 100, _type, _limitReached, _reason] call FUNC(displayUpdatedInfo);
+
+if (GVAR(customMode) == CUSTOM_MODE_ANIMATION) then {
+    [_unit, GETVAR(_unit,GVAR(appliedSpeed),1), _type] call FUNC(showSpeed);
+};
