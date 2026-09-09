@@ -34,9 +34,8 @@ if (incapacitatedState _unit != "") exitWith {};
 
 // Same key again: stop, and let the engine take the unit back.
 if (GVAR(animationSlotActive) == _slot) exitWith {
-    GVAR(animationSlotActive) = 0;
+    [_unit] call FUNC(stopAnimationSlot);
     _unit switchMove "";
-    call FUNC(animationIndicator);
 };
 
 private _names = missionNamespace getVariable [format [QGVAR(animationSlotList_%1), _slot], []];
@@ -49,34 +48,39 @@ GVAR(animationSlotActive) = _slot;
 
 call FUNC(animationIndicator);
 
-// The sequence is driven by AnimDone rather than by sleeping for a guessed length: animations
-// differ in length, and a speed set by this very mod changes it again.
-[{
-    params ["_args", "_handle"];
-    _args params ["_unit", "_slot", "_names", "_loop", "_index"];
+// Driven by AnimDone rather than by polling. A poll only notices the animation has ended up to
+// a tick late, and in that gap the engine has already dropped the unit into a standing idle -
+// which is the stutter you see every few metres when a walk is looped.
+private _id = _unit addEventHandler ["AnimDone", {
+    params ["_unit"];
 
-    if (GVAR(animationSlotActive) != _slot || {!alive _unit} || {!isNull objectParent _unit}) exitWith {
-        [_handle] call CBA_fnc_removePerFrameHandler;
+    if (GVAR(animationSlotActive) == 0) exitWith {};
 
-        if (GVAR(animationSlotActive) == _slot) then {
-            GVAR(animationSlotActive) = 0;
-            call FUNC(animationIndicator);
-        };
+    private _slot = GVAR(animationSlotActive);
+    private _names = missionNamespace getVariable [format [QGVAR(animationSlotList_%1), _slot], []];
+
+    if (_names isEqualTo [] || {!alive _unit} || {!isNull objectParent _unit}) exitWith {
+        [_unit] call FUNC(stopAnimationSlot);
     };
 
-    // Still in the one that was asked for, so there is nothing to do yet.
-    if (_index > 0 && {toLowerANSI (animationState _unit) == toLowerANSI (_names select (_index - 1))}) exitWith {};
+    private _index = GVAR(animationSlotIndex) + 1;
 
-    if (_index >= count _names) exitWith {
-        if (!_loop) exitWith {
-            [_handle] call CBA_fnc_removePerFrameHandler;
-            GVAR(animationSlotActive) = 0;
-            call FUNC(animationIndicator);
+    if (_index >= count _names) then {
+        if !(missionNamespace getVariable [format [QGVAR(animationSlotLoop_%1), _slot], false]) exitWith {
+            [_unit] call FUNC(stopAnimationSlot);
+            _index = -1;
         };
 
-        _args set [4, 0];
+        _index = 0;
     };
 
+    if (_index < 0) exitWith {};
+
+    GVAR(animationSlotIndex) = _index;
     _unit playMoveNow (_names select _index);
-    _args set [4, _index + 1];
-}, 0.1, [_unit, _slot, _names, _loop, 0]] call CBA_fnc_addPerFrameHandler;
+}];
+
+SETVAR(_unit,GVAR(animationSlotEH),_id);
+
+GVAR(animationSlotIndex) = 0;
+_unit playMoveNow (_names select 0);

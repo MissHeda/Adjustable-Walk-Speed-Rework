@@ -41,5 +41,6 @@ PREP(reapplySpeed);
 PREP(rebuildAnimations);
 PREP(rebuildAnimationSlots);
 PREP(setDefaultSpeed);
+PREP(stopAnimationSlot);
 PREP(setForceWalk);
 PREP(updateIGUI);

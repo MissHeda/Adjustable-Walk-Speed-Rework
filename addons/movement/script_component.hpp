@@ -19,7 +19,10 @@
 #define CURRENT_UNIT (call CBA_fnc_currentUnit)
 
 // The animation indicator sits above the autorun one, in the same column.
-#define ANIMATION_X (safeZoneX + safeZoneW / 2 - 1.15 * GUI_GRID_W)
+#define TEXT_DISPLAY_W (14 * GUI_GRID_W)
+#define TEXT_DISPLAY_H (1.2 * GUI_GRID_H)
+
+#define ANIMATION_X (safeZoneX + safeZoneW / 2 - 7 * GUI_GRID_W)
 #define ANIMATION_Y (safeZoneY + 0.72 * safeZoneH)
 
 #define ANIMATION_SLOTS 10
@@ -28,6 +31,7 @@
 #define DIK_UNBOUND 0
 
 #define DEBUG_ANIMATION_COUNT 20
+#define DEBUG_REFRESH_INTERVAL 0.25
 
 // Kept here so the commas inside them never reach a macro argument list.
 #define ARR_SEPARATOR ",<br/>"
@@ -49,7 +53,7 @@
 #define DISPLAY_W (2.3 * GUI_GRID_W)
 #define DISPLAY_H (3.7 * GUI_GRID_H)
 #define DISPLAY_X ((safeZoneX + safeZoneW) - 3.8 * GUI_GRID_W)
-#define DISPLAY_Y(row) (safeZoneY + 0.125 * safeZoneH + row * 4.1 * GUI_GRID_H)
+#define DISPLAY_Y(row) (safeZoneY + 0.105 * safeZoneH + row * 4.1 * GUI_GRID_H)
 
 // The autorun indicator sits low and centred, where it was before it became a display like the
 // others - it is read while moving, not while aiming at it.

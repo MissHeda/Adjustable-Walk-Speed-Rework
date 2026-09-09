@@ -605,6 +605,10 @@
             <English>Colour of the animation indicator text.</English>
             <German>Farbe des Textes der Animationsanzeige.</German>
         </Key>
+        <Key ID="STR_awsr_movement_IGUI_DisplayName_Animation">
+            <English>AWSR - Animation Indicator</English>
+            <German>AWSR - Animationsanzeige</German>
+        </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>
             <German>Autolauf | Stopp</German>

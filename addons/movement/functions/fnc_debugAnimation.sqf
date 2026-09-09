@@ -22,14 +22,23 @@
 params [["_animation", ""]];
 
 if (!hasInterface) exitWith {};
+
+// Called with nothing from the refresh loop: redraw whatever is on screen with the numbers as
+// they are now. The speed changes without the animation changing - that is the whole point of
+// the mod - so an animation handler on its own would show a value that is already stale.
+if (_animation isEqualTo "") then {
+    _animation = animationState CURRENT_UNIT;
+};
+
 if (_animation == "") exitWith {};
 
 private _list = GVAR(debugAnimations);
 
-// A loop re-enters the same state, and a list of the same name twenty times helps nobody.
-if ((_list param [count _list - 1, ""]) == _animation) exitWith {};
-
-_list pushBack _animation;
+// A loop re-enters the same state, and a list of the same name twenty times helps nobody. The
+// hint is still redrawn, so the speed on it keeps up.
+if ((_list param [count _list - 1, ""]) != _animation) then {
+    _list pushBack _animation;
+};
 
 while {count _list > DEBUG_ANIMATION_COUNT} do {
     _list deleteAt 0;
@@ -54,7 +63,7 @@ if (_pinned > 0) then {_pinnedText = str _pinned};
 
 private _detail = format [
     LLSTRING(DEBUG_speed),
-    getAnimSpeedCoef player,
+    getAnimSpeedCoef CURRENT_UNIT,
     _groupText,
     _pinnedText
 ];

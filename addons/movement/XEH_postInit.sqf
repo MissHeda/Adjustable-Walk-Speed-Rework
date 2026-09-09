@@ -444,5 +444,19 @@ private _customCategory = _walkCategory;
     true
 ] call CBA_fnc_addPlayerEventHandler;
 
+// Debug redraws on a loop as well as on an animation change: the speed moves while the animation
+// stays the same, so the handler alone would show a stale number. Cheap, and only while Debug is
+// on - which is a server setting precisely so nobody leaves this running.
+[{
+    if (!GVAR(debug)) exitWith {};
+
+    private _coef = getAnimSpeedCoef CURRENT_UNIT;
+
+    if (_coef isEqualTo GVAR(debugLastSpeed)) exitWith {};
+
+    GVAR(debugLastSpeed) = _coef;
+    [""] call FUNC(debugAnimation);
+}, DEBUG_REFRESH_INTERVAL] call CBA_fnc_addPerFrameHandler;
+
 // Watches for another mod overwriting the speed we set - see awsr_movement_fnc_reapplySpeed.
 [FUNC(reapplySpeed), 0.25] call CBA_fnc_addPerFrameHandler;

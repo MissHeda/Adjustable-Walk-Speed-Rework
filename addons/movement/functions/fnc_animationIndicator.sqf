@@ -42,5 +42,7 @@ private _text = "<t color='" + _color + "'>" +
     1,
     [0, 0, 0, 0],
     0,
-    9
+    1,
+    TEXT_DISPLAY_W,
+    TEXT_DISPLAY_H
 ] call FUNC(updateIGUI);

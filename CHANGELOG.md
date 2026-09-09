@@ -89,7 +89,8 @@ else is lost - set them again and they stay.
   it runs stops it. None of the ten are bound by default.
 
 - **An indicator for the animation keys**, placed in the layout tab like the others, saying which
-  key is running - a looping key has no other way of telling you it is still going.
+  key is running - a looping key has no other way of telling you it is still going. It is a line
+  of text rather than another icon, since there is nothing to draw.
 
 - **A blacklist for the custom group**, now that wildcards make one worth having.
 
@@ -160,6 +161,12 @@ else is lost - set them again and they stay.
   did nothing to it and landed on the player's own body instead, showing up the moment control was
   handed back. They follow the controlled unit now, the same one CBA's own player event handler
   watches. Taking over also hides the speed displays, since each body keeps its own speeds.
+- **The animation keys stuttered every few metres.** The sequence was driven by a poll, which
+  only notices an animation has ended a tick late - and in that gap the engine has already
+  dropped the unit into a standing idle. It runs off `AnimDone` now, the same as the autorun.
+- **Speed flickered back to default under Zeus remote control.** ACE's advanced fatigue was never
+  told to keep its hands off, because the claim was made only for `player` - which is not the
+  unit being driven. ACE reset the coefficient, the reapply loop put it back, once a second.
 - Toggling settings could grow the whitelists with duplicate entries.
 - The walk group's "include non raised animations" callback referenced an undefined variable.
 - A script error on the first animation change of a mission with ACE loaded, from looking up our
@@ -174,13 +181,17 @@ else is lost - set them again and they stay.
 - The animation lookup is cached per animation name instead of concatenating and searching a few
   hundred strings on every animation state change.
 - Settings, IGUI settings and keybinds are numbered so they read in the same order everywhere.
-- **Settings are split by feature into `AWSR - Autorun`, `AWSR - Speed Adjustment` and
+- **Settings are split by feature into `AWSR - Autorun`, `AWSR - Adjustable Walk Speed` and
   `AWSR - Animation Adjustment`**, rather than by whether a setting draws something. Autorun and
   Walking each used to appear twice, on two different pages; a group's speed and its display now
   sit in one place. No value is lost: CBA stores a setting under its own name, never under its
   category.
 - Every display is the size of Arma's own stance indicator by default, and starts clear of the
-  vanilla interface.
+  vanilla interface. The artwork keeps its aspect inside the box, and the box is the one the
+  layout tab saved rather than a square worked out from its width - the two used to disagree,
+  which is what made the layout tab look wrong.
+- **Debug redraws on a loop as well as on an animation change**, so the speed on it keeps up -
+  the speed moves while the animation stays the same, which is the whole point of the mod.
 - **Debug is a server setting** and says `AWSR DEBUG` on the hint, so nobody wonders whose it is
   or turns it on mid mission - it draws on every animation change. It also shows the speed being
   applied and which group the animation belongs to.

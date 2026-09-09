@@ -9,8 +9,8 @@ ADDON = false;
 // display text. Only the variable name decides where a value is stored, so re-categorising
 // never costs a player their settings - renaming would.
 #define CBA_SETTINGS_AWSR_AUTORUN "AWSR - Autorun"
-#define CBA_SETTINGS_AWSR "AWSR - Speed Adjustment"
-#define CBA_SETTINGS_AWSR_GUI "AWSR - Speed Adjustment"
+#define CBA_SETTINGS_AWSR "AWSR - Adjustable Walk Speed"
+#define CBA_SETTINGS_AWSR_GUI "AWSR - Adjustable Walk Speed"
 #define CBA_SETTINGS_AWSR_ANIM "AWSR - Animation Adjustment"
 
 // Resolved whitelists. The settings themselves stay the strings the player typed;
@@ -26,6 +26,7 @@ GVAR(blocked_Tactical) = [];
 GVAR(blocked_Custom) = [];
 GVAR(animationTypeCache) = createHashMap;
 GVAR(debugAnimations) = [];
+GVAR(debugLastSpeed) = -1;
 GVAR(animationSpeeds) = createHashMap;
 GVAR(animationSpeedPatterns) = [];
 GVAR(animationSpeedCache) = createHashMap;
@@ -44,6 +45,7 @@ GVAR(autorun_stanceUntil) = 0;
 GVAR(autorun_exhaustedUntil) = 0;
 GVAR(notifyToken) = 0;
 GVAR(animationSlotActive) = 0;
+GVAR(animationSlotIndex) = 0;
 GVAR(autorun_animDoneEH) = -1;
 GVAR(autorun_animDoneUnit) = objNull;
 GVAR(autorun_pfh) = -1;
