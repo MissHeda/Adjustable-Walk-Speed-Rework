@@ -88,6 +88,11 @@ else is lost - set them again and they stay.
   sequence, and each key can be set to repeat until it is pressed again. Pressing the key while
   it runs stops it. None of the ten are bound by default.
 
+- **An indicator for the animation keys**, placed in the layout tab like the others, saying which
+  key is running - a looping key has no other way of telling you it is still going.
+
+- **A blacklist for the custom group**, now that wildcards make one worth having.
+
 - **An animation setting per stance.** Crouched and prone each have their own six boxes, so a
   stance change during a run plays something built for that stance.
 
@@ -150,9 +155,11 @@ else is lost - set them again and they stay.
   nothing compared the animation against the unit, so once the engine took it away the run was
   dead while the indicator carried on. A run now heals itself on the next tick whatever takes the
   animation, which also covers other mods and scripted sequences.
-- **Speed was left behind when taking over another unit.** Zeus remote control and team switch
-  handed the new body a default speed while the display still showed what was set. The speeds
-  follow the player now, since they are the player's choice and not the body's.
+- **The speed keys wrote to the wrong unit under Zeus remote control.** They used `player`, which
+  parts company with the unit actually being driven - so a speed set while controlling a puppet
+  did nothing to it and landed on the player's own body instead, showing up the moment control was
+  handed back. They follow the controlled unit now, the same one CBA's own player event handler
+  watches. Taking over also hides the speed displays, since each body keeps its own speeds.
 - Toggling settings could grow the whitelists with duplicate entries.
 - The walk group's "include non raised animations" callback referenced an undefined variable.
 - A script error on the first animation change of a mission with ACE loaded, from looking up our
@@ -174,11 +181,14 @@ else is lost - set them again and they stay.
   category.
 - Every display is the size of Arma's own stance indicator by default, and starts clear of the
   vanilla interface.
-- **Debug switches itself off in the next mission**, so it cannot be left on by accident, and it
-  now shows the speed being applied and which group the animation belongs to.
+- **Debug is a server setting** and says `AWSR DEBUG` on the hint, so nobody wonders whose it is
+  or turns it on mid mission - it draws on every animation change. It also shows the speed being
+  applied and which group the animation belongs to.
 - Autorun animation settings are named `Stance - Pace (Weapon)` throughout, so the rifle set says
   it is the rifle set.
 - Debug and Per-Animation Speeds have sub-categories of their own rather than sitting in General.
+- The three speed groups share one keybind heading instead of one each, so the menu reads as the
+  three things the mod does rather than as five sections you have to know apart.
 - Ladders and swimming are filled into Per-Animation Speeds at 1, ready to be changed.
 
 ### Known and not changed

@@ -148,12 +148,9 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_debug),LLSTRING(SETTING_debug_DESC)],
     [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Debug)],
     [false],
-    0,
+    1,
     {
         GVAR(debugAnimations) = [];
-
-        // So it can switch itself off again in the next mission - see XEH_postInit.
-        profileNamespace setVariable [ARR_2(QGVAR(debugMission),[ARR_2(missionName,"")] select (!GVAR(debug)))];
     }
 ] call CBA_Settings_fnc_init;
 
@@ -594,6 +591,17 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(allowedAnimationArray_Custom),
     "EDITBOX",
     [LLSTRING(SETTING_allowedAnimationArray),LLSTRING(SETTING_allowedAnimationArray_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Custom)],
+    "",
+    1,
+    REBUILD_ANIMATIONS
+] call CBA_Settings_fnc_init;
+
+// Custom animation blacklist (custom)
+[
+    QGVAR(notAllowedAnimationArray_Custom),
+    "EDITBOX",
+    [LLSTRING(SETTING_notAllowedAnimationArray),LLSTRING(SETTING_notAllowedAnimationArray_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Custom)],
     "",
     1,
@@ -1136,6 +1144,36 @@ GVAR(autorun_displayAllow) = [12];
     [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
     [false],
     1
+] call CBA_Settings_fnc_init;
+
+// Show the animation indicator
+[
+    QGVAR(IGUI_showAnimation),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_showAnimation),LLSTRING(SETTING_IGUI_showAnimation_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
+// What the animation indicator says
+[
+    QGVAR(IGUI_Text_Animation),
+    "EDITBOX",
+    [LLSTRING(SETTING_IGUI_Text_Animation),LLSTRING(SETTING_IGUI_Text_Animation_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "PLAYING ANIMATION %1",
+    0
+] call CBA_Settings_fnc_init;
+
+// Colour of the animation indicator
+[
+    QGVAR(IGUI_textColor_Animation),
+    "COLOR",
+    [LLSTRING(SETTING_IGUI_textColor_Animation),LLSTRING(SETTING_IGUI_textColor_Animation_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [[ARR_4(1,1,1,1)]],
+    0
 ] call CBA_Settings_fnc_init;
 
 // ------------------------------------------------------------------------------------------------------------------------ AUTORUN IGUI

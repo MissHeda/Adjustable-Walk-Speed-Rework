@@ -413,18 +413,6 @@
             <English>2) General</English>
             <German>2) Allgemein</German>
         </Key>
-        <Key ID="STR_awsr_movement_KEYBIND_Category_Walk">
-            <English>3) Walking</English>
-            <German>3) Gehen</German>
-        </Key>
-        <Key ID="STR_awsr_movement_KEYBIND_Category_Tactical">
-            <English>4) Tactical</English>
-            <German>4) Taktisch</German>
-        </Key>
-        <Key ID="STR_awsr_movement_KEYBIND_Category_Custom">
-            <English>5) Custom</English>
-            <German>5) Benutzerdefiniert</German>
-        </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_Walk">
             <English>Stand - Walk (Rifle)</English>
             <German>Stehend - Gehen (Gewehr)</German>
@@ -589,6 +577,34 @@
             <English>Plays what is set for this slot in the\nAnimation Adjustment settings.</English>
             <German>Spielt, was für diesen Platz in den\nAnimation-Adjustment-Einstellungen\nsteht.</German>
         </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_Category_Speed">
+            <English>Adjustable Walk Speed</English>
+            <German>Adjustable Walk Speed</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showAnimation">
+            <English>Show Animation Indicator</English>
+            <German>Animationsanzeige einblenden</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showAnimation_DESC">
+            <English>Shows which animation key is running.\n\nA looping key has no other way of saying\nit is still going, or which key stops it.\n\nMove it in the layout tab.</English>
+            <German>Zeigt, welche Animationstaste läuft.\n\nEine Taste in Schleife hat sonst keine\nMöglichkeit zu sagen, dass sie noch\nläuft oder welche Taste sie stoppt.\n\nVerschiebbar im Layout-Tab.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_Text_Animation">
+            <English>Animation Indicator Text</English>
+            <German>Text der Animationsanzeige</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_Text_Animation_DESC">
+            <English>What the animation indicator says.\n\n%1 is the number of the key that is\nrunning.</English>
+            <German>Was die Animationsanzeige schreibt.\n\n%1 ist die Nummer der Taste, die\ngerade läuft.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textColor_Animation">
+            <English>Animation Indicator Colour</English>
+            <German>Farbe der Animationsanzeige</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textColor_Animation_DESC">
+            <English>Colour of the animation indicator text.</English>
+            <German>Farbe des Textes der Animationsanzeige.</German>
+        </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>
             <German>Autolauf | Stopp</German>
@@ -658,12 +674,12 @@
             <German>Debug: Animationsnamen sammeln</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_debug_DESC">
-            <English>Collects animation names.\n\n1. Switch on\n2. Do the move you want the name of\n3. Switch off and paste\n\nEvery animation is shown as you enter\nit, with the speed being applied to it\nand the group it belongs to.\n\nThe last 20 are in your clipboard,\ncomma separated - paste straight into a\nwhitelist or a speed box.\n\nWorks with the mod switched off.\nSwitches itself off in the next mission.</English>
-            <German>Sammelt Animationsnamen.\n\n1. Einschalten\n2. Die Bewegung machen\n3. Ausschalten und einfügen\n\nJede Animation wird beim Wechsel\nangezeigt, mit ihrer Geschwindigkeit\nund ihrer Gruppe.\n\nDie letzten 20 liegen im Clipboard,\nper Komma getrennt - direkt in eine\nWhitelist oder ein Speed-Feld.\n\nGeht auch bei ausgeschaltetem Mod.\nSchaltet sich in der nächsten Mission\nselbst wieder aus.</German>
+            <English>Collects animation names.\n\n1. Switch on\n2. Do the move you want the name of\n3. Switch off and paste\n\nEvery animation is shown as you enter\nit, with the speed being applied and\nthe group it belongs to.\n\nThe last 20 are in your clipboard,\ncomma separated - paste straight into a\nwhitelist or a speed box.\n\nWorks with the mod switched off.\n\nServer setting: it draws a hint on every\nanimation change, so it is not something\na player switches on mid mission.</English>
+            <German>Sammelt Animationsnamen.\n\n1. Einschalten\n2. Die Bewegung machen\n3. Ausschalten und einfügen\n\nJede Animation wird beim Wechsel\nangezeigt, mit ihrer Geschwindigkeit\nund ihrer Gruppe.\n\nDie letzten 20 liegen im Clipboard,\nper Komma getrennt - direkt in eine\nWhitelist oder ein Speed-Feld.\n\nGeht auch bei ausgeschaltetem Mod.\n\nServereinstellung: zeichnet bei jedem\nAnimationswechsel einen Hint, ist also\nnichts, was ein Spieler mitten in der\nMission anschaltet.</German>
         </Key>
         <Key ID="STR_awsr_movement_DEBUG_title">
-            <English>AWSR - Animation</English>
-            <German>AWSR - Animation</German>
+            <English>AWSR DEBUG</English>
+            <German>AWSR DEBUG</German>
         </Key>
         <Key ID="STR_awsr_movement_DEBUG_copied">
             <English>Last %1 copied to your clipboard:</English>

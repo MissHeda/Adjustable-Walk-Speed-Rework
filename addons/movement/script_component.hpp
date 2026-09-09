@@ -13,6 +13,15 @@
 
 // How many key-to-animation slots there are. Ten is enough for a set of gestures without
 // turning the settings page into a wall.
+// The unit the player is actually driving. `player` and this one part company under Zeus remote
+// control, which is why a speed set while controlling a puppet used to land on the player's own
+// body instead - CBA's player event handler watches this, not `player`.
+#define CURRENT_UNIT (call CBA_fnc_currentUnit)
+
+// The animation indicator sits above the autorun one, in the same column.
+#define ANIMATION_X (safeZoneX + safeZoneW / 2 - 1.15 * GUI_GRID_W)
+#define ANIMATION_Y (safeZoneY + 0.72 * safeZoneH)
+
 #define ANIMATION_SLOTS 10
 
 // CBA reads 0 as "no key", which is what an unbound default is.

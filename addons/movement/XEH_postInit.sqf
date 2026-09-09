@@ -186,9 +186,11 @@ call FUNC(rebuildAnimationSlots);
 
 // Every keybind sits under one heading, so the menu reads the same way the settings do.
 private _generalCategory = ["AWSR", LLSTRING(KEYBIND_Category_General)];
-private _walkCategory = ["AWSR", LLSTRING(KEYBIND_Category_Walk)];
-private _tacticalCategory = ["AWSR", LLSTRING(KEYBIND_Category_Tactical)];
-private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
+// The three speed groups share one heading. Split up, the menu read as five AWSR sections and
+// you had to know which was which; together it reads as the three things the mod does.
+private _walkCategory = ["AWSR", LLSTRING(KEYBIND_Category_Speed)];
+private _tacticalCategory = _walkCategory;
+private _customCategory = _walkCategory;
 
 
 // While holding set Speed Keybind: Undefined
@@ -211,7 +213,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(Increase_Speed_Walk),
     LLSTRING(KEYBIND_walk_increaseSpeed),
     {
-        [player, "increase", "walk"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "increase", "walk"] call FUNC(adjustSpeed);
     },
     "",
     [0xF8, [false, true, false]]
@@ -224,7 +226,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(Decrease_Speed_Walk),
     LLSTRING(KEYBIND_walk_decreaseSpeed),
     {
-        [player, "decrease", "walk"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "decrease", "walk"] call FUNC(adjustSpeed);
     },
     "",
     [0xF9, [false, true, false]]
@@ -236,7 +238,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(Reset_Speed_Walk),
     LLSTRING(KEYBIND_walk_resetSpeed),
     {
-        [player, "reset", "walk"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "reset", "walk"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -248,7 +250,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(SetMin_Speed_Walk),
     LLSTRING(KEYBIND_walk_setMin),
     {
-        [player, "min", "walk"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "min", "walk"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -260,7 +262,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(SetMax_Speed_Walk),
     LLSTRING(KEYBIND_walk_setMax),
     {
-        [player, "max", "walk"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "max", "walk"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -272,7 +274,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(Increase_Speed_Tactical),
     LLSTRING(KEYBIND_tactical_increaseSpeed),
     {
-        [player, "increase", "tactical"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "increase", "tactical"] call FUNC(adjustSpeed);
     },
     "",
     [0xF8, [false, true, true]]
@@ -285,7 +287,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(Decrease_Speed_Tactical),
     LLSTRING(KEYBIND_tactical_decreaseSpeed),
     {
-        [player, "decrease", "tactical"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "decrease", "tactical"] call FUNC(adjustSpeed);
     },
     "",
     [0xF9, [false, true, true]]
@@ -297,7 +299,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(Reset_Speed_Tactical),
     LLSTRING(KEYBIND_tactical_resetSpeed),
     {
-        [player, "reset", "tactical"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "reset", "tactical"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -309,7 +311,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(SetMin_Speed_Tactical),
     LLSTRING(KEYBIND_tactical_setMin),
     {
-        [player, "min", "tactical"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "min", "tactical"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -321,7 +323,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(SetMax_Speed_Tactical),
     LLSTRING(KEYBIND_tactical_setMax),
     {
-        [player, "max", "tactical"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "max", "tactical"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -333,7 +335,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(Increase_Speed_Custom),
     LLSTRING(KEYBIND_custom_increaseSpeed),
     {
-        [player, "increase", "custom"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "increase", "custom"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -345,7 +347,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(Decrease_Speed_Custom),
     LLSTRING(KEYBIND_custom_decreaseSpeed),
     {
-        [player, "decrease", "custom"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "decrease", "custom"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -357,7 +359,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(Reset_Speed_Custom),
     LLSTRING(KEYBIND_custom_resetSpeed),
     {
-        [player, "reset", "custom"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "reset", "custom"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -369,7 +371,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(SetMin_Speed_Custom),
     LLSTRING(KEYBIND_custom_setMin),
     {
-        [player, "min", "custom"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "min", "custom"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -381,7 +383,7 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     QGVAR(SetMax_Speed_Custom),
     LLSTRING(KEYBIND_custom_setMax),
     {
-        [player, "max", "custom"] call FUNC(adjustSpeed);
+        [CURRENT_UNIT, "max", "custom"] call FUNC(adjustSpeed);
     },
     "",
     []
@@ -441,15 +443,6 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     },
     true
 ] call CBA_fnc_addPlayerEventHandler;
-
-// Debug is a tool, not a setting people mean to keep. Left on it talks over every animation
-// change for the rest of the session, so it only survives inside the mission it was switched on
-// in - a different one starts with it off again.
-if (GVAR(debug)) then {
-    if ((profileNamespace getVariable [QGVAR(debugMission), ""]) != missionName) then {
-        [QGVAR(debug), false] call CBA_settings_fnc_set;
-    };
-};
 
 // Watches for another mod overwriting the speed we set - see awsr_movement_fnc_reapplySpeed.
 [FUNC(reapplySpeed), 0.25] call CBA_fnc_addPerFrameHandler;

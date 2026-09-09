@@ -36,6 +36,7 @@ if (incapacitatedState _unit != "") exitWith {};
 if (GVAR(animationSlotActive) == _slot) exitWith {
     GVAR(animationSlotActive) = 0;
     _unit switchMove "";
+    call FUNC(animationIndicator);
 };
 
 private _names = missionNamespace getVariable [format [QGVAR(animationSlotList_%1), _slot], []];
@@ -46,6 +47,8 @@ private _loop = missionNamespace getVariable [format [QGVAR(animationSlotLoop_%1
 
 GVAR(animationSlotActive) = _slot;
 
+call FUNC(animationIndicator);
+
 // The sequence is driven by AnimDone rather than by sleeping for a guessed length: animations
 // differ in length, and a speed set by this very mod changes it again.
 [{
@@ -54,7 +57,11 @@ GVAR(animationSlotActive) = _slot;
 
     if (GVAR(animationSlotActive) != _slot || {!alive _unit} || {!isNull objectParent _unit}) exitWith {
         [_handle] call CBA_fnc_removePerFrameHandler;
-        if (GVAR(animationSlotActive) == _slot) then {GVAR(animationSlotActive) = 0};
+
+        if (GVAR(animationSlotActive) == _slot) then {
+            GVAR(animationSlotActive) = 0;
+            call FUNC(animationIndicator);
+        };
     };
 
     // Still in the one that was asked for, so there is nothing to do yet.
@@ -64,6 +71,7 @@ GVAR(animationSlotActive) = _slot;
         if (!_loop) exitWith {
             [_handle] call CBA_fnc_removePerFrameHandler;
             GVAR(animationSlotActive) = 0;
+            call FUNC(animationIndicator);
         };
 
         _args set [4, 0];

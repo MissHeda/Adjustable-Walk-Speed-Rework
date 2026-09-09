@@ -30,6 +30,7 @@ class CfgUIGrids {
                     SPEED_DISPLAY_PRESET(grid_Tactical,DISPLAY_X,DISPLAY_Y(1));
                     SPEED_DISPLAY_PRESET(grid_Custom,DISPLAY_X,DISPLAY_Y(2));
                     SPEED_DISPLAY_PRESET(grid_Autorun,AUTORUN_X,AUTORUN_Y);
+                    SPEED_DISPLAY_PRESET(grid_Animation,ANIMATION_X,ANIMATION_Y);
                 };
             };
         };

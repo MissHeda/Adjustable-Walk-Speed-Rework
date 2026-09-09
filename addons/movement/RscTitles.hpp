@@ -64,4 +64,5 @@ class RscTitles {
     SPEED_DISPLAY(IGUI_Display_Tactical,display_Tactical,grid_Tactical,DISPLAY_X,DISPLAY_Y(1),1,assets\ui\IGUI_Display_Tactical.paa);
     SPEED_DISPLAY(IGUI_Display_Custom,display_Custom,grid_Custom,DISPLAY_X,DISPLAY_Y(2),1,assets\ui\IGUI_Display_Default.paa);
     SPEED_DISPLAY(IGUI_Display_Autorun,display_Autorun,grid_Autorun,AUTORUN_X,AUTORUN_Y,3,assets\ui\running\run_01.paa);
+    SPEED_DISPLAY(IGUI_Display_Animation,display_Animation,grid_Animation,ANIMATION_X,ANIMATION_Y,1,assets\ui\IGUI_Display_Default.paa);
 };
