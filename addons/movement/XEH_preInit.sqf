@@ -1172,7 +1172,7 @@ GVAR(autorun_displayAllow) = [12];
     "COLOR",
     [LLSTRING(SETTING_IGUI_textColor_Animation),LLSTRING(SETTING_IGUI_textColor_Animation_DESC)],
     [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
-    [[ARR_4(1,1,1,1)]],
+    [ARR_3(1,1,1)],
     0
 ] call CBA_Settings_fnc_init;
 
