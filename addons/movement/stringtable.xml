@@ -354,8 +354,8 @@
             <German>AWSR - Autolauf</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_Category_Autorun">
-            <English>1) Autorun</English>
-            <German>1) Autolauf</German>
+            <English>Autorun</English>
+            <German>Autolauf</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_walk">
             <English>Autorun | Walk</English>
@@ -408,10 +408,6 @@
         <Key ID="STR_awsr_movement_AUTORUN_tier_run">
             <English>Run</English>
             <German>Rennen</German>
-        </Key>
-        <Key ID="STR_awsr_movement_KEYBIND_Category_General">
-            <English>2) General</English>
-            <German>2) Allgemein</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_Walk">
             <English>Stand - Walk (Rifle)</English>

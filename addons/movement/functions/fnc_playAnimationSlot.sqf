@@ -31,9 +31,6 @@ private _unit = player;
 if (!alive _unit) exitWith {};
 if (!isNull objectParent _unit) exitWith {};
 if (incapacitatedState _unit != "") exitWith {};
-
-// Land animations in the water look exactly as wrong as they are, and the engine will not stop
-// you walking out to sea - it is playing what it was told to play.
 if (surfaceIsWater (position _unit)) exitWith {};
 
 // Same key again: stop, and let the engine take the unit back.
@@ -52,13 +49,12 @@ GVAR(animationSlotActive) = _slot;
 
 call FUNC(animationIndicator);
 
-// Watched on the animation state itself rather than on AnimDone. Neither playMove nor a queue
-// avoids the flicker: both route through the transition graph, and between two walk animations
-// that route runs through the connected idle, which is the third animation that shows up. So
-// the moment the unit lands anywhere that is not what this slot asked for, the next one is put
-// on with switchMove, which takes no transition at all.
-private _id = _unit addEventHandler ["AnimStateChanged", {
-    params ["_unit", "_state"];
+// Driven by AnimDone, and played with playMoveNow. switchMove skips the transition graph, which
+// is what puts a frame of idle between two different animations - but it also snaps the pose
+// without moving the unit, so a movement animation played that way only twitches on the spot.
+// The frame of idle is the cheaper of the two.
+private _id = _unit addEventHandler ["AnimDone", {
+    params ["_unit"];
 
     if (GVAR(animationSlotActive) == 0) exitWith {};
 
@@ -77,28 +73,24 @@ private _id = _unit addEventHandler ["AnimStateChanged", {
         [_unit] call FUNC(stopAnimationSlot);
     };
 
-    // Still in the one that was asked for: nothing to do.
-    if (toLowerANSI _state isEqualTo toLowerANSI (_names select GVAR(animationSlotIndex))) exitWith {};
+    private _index = GVAR(animationSlotIndex) + 1;
 
-    private _next = GVAR(animationSlotIndex) + 1;
-
-    if (_next >= count _names) then {
+    if (_index >= count _names) then {
         if !(missionNamespace getVariable [format [QGVAR(animationSlotLoop_%1), _slot], false]) exitWith {
-            _next = -1;
+            [_unit] call FUNC(stopAnimationSlot);
+            _index = -1;
         };
 
-        _next = 0;
+        _index = 0;
     };
 
-    if (_next < 0) exitWith {
-        [_unit] call FUNC(stopAnimationSlot);
-    };
+    if (_index < 0) exitWith {};
 
-    GVAR(animationSlotIndex) = _next;
-    _unit switchMove (_names select _next);
+    GVAR(animationSlotIndex) = _index;
+    _unit playMoveNow (_names select _index);
 }];
 
 SETVAR(_unit,GVAR(animationSlotEH),_id);
 
 GVAR(animationSlotIndex) = 0;
-_unit switchMove (_names select 0);
+_unit playMoveNow (_names select 0);

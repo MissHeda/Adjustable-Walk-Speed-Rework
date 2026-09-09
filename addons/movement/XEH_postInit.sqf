@@ -185,7 +185,9 @@ call FUNC(rebuildAnimationSlots);
 
 
 // Every keybind sits under one heading, so the menu reads the same way the settings do.
-private _generalCategory = ["AWSR", LLSTRING(KEYBIND_Category_General)];
+// General sits with the speed keys: it is the mod's own on/off and its reset, which is what
+// someone looking under Adjustable Walk Speed expects to find there.
+private _generalCategory = ["AWSR", LLSTRING(KEYBIND_Category_Speed)];
 // The three speed groups share one heading. Split up, the menu read as five AWSR sections and
 // you had to know which was which; together it reads as the three things the mod does.
 private _walkCategory = ["AWSR", LLSTRING(KEYBIND_Category_Speed)];

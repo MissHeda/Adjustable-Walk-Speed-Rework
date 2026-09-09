@@ -31,6 +31,7 @@ PREP(displayUpdatedInfo);
 PREP(fatigueLevel);
 PREP(getSpeedHashMap);
 PREP(handleAnimation);
+PREP(hex);
 PREP(hideIGUI);
 PREP(igUIGeometry);
 PREP(isAceExhaustionWalk);

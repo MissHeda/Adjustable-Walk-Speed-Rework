@@ -64,9 +64,9 @@ class RscStructuredText;
 #define TEXT_DISPLAY(cls,uivar,gridvar,defx,defy)     class GVAR(cls) {         idd = -1;         onLoad = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(uivar),_this select 0)]);         onUnload = QUOTE(uiNamespace setVariable [ARR_2(QQGVAR(uivar),nil)]);         fadeIn = 0;         fadeOut = 0;         duration = 1e+6;         movingEnable = 0;         class controls {             class speedText: RscStructuredText {                 idc = IDC_SPEED_TEXT;                 text = "";                 sizeEx = QUOTE(GUI_GRID_H);                 colorText[] = {1,1,1,1};                 colorBackground[] = {0,0,0,0};                 font = "RobotoCondensed";                 x = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),X)',defx)]);                 y = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),Y)',defy)]);                 w = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),W)',TEXT_DISPLAY_W)]);                 h = QUOTE(profileNamespace getVariable [ARR_2('TRIPLES(IGUI,GVAR(gridvar),H)',TEXT_DISPLAY_H)]);                 class Attributes {                     font = "RobotoCondensed";                     color = "#EEEEEE";                     align = "center";                     valign = "middle";                     shadow = 2;                     shadowColor = "#3f4345";                     size = "1";                 };             };         };     }
 
 class RscTitles {
-    SPEED_DISPLAY(IGUI_Display_Walk,display_Walk,grid_Walk,DISPLAY_X,DISPLAY_Y(0),1,assets\ui\IGUI_Display_Walk.paa);
+    SPEED_DISPLAY(IGUI_Display_Walk,display_Walk,grid_Walk,DISPLAY_X,DISPLAY_Y(0),1,assets\ui\IGUI_Display_Default.paa);
     SPEED_DISPLAY(IGUI_Display_Tactical,display_Tactical,grid_Tactical,DISPLAY_X,DISPLAY_Y(1),1,assets\ui\IGUI_Display_Tactical.paa);
-    SPEED_DISPLAY(IGUI_Display_Custom,display_Custom,grid_Custom,DISPLAY_X,DISPLAY_Y(2),1,assets\ui\IGUI_Display_Default.paa);
+    SPEED_DISPLAY(IGUI_Display_Custom,display_Custom,grid_Custom,DISPLAY_X,DISPLAY_Y(2),1,assets\ui\IGUI_Display_Walk.paa);
     SPEED_DISPLAY(IGUI_Display_Autorun,display_Autorun,grid_Autorun,AUTORUN_X,AUTORUN_Y,3,assets\ui\running\run_01.paa);
     TEXT_DISPLAY(IGUI_Display_Animation,display_Animation,grid_Animation,ANIMATION_X,ANIMATION_Y);
 };

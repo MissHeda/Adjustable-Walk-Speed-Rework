@@ -68,7 +68,25 @@ private _detail = format [
     _pinnedText
 ];
 
-private _joined = _list joinString ARR_SEPARATOR;
+// Newest green, oldest red, the rest of the way between - so a glance says which end of the
+// list you are reading without counting entries.
+private _last = (count _list) - 1;
+private _lines = [];
+
+{
+    private _fraction = [ARR_2(0,_forEachIndex / _last)] select (_last > 0);
+
+    // Green to red through yellow, which is the only two-channel ramp that stays readable on a
+    // dark hint at this size.
+    private _red = round (255 * (2 * _fraction min 1));
+    private _green = round (255 * (2 * (1 - _fraction) min 1));
+
+    private _colour = ([ARR_2(_red,2)] call FUNC(hex)) + ([ARR_2(_green,2)] call FUNC(hex)) + "00";
+
+    _lines pushBack format [ARR_3("<t color='#%1'>%2</t>",_colour,_x)];
+} forEach (reverse (+_list));
+
+private _joined = _lines joinString ARR_SEPARATOR;
 
 private _text = format [
     DEBUG_MARKUP,
