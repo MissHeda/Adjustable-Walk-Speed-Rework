@@ -166,6 +166,24 @@ call FUNC(autorunSeedStopKeys);
 
 call FUNC(autorunKeyHandler);
 
+// Ten keys that play an animation of the player's choosing, unbound by default - the mod has no
+// business claiming ten keys nobody asked it to.
+private _animationCategory = ["AWSR", LLSTRING(KEYBIND_Category_Animations)];
+
+for "_slot" from 1 to ANIMATION_SLOTS do {
+    [
+        _animationCategory,
+        format [QGVAR(animationSlotKey_%1), _slot],
+        [format [ARR_2(LLSTRING(KEYBIND_animationSlot),_slot)], LLSTRING(KEYBIND_animationSlot_DESC)],
+        compile format [ARR_2("[%1] call " + QFUNC(playAnimationSlot) + "; true",_slot)],
+        "",
+        [DIK_UNBOUND, [ARR_3(false,false,false)]]
+    ] call CBA_fnc_addKeybind;
+};
+
+call FUNC(rebuildAnimationSlots);
+
+
 // Every keybind sits under one heading, so the menu reads the same way the settings do.
 private _generalCategory = ["AWSR", LLSTRING(KEYBIND_Category_General)];
 private _walkCategory = ["AWSR", LLSTRING(KEYBIND_Category_Walk)];
@@ -377,14 +395,12 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
     {
         params ["_newUnit", "_oldUnit"];
 
-        // The speeds are the player's choice, not the body's - taking over a unit through Zeus
-        // or a team switch has to carry them across, or the new body starts at default while the
-        // display still shows what was set.
-        private _carry = createHashMap;
-
-        if (!isNull _oldUnit) then {
-            _carry = +(_oldUnit call FUNC(getSpeedHashMap));
-        };
+        // Each body keeps its own speeds. Taking over a unit through Zeus puts you in one that has
+        // none set, so the displays have to go with the body you left rather than carry on showing
+        // what it was doing.
+        {
+            [_x] call FUNC(hideIGUI);
+        } forEach [QGVAR(display_Walk), QGVAR(display_Tactical), QGVAR(display_Custom)];
 
         if (!isNull _oldUnit) then {
             private _oldId = GETVAR(_oldUnit,GVAR(animEHId),-1);
@@ -416,8 +432,6 @@ private _customCategory = ["AWSR", LLSTRING(KEYBIND_Category_Custom)];
         };
 
         if (isNull _newUnit) exitWith {};
-
-        SETVAR(_newUnit,GVAR(unitAnimationSpeed),_carry);
 
         private _newId = _newUnit addEventHandler ["AnimStateChanged", {_this call FUNC(handleAnimation)}];
         SETVAR(_newUnit,GVAR(animEHId),_newId);

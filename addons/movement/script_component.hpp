@@ -11,6 +11,13 @@
 #define ANIM_KEY(anim) ("anim:" + anim)
 #define ANIM_MIN_SPEED 0.1
 
+// How many key-to-animation slots there are. Ten is enough for a set of gestures without
+// turning the settings page into a wall.
+#define ANIMATION_SLOTS 10
+
+// CBA reads 0 as "no key", which is what an unbound default is.
+#define DIK_UNBOUND 0
+
 #define DEBUG_ANIMATION_COUNT 20
 
 // Kept here so the commas inside them never reach a macro argument list.
@@ -28,14 +35,16 @@
 
 // Where a display sits before the player moves it in the layout tab. Each group gets its own
 // row so all three can be up at once without covering each other.
-#define DISPLAY_W (3.4 * GUI_GRID_W)
-#define DISPLAY_H (3.4 * GUI_GRID_H)
+// The same size as Arma's own stance indicator, which is 2.3 x 3.7 of the weapon-info grid -
+// and IGUI_GRID_WEAPON_W/H are GUI_GRID_W/H (a3/ui_f/hpp/definecommongrids.inc:112).
+#define DISPLAY_W (2.3 * GUI_GRID_W)
+#define DISPLAY_H (3.7 * GUI_GRID_H)
 #define DISPLAY_X ((safeZoneX + safeZoneW) - 3.8 * GUI_GRID_W)
-#define DISPLAY_Y(row) (safeZoneY + 0.125 * safeZoneH + row * 3.9 * GUI_GRID_H)
+#define DISPLAY_Y(row) (safeZoneY + 0.125 * safeZoneH + row * 4.1 * GUI_GRID_H)
 
 // The autorun indicator sits low and centred, where it was before it became a display like the
 // others - it is read while moving, not while aiming at it.
-#define AUTORUN_X (safeZoneX + safeZoneW / 2 - 1.7 * GUI_GRID_W)
+#define AUTORUN_X (safeZoneX + safeZoneW / 2 - 1.15 * GUI_GRID_W)
 #define AUTORUN_Y (safeZoneY + 0.78 * safeZoneH)
 
 // ---------------------------------------------------------------------------------- AUTORUN

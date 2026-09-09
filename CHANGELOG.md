@@ -69,8 +69,9 @@ else is lost - set them again and they stay.
 - **Per-Animation Speeds.** A speed for single animations by name, whatever group they are or are
   not in - `Aswm*=2, Ladder*=1.5`. Swimming, ladders and crawling are in no group at all, which is
   why they were out of reach until now. It beats all three groups, so the number on the display is
-  always the number being applied. The number is also the ceiling the speed keys can reach, so an
-  animation listed at 5 starts at 5, can be turned down, and goes back up to 5 and no further.
+  always the number being applied. The number also widens what the speed keys can reach: above the
+  group's maximum it becomes the new maximum, below its minimum the new minimum. Ladders and
+  swimming are filled in at 1 already, ready to be turned up.
 
 - **Stamina limits the autorun.** Out of breath drops the run a pace and refuses a faster one, at
   the same points ACE takes the sprint away and forces a walk. Where ACE advanced fatigue is
@@ -81,6 +82,11 @@ else is lost - set them again and they stay.
   the reason is actually known.
 
 - **Percent or coefficient** for every speed shown - 150% or 1.5, whichever you think in.
+
+- **Ten animation keys.** Bind a key, put an animation name in its box, and the key plays it -
+  a salute, a gesture, a pose. Several names, comma separated, play one after another as a
+  sequence, and each key can be set to repeat until it is pressed again. Pressing the key while
+  it runs stops it. None of the ten are bound by default.
 
 - **An animation setting per stance.** Crouched and prone each have their own six boxes, so a
   stance change during a run plays something built for that stance.
@@ -162,14 +168,12 @@ else is lost - set them again and they stay.
   hundred strings on every animation state change.
 - Settings, IGUI settings and keybinds are numbered so they read in the same order everywhere.
 - **Settings are split by feature into `AWSR - Autorun`, `AWSR - Speed Adjustment` and
-  `AWSR - Speed Display`**, rather than by whether a setting draws something. Autorun and Walking
-  each used to appear twice, on two different pages. No value is lost: CBA stores a setting under
-  its own name, never under its category.
-- The autorun indicator artwork is original work now, drawn at 512x512 instead of 64x64 - the old
-  frames were upscaled eight times over at the size the indicator is actually drawn.
-- The displays start a little lower, clear of the vanilla interface.
-- Messages go through ACE's notification where ACE is loaded, instead of a hint that takes over
-  the corner of the screen and stays there.
+  `AWSR - Animation Adjustment`**, rather than by whether a setting draws something. Autorun and
+  Walking each used to appear twice, on two different pages; a group's speed and its display now
+  sit in one place. No value is lost: CBA stores a setting under its own name, never under its
+  category.
+- Every display is the size of Arma's own stance indicator by default, and starts clear of the
+  vanilla interface.
 - **Debug switches itself off in the next mission**, so it cannot be left on by accident, and it
   now shows the speed being applied and which group the animation belongs to.
 - Autorun animation settings are named `Stance - Pace (Weapon)` throughout, so the rifle set says

@@ -64,25 +64,31 @@ private _animation = toLowerANSI (animationState _unit);
 private _pinned = _animation call FUNC(animationSpeed);
 
 if (_pinned > 0) exitWith {
+    // The setting widens the group's range rather than replacing it: above the group's maximum
+    // it becomes the new maximum, below the group's minimum the new minimum. So an animation set
+    // to 5 can be taken all the way down to the group's own floor and back up to 5, and one set
+    // to 0.2 can be taken up to the group's ceiling and back down to 0.2.
+    private _low = _min min _pinned;
+    private _high = _max max _pinned;
+
     private _was = _speeds getOrDefault [ANIM_KEY(_animation), _pinned];
 
     private _to = switch (_mode) do {
         case "increase": {_was + _step};
         case "decrease": {_was - _step};
         case "reset": {_pinned};
-        case "min": {ANIM_MIN_SPEED};
-        case "max": {_pinned};
+        case "min": {_low};
+        case "max": {_high};
         default {_was};
     };
 
-    // The setting is the ceiling: it is what the player asked this animation to run at.
-    _to = [((_to max ANIM_MIN_SPEED) min _pinned), 2] call BIS_fnc_cutDecimals;
+    _to = [((_to max _low) min _high), 2] call BIS_fnc_cutDecimals;
 
     _speeds set [ANIM_KEY(_animation), _to];
 
     [_unit, animationState _unit] call FUNC(handleAnimation);
 
-    [_unit, _to * 100, _type, _to == _pinned || {_to == ANIM_MIN_SPEED}, ""] call FUNC(displayUpdatedInfo);
+    [_unit, _to * 100, _type, _to == _low || {_to == _high}, ""] call FUNC(displayUpdatedInfo);
 };
 
 private _current = _speeds getOrDefault [_type, 1];

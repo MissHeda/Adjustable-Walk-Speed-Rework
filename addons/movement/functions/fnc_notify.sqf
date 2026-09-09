@@ -1,15 +1,10 @@
 #include "..\script_component.hpp"
 /*
  * Author: Miss Heda
- * Puts a short message on screen, the way ACE puts one there.
+ * Puts a short message on screen as a hint.
  *
- * A hint takes over the whole top right corner and stays until something replaces it, which is
- * far too much for "too exhausted". ACE's own notification is the right size and the right
- * place, and where ACE is loaded this is that function - so the mod's messages sit with every
- * other message the player is already used to reading.
- *
- * Without ACE it falls back to a hint, which is the only thing vanilla offers that does not
- * scroll away in the chat.
+ * One place for every message the mod shows, so the look is the same whichever one it is and
+ * whichever mods are loaded.
  *
  * Arguments:
  * 0: Message, structured text markup allowed <STRING>
@@ -28,10 +23,6 @@ params [["_text", ""], ["_seconds", 2]];
 
 if (!hasInterface) exitWith {};
 if (_text isEqualTo "") exitWith {};
-
-if (isClass (configFile >> "CfgPatches" >> "ace_common")) exitWith {
-    [parseText _text, 1.5, nil, _seconds] call ACEFUNC(common,displayTextStructured);
-};
 
 hintSilent parseText _text;
 

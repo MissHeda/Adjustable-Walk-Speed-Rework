@@ -5,7 +5,7 @@
  * keys and the water depth.
  *
  * Arguments:
- * 0: Key pressed - "stand", "crouch", "prone", "up", "down", or "" for none <STRING> (default: "")
+ * 0: Key pressed - "stand", "crouch"/"up", "prone"/"down", or "" for none <STRING> (default: "")
  *
  * Return Value:
  * 0: Stance changed <BOOL>
@@ -28,30 +28,21 @@ private _currentStance = switch (true) do {
     default {"Stand"};
 };
 
-// The named keys toggle against standing, the way they do outside a run; the step keys move one
-// stance at a time. The key comes from the display handler rather than from inputAction, which
-// reports nothing while a scripted animation is playing.
+// Vanilla toggles: the crouch key puts you in a crouch and stands you back up, the prone key
+// the same for prone. MoveUp and MoveDown are what those keys are actually bound to on a
+// default profile - verified in game with Debug on - so they get the same meaning rather than
+// stepping one stance at a time, which is not how Arma feels without this mod running.
+//
+// The key comes from the display handler rather than from inputAction, which reports nothing
+// while a scripted animation is playing.
 private _stance = switch (_key) do {
     case "stand": {"Stand"};
-    case "crouch": {["Crouch", "Stand"] select (_currentStance == "Crouch")};
-    case "prone": {["Prone", "Stand"] select (_currentStance == "Prone")};
 
-    case "up": {
-        switch (_currentStance) do {
-            case "Prone": {"Crouch"};
-            case "Crouch": {"Stand"};
-            case "Sit": {"Stand"};
-            default {_currentStance};
-        }
-    };
+    case "crouch";
+    case "up": {["Crouch", "Stand"] select (_currentStance == "Crouch")};
 
-    case "down": {
-        switch (_currentStance) do {
-            case "Stand": {"Crouch"};
-            case "Crouch": {"Prone"};
-            default {_currentStance};
-        }
-    };
+    case "prone";
+    case "down": {["Prone", "Stand"] select (_currentStance == "Prone")};
 
     default {_currentStance};
 };

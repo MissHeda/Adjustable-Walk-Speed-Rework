@@ -10,7 +10,8 @@ ADDON = false;
 // never costs a player their settings - renaming would.
 #define CBA_SETTINGS_AWSR_AUTORUN "AWSR - Autorun"
 #define CBA_SETTINGS_AWSR "AWSR - Speed Adjustment"
-#define CBA_SETTINGS_AWSR_GUI "AWSR - Speed Display"
+#define CBA_SETTINGS_AWSR_GUI "AWSR - Speed Adjustment"
+#define CBA_SETTINGS_AWSR_ANIM "AWSR - Animation Adjustment"
 
 // Resolved whitelists. The settings themselves stay the strings the player typed;
 // awsr_movement_fnc_rebuildAnimations turns them into these, and drops the lookup cache with it.
@@ -42,6 +43,7 @@ GVAR(autorun_animation) = "";
 GVAR(autorun_stanceUntil) = 0;
 GVAR(autorun_exhaustedUntil) = 0;
 GVAR(notifyToken) = 0;
+GVAR(animationSlotActive) = 0;
 GVAR(autorun_animDoneEH) = -1;
 GVAR(autorun_animDoneUnit) = objNull;
 GVAR(autorun_pfh) = -1;
@@ -113,7 +115,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(animationSpeedArray),
     "EDITBOX",
     [LLSTRING(SETTING_animationSpeedArray),LLSTRING(SETTING_animationSpeedArray_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_PerAnimation)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_PerAnimation)],
     "Ladder*=1, Aswm*=1, Assw*=1, Absw*=1, Adve*=1, Abdv*=1, Asdv*=1",
     1,
     REBUILD_ANIMATIONS
@@ -144,7 +146,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(debug),
     "CHECKBOX",
     [LLSTRING(SETTING_debug),LLSTRING(SETTING_debug_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Debug)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Debug)],
     [false],
     0,
     {
@@ -921,6 +923,218 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_autorun_useStamina),LLSTRING(SETTING_autorun_useStamina_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_General)],
     [true],
+    1
+] call CBA_Settings_fnc_init;
+
+// ------------------------------------------------------------------------------------------------------------------------ ANIMATION SLOTS
+
+// Animations played by keybind 1
+[
+    QGVAR(animationSlot_1),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),1)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_1),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),1)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 2
+[
+    QGVAR(animationSlot_2),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),2)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_2),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),2)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 3
+[
+    QGVAR(animationSlot_3),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),3)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_3),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),3)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 4
+[
+    QGVAR(animationSlot_4),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),4)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_4),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),4)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 5
+[
+    QGVAR(animationSlot_5),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),5)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_5),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),5)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 6
+[
+    QGVAR(animationSlot_6),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),6)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_6),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),6)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 7
+[
+    QGVAR(animationSlot_7),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),7)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_7),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),7)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 8
+[
+    QGVAR(animationSlot_8),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),8)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_8),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),8)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 9
+[
+    QGVAR(animationSlot_9),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),9)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_9),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),9)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 10
+[
+    QGVAR(animationSlot_10),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),10)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_10),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),10)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
     1
 ] call CBA_Settings_fnc_init;
 

@@ -2,12 +2,12 @@
 <Project name="awsr">
     <Package name="awsr">
         <Key ID="STR_awsr_movement_SETTING_SubCategory_General">
-            <English>3) General</English>
-            <German>3) Allgemein</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Display_General">
             <English>1) General</English>
             <German>1) Allgemein</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Display_General">
+            <English>5) Display - General</English>
+            <German>5) Anzeige - Allgemein</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_Animations">
             <English>2) Animations</English>
@@ -22,28 +22,28 @@
             <German>1) Geschwindigkeit je Animation</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_SubCategory_Walk">
-            <English>4) Walking</English>
-            <German>4) Gehen</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical">
-            <English>5) Tactical</English>
-            <German>5) Taktisch</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom">
-            <English>6) Custom</English>
-            <German>6) Benutzerdefiniert</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Walk_IGUI">
             <English>2) Walking</English>
             <German>2) Gehen</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical_IGUI">
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical">
             <English>3) Tactical</English>
             <German>3) Taktisch</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom_IGUI">
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom">
             <English>4) Custom</English>
             <German>4) Benutzerdefiniert</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Walk_IGUI">
+            <English>6) Display - Walking</English>
+            <German>6) Anzeige - Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical_IGUI">
+            <English>7) Display - Tactical</English>
+            <German>7) Anzeige - Taktisch</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom_IGUI">
+            <English>8) Display - Custom</English>
+            <German>8) Anzeige - Benutzerdefiniert</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_Enable">
             <English>Enable Speed Adjustment</English>
@@ -514,8 +514,8 @@
             <German>Geschwindigkeit je Animation</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_animationSpeedArray_DESC">
-            <English>Give single animations their own speed,\nby name. Works on animations that are in\nno group at all - swimming, ladders,\ncrawling.\n\nname=speed, comma separated:\nLadder*=2, Aswm*=1.5\n\n1 is normal speed, 2 twice as fast.\n* matches the rest of a name, as in the\nwhitelists.\n\nAn animation listed here ignores its\nWalking, Tactical or Custom speed and\nuses this one instead.\n\nThe number is also the fastest the keys\ncan set it to: listed at 5 it starts at\n5, can be turned down, and back up to 5.\n\nLadders and swimming are filled in at 1\nalready - change the number to use them.\n\nUse Debug to collect animation names.</English>
-            <German>Gibt einzelnen Animationen eine eigene\nGeschwindigkeit, per Name. Funktioniert\nauch bei Animationen ohne Gruppe -\nSchwimmen, Leitern, Kriechen.\n\nname=speed, per Komma getrennt:\nLadder*=2, Aswm*=1.5\n\n1 ist normal, 2 doppelt so schnell.\n* steht für den Rest des Namens, wie\nin den Whitelists.\n\nEine Animation von hier ignoriert ihre\nGeh-, Taktisch- oder Custom-Geschwindig-\nkeit und nimmt diese.\n\nDie Zahl ist zugleich das Maximum der\nTasten: bei 5 startet sie mit 5, lässt\nsich runterdrehen und wieder auf 5.\n\nLeitern und Schwimmen stehen schon mit 1\ndrin - einfach die Zahl ändern.\n\nNamen sammelst du mit Debug.</German>
+            <English>Give single animations their own speed,\nby name. Works on animations that are in\nno group at all - swimming, ladders,\ncrawling.\n\nname=speed, comma separated:\nLadder*=2, Aswm*=1.5\n\n1 is normal speed, 2 twice as fast.\n* matches the rest of a name, as in the\nwhitelists.\n\nAn animation listed here ignores its\nWalking, Tactical or Custom speed and\nstarts at this one instead.\n\nThe number also widens what the speed\nkeys can reach: above the group maximum\nit becomes the new maximum, below the\ngroup minimum the new minimum.\n\nLadders and swimming are filled in at 1\nalready - change the number to use them.\n\nUse Debug to collect animation names.</English>
+            <German>Gibt einzelnen Animationen eine eigene\nGeschwindigkeit, per Name. Funktioniert\nauch bei Animationen ohne Gruppe -\nSchwimmen, Leitern, Kriechen.\n\nname=speed, per Komma getrennt:\nLadder*=2, Aswm*=1.5\n\n1 ist normal, 2 doppelt so schnell.\n* steht für den Rest des Namens, wie\nin den Whitelists.\n\nEine Animation von hier ignoriert ihre\nGeh-, Taktisch- oder Custom-Geschwindig-\nkeit und startet mit dieser.\n\nDie Zahl erweitert auch die Tasten-\ngrenzen: über dem Gruppenmaximum wird\nsie das neue Maximum, unter dem Minimum\ndas neue Minimum.\n\nLeitern und Schwimmen stehen schon mit 1\ndrin - einfach die Zahl ändern.\n\nNamen sammelst du mit Debug.</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_explainLimit">
             <English>Say Why A Limit Was Hit</English>
@@ -556,6 +556,38 @@
         <Key ID="STR_awsr_movement_DEBUG_noPinned">
             <English>not set</English>
             <German>nicht gesetzt</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Slots">
+            <English>2) Animation Keys</English>
+            <German>2) Animationstasten</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSlot">
+            <English>Animation Key %1</English>
+            <German>Animationstaste %1</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSlot_DESC">
+            <English>The animation this key plays.\n\nOne name plays that animation.\nSeveral, comma separated, play one\nafter another as a sequence.\n\nBind the key under Animations in the\nkeybind menu - none are bound by\ndefault.\n\nPressing the key again while it runs\nstops it.\n\nUnknown names are dropped.\nUse Debug to collect names.</English>
+            <German>Die Animation, die diese Taste spielt.\n\nEin Name spielt diese Animation.\nMehrere, per Komma getrennt, laufen\nnacheinander als Sequenz.\n\nDie Taste liegt unter Animationen im\nTastenmenü - keine ist vorbelegt.\n\nNochmal drücken bricht ab.\n\nUnbekannte Namen fliegen raus.\nNamen sammelst du mit Debug.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSlotLoop">
+            <English>Animation Key %1 - Loop</English>
+            <German>Animationstaste %1 - Schleife</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSlotLoop_DESC">
+            <English>Repeat this key's animations until the\nkey is pressed again.</English>
+            <German>Wiederholt die Animationen dieser Taste,\nbis die Taste erneut gedrückt wird.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_Category_Animations">
+            <English>Animations</English>
+            <German>Animationen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_animationSlot">
+            <English>Play Animation %1</English>
+            <German>Animation %1 abspielen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_animationSlot_DESC">
+            <English>Plays what is set for this slot in the\nAnimation Adjustment settings.</English>
+            <German>Spielt, was für diesen Platz in den\nAnimation-Adjustment-Einstellungen\nsteht.</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>
