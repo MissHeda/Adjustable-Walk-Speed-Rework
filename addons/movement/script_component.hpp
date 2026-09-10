@@ -33,6 +33,18 @@
 // The custom category is either a third animation group or the thing that adjusts one animation
 // at a time. The second is the default: the group was switched off out of the box anyway, and
 // per-animation speeds are the reason most people open it.
+// Who is deciding the speed right now.
+// What a display says about its own value: nothing, "this is the one in force", or "something
+// else is winning over this".
+#define MARKER_NONE 0
+#define MARKER_ACTIVE 1
+#define MARKER_OVERRIDDEN 2
+
+#define SOURCE_NONE 0
+#define SOURCE_PINNED 1
+#define SOURCE_GROUP 2
+#define SOURCE_MANUAL 3
+
 #define CUSTOM_MODE_GROUP 0
 #define CUSTOM_MODE_ANIMATION 1
 

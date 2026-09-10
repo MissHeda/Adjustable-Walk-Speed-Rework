@@ -9,6 +9,7 @@
  * 2: Animation group - "walk", "tactical" or "custom" <STRING>
  * 3: Draw the value in the limit colour <BOOL> (default: false)
  * 4: Why the value was capped, already localised - "" for no reason <STRING> (default: "")
+ * 5: MARKER_NONE, MARKER_ACTIVE or MARKER_OVERRIDDEN <NUMBER> (default: MARKER_NONE)
  *
  * Return Value:
  * None
@@ -19,7 +20,10 @@
  * Public: No
  */
 
-params ["_unit", ["_value", 100], ["_type", ""], ["_limitReached", false], ["_reason", ""]];
+params [
+    "_unit", ["_value", 100], ["_type", ""], ["_limitReached", false], ["_reason", ""],
+    ["_marker", MARKER_NONE]
+];
 
 if (!hasInterface) exitWith {};
 
@@ -81,11 +85,12 @@ _limitColor = [_limitColor] call FUNC(colorToHex);
 if (_displayType == DISPLAY_NONE) exitWith {};
 
 // Percent reads better for most people; the coefficient is what setAnimSpeedCoef actually takes,
-// which is what a mission maker wants to see.
-private _valueText = if (GVAR(valueStyle) == VALUE_COEFFICIENT) then {
-    str ([_value / 100, 2] call BIS_fnc_cutDecimals)
-} else {
-    str _value + "%"
+// which is what a mission maker wants to see. Normal speed is worth a word rather than a number:
+// 100% and 1 both take a moment to recognise as "nothing is being done here".
+private _valueText = switch (true) do {
+    case (_value == 100): {LLSTRING(VALUE_default)};
+    case (GVAR(valueStyle) == VALUE_COEFFICIENT): {str ([ARR_2(_value / 100,2)] call BIS_fnc_cutDecimals)};
+    default {str _value + "%"};
 };
 
 if (_limitReached || {_showLimit && {_value / 100 == _min || {_value / 100 == _max}}}) then {
@@ -104,10 +109,31 @@ if (_reason != "") then {
     _rows = 2;
 };
 
+// Which of the three is actually being obeyed. A group holding a value nothing is using is the
+// single most confusing thing this mod can show, so it says so instead.
+if (_marker != MARKER_NONE) then {
+    private _label = [LLSTRING(MARKER_active), LLSTRING(MARKER_overridden)] select (_marker == MARKER_OVERRIDDEN);
+    private _markerColor = ["#7CFC7C", "#FF8080"] select (_marker == MARKER_OVERRIDDEN);
+
+    _text = _text + "<br/><t size='0.65' color='" + _markerColor + "'>" + _label + "</t>";
+    _rows = _rows + 1;
+};
+
 // The bar says where this value sits between what the keys can reach, so the number has a scale
 // around it instead of standing on its own.
 if (_showSlider) then {
-    _text = _text + "<br/>" + ([_min, _max, _value / 100] call FUNC(speedSlider));
+    private _low = _min;
+    private _high = _max;
+
+    // In the per-animation mode the custom display is not a group, so its range is the one the
+    // custom keys can actually reach for the animation in hand.
+    if (_type isEqualTo "custom" && {GVAR(customMode) == CUSTOM_MODE_ANIMATION}) then {
+        ([_unit, animationState _unit] call FUNC(customBounds)) params ["_boundLow", "_boundHigh"];
+        _low = _boundLow;
+        _high = _boundHigh;
+    };
+
+    _text = _text + "<br/>" + ([_low, _high, _value / 100] call FUNC(speedSlider));
     _rows = _rows + 1;
 };
 

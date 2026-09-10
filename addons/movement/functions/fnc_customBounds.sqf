@@ -26,17 +26,15 @@
 
 params ["_unit", ["_animation", ""]];
 
+// The animation's own speed anchors the range. Not the speed in force: that moves as the keys
+// are pressed, and a range that grows every time you push against it has no end.
 private _anchor = _animation call FUNC(animationSpeed);
+if (_anchor < 0) then {_anchor = 1};
 
-// No speed of its own: whatever is applied right now is the end of the range, so the keys start
-// from where the player actually is.
-if (_anchor < 0) then {
-    _anchor = GETVAR(_unit,GVAR(appliedSpeed),1);
-};
-
-// The group's own range is the counterweight. Tactical is asked first: an animation in both is
-// the tactical pace as far as the player is concerned.
-private _low = ANIM_MIN_SPEED;
+// The group's range is the counterweight. Tactical is asked first: an animation in both is the
+// tactical pace as far as the player is concerned. In no group at all there is only default to
+// measure against.
+private _low = 1;
 private _high = 1;
 
 switch (true) do {
@@ -48,15 +46,6 @@ switch (true) do {
         _low = GVAR(minAdjustSpeed_Walk);
         _high = GVAR(maxAdjustSpeed_Walk);
     };
-    default {
-        _low = ANIM_MIN_SPEED;
-        _high = 1;
-    };
 };
 
-// The anchor takes the end it is on, and the group supplies the other.
-if (_anchor >= 1) then {
-    [_low min _anchor, _high max _anchor, _anchor]
-} else {
-    [_low min _anchor, _high max 1, _anchor]
-};
+[_low min _anchor, _high max _anchor, _anchor]

@@ -76,6 +76,12 @@ else is lost - set them again and they stay.
   So a group left alone does not overrule a per-animation speed, and a speed you set by hand is
   not overruled by anything.
 
+- **Every display says whether its value is the one being obeyed** - *currently overriding* or
+  *being overridden* - so a group holding 140% while an animation overrules it says so instead of
+  showing a number nothing is using.
+
+- **Default speed reads as "Default"** rather than as 100% or 1.
+
 - **The Custom display says what is actually in force**, whatever set it, with a bar under it
   showing how far the keys reach - default speed in the middle, the two halves read separately so
   an ordinary value does not sit squashed against one end. It goes a moment after the speed is
@@ -181,6 +187,12 @@ else is lost - set them again and they stay.
   runs through the connected idle - which is the animation that kept appearing. The sequence
   watches the animation state instead and puts the next one on with `switchMove`, which takes no
   transition at all.
+- **Setting a custom override back to default kept it at default** rather than letting go. It is
+  a release now: whatever was underneath, the group or the speed the animation was given by name,
+  takes the animation back.
+- **The custom range grew as you pushed against it.** It was anchored to the speed currently in
+  force, which is the value the keys were moving, so the ceiling ran away ahead of them. It is
+  anchored to the animation's own speed, which does not move.
 - **A group's display showed values that were not its own.** A change from anywhere redrew every
   group. Each one answers for its own group now, and only while that group is off default.
 - **A speed set per animation did not reach the display.** It was only redrawn on a key press, so

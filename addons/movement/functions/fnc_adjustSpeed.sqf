@@ -77,7 +77,13 @@ if (_type isEqualTo "custom" && {GVAR(customMode) == CUSTOM_MODE_ANIMATION}) exi
 
     _to = [((_to max _low) min _high), 2] call BIS_fnc_cutDecimals;
 
-    _speeds set [ANIM_KEY(_animation), _to];
+    // Back to default is a release, not a value: whatever was underneath - the group, or the
+    // speed the animation was given by name - takes the animation back.
+    if (_to == 1) then {
+        _speeds deleteAt ANIM_KEY(_animation);
+    } else {
+        _speeds set [ANIM_KEY(_animation), _to];
+    };
 
     [_unit, animationState _unit] call FUNC(handleAnimation);
 };
@@ -118,10 +124,4 @@ _speeds set [_type, _new];
 // sit unused until the next animation change.
 [_unit, animationState _unit] call FUNC(handleAnimation);
 
-// The group's own display always answers a key press on that group, whether or not the value
-// it set is the one in force - the player pressed it, so it has to say what it did.
-[_unit, _new * 100, _type, _limitReached, _reason] call FUNC(displayUpdatedInfo);
-
-if (GVAR(customMode) == CUSTOM_MODE_ANIMATION) then {
-    [_unit, GETVAR(_unit,GVAR(appliedSpeed),1), _type] call FUNC(showSpeed);
-};
+[_unit] call FUNC(refreshDisplays);

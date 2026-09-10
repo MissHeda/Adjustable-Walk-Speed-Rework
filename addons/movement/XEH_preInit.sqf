@@ -347,7 +347,7 @@ GVAR(autorun_displayAllow) = [12];
     0
 ] call CBA_Settings_fnc_init;
 
-// IGUI hide once the speed is back at default (walk)
+// IGUI range bar (walk)
 [
     QGVAR(IGUI_showSlider_Walk),
     "CHECKBOX",
@@ -536,7 +536,7 @@ GVAR(autorun_displayAllow) = [12];
     0
 ] call CBA_Settings_fnc_init;
 
-// IGUI hide once the speed is back at default (tactical)
+// IGUI range bar (tactical)
 [
     QGVAR(IGUI_showSlider_Tactical),
     "CHECKBOX",
@@ -714,7 +714,7 @@ GVAR(autorun_displayAllow) = [12];
     0
 ] call CBA_Settings_fnc_init;
 
-// IGUI hide once the speed is back at default (custom)
+// IGUI range bar (custom)
 [
     QGVAR(IGUI_showSlider_Custom),
     "CHECKBOX",

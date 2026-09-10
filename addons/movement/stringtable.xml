@@ -637,6 +637,18 @@
             <English>oldest</English>
             <German>älteste</German>
         </Key>
+        <Key ID="STR_awsr_movement_VALUE_default">
+            <English>Default</English>
+            <German>Standard</German>
+        </Key>
+        <Key ID="STR_awsr_movement_MARKER_active">
+            <English>currently overriding</English>
+            <German>überschreibt gerade</German>
+        </Key>
+        <Key ID="STR_awsr_movement_MARKER_overridden">
+            <English>being overridden</English>
+            <German>wird überschrieben</German>
+        </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>
             <German>Autolauf | Stopp</German>

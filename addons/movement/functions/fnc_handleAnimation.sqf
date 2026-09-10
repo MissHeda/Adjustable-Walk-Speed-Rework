@@ -35,26 +35,7 @@ private _type = _animation call FUNC(animationType);
 
 SETVAR(_unit,GVAR(activeType),_type);
 
-// Three sources, in this order:
-//
-//   1. what the player set for this animation with the custom keys - the highest, because it is
-//      the one thing here they chose deliberately for the animation in front of them
-//   2. the group's speed, when the group has been moved off default
-//   3. the speed the animation was given by name in the settings
-//
-// A group left at default does not outrank a per-animation speed, which is what lets swimming
-// keep its own speed while the walk group sits at 100%.
-private _pinned = _animation call FUNC(animationSpeed);
-private _manual = _speeds getOrDefault [ANIM_KEY(_animation), -1];
-private _group = _speeds getOrDefault [_type, 1];
-
-private _coef = -1;
-
-switch (true) do {
-    case (_manual > 0): {_coef = _manual};
-    case (_type isNotEqualTo "" && {_group != 1}): {_coef = _group};
-    case (_pinned > 0): {_coef = _pinned};
-};
+([_unit, _animation] call FUNC(speedSource)) params ["_coef", "", "", "", "_group"];
 
 if (_coef > 0) exitWith {
     if (_coef > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {_coef = 1};
@@ -64,10 +45,7 @@ if (_coef > 0) exitWith {
     [_unit, _coef] call FUNC(applySpeed);
     [_unit, GVAR(forceWalkWhenValueIsNotDefault) && {_speeds getOrDefault ["walk", 1] != 1}] call FUNC(setForceWalk);
 
-    if (_changed && {_unit isEqualTo CURRENT_UNIT}) then {
-        [_unit, _coef, _type] call FUNC(showSpeed);
-    };
-
+    if (_changed) then {[_unit] call FUNC(refreshDisplays)};
     if (GVAR(debug)) then {[_animation] call FUNC(debugAnimation)};
 };
 
@@ -79,21 +57,19 @@ if (_type isEqualTo "") exitWith {
     if (GVAR(debug)) then {[_animation] call FUNC(debugAnimation)};
 };
 
-_coef = _group;
+private _coef2 = _group;
 
 // Something else is holding the unit at walking pace - speeding the animation up would let
 // the player walk out from under it.
-if (_coef > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {
-    _coef = 1;
+if (_coef2 > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {
+    _coef2 = 1;
 };
 
-private _changed = GETVAR(_unit,GVAR(appliedSpeed),-1) != _coef;
+private _changed = GETVAR(_unit,GVAR(appliedSpeed),-1) != _coef2;
 
-[_unit, _coef] call FUNC(applySpeed);
+[_unit, _coef2] call FUNC(applySpeed);
 
-if (_changed && {_unit isEqualTo CURRENT_UNIT}) then {
-    [_unit, _coef, _type] call FUNC(showSpeed);
-};
+if (_changed) then {[_unit] call FUNC(refreshDisplays)};
 
 // Force walk hangs off the walk speed itself, not off the animation the unit happens to be in.
 // Deciding it here and nowhere else is what stops it being set in one place and cleared in the
