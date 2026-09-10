@@ -25,7 +25,7 @@
 
 if (!GVAR(Enable) || {!GVAR(reapplySpeed)}) exitWith {};
 
-private _unit = player;
+private _unit = CURRENT_UNIT;
 if (isNull _unit || {!alive _unit} || {!isNull objectParent _unit}) exitWith {};
 
 private _type = GETVAR(_unit,GVAR(activeType),"");

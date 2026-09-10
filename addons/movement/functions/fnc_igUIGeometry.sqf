@@ -26,7 +26,10 @@
  * Public: No
  */
 
-params ["_gridVar", ["_defaultX", 0], ["_defaultY", 0], ["_textSize", 1], ["_rows", 1], ["_widths", 3]];
+params [
+    "_gridVar", ["_defaultX", 0], ["_defaultY", 0], ["_textSize", 1], ["_rows", 1],
+    ["_widths", 3], ["_defaultW", DISPLAY_W], ["_defaultH", DISPLAY_H]
+];
 
 // A layout tab that saved something unusable - or nothing at all - must not leave a display at
 // zero size, where it is on screen but impossible to find again.
@@ -40,16 +43,21 @@ private _read = {
     _value
 };
 
-private _w = [_gridVar + "_W", DISPLAY_W] call _read;
-if (_w <= 0.001) then {_w = DISPLAY_W};
+private _w = [_gridVar + "_W", _defaultW] call _read;
+if (_w <= 0.001) then {_w = _defaultW};
 
 private _x = [_gridVar + "_X", _defaultX] call _read;
 private _y = [_gridVar + "_Y", _defaultY] call _read;
 
-// Square in screen terms, whatever the grid was dragged to.
-private _h = _w * GUI_GRID_H / GUI_GRID_W;
+// The height the layout tab actually saved. Forcing it square meant the box you dragged there
+// and the box that appeared in game were different shapes, which is what made the layout tab
+// look broken. The artwork keeps its own aspect inside it - see RscPictureKeepAspect.
+private _h = [_gridVar + "_H", _defaultH] call _read;
+if (_h <= 0.001) then {_h = _defaultH};
 
-private _fontHeight = _h * 0.28 * _textSize;
+// A box with artwork gives most of its height to the picture and a slice to the text under it;
+// a text-only box is all text, so the same fraction would come out tiny.
+private _fontHeight = _h * ([ARR_2(0.28,0.75)] select (_widths <= 1)) * _textSize;
 
 // The text is wider than the picture and centred under it, so a long line has somewhere to go
 // instead of being cut off at the edge of the artwork.

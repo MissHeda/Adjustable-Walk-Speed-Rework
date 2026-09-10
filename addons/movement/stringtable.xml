@@ -2,36 +2,52 @@
 <Project name="awsr">
     <Package name="awsr">
         <Key ID="STR_awsr_movement_SETTING_SubCategory_General">
-            <English>2) General</English>
-            <German>2) Allgemein</German>
+            <English>1) General</English>
+            <German>1) Allgemein</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Display_General">
+            <English>5) Display - General</English>
+            <German>5) Anzeige - Allgemein</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_Animations">
+            <English>2) Animations</English>
+            <German>2) Animationen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Debug">
+            <English>0) Debug</English>
+            <German>0) Debug</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_PerAnimation">
+            <English>1) Per-Animation Speeds</English>
+            <German>1) Geschwindigkeit je Animation</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_SubCategory_Walk">
-            <English>3) Walking</English>
-            <German>3) Gehen</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical">
-            <English>4) Tactical</English>
-            <German>4) Taktisch</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom">
-            <English>5) Custom</English>
-            <German>5) Benutzerdefiniert</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Walk_IGUI">
             <English>2) Walking</English>
             <German>2) Gehen</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical_IGUI">
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical">
             <English>3) Tactical</English>
             <German>3) Taktisch</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom_IGUI">
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom">
             <English>4) Custom</English>
             <German>4) Benutzerdefiniert</German>
         </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Walk_IGUI">
+            <English>6) Display - Walking</English>
+            <German>6) Anzeige - Gehen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Tactical_IGUI">
+            <English>7) Display - Tactical</English>
+            <German>7) Anzeige - Taktisch</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Custom_IGUI">
+            <English>8) Display - Custom</English>
+            <German>8) Anzeige - Benutzerdefiniert</German>
+        </Key>
         <Key ID="STR_awsr_movement_SETTING_Enable">
-            <English>Enable AWSR (whole system)</English>
-            <German>Aktiviere AWSR (gesamtes System)</German>
+            <English>Enable Speed Adjustment</English>
+            <German>Geschwindigkeitsanpassung aktivieren</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_Enable_DESC">
             <English>Turns the whole mod on or off.</English>
@@ -68,14 +84,6 @@
         <Key ID="STR_awsr_movement_SETTING_Enable_Tactical_DESC">
             <English>Turns the tactical group on or off.</English>
             <German>Schaltet die taktische Gruppe ein oder aus.</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_Enable_Custom">
-            <English>Enable Custom Module</English>
-            <German>Aktiviert Benutzerdefiniert Modul</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_Enable_Custom_DESC">
-            <English>Turns the custom group on or off.\nIt is empty until you whitelist something.</English>
-            <German>Schaltet die eigene Gruppe ein oder aus.\nSie ist leer, bis du etwas einträgst.</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_includeNonRaisedAnimations">
             <English>Include Non Weapon Raised Animations</English>
@@ -309,13 +317,13 @@
             <English>AWSR - Custom Speed</English>
             <German>AWSR - Benutzerdefinierte Geschwindigkeit</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun">
-            <English>1) Autorun</English>
-            <German>1) Autolauf</German>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_General">
+            <English>1) General</English>
+            <German>1) Allgemein</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_IGUI">
-            <English>1) Autorun</English>
-            <German>1) Autolauf</German>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_Indicator">
+            <English>3) Indicator</English>
+            <German>3) Anzeige</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_enable">
             <English>Enable autorun</English>
@@ -338,8 +346,8 @@
             <German>AWSR - Autolauf</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_Category_Autorun">
-            <English>1) Autorun</English>
-            <German>1) Autolauf</German>
+            <English>Autorun</English>
+            <German>Autolauf</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_walk">
             <English>Autorun | Walk</English>
@@ -393,49 +401,269 @@
             <English>Run</English>
             <German>Rennen</German>
         </Key>
-        <Key ID="STR_awsr_movement_KEYBIND_Category_General">
-            <English>2) General</English>
-            <German>2) Allgemein</German>
-        </Key>
-        <Key ID="STR_awsr_movement_KEYBIND_Category_Walk">
-            <English>3) Walking</English>
-            <German>3) Gehen</German>
-        </Key>
-        <Key ID="STR_awsr_movement_KEYBIND_Category_Tactical">
-            <English>4) Tactical</English>
-            <German>4) Taktisch</German>
-        </Key>
-        <Key ID="STR_awsr_movement_KEYBIND_Category_Custom">
-            <English>5) Custom</English>
-            <German>5) Benutzerdefiniert</German>
-        </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_Walk">
-            <English>Walk Animation (Rifle)</English>
-            <German>Geh-Animation (Gewehr)</German>
+            <English>Stand - Walk (Rifle)</English>
+            <German>Stehend - Gehen (Gewehr)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_Jog">
-            <English>Jog Animation (Rifle)</English>
-            <German>Jogg-Animation (Gewehr)</German>
+            <English>Stand - Jog (Rifle)</English>
+            <German>Stehend - Joggen (Gewehr)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_Run">
-            <English>Run Animation (Rifle)</English>
-            <German>Renn-Animation (Gewehr)</German>
+            <English>Stand - Run (Rifle)</English>
+            <German>Stehend - Rennen (Gewehr)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_DESC">
-            <English>The animation this pace loops.\nWrite the name plain, no quotes.\n\nSeveral, separated by commas, are\nalternatives - the first plays, the\nnext-animation key steps through the rest.\n\nName parts:\nPerc upright, Pknl crouched\nMwlk walk, Mrun jog, Meva run\nSlow lowered, Sras raised\nWrfl rifle, Wpst pistol\n\nUnknown names are dropped.\nSwimming always picks its own.</English>
-            <German>Die Animation, die diese Gangart loopt.\nNamen einfach hinschreiben, ohne Anführungszeichen.\n\nMehrere, per Komma getrennt, sind\nAlternativen - die erste läuft, die Taste\nfür die nächste Animation schaltet weiter.\n\nNamensteile:\nPerc aufrecht, Pknl kniend\nMwlk gehen, Mrun joggen, Meva rennen\nSlow gesenkt, Sras erhoben\nWrfl Gewehr, Wpst Pistole\n\nUnbekannte Namen fliegen raus.\nBeim Schwimmen wählt der Lauf selbst.</German>
+            <English>The animation this pace loops.\nWrite the name plain, no quotes.\n\nSeveral, separated by commas, are\nalternatives - the first plays, the\nnext-animation key steps through the rest.\n\nName parts:\nPerc upright, Pknl crouched, Ppne prone\nMwlk walk, Mrun jog, Meva run, Mspr sprint\nSlow lowered, Sras raised\nWrfl rifle, Wpst pistol\n\nUnknown names are dropped.\nAn empty box lets the run work it out.\nSwimming always picks its own.</English>
+            <German>Die Animation, die diese Gangart loopt.\nNamen einfach hinschreiben, ohne Anführungszeichen.\n\nMehrere, per Komma getrennt, sind\nAlternativen - die erste läuft, die Taste\nfür die nächste Animation schaltet weiter.\n\nNamensteile:\nPerc aufrecht, Pknl kniend, Ppne liegend\nMwlk gehen, Mrun joggen, Meva rennen, Mspr sprinten\nSlow gesenkt, Sras erhoben\nWrfl Gewehr, Wpst Pistole\n\nUnbekannte Namen fliegen raus.\nLeeres Feld: der Lauf wählt selbst.\nBeim Schwimmen wählt der Lauf selbst.</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_WalkPistol">
-            <English>Walk Animation (Handgun)</English>
-            <German>Geh-Animation (Pistole)</German>
+            <English>Stand - Walk (Handgun)</English>
+            <German>Stehend - Gehen (Pistole)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_JogPistol">
-            <English>Jog Animation (Handgun)</English>
-            <German>Jogg-Animation (Pistole)</German>
+            <English>Stand - Jog (Handgun)</English>
+            <German>Stehend - Joggen (Pistole)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_RunPistol">
-            <English>Run Animation (Handgun)</English>
-            <German>Renn-Animation (Pistole)</German>
+            <English>Stand - Run (Handgun)</English>
+            <German>Stehend - Rennen (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchWalk">
+            <English>Crouch - Walk (Rifle)</English>
+            <German>Kniend - Gehen (Gewehr)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchJog">
+            <English>Crouch - Jog (Rifle)</English>
+            <German>Kniend - Joggen (Gewehr)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchRun">
+            <English>Crouch - Run (Rifle)</English>
+            <German>Kniend - Rennen (Gewehr)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchWalkPistol">
+            <English>Crouch - Walk (Handgun)</English>
+            <German>Kniend - Gehen (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchJogPistol">
+            <English>Crouch - Jog (Handgun)</English>
+            <German>Kniend - Joggen (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchRunPistol">
+            <English>Crouch - Run (Handgun)</English>
+            <German>Kniend - Rennen (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneWalk">
+            <English>Prone - Walk (Rifle)</English>
+            <German>Liegend - Gehen (Gewehr)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneJog">
+            <English>Prone - Jog (Rifle)</English>
+            <German>Liegend - Joggen (Gewehr)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneRun">
+            <English>Prone - Run (Rifle)</English>
+            <German>Liegend - Rennen (Gewehr)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneWalkPistol">
+            <English>Prone - Walk (Handgun)</English>
+            <German>Liegend - Gehen (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneJogPistol">
+            <English>Prone - Jog (Handgun)</English>
+            <German>Liegend - Joggen (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneRunPistol">
+            <English>Prone - Run (Handgun)</English>
+            <German>Liegend - Rennen (Pistole)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_useStamina">
+            <English>Stamina Limits The Pace</English>
+            <German>Ausdauer begrenzt die Gangart</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_useStamina_DESC">
+            <English>Out of breath drops the run a pace,\nand refuses a faster one.\n\nUses ACE advanced fatigue where it is\nrunning, the engine's own otherwise -\nat the same points ACE itself uses.\n\nOff: the run ignores stamina.</English>
+            <German>Außer Puste fällt der Lauf eine\nGangart zurück und verweigert\neine schnellere.\n\nNutzt ACE Advanced Fatigue, wenn es\nläuft, sonst die Engine-Ausdauer -\nan denselben Punkten wie ACE.\n\nAus: der Lauf ignoriert Ausdauer.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSpeedArray">
+            <English>Per-Animation Speeds</English>
+            <German>Geschwindigkeit je Animation</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSpeedArray_DESC">
+            <English>Give single animations their own speed,\nby name. Works on animations that are in\nno group at all - swimming, ladders,\ncrawling.\n\nname=speed, comma separated:\nLadder*=2, Aswm*=1.5\n\n1 is normal speed, 2 twice as fast.\n* matches the rest of a name, as in the\nwhitelists.\n\nAn animation listed here ignores its\nWalking, Tactical or Custom speed and\nstarts at this one instead.\n\nThe number also widens what the speed\nkeys can reach: above the group maximum\nit becomes the new maximum, below the\ngroup minimum the new minimum.\n\nLadders and swimming are filled in at 1\nalready - change the number to use them.\n\nUse Debug to collect animation names.</English>
+            <German>Gibt einzelnen Animationen eine eigene\nGeschwindigkeit, per Name. Funktioniert\nauch bei Animationen ohne Gruppe -\nSchwimmen, Leitern, Kriechen.\n\nname=speed, per Komma getrennt:\nLadder*=2, Aswm*=1.5\n\n1 ist normal, 2 doppelt so schnell.\n* steht für den Rest des Namens, wie\nin den Whitelists.\n\nEine Animation von hier ignoriert ihre\nGeh-, Taktisch- oder Custom-Geschwindig-\nkeit und startet mit dieser.\n\nDie Zahl erweitert auch die Tasten-\ngrenzen: über dem Gruppenmaximum wird\nsie das neue Maximum, unter dem Minimum\ndas neue Minimum.\n\nLeitern und Schwimmen stehen schon mit 1\ndrin - einfach die Zahl ändern.\n\nNamen sammelst du mit Debug.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_explainLimit">
+            <English>Say Why A Limit Was Hit</English>
+            <German>Grund für ein Limit anzeigen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_explainLimit_DESC">
+            <English>Adds a short line when a speed or a\npace was capped, instead of leaving\nthe value looking stuck.\n\nOnly named when the reason is known.</English>
+            <German>Zeigt eine kurze Zeile, wenn eine\nGeschwindigkeit oder Gangart begrenzt\nwurde, statt den Wert nur festhängen\nzu lassen.\n\nNur wenn der Grund bekannt ist.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_valueStyle">
+            <English>Value Style</English>
+            <German>Wertformat</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_valueStyle_DESC">
+            <English>How a speed is written out.\n\nPercent: 150%\nCoefficient: 1.5\n\nThe coefficient is what missions and\nsetAnimSpeedCoef take.</English>
+            <German>Wie eine Geschwindigkeit geschrieben wird.\n\nProzent: 150%\nKoeffizient: 1.5\n\nDen Koeffizienten nehmen Missionen\nund setAnimSpeedCoef.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_valueStyle_percent">
+            <English>Percent</English>
+            <German>Prozent</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_valueStyle_coefficient">
+            <English>Coefficient</English>
+            <German>Koeffizient</German>
+        </Key>
+        <Key ID="STR_awsr_movement_LIMIT_exhausted">
+            <English>Too exhausted</English>
+            <German>Zu erschöpft</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_speed">
+            <English>speed %1  -  group %2  -  per-animation %3</English>
+            <German>Speed %1  -  Gruppe %2  -  je Animation %3</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_noGroup">
+            <English>none</English>
+            <German>keine</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_noPinned">
+            <English>not set</English>
+            <German>nicht gesetzt</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Slots">
+            <English>2) Animation Keys</English>
+            <German>2) Animationstasten</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSlot">
+            <English>Animation Key %1</English>
+            <German>Animationstaste %1</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSlot_DESC">
+            <English>The animation this key plays.\n\nOne name plays that animation.\nSeveral, comma separated, play one\nafter another as a sequence.\n\nBind the key under Animations in the\nkeybind menu - none are bound by\ndefault.\n\nPressing the key again while it runs\nstops it.\n\nUnknown names are dropped.\nUse Debug to collect names.</English>
+            <German>Die Animation, die diese Taste spielt.\n\nEin Name spielt diese Animation.\nMehrere, per Komma getrennt, laufen\nnacheinander als Sequenz.\n\nDie Taste liegt unter Animationen im\nTastenmenü - keine ist vorbelegt.\n\nNochmal drücken bricht ab.\n\nUnbekannte Namen fliegen raus.\nNamen sammelst du mit Debug.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSlotLoop">
+            <English>Animation Key %1 - Loop</English>
+            <German>Animationstaste %1 - Schleife</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_animationSlotLoop_DESC">
+            <English>Repeat this key's animations until the\nkey is pressed again.</English>
+            <German>Wiederholt die Animationen dieser Taste,\nbis die Taste erneut gedrückt wird.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_Category_Animations">
+            <English>Animations</English>
+            <German>Animationen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_animationSlot">
+            <English>Play Animation %1</English>
+            <German>Animation %1 abspielen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_animationSlot_DESC">
+            <English>Plays what is set for this slot in the\nAnimation Adjustment settings.</English>
+            <German>Spielt, was für diesen Platz in den\nAnimation-Adjustment-Einstellungen\nsteht.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_KEYBIND_Category_Speed">
+            <English>Adjustable Walk Speed</English>
+            <German>Adjustable Walk Speed</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showAnimation">
+            <English>Show Animation Indicator</English>
+            <German>Animationsanzeige einblenden</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showAnimation_DESC">
+            <English>Shows which animation key is running.\n\nA looping key has no other way of saying\nit is still going, or which key stops it.\n\nMove it in the layout tab.</English>
+            <German>Zeigt, welche Animationstaste läuft.\n\nEine Taste in Schleife hat sonst keine\nMöglichkeit zu sagen, dass sie noch\nläuft oder welche Taste sie stoppt.\n\nVerschiebbar im Layout-Tab.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_Text_Animation">
+            <English>Animation Indicator Text</English>
+            <German>Text der Animationsanzeige</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_Text_Animation_DESC">
+            <English>What the animation indicator says.\n\n%1 is the number of the key that is\nrunning.</English>
+            <German>Was die Animationsanzeige schreibt.\n\n%1 ist die Nummer der Taste, die\ngerade läuft.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textColor_Animation">
+            <English>Animation Indicator Colour</English>
+            <German>Farbe der Animationsanzeige</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textColor_Animation_DESC">
+            <English>Colour of the animation indicator text.</English>
+            <German>Farbe des Textes der Animationsanzeige.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_IGUI_DisplayName_Animation">
+            <English>AWSR - Animation Indicator</English>
+            <German>AWSR - Animationsanzeige</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textSize_Animation">
+            <English>Animation Indicator Size</English>
+            <German>Größe der Animationsanzeige</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_textSize_Animation_DESC">
+            <English>How large the animation indicator text\nis drawn.</English>
+            <German>Wie groß der Text der Animationsanzeige\ngezeichnet wird.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_customMode">
+            <English>Custom Category Does</English>
+            <German>Custom-Kategorie macht</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_customMode_DESC">
+            <English>What the Custom category and its keys\nare for.\n\nPer-Animation Speed (default):\nthe keys change the speed of whatever\nanimation is playing, and what you set\noutranks the group from then on.\nIts whitelist, min and max are unused -\nthe range comes from the animation and\nthe group it is in.\n\nThird Animation Group:\nas Walking and Tactical, with its own\nwhitelist and range.</English>
+            <German>Wofür die Custom-Kategorie und ihre\nTasten da sind.\n\nGeschwindigkeit je Animation (Standard):\ndie Tasten ändern die Geschwindigkeit\nder laufenden Animation, und was du\nsetzt, schlägt ab dann die Gruppe.\nWhitelist, Min und Max bleiben ungenutzt -\ndie Grenzen kommen aus der Animation und\nihrer Gruppe.\n\nDritte Animationsgruppe:\nwie Gehen und Taktisch, mit eigener\nWhitelist und eigenen Grenzen.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_customMode_animation">
+            <English>Per-Animation Speed</English>
+            <German>Geschwindigkeit je Animation</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_customMode_group">
+            <English>Third Animation Group</English>
+            <German>Dritte Animationsgruppe</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showSlider">
+            <English>Show Range Bar</English>
+            <German>Bereichsleiste anzeigen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showSlider_DESC">
+            <English>Draws a bar under the value showing\nwhere it sits between the lowest and\nhighest the keys can reach.\n\nDefault speed is the middle of the bar,\nso slower and faster read as two halves.</English>
+            <German>Zeichnet unter dem Wert eine Leiste,\ndie zeigt, wo er zwischen dem kleinsten\nund größten Tastenwert liegt.\n\nNormalgeschwindigkeit ist die Mitte,\nlangsamer und schneller sind so zwei\ngetrennte Hälften.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_legend">
+            <English>newest</English>
+            <German>neueste</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_legendOld">
+            <English>oldest</English>
+            <German>älteste</German>
+        </Key>
+        <Key ID="STR_awsr_movement_VALUE_default">
+            <English>Default</English>
+            <German>Standard</German>
+        </Key>
+        <Key ID="STR_awsr_movement_MARKER_override">
+            <English>Override: %1</English>
+            <German>Übersteuerung: %1</German>
+        </Key>
+        <Key ID="STR_awsr_movement_MARKER_on">
+            <English>On</English>
+            <German>An</German>
+        </Key>
+        <Key ID="STR_awsr_movement_MARKER_off">
+            <English>Off</English>
+            <German>Aus</German>
+        </Key>
+        <Key ID="STR_awsr_movement_MARKER_synced">
+            <English>Synced</English>
+            <German>Gruppe</German>
+        </Key>
+        <Key ID="STR_awsr_movement_VALUE_off">
+            <English>OFF</English>
+            <German>AUS</German>
+        </Key>
+        <Key ID="STR_awsr_movement_VALUE_synced">
+            <English>SYNCED</English>
+            <German>GRUPPE</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>
@@ -506,12 +734,12 @@
             <German>Debug: Animationsnamen sammeln</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_debug_DESC">
-            <English>Names every animation you play and keeps the\nlast 20 on your clipboard.\n\nTo collect names for a whitelist:\n1. Switch this on\n2. Do the movements you want covered\n3. Switch it off and paste into a whitelist\n\nThe clipboard is comma separated already, so\nit pastes straight into any animation box.\n\nOff by default - it shows a hint on every\nanimation change.</English>
-            <German>Nennt jede Animation, die du spielst, und hält\ndie letzten 20 in der Zwischenablage.\n\nNamen für eine Whitelist sammeln:\n1. Hier einschalten\n2. Die Bewegungen ausführen, die rein sollen\n3. Ausschalten und in eine Whitelist einfügen\n\nDie Zwischenablage ist bereits kommagetrennt,\npasst also direkt in jedes Animationsfeld.\n\nStandardmäßig aus - zeigt bei jedem Wechsel\neinen Hinweis.</German>
+            <English>Collects animation names.\n\n1. Switch on\n2. Do the move you want the name of\n3. Switch off and paste\n\nEvery animation is shown as you enter\nit, with the speed being applied and\nthe group it belongs to.\n\nThe last 20 are in your clipboard,\ncomma separated - paste straight into a\nwhitelist or a speed box.\n\nWorks with the mod switched off.\n\nServer setting: it draws a hint on every\nanimation change, so it is not something\na player switches on mid mission.</English>
+            <German>Sammelt Animationsnamen.\n\n1. Einschalten\n2. Die Bewegung machen\n3. Ausschalten und einfügen\n\nJede Animation wird beim Wechsel\nangezeigt, mit ihrer Geschwindigkeit\nund ihrer Gruppe.\n\nDie letzten 20 liegen im Clipboard,\nper Komma getrennt - direkt in eine\nWhitelist oder ein Speed-Feld.\n\nGeht auch bei ausgeschaltetem Mod.\n\nServereinstellung: zeichnet bei jedem\nAnimationswechsel einen Hint, ist also\nnichts, was ein Spieler mitten in der\nMission anschaltet.</German>
         </Key>
         <Key ID="STR_awsr_movement_DEBUG_title">
-            <English>AWSR - Animation</English>
-            <German>AWSR - Animation</German>
+            <English>AWSR DEBUG</English>
+            <German>AWSR DEBUG</German>
         </Key>
         <Key ID="STR_awsr_movement_DEBUG_copied">
             <English>Last %1 copied to your clipboard:</English>

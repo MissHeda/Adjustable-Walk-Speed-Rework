@@ -22,14 +22,23 @@
 params [["_animation", ""]];
 
 if (!hasInterface) exitWith {};
+
+// Called with nothing from the refresh loop: redraw whatever is on screen with the numbers as
+// they are now. The speed changes without the animation changing - that is the whole point of
+// the mod - so an animation handler on its own would show a value that is already stale.
+if (_animation isEqualTo "") then {
+    _animation = animationState CURRENT_UNIT;
+};
+
 if (_animation == "") exitWith {};
 
 private _list = GVAR(debugAnimations);
 
-// A loop re-enters the same state, and a list of the same name twenty times helps nobody.
-if ((_list param [count _list - 1, ""]) == _animation) exitWith {};
-
-_list pushBack _animation;
+// A loop re-enters the same state, and a list of the same name twenty times helps nobody. The
+// hint is still redrawn, so the speed on it keeps up.
+if ((_list param [count _list - 1, ""]) != _animation) then {
+    _list pushBack _animation;
+};
 
 while {count _list > DEBUG_ANIMATION_COUNT} do {
     _list deleteAt 0;
@@ -41,10 +50,59 @@ GVAR(debugAnimations) = _list;
 // animation boxes take - paste straight in, no editing.
 copyToClipboard (_list joinString ", ");
 
-hintSilent parseText format [
-    "<t size='1.2'>%1</t><br/><br/><t size='1.1' color='#FFD766'>%2</t><br/><br/><t size='0.8'>%3</t><br/><t size='0.75' color='#AAAAAA'>%4</t>",
+// The speed alongside the name, because the two questions people open Debug for are "what is
+// this animation called" and "is my speed actually being applied to it".
+private _pinned = _animation call FUNC(animationSpeed);
+private _group = _animation call FUNC(animationType);
+
+private _groupText = LLSTRING(DEBUG_noGroup);
+if (_group isNotEqualTo "") then {_groupText = _group};
+
+private _pinnedText = LLSTRING(DEBUG_noPinned);
+if (_pinned > 0) then {_pinnedText = str _pinned};
+
+private _detail = format [
+    LLSTRING(DEBUG_speed),
+    getAnimSpeedCoef CURRENT_UNIT,
+    _groupText,
+    _pinnedText
+];
+
+// Newest green, oldest red, the rest of the way between - so a glance says which end of the
+// list you are reading without counting entries.
+private _last = (count _list) - 1;
+private _lines = [];
+
+{
+    // Both sides of a select are worked out before it picks one, so the division has to be
+    // kept away from a single-entry list rather than guarded by the select.
+    private _fraction = 0;
+    if (_last > 0) then {_fraction = _forEachIndex / _last};
+
+    // Green to red through yellow, which is the only two-channel ramp that stays readable on a
+    // dark hint at this size.
+    private _red = round (255 * (2 * _fraction min 1));
+    private _green = round (255 * (2 * (1 - _fraction) min 1));
+
+    private _colour = ([ARR_2(_red,2)] call FUNC(hex)) + ([ARR_2(_green,2)] call FUNC(hex)) + "00";
+
+    _lines pushBack format [ARR_3("<t color='#%1'>%2</t>",_colour,_x)];
+} forEach (reverse (+_list));
+
+// Without saying which end is which, a gradient is just a list in odd colours.
+private _joined = format [
+    DEBUG_LEGEND_MARKUP,
+    LLSTRING(DEBUG_legend),
+    LLSTRING(DEBUG_legendOld)
+] + ARR_SEPARATOR + (_lines joinString ARR_SEPARATOR);
+
+private _text = format [
+    DEBUG_MARKUP,
     LLSTRING(DEBUG_title),
     _animation,
-    format [LLSTRING(DEBUG_copied), count _list],
-    _list joinString ",<br/>"
+    _detail,
+    format [ARR_2(LLSTRING(DEBUG_copied),count _list)],
+    _joined
 ];
+
+[_text, 6] call FUNC(notify);

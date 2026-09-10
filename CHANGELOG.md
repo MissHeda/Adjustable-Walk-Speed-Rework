@@ -66,6 +66,60 @@ else is lost - set them again and they stay.
   finding the name of an animation without opening the config viewer: switch it on, do the move,
   switch it off, paste. It works with the rest of the mod switched off.
 
+- **The Custom category is a mode now, not an on/off**, and it is on out of the box. Left at its
+  default it turns the Custom keys into a speed control for whatever animation is playing, bound
+  to `Ctrl + Alt + Shift + mouse wheel`. Set the other way it is the third animation group it
+  always was, with its own whitelist and range.
+
+  Three sources of speed, in order: what you set for this animation with those keys, then the
+  group's speed while the group is off default, then the speed the animation was given by name.
+  So a group left alone does not overrule a per-animation speed, and a speed you set by hand is
+  not overruled by anything.
+
+- **The custom override is a three-way switch**, and the display says where it stands. Scroll
+  below the lowest speed and it reads `OFF` - the animation runs on the speed it was given by
+  name. Scroll above the highest and it reads `SYNCED` - the group has it. Anywhere between, the
+  number is yours. Both ends are somewhere you arrive by doing the obvious thing, so no value
+  secretly means something else.
+
+- **Default speed reads as "Default"** rather than as 100% or 1.
+
+- **The Custom display says what is actually in force**, whatever set it, with a bar under it
+  showing how far the keys reach - default speed in the middle, the two halves read separately so
+  an ordinary value does not sit squashed against one end. It goes a moment after the speed is
+  back to normal rather than at once.
+
+- **Per-Animation Speeds.** A speed for single animations by name, whatever group they are or are
+  not in - `Aswm*=2, Ladder*=1.5`. Swimming, ladders and crawling are in no group at all, which is
+  why they were out of reach until now. It beats all three groups, so the number on the display is
+  always the number being applied. The number also widens what the speed keys can reach: above the
+  group's maximum it becomes the new maximum, below its minimum the new minimum. Ladders and
+  swimming are filled in at 1 already, ready to be turned up.
+
+- **Stamina limits the autorun.** Out of breath drops the run a pace and refuses a faster one, at
+  the same points ACE takes the sprint away and forces a walk. Where ACE advanced fatigue is
+  running it reads ACE's reserves; otherwise the engine's own fatigue. Can be switched off.
+
+- **A reason when a limit is hit**, instead of a value that just looks stuck - "Too exhausted"
+  while ACE holds a force walk for fatigue, and when a pace is refused. It is only ever named when
+  the reason is actually known.
+
+- **Percent or coefficient** for every speed shown - 150% or 1.5, whichever you think in.
+
+- **Ten animation keys.** Bind a key, put an animation name in its box, and the key plays it -
+  a salute, a gesture, a pose. Several names, comma separated, play one after another as a
+  sequence, and each key can be set to repeat until it is pressed again. Pressing the key while
+  it runs stops it. None of the ten are bound by default.
+
+- **An indicator for the animation keys**, placed in the layout tab like the others, saying which
+  key is running - a looping key has no other way of telling you it is still going. It is a line
+  of text rather than another icon, since there is nothing to draw.
+
+- **A blacklist for the custom group**, now that wildcards make one worth having.
+
+- **An animation setting per stance.** Crouched and prone each have their own six boxes, so a
+  stance change during a run plays something built for that stance.
+
 ### Fixed
 
 - **ACE advanced fatigue stopped working as soon as this mod loaded.** Every whitelisted animation
@@ -118,6 +172,48 @@ else is lost - set them again and they stay.
   out of a `melee_armed_*` sort of entry did nothing - a wildcard was only ever cancelled by
   another wildcard. The name wins now.
 
+- **Stance keys did nothing during an autorun, and left the indicator lying.** Four things at
+  once: the handler watched `MoveUp` and `MoveDown`, which ship unbound, while the stance keys are
+  `Stand`, `Crouch` and `Prone`; the transition animation it built - `<from>_<to>` - exists for no
+  pair the run can produce; the pinned animation was returned before the stance was ever read; and
+  nothing compared the animation against the unit, so once the engine took it away the run was
+  dead while the indicator carried on. A run now heals itself on the next tick whatever takes the
+  animation, which also covers other mods and scripted sequences.
+- **The speed keys wrote to the wrong unit under Zeus remote control.** They used `player`, which
+  parts company with the unit actually being driven - so a speed set while controlling a puppet
+  did nothing to it and landed on the player's own body instead, showing up the moment control was
+  handed back. They follow the controlled unit now, the same one CBA's own player event handler
+  watches. Taking over also hides the speed displays, since each body keeps its own speeds.
+- **A sequence flickered through a third animation between its own two.** Both `playMove` and
+  `playMoveNow` follow the game's transition graph, and between two walk animations that route
+  runs through the connected idle - which is the animation that kept appearing. The sequence
+  watches the animation state instead and puts the next one on with `switchMove`, which takes no
+  transition at all.
+- **The walk and tactical displays came and went together.** Every change redrew all three, which
+  restarted all three hide timers - so changing the walk speed kept the tactical display up for
+  exactly as long, and simply walking brought it up saying nothing. Each is only touched when
+  what it would say has changed.
+- **The custom range grew as you pushed against it.** It was anchored to the speed currently in
+  force, which is the value the keys were moving, so the ceiling ran away ahead of them. It is
+  anchored to the animation's own speed, which does not move.
+- **A group's display showed values that were not its own.** A change from anywhere redrew every
+  group. Each one answers for its own group now, and only while that group is off default.
+- **A speed set per animation did not reach the display.** It was only redrawn on a key press, so
+  a sequence stepping through animations with different speeds left the display showing the one
+  before. It follows the applied value now, and an animation that is in no group - swimming, a
+  ladder - is shown on the custom display rather than nowhere.
+- **An animation key would walk you into the sea.** Land animations do not stop at the waterline
+  and the engine plays what it is told, so a slot now refuses to start in water and ends when it
+  reaches it.
+- **The animation keys stuttered every few metres.** The sequence was driven by a poll, which
+  only notices an animation has ended a tick late - and in that gap the engine has already
+  dropped the unit into a standing idle. It runs off `AnimDone` now, the same as the autorun.
+- **Speed flickered back to default under Zeus remote control.** ACE's advanced fatigue was never
+  told to keep its hands off, because the claim was made only for `player` - which is not the
+  unit being driven. ACE reset the coefficient, the reapply loop put it back, once a second.
+- **The debug list never appeared.** With one entry collected, working out its place in the
+  colour ramp divided by zero, and SQF works out both sides of a `select` before it picks one -
+  so the guard meant to prevent that never ran.
 - Toggling settings could grow the whitelists with duplicate entries.
 - The walk group's "include non raised animations" callback referenced an undefined variable.
 - A script error on the first animation change of a mission with ACE loaded, from looking up our
@@ -132,6 +228,31 @@ else is lost - set them again and they stay.
 - The animation lookup is cached per animation name instead of concatenating and searching a few
   hundred strings on every animation state change.
 - Settings, IGUI settings and keybinds are numbered so they read in the same order everywhere.
+- **Settings are split by feature into `AWSR - Autorun`, `AWSR - Adjustable Walk Speed` and
+  `AWSR - Animation Adjustment`**, rather than by whether a setting draws something. Autorun and
+  Walking each used to appear twice, on two different pages; a group's speed and its display now
+  sit in one place. No value is lost: CBA stores a setting under its own name, never under its
+  category.
+- Every display is as wide as Arma's own stance indicator by default, and starts clear of the
+  vanilla interface. The artwork keeps its aspect inside the box, and the box is the one the
+  layout tab saved rather than a square worked out from its width - the two used to disagree,
+  which is what made the layout tab look wrong.
+- **Debug redraws on a loop as well as on an animation change**, so the speed on it keeps up -
+  the speed moves while the animation stays the same, which is the whole point of the mod. It
+  also reports after the speed has been applied rather than before, so the number on it is the
+  one in force and not the one from the animation before.
+- **Debug is a server setting** and says `AWSR DEBUG` on the hint, so nobody wonders whose it is
+  or turns it on mid mission - it draws on every animation change. It also shows the speed being
+  applied and which group the animation belongs to.
+- Autorun animation settings are named `Stance - Pace (Weapon)` throughout, so the rifle set says
+  it is the rifle set.
+- Debug and Per-Animation Speeds have sub-categories of their own rather than sitting in General.
+- The debug list runs newest-green to oldest-red, so which end you are reading takes a glance
+  rather than a count.
+- Keybind headings lost their numbers, and General moved in with the speed keys.
+- The three speed groups share one keybind heading instead of one each, so the menu reads as the
+  three things the mod does rather than as five sections you have to know apart.
+- Ladders and swimming are filled into Per-Animation Speeds at 1, ready to be changed.
 
 ### Known and not changed
 

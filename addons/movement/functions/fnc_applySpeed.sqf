@@ -32,7 +32,10 @@ if (GETVAR(_unit,GVAR(appliedSpeed),-1) != _coef) then {
 
     // Tell ACE's advanced fatigue to keep its hands off while we are driving the speed, and
     // give it back the moment we are not.
-    if (_unit isEqualTo player) then {
+    // Against the unit being driven, not `player`: under Zeus remote control they part company,
+    // and without the claim ACE's advanced fatigue puts the coefficient back to 1 a second later
+    // while our own reapply loop puts it back again - which is the flicker that produced.
+    if (_unit isEqualTo CURRENT_UNIT) then {
         [_coef != 1] call FUNC(aceAnimClaim);
     };
 

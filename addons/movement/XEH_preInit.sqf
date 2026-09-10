@@ -4,8 +4,14 @@ ADDON = false;
 
 #include "XEH_PREP.hpp"
 
-#define CBA_SETTINGS_AWSR "Adjustable Walking Speed - Rework"
-#define CBA_SETTINGS_AWSR_GUI "Adjustable Walking Speed - Rework IGUI"
+// Three categories, split by feature rather than by how a setting happens to be drawn. The
+// shared prefix keeps them next to each other: CBA sorts categories alphabetically by their
+// display text. Only the variable name decides where a value is stored, so re-categorising
+// never costs a player their settings - renaming would.
+#define CBA_SETTINGS_AWSR_AUTORUN "AWSR - Autorun"
+#define CBA_SETTINGS_AWSR "AWSR - Adjustable Walk Speed"
+#define CBA_SETTINGS_AWSR_GUI "AWSR - Adjustable Walk Speed"
+#define CBA_SETTINGS_AWSR_ANIM "AWSR - Animation Adjustment"
 
 // Resolved whitelists. The settings themselves stay the strings the player typed;
 // awsr_movement_fnc_rebuildAnimations turns them into these, and drops the lookup cache with it.
@@ -20,6 +26,10 @@ GVAR(blocked_Tactical) = [];
 GVAR(blocked_Custom) = [];
 GVAR(animationTypeCache) = createHashMap;
 GVAR(debugAnimations) = [];
+GVAR(debugLastSpeed) = -1;
+GVAR(animationSpeeds) = createHashMap;
+GVAR(animationSpeedPatterns) = [];
+GVAR(animationSpeedCache) = createHashMap;
 
 // One hide token per display, so the newest change to a group cancels the hide that group's
 // previous change queued - and only that group's.
@@ -32,6 +42,12 @@ GVAR(autorun_tier) = AUTORUN_OFF;
 GVAR(autorun_stance) = "Stand";
 GVAR(autorun_animation) = "";
 GVAR(autorun_stanceUntil) = 0;
+GVAR(autorun_exhaustedUntil) = 0;
+GVAR(notifyToken) = 0;
+GVAR(customToken) = 0;
+GVAR(displayState) = createHashMap;
+GVAR(animationSlotActive) = 0;
+GVAR(animationSlotIndex) = 0;
 GVAR(autorun_animDoneEH) = -1;
 GVAR(autorun_animDoneUnit) = objNull;
 GVAR(autorun_pfh) = -1;
@@ -98,14 +114,45 @@ GVAR(autorun_displayAllow) = [12];
     0
 ] call CBA_Settings_fnc_init;
 
+// Speed for one animation by name, whatever group it is or is not in
+[
+    QGVAR(animationSpeedArray),
+    "EDITBOX",
+    [LLSTRING(SETTING_animationSpeedArray),LLSTRING(SETTING_animationSpeedArray_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_PerAnimation)],
+    "Ladder*=1, Aswm*=1, Assw*=1, Absw*=1, Adve*=1, Abdv*=1, Asdv*=1",
+    1,
+    REBUILD_ANIMATIONS
+] call CBA_Settings_fnc_init;
+
+// Say why a speed or a pace was capped
+[
+    QGVAR(explainLimit),
+    "CHECKBOX",
+    [LLSTRING(SETTING_explainLimit),LLSTRING(SETTING_explainLimit_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
+// Percent or coefficient
+[
+    QGVAR(valueStyle),
+    "LIST",
+    [LLSTRING(SETTING_valueStyle),LLSTRING(SETTING_valueStyle_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Display_General)],
+    [[ARR_2(VALUE_PERCENT,VALUE_COEFFICIENT)], [ARR_2(LLSTRING(SETTING_valueStyle_percent),LLSTRING(SETTING_valueStyle_coefficient))], VALUE_PERCENT],
+    0
+] call CBA_Settings_fnc_init;
+
 // Print every animation and keep the last few on the clipboard
 [
     QGVAR(debug),
     "CHECKBOX",
     [LLSTRING(SETTING_debug),LLSTRING(SETTING_debug_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_General)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Debug)],
     [false],
-    0,
+    1,
     {
         GVAR(debugAnimations) = [];
     }
@@ -301,7 +348,16 @@ GVAR(autorun_displayAllow) = [12];
     0
 ] call CBA_Settings_fnc_init;
 
-// IGUI hide once the speed is back at default (walk)
+// IGUI range bar (walk)
+[
+    QGVAR(IGUI_showSlider_Walk),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_showSlider),LLSTRING(SETTING_IGUI_showSlider_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Walk_IGUI)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
 [
     QGVAR(IGUI_hideAtDefault_Walk),
     "CHECKBOX",
@@ -481,7 +537,16 @@ GVAR(autorun_displayAllow) = [12];
     0
 ] call CBA_Settings_fnc_init;
 
-// IGUI hide once the speed is back at default (tactical)
+// IGUI range bar (tactical)
+[
+    QGVAR(IGUI_showSlider_Tactical),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_showSlider),LLSTRING(SETTING_IGUI_showSlider_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Tactical_IGUI)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
 [
     QGVAR(IGUI_hideAtDefault_Tactical),
     "CHECKBOX",
@@ -495,11 +560,11 @@ GVAR(autorun_displayAllow) = [12];
 
 // Enable speed adjustments (custom)
 [
-    QGVAR(Enable_Custom),
-    "CHECKBOX",
-    [LLSTRING(SETTING_Enable_Custom),LLSTRING(SETTING_Enable_Custom_DESC)],
+    QGVAR(customMode),
+    "LIST",
+    [LLSTRING(SETTING_customMode),LLSTRING(SETTING_customMode_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Custom)],
-    [false],
+    [[ARR_2(CUSTOM_MODE_GROUP,CUSTOM_MODE_ANIMATION)], [ARR_2(LLSTRING(SETTING_customMode_group),LLSTRING(SETTING_customMode_animation))], CUSTOM_MODE_ANIMATION],
     0,
     DROP_ANIMATION_CACHE
 ] call CBA_Settings_fnc_init;
@@ -548,6 +613,17 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(allowedAnimationArray_Custom),
     "EDITBOX",
     [LLSTRING(SETTING_allowedAnimationArray),LLSTRING(SETTING_allowedAnimationArray_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Custom)],
+    "",
+    1,
+    REBUILD_ANIMATIONS
+] call CBA_Settings_fnc_init;
+
+// Custom animation blacklist (custom)
+[
+    QGVAR(notAllowedAnimationArray_Custom),
+    "EDITBOX",
+    [LLSTRING(SETTING_notAllowedAnimationArray),LLSTRING(SETTING_notAllowedAnimationArray_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Custom)],
     "",
     1,
@@ -639,7 +715,16 @@ GVAR(autorun_displayAllow) = [12];
     0
 ] call CBA_Settings_fnc_init;
 
-// IGUI hide once the speed is back at default (custom)
+// IGUI range bar (custom)
+[
+    QGVAR(IGUI_showSlider_Custom),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_showSlider),LLSTRING(SETTING_IGUI_showSlider_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
 [
     QGVAR(IGUI_hideAtDefault_Custom),
     "CHECKBOX",
@@ -656,7 +741,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_enable),
     "CHECKBOX",
     [LLSTRING(SETTING_autorun_enable),LLSTRING(SETTING_autorun_enable_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_General)],
     [true],
     0,
     {
@@ -675,7 +760,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_Walk),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Walk),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMwlkSlowWrflDf_ver2, AmovPercMwlkSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -686,7 +771,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_Jog),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Jog),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMrunSrasWrflDf, AmovPercMrunSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -697,7 +782,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_Run),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Run),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMevaSrasWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -708,7 +793,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_WalkPistol),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_WalkPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMrunSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -719,7 +804,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_JogPistol),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_JogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMrunSrasWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -730,10 +815,406 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(autorun_animation_RunPistol),
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_RunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Autorun)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
     "AmovPercMevaSrasWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+
+// Animation this pace loops crouched with a rifle in hand
+[
+    QGVAR(autorun_animation_CrouchWalk),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchWalk),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMwlkSrasWrflDf, AmovPknlMwlkSlowWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops crouched with a rifle in hand
+[
+    QGVAR(autorun_animation_CrouchJog),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchJog),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMrunSrasWrflDf, AmovPknlMrunSlowWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops crouched with a rifle in hand
+[
+    QGVAR(autorun_animation_CrouchRun),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchRun),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMevaSrasWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops crouched with a handgun in hand
+[
+    QGVAR(autorun_animation_CrouchWalkPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchWalkPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMwlkSrasWpstDf, AmovPknlMwlkSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops crouched with a handgun in hand
+[
+    QGVAR(autorun_animation_CrouchJogPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchJogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMrunSrasWpstDf, AmovPknlMrunSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops crouched with a handgun in hand
+[
+    QGVAR(autorun_animation_CrouchRunPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchRunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPknlMevaSrasWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a rifle in hand
+[
+    QGVAR(autorun_animation_ProneWalk),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneWalk),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMevaSlowWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a rifle in hand
+[
+    QGVAR(autorun_animation_ProneJog),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneJog),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMrunSlowWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a rifle in hand
+[
+    QGVAR(autorun_animation_ProneRun),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneRun),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMsprSlowWrflDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a handgun in hand
+[
+    QGVAR(autorun_animation_ProneWalkPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneWalkPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMrunSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a handgun in hand
+[
+    QGVAR(autorun_animation_ProneJogPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneJogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMrunSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops prone with a handgun in hand
+[
+    QGVAR(autorun_animation_ProneRunPistol),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneRunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    "AmovPpneMsprSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+
+// Let stamina limit the pace
+[
+    QGVAR(autorun_useStamina),
+    "CHECKBOX",
+    [LLSTRING(SETTING_autorun_useStamina),LLSTRING(SETTING_autorun_useStamina_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_General)],
+    [true],
+    1
+] call CBA_Settings_fnc_init;
+
+// ------------------------------------------------------------------------------------------------------------------------ ANIMATION SLOTS
+
+// Animations played by keybind 1
+[
+    QGVAR(animationSlot_1),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),1)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_1),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),1)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 2
+[
+    QGVAR(animationSlot_2),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),2)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_2),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),2)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 3
+[
+    QGVAR(animationSlot_3),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),3)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_3),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),3)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 4
+[
+    QGVAR(animationSlot_4),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),4)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_4),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),4)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 5
+[
+    QGVAR(animationSlot_5),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),5)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_5),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),5)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 6
+[
+    QGVAR(animationSlot_6),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),6)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_6),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),6)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 7
+[
+    QGVAR(animationSlot_7),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),7)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_7),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),7)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 8
+[
+    QGVAR(animationSlot_8),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),8)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_8),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),8)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 9
+[
+    QGVAR(animationSlot_9),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),9)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_9),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),9)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Animations played by keybind 10
+[
+    QGVAR(animationSlot_10),
+    "EDITBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlot),10)],LLSTRING(SETTING_animationSlot_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "",
+    1,
+    {call FUNC(rebuildAnimationSlots)}
+] call CBA_Settings_fnc_init;
+
+// Repeat that slot until the key is pressed again
+[
+    QGVAR(animationSlotLoop_10),
+    "CHECKBOX",
+    [format [ARR_2(LLSTRING(SETTING_animationSlotLoop),10)],LLSTRING(SETTING_animationSlotLoop_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
+// Show the animation indicator
+[
+    QGVAR(IGUI_showAnimation),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_showAnimation),LLSTRING(SETTING_IGUI_showAnimation_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
+// What the animation indicator says
+[
+    QGVAR(IGUI_Text_Animation),
+    "EDITBOX",
+    [LLSTRING(SETTING_IGUI_Text_Animation),LLSTRING(SETTING_IGUI_Text_Animation_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    "PLAYING ANIMATION %1",
+    0
+] call CBA_Settings_fnc_init;
+
+// Size of the animation indicator text
+[
+    QGVAR(IGUI_textSize_Animation),
+    "SLIDER",
+    [LLSTRING(SETTING_IGUI_textSize_Animation),LLSTRING(SETTING_IGUI_textSize_Animation_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [ARR_5(0.5,3,1.4,1,true)],
+    0
+] call CBA_Settings_fnc_init;
+
+// Colour of the animation indicator
+[
+    QGVAR(IGUI_textColor_Animation),
+    "COLOR",
+    [LLSTRING(SETTING_IGUI_textColor_Animation),LLSTRING(SETTING_IGUI_textColor_Animation_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [ARR_3(1,1,1)],
+    0
 ] call CBA_Settings_fnc_init;
 
 // ------------------------------------------------------------------------------------------------------------------------ AUTORUN IGUI
@@ -743,7 +1224,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_showAutorun),
     "CHECKBOX",
     [LLSTRING(SETTING_IGUI_showAutorun),LLSTRING(SETTING_IGUI_showAutorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [true],
     0,
     {
@@ -756,7 +1237,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_showAutorunPace),
     "CHECKBOX",
     [LLSTRING(SETTING_IGUI_showAutorunPace),LLSTRING(SETTING_IGUI_showAutorunPace_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [true],
     0,
     {
@@ -769,7 +1250,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_showAutorunKeys),
     "CHECKBOX",
     [LLSTRING(SETTING_IGUI_showAutorunKeys),LLSTRING(SETTING_IGUI_showAutorunKeys_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [true],
     0,
     {
@@ -782,7 +1263,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_Text_Autorun),
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_Text_Autorun),LLSTRING(SETTING_IGUI_Text_Autorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     "%1%2%3",
     0,
     {
@@ -795,7 +1276,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_TextPace_Autorun),
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_TextPace_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     "PACE: %1      ",
     0,
     {
@@ -808,7 +1289,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_TextStyle_Autorun),
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_TextStyle_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     "STYLE: %1      ",
     0,
     {
@@ -821,7 +1302,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_TextStop_Autorun),
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_TextStop_Autorun),LLSTRING(SETTING_IGUI_TextPart_Autorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     "STOP: %1",
     0,
     {
@@ -834,7 +1315,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_keyColor_Autorun),
     "COLOR",
     [LLSTRING(SETTING_IGUI_keyColor_Autorun),LLSTRING(SETTING_IGUI_keyColor_Autorun_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [1,0.85,0.4],
     0,
     {
@@ -847,7 +1328,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_imageColor_Autorun),
     "COLOR",
     [LLSTRING(SETTING_IGUI_imageColor),LLSTRING(SETTING_IGUI_imageColor_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [1,1,1,1],
     0
 ] call CBA_Settings_fnc_init;
@@ -857,7 +1338,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_textColor_Autorun),
     "COLOR",
     [LLSTRING(SETTING_IGUI_textColor),LLSTRING(SETTING_IGUI_textColor_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [1,1,1],
     0
 ] call CBA_Settings_fnc_init;
@@ -867,7 +1348,7 @@ GVAR(autorun_displayAllow) = [12];
     QGVAR(IGUI_textSize_Autorun),
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize), LLSTRING(SETTING_IGUI_textSize_DESC)],
-    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Autorun_IGUI)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
     [0.1, 3, 1, 2],
     0,
     {

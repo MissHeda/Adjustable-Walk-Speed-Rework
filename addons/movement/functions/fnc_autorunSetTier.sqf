@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /*
- * Author: Miss Heda
+ * Author: leonz2019, Miss Heda
  * Sets the autorun tier, starting or ending the run as needed. The single way in for every
  * autorun key.
  *
@@ -34,7 +34,10 @@ if (GVAR(autorun_active)) exitWith {
         0 spawn FUNC(autorunStop);
     };
 
-    GVAR(autorun_tier) = _tier;
+    GVAR(autorun_tier) = _tier min ([player, GVAR(autorun_tier)] call FUNC(autorunMaxTier));
+
+    if (GVAR(autorun_tier) < _tier) then {[] call FUNC(autorunExhausted)};
+
     call FUNC(autorunIndicator);
 };
 
@@ -49,6 +52,8 @@ if (incapacitatedState player != "") exitWith {};
 if (visibleMap && {!(12 in GVAR(autorun_displayAllow))}) exitWith {};
 if (getUnitFreefallInfo player select 0) exitWith {};
 
-GVAR(autorun_tier) = _tier;
+GVAR(autorun_tier) = _tier min ([player, AUTORUN_OFF] call FUNC(autorunMaxTier));
+
+if (GVAR(autorun_tier) < _tier) then {[] call FUNC(autorunExhausted)};
 
 call FUNC(autorunStart);
