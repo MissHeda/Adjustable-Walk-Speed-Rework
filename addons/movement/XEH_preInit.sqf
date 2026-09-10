@@ -349,6 +349,15 @@ GVAR(autorun_displayAllow) = [12];
 
 // IGUI hide once the speed is back at default (walk)
 [
+    QGVAR(IGUI_showSlider_Walk),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_showSlider),LLSTRING(SETTING_IGUI_showSlider_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Walk_IGUI)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
+[
     QGVAR(IGUI_hideAtDefault_Walk),
     "CHECKBOX",
     [LLSTRING(SETTING_IGUI_hideAtDefault), LLSTRING(SETTING_IGUI_hideAtDefault_DESC)],
@@ -529,6 +538,15 @@ GVAR(autorun_displayAllow) = [12];
 
 // IGUI hide once the speed is back at default (tactical)
 [
+    QGVAR(IGUI_showSlider_Tactical),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_showSlider),LLSTRING(SETTING_IGUI_showSlider_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Tactical_IGUI)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
+[
     QGVAR(IGUI_hideAtDefault_Tactical),
     "CHECKBOX",
     [LLSTRING(SETTING_IGUI_hideAtDefault), LLSTRING(SETTING_IGUI_hideAtDefault_DESC)],
@@ -697,6 +715,15 @@ GVAR(autorun_displayAllow) = [12];
 ] call CBA_Settings_fnc_init;
 
 // IGUI hide once the speed is back at default (custom)
+[
+    QGVAR(IGUI_showSlider_Custom),
+    "CHECKBOX",
+    [LLSTRING(SETTING_IGUI_showSlider),LLSTRING(SETTING_IGUI_showSlider_DESC)],
+    [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
+    [true],
+    0
+] call CBA_Settings_fnc_init;
+
 [
     QGVAR(IGUI_hideAtDefault_Custom),
     "CHECKBOX",

@@ -621,6 +621,22 @@
             <English>Third Animation Group</English>
             <German>Dritte Animationsgruppe</German>
         </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showSlider">
+            <English>Show Range Bar</English>
+            <German>Bereichsleiste anzeigen</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_showSlider_DESC">
+            <English>Draws a bar under the value showing\nwhere it sits between the lowest and\nhighest the keys can reach.\n\nDefault speed is the middle of the bar,\nso slower and faster read as two halves.</English>
+            <German>Zeichnet unter dem Wert eine Leiste,\ndie zeigt, wo er zwischen dem kleinsten\nund größten Tastenwert liegt.\n\nNormalgeschwindigkeit ist die Mitte,\nlangsamer und schneller sind so zwei\ngetrennte Hälften.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_legend">
+            <English>newest</English>
+            <German>neueste</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_legendOld">
+            <English>oldest</English>
+            <German>älteste</German>
+        </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>
             <German>Autolauf | Stopp</German>

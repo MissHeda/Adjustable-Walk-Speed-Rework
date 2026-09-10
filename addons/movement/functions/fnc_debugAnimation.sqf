@@ -86,7 +86,12 @@ private _lines = [];
     _lines pushBack format [ARR_3("<t color='#%1'>%2</t>",_colour,_x)];
 } forEach (reverse (+_list));
 
-private _joined = _lines joinString ARR_SEPARATOR;
+// Without saying which end is which, a gradient is just a list in odd colours.
+private _joined = format [
+    DEBUG_LEGEND_MARKUP,
+    LLSTRING(DEBUG_legend),
+    LLSTRING(DEBUG_legendOld)
+] + ARR_SEPARATOR + (_lines joinString ARR_SEPARATOR);
 
 private _text = format [
     DEBUG_MARKUP,

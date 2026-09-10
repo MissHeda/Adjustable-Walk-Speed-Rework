@@ -35,7 +35,7 @@ private _settings = switch (_type) do {
             GVAR(IGUI_imageColor_Walk), GVAR(IGUI_Text_Walk), GVAR(IGUI_textColor_Walk),
             GVAR(IGUI_textSize_Walk), GVAR(allowIGUIRedLimitValue_Walk),
             GVAR(IGUI_textColorLimitReached_Walk), GVAR(IGUI_displayDuration_Walk),
-            GVAR(IGUI_hideAtDefault_Walk)
+            GVAR(IGUI_hideAtDefault_Walk), GVAR(IGUI_showSlider_Walk)
         ]
     };
     case "tactical": {
@@ -45,7 +45,7 @@ private _settings = switch (_type) do {
             GVAR(IGUI_imageColor_Tactical), GVAR(IGUI_Text_Tactical), GVAR(IGUI_textColor_Tactical),
             GVAR(IGUI_textSize_Tactical), GVAR(allowIGUIRedLimitValue_Tactical),
             GVAR(IGUI_textColorLimitReached_Tactical), GVAR(IGUI_displayDuration_Tactical),
-            GVAR(IGUI_hideAtDefault_Tactical)
+            GVAR(IGUI_hideAtDefault_Tactical), GVAR(IGUI_showSlider_Tactical)
         ]
     };
     case "custom": {
@@ -55,7 +55,7 @@ private _settings = switch (_type) do {
             GVAR(IGUI_imageColor_Custom), GVAR(IGUI_Text_Custom), GVAR(IGUI_textColor_Custom),
             GVAR(IGUI_textSize_Custom), GVAR(allowIGUIRedLimitValue_Custom),
             GVAR(IGUI_textColorLimitReached_Custom), GVAR(IGUI_displayDuration_Custom),
-            GVAR(IGUI_hideAtDefault_Custom)
+            GVAR(IGUI_hideAtDefault_Custom), GVAR(IGUI_showSlider_Custom)
         ]
     };
     default {[]};
@@ -66,7 +66,7 @@ if (_settings isEqualTo []) exitWith {};
 _settings params [
     "_displayType", "_min", "_max", "_resource", "_uiVar", "_gridVar", "_defaultX", "_defaultY",
     "_imageColor", "_format", "_color", "_size", "_showLimit",
-    "_limitColor", "_duration", "_hideAtDefault"
+    "_limitColor", "_duration", "_hideAtDefault", "_showSlider"
 ];
 
 // Converted here rather than in the settings callback, so it does not matter whether CBA has
@@ -104,6 +104,13 @@ if (_reason != "") then {
     _rows = 2;
 };
 
+// The bar says where this value sits between what the keys can reach, so the number has a scale
+// around it instead of standing on its own.
+if (_showSlider) then {
+    _text = _text + "<br/>" + ([_min, _max, _value / 100] call FUNC(speedSlider));
+    _rows = _rows + 1;
+};
+
 switch (_displayType) do {
     case DISPLAY_HINT: {
         hintSilent parseText _text;
@@ -116,12 +123,21 @@ switch (_displayType) do {
     };
 
     case DISPLAY_IGUI: {
-        // Back at the default speed and set to get out of the way.
-        if (_hideAtDefault && {_value == 100}) exitWith {
-            [_uiVar] call FUNC(hideIGUI);
-        };
-
         [_resource, _uiVar, _gridVar, _defaultX, _defaultY, _rows, _text, _size, _imageColor, _duration] call FUNC(updateIGUI);
+
+        // Back at the default speed and set to get out of the way - but a moment later, so a
+        // value passing through default is still readable on its way past.
+        if (_hideAtDefault && {_value == 100}) then {
+            private _token = (GVAR(displayTokens) getOrDefault [_uiVar, 0]);
+
+            [{
+                params ["_uiVar", "_token"];
+
+                if ((GVAR(displayTokens) getOrDefault [_uiVar, 0]) isEqualTo _token) then {
+                    [_uiVar] call FUNC(hideIGUI);
+                };
+            }, [_uiVar, _token], DEFAULT_HIDE_DELAY] call CBA_fnc_waitAndExecute;
+        };
     };
 
     default {};

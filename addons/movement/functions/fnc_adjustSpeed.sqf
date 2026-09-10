@@ -82,39 +82,6 @@ if (_type isEqualTo "custom" && {GVAR(customMode) == CUSTOM_MODE_ANIMATION}) exi
     [_unit, animationState _unit] call FUNC(handleAnimation);
 };
 
-// An animation with a speed of its own is adjusted on its own, whichever group's key was
-// pressed - the animations this is for, swimming and ladders, belong to no group, so waiting
-// for the right group's key would mean waiting forever.
-private _pinned = _animation call FUNC(animationSpeed);
-
-if (_pinned > 0) exitWith {
-    // The setting widens the group's range rather than replacing it: above the group's maximum
-    // it becomes the new maximum, below the group's minimum the new minimum. So an animation set
-    // to 5 can be taken all the way down to the group's own floor and back up to 5, and one set
-    // to 0.2 can be taken up to the group's ceiling and back down to 0.2.
-    private _low = _min min _pinned;
-    private _high = _max max _pinned;
-
-    private _was = _speeds getOrDefault [ANIM_KEY(_animation), _pinned];
-
-    private _to = switch (_mode) do {
-        case "increase": {_was + _step};
-        case "decrease": {_was - _step};
-        case "reset": {_pinned};
-        case "min": {_low};
-        case "max": {_high};
-        default {_was};
-    };
-
-    _to = [((_to max _low) min _high), 2] call BIS_fnc_cutDecimals;
-
-    _speeds set [ANIM_KEY(_animation), _to];
-
-    [_unit, animationState _unit] call FUNC(handleAnimation);
-
-    [_unit, _to, _type] call FUNC(showSpeed);
-};
-
 private _current = _speeds getOrDefault [_type, 1];
 
 private _new = switch (_mode) do {

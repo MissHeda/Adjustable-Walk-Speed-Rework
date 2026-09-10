@@ -8,7 +8,7 @@
 // How the new speed is shown - the order the CBA list setting offers them in.
 // How many animation names the debug setting keeps on the clipboard.
 // Per-animation speeds live in the same hashmap as the groups, under their own prefix.
-#define ANIM_KEY(anim) ("anim:" + anim)
+#define ANIM_KEY(anim) ("anim:" + toLowerANSI (anim))
 #define ANIM_MIN_SPEED 0.1
 
 // How many key-to-animation slots there are. Ten is enough for a set of gestures without
@@ -46,6 +46,10 @@
 // How long the custom display stays after the speed is back to normal.
 #define CUSTOM_FADE_TIME 1.5
 
+// The same grace for every display that is set to hide at default speed.
+#define DEFAULT_HIDE_DELAY 1.5
+
+#define DEBUG_LEGEND_MARKUP "<t size='0.7' color='#00FF00'>%1</t><t size='0.7' color='#AAAAAA'> - </t><t size='0.7' color='#FF0000'>%2</t>"
 #define DEBUG_ANIMATION_COUNT 20
 #define DEBUG_REFRESH_INTERVAL 0.25
 
