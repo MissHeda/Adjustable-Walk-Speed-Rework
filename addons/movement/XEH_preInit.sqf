@@ -45,6 +45,7 @@ GVAR(autorun_stanceUntil) = 0;
 GVAR(autorun_exhaustedUntil) = 0;
 GVAR(notifyToken) = 0;
 GVAR(customToken) = 0;
+GVAR(displayState) = createHashMap;
 GVAR(animationSlotActive) = 0;
 GVAR(animationSlotIndex) = 0;
 GVAR(autorun_animDoneEH) = -1;

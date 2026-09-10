@@ -641,13 +641,29 @@
             <English>Default</English>
             <German>Standard</German>
         </Key>
-        <Key ID="STR_awsr_movement_MARKER_active">
-            <English>currently overriding</English>
-            <German>überschreibt gerade</German>
+        <Key ID="STR_awsr_movement_MARKER_override">
+            <English>Override: %1</English>
+            <German>Übersteuerung: %1</German>
         </Key>
-        <Key ID="STR_awsr_movement_MARKER_overridden">
-            <English>being overridden</English>
-            <German>wird überschrieben</German>
+        <Key ID="STR_awsr_movement_MARKER_on">
+            <English>On</English>
+            <German>An</German>
+        </Key>
+        <Key ID="STR_awsr_movement_MARKER_off">
+            <English>Off</English>
+            <German>Aus</German>
+        </Key>
+        <Key ID="STR_awsr_movement_MARKER_synced">
+            <English>Synced</English>
+            <German>Gruppe</German>
+        </Key>
+        <Key ID="STR_awsr_movement_VALUE_off">
+            <English>OFF</English>
+            <German>AUS</German>
+        </Key>
+        <Key ID="STR_awsr_movement_VALUE_synced">
+            <English>SYNCED</English>
+            <German>GRUPPE</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

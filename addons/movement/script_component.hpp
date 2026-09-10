@@ -33,12 +33,19 @@
 // The custom category is either a third animation group or the thing that adjusts one animation
 // at a time. The second is the default: the group was switched off out of the box anyway, and
 // per-animation speeds are the reason most people open it.
+// The custom override is a three-way switch, not a number with a special value. Below the
+// lowest speed it is off and the animation runs on what it was given by name; above the highest
+// it is synced and the group has it; anywhere between, the number is what the player set.
+#define OVERRIDE_OFF 0
+#define OVERRIDE_SYNCED -2
+
 // Who is deciding the speed right now.
-// What a display says about its own value: nothing, "this is the one in force", or "something
-// else is winning over this".
+// What the custom display says about its override switch. The group displays say nothing: they
+// have no switch, so there is nothing for them to report.
 #define MARKER_NONE 0
-#define MARKER_ACTIVE 1
-#define MARKER_OVERRIDDEN 2
+#define MARKER_OFF 1
+#define MARKER_ON 2
+#define MARKER_SYNCED 3
 
 #define SOURCE_NONE 0
 #define SOURCE_PINNED 1

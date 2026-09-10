@@ -88,6 +88,8 @@ if (_displayType == DISPLAY_NONE) exitWith {};
 // which is what a mission maker wants to see. Normal speed is worth a word rather than a number:
 // 100% and 1 both take a moment to recognise as "nothing is being done here".
 private _valueText = switch (true) do {
+    case (_marker == MARKER_OFF): {LLSTRING(VALUE_off)};
+    case (_marker == MARKER_SYNCED): {LLSTRING(VALUE_synced)};
     case (_value == 100): {LLSTRING(VALUE_default)};
     case (GVAR(valueStyle) == VALUE_COEFFICIENT): {str ([ARR_2(_value / 100,2)] call BIS_fnc_cutDecimals)};
     default {str _value + "%"};
@@ -109,19 +111,24 @@ if (_reason != "") then {
     _rows = 2;
 };
 
-// Which of the three is actually being obeyed. A group holding a value nothing is using is the
-// single most confusing thing this mod can show, so it says so instead.
+// Where the override switch stands. Only the custom display has one, so only it says anything.
 if (_marker != MARKER_NONE) then {
-    private _label = [LLSTRING(MARKER_active), LLSTRING(MARKER_overridden)] select (_marker == MARKER_OVERRIDDEN);
-    private _markerColor = ["#7CFC7C", "#FF8080"] select (_marker == MARKER_OVERRIDDEN);
+    private _state = switch (_marker) do {
+        case MARKER_ON: {[LLSTRING(MARKER_on), "#7CFC7C"]};
+        case MARKER_SYNCED: {[LLSTRING(MARKER_synced), "#80C0FF"]};
+        default {[LLSTRING(MARKER_off), "#AAAAAA"]};
+    };
 
-    _text = _text + "<br/><t size='0.65' color='" + _markerColor + "'>" + _label + "</t>";
+    _state params ["_label", "_markerColor"];
+
+    _text = _text + "<br/><t size='0.65' color='" + _markerColor + "'>" +
+        (format [LLSTRING(MARKER_override), _label]) + "</t>";
     _rows = _rows + 1;
 };
 
 // The bar says where this value sits between what the keys can reach, so the number has a scale
 // around it instead of standing on its own.
-if (_showSlider) then {
+if (_showSlider && {_marker != MARKER_OFF} && {_marker != MARKER_SYNCED}) then {
     private _low = _min;
     private _high = _max;
 

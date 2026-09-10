@@ -76,9 +76,11 @@ else is lost - set them again and they stay.
   So a group left alone does not overrule a per-animation speed, and a speed you set by hand is
   not overruled by anything.
 
-- **Every display says whether its value is the one being obeyed** - *currently overriding* or
-  *being overridden* - so a group holding 140% while an animation overrules it says so instead of
-  showing a number nothing is using.
+- **The custom override is a three-way switch**, and the display says where it stands. Scroll
+  below the lowest speed and it reads `OFF` - the animation runs on the speed it was given by
+  name. Scroll above the highest and it reads `SYNCED` - the group has it. Anywhere between, the
+  number is yours. Both ends are somewhere you arrive by doing the obvious thing, so no value
+  secretly means something else.
 
 - **Default speed reads as "Default"** rather than as 100% or 1.
 
@@ -187,9 +189,10 @@ else is lost - set them again and they stay.
   runs through the connected idle - which is the animation that kept appearing. The sequence
   watches the animation state instead and puts the next one on with `switchMove`, which takes no
   transition at all.
-- **Setting a custom override back to default kept it at default** rather than letting go. It is
-  a release now: whatever was underneath, the group or the speed the animation was given by name,
-  takes the animation back.
+- **The walk and tactical displays came and went together.** Every change redrew all three, which
+  restarted all three hide timers - so changing the walk speed kept the tactical display up for
+  exactly as long, and simply walking brought it up saying nothing. Each is only touched when
+  what it would say has changed.
 - **The custom range grew as you pushed against it.** It was anchored to the speed currently in
   force, which is the value the keys were moving, so the ceiling ran away ahead of them. It is
   anchored to the animation's own speed, which does not move.
@@ -208,6 +211,9 @@ else is lost - set them again and they stay.
 - **Speed flickered back to default under Zeus remote control.** ACE's advanced fatigue was never
   told to keep its hands off, because the claim was made only for `player` - which is not the
   unit being driven. ACE reset the coefficient, the reapply loop put it back, once a second.
+- **The debug list never appeared.** With one entry collected, working out its place in the
+  colour ramp divided by zero, and SQF works out both sides of a `select` before it picks one -
+  so the guard meant to prevent that never ran.
 - Toggling settings could grow the whitelists with duplicate entries.
 - The walk group's "include non raised animations" callback referenced an undefined variable.
 - A script error on the first animation change of a mission with ACE loaded, from looking up our

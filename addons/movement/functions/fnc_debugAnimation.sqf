@@ -74,7 +74,10 @@ private _last = (count _list) - 1;
 private _lines = [];
 
 {
-    private _fraction = [ARR_2(0,_forEachIndex / _last)] select (_last > 0);
+    // Both sides of a select are worked out before it picks one, so the division has to be
+    // kept away from a single-entry list rather than guarded by the select.
+    private _fraction = 0;
+    if (_last > 0) then {_fraction = _forEachIndex / _last};
 
     // Green to red through yellow, which is the only two-channel ramp that stays readable on a
     // dark hint at this size.

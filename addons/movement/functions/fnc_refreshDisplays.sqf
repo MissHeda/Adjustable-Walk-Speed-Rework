@@ -28,40 +28,54 @@ if !(_unit isEqualTo CURRENT_UNIT) exitWith {};
 private _animation = animationState _unit;
 
 ([_unit, _animation] call FUNC(speedSource)) params [
-    "_coef", "_source", "_type", "_manual", "_group", "_pinned"
+    "_coef", "_source", "_type", "_manual"
 ];
 
-// The three groups. A group shows its own value, and says whether that value is what the unit
-// is actually doing.
-{
-    private _value = (_unit call FUNC(getSpeedHashMap)) getOrDefault [_x, 1];
+// Each display is only touched when what it would say has changed. Redrawing all three on every
+// change restarted all three hide timers, so a walk change kept the tactical display on screen
+// for exactly as long - and simply pressing W brought the tactical one up saying nothing.
+private _draw = {
+    params ["_uiVar", "_state", "_code"];
 
-    // The custom display is not a group display while the custom keys adjust animations.
+    if ((GVAR(displayState) getOrDefault [_uiVar, []]) isEqualTo _state) exitWith {};
+
+    GVAR(displayState) set [_uiVar, _state];
+    call _code;
+};
+
+// A group display answers for its own group and for nothing else.
+{
     if (_x isEqualTo "custom" && {GVAR(customMode) == CUSTOM_MODE_ANIMATION}) then {continue};
 
-    private _marker = MARKER_NONE;
+    private _value = (_unit call FUNC(getSpeedHashMap)) getOrDefault [_x, 1];
+    private _group = _x;
 
-    if (_value != 1) then {
-        _marker = [MARKER_OVERRIDDEN, MARKER_ACTIVE] select (_source == SOURCE_GROUP && {_type isEqualTo _x});
-    };
-
-    [_unit, _value * 100, _x, false, "", _marker] call FUNC(displayUpdatedInfo);
+    [
+        format [QGVAR(display_%1), _group],
+        [_value],
+        {
+            [_unit, _value * 100, _group, false, "", MARKER_NONE] call FUNC(displayUpdatedInfo);
+        }
+    ] call _draw;
 } forEach ["walk", "tactical", "custom"];
 
 if (GVAR(customMode) != CUSTOM_MODE_ANIMATION) exitWith {};
 
-// The custom display, in the mode where it stands for one animation at a time. It shows what is
-// in force whatever set it, so it is the one place that always answers "what am I doing now".
+// The custom display, standing for one animation at a time. It is the only one that says who is
+// in charge, because it is the only one that can be switched.
 private _shown = _coef;
 if (_shown < 0) then {_shown = 1};
 
-private _marker = MARKER_NONE;
-
-if (_manual > 0) then {
-    _marker = MARKER_ACTIVE;
-} else {
-    // A speed the animation was given by name, with a group sitting on top of it.
-    if (_pinned > 0 && {_source == SOURCE_GROUP}) then {_marker = MARKER_OVERRIDDEN};
+private _marker = switch (true) do {
+    case (_manual > 0): {MARKER_ON};
+    case (_manual isEqualTo OVERRIDE_SYNCED): {MARKER_SYNCED};
+    default {MARKER_OFF};
 };
 
-[_unit, _shown * 100, "custom", false, "", _marker] call FUNC(displayUpdatedInfo);
+[
+    QGVAR(display_Custom),
+    [_shown, _marker, _animation],
+    {
+        [_unit, _shown * 100, "custom", false, "", _marker] call FUNC(displayUpdatedInfo);
+    }
+] call _draw;

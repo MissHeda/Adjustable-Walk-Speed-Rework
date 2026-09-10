@@ -62,30 +62,52 @@ private _animation = toLowerANSI (animationState _unit);
 // outranks the group from then on, which is the point of them: a group speed you did not choose
 // should not be the last word on an animation you did.
 if (_type isEqualTo "custom" && {GVAR(customMode) == CUSTOM_MODE_ANIMATION}) exitWith {
-    ([_unit, _animation] call FUNC(customBounds)) params ["_low", "_high", "_anchor"];
+    ([_unit, _animation] call FUNC(customBounds)) params ["_low", "_high"];
 
-    private _was = _speeds getOrDefault [ANIM_KEY(_animation), GETVAR(_unit,GVAR(appliedSpeed),1)];
+    private _was = _speeds getOrDefault [ANIM_KEY(_animation), OVERRIDE_OFF];
 
+    // Scrolling off either end is how the override is switched rather than set: below the lowest
+    // speed it lets go, above the highest it hands the animation to its group. That way there is
+    // no value that secretly means something else, and both ends are somewhere the player
+    // arrives by doing the obvious thing.
     private _to = switch (_mode) do {
-        case "increase": {_was + _step};
-        case "decrease": {_was - _step};
-        case "reset": {_anchor};
-        case "min": {_low};
-        case "max": {_high};
+        case "reset";
+        case "min": {OVERRIDE_OFF};
+        case "max": {OVERRIDE_SYNCED};
+
+        case "increase": {
+            switch (true) do {
+                case (_was isEqualTo OVERRIDE_SYNCED): {OVERRIDE_SYNCED};
+                case (_was isEqualTo OVERRIDE_OFF): {_low};
+                default {
+                    private _next = _was + _step;
+                    [_next, OVERRIDE_SYNCED] select (_next > _high + 0.001)
+                };
+            }
+        };
+
+        case "decrease": {
+            switch (true) do {
+                case (_was isEqualTo OVERRIDE_OFF): {OVERRIDE_OFF};
+                case (_was isEqualTo OVERRIDE_SYNCED): {_high};
+                default {
+                    private _next = _was - _step;
+                    [_next, OVERRIDE_OFF] select (_next < _low - 0.001)
+                };
+            }
+        };
+
         default {_was};
     };
 
-    _to = [((_to max _low) min _high), 2] call BIS_fnc_cutDecimals;
-
-    // Back to default is a release, not a value: whatever was underneath - the group, or the
-    // speed the animation was given by name - takes the animation back.
-    if (_to == 1) then {
-        _speeds deleteAt ANIM_KEY(_animation);
-    } else {
-        _speeds set [ANIM_KEY(_animation), _to];
+    if (_to > 0) then {
+        _to = [((_to max _low) min _high), 2] call BIS_fnc_cutDecimals;
     };
 
+    _speeds set [ANIM_KEY(_animation), _to];
+
     [_unit, animationState _unit] call FUNC(handleAnimation);
+    [_unit] call FUNC(refreshDisplays);
 };
 
 private _current = _speeds getOrDefault [_type, 1];
