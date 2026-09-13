@@ -116,10 +116,16 @@
 #define VALUE_PERCENT 0
 #define VALUE_COEFFICIENT 1
 
+// The paces, slowest to fastest, which is not the order the segment codes suggest: Mtac sits
+// between a walk and a jog, and Mspr only exists prone - standing and crouched, Meva is the
+// sprint. A pace with no animation for the stance and weapon in hand is stepped over as though
+// it were not there, which is what the empty boxes mean.
 #define AUTORUN_OFF 0
 #define AUTORUN_WALK 1
-#define AUTORUN_JOG 2
-#define AUTORUN_RUN 3
+#define AUTORUN_TACTICAL 2
+#define AUTORUN_JOG 3
+#define AUTORUN_RUN 4
+#define AUTORUN_SPRINT 5
 
 // How long the stop keeps its damage handler on. Long enough for the frames the engine needs
 // to settle the forced animation, short enough that it cannot be used to sit out a firefight.

@@ -15,6 +15,7 @@ PREP(autorunKeyHandler);
 PREP(autorunNextAnimation);
 PREP(autorunRemoveAnimDone);
 PREP(autorunSeedStopKeys);
+PREP(autorunNextTier);
 PREP(autorunSetTier);
 PREP(autorunStance);
 PREP(autorunStart);

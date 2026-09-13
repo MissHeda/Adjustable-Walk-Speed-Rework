@@ -54,43 +54,23 @@ if (!hasInterface) exitWith {};
 
 private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
 
-// Auto Walk: F5
+// Start or end a run: F5. One key, because a run is one thing - the pace is stepped with the
+// keys below rather than picked from three keys that each meant a different starting speed.
 [
     _autorunCategory,
-    QGVAR(autorun_walkKey),
-    [LLSTRING(KEYBIND_autorun_walk), LLSTRING(KEYBIND_autorun_walk_DESC)],
+    QGVAR(autorun_startKey),
+    [LLSTRING(KEYBIND_autorun_start), LLSTRING(KEYBIND_autorun_start_DESC)],
     {
+        if (GVAR(autorun_active)) exitWith {
+            [AUTORUN_OFF] call FUNC(autorunSetTier);
+            true
+        };
+
         [AUTORUN_WALK] call FUNC(autorunSetTier);
         true
     },
     "",
-    [0x3F, [false, false, false]]
-] call CBA_fnc_addKeybind;
-
-// Auto Jog: F6
-[
-    _autorunCategory,
-    QGVAR(autorun_jogKey),
-    [LLSTRING(KEYBIND_autorun_jog), LLSTRING(KEYBIND_autorun_jog_DESC)],
-    {
-        [AUTORUN_JOG] call FUNC(autorunSetTier);
-        true
-    },
-    "",
-    [0x40, [false, false, false]]
-] call CBA_fnc_addKeybind;
-
-// Auto Run: F7
-[
-    _autorunCategory,
-    QGVAR(autorun_runKey),
-    [LLSTRING(KEYBIND_autorun_run), LLSTRING(KEYBIND_autorun_run_DESC)],
-    {
-        [AUTORUN_RUN] call FUNC(autorunSetTier);
-        true
-    },
-    "",
-    [0x41, [false, false, false]]
+    [0x3F, [ARR_3(false,false,false)]]
 ] call CBA_fnc_addKeybind;
 
 // One pace faster, while a run is going: Ctrl + W
@@ -163,6 +143,27 @@ call FUNC(autorunSeedStopKeys);
     "",
     [0x24, [false, false, false]]
 ] call CBA_fnc_addKeybind;
+
+// Speed on the wheel while a run is going, if the setting is on. Bound with no modifier, so it
+// is only reachable at all while a run is up - which is exactly when it means anything.
+{
+    _x params ["_name", "_mode", "_key"];
+
+    [
+        _autorunCategory,
+        format [QGVAR(autorun_%1Key), _name],
+        [format [ARR_2(LLSTRING(KEYBIND_autorun_speed),localize ("STR_" + QUOTE(ADDON) + "_" + _name))], LLSTRING(KEYBIND_autorun_speed_DESC)],
+        compile format [ARR_2("
+            if (!GVAR(autorun_active) || {!GVAR(autorun_wheelSpeed)}) exitWith {false};
+            [CURRENT_UNIT, '%1', 'walk'] call " + QFUNC(adjustSpeed) + "; true
+        ",_mode)],
+        "",
+        [_key, [ARR_3(false,false,false)]]
+    ] call CBA_fnc_addKeybind;
+} forEach [
+    [ARR_3("speedUp","increase",0xF8)],
+    [ARR_3("speedDown","decrease",0xF9)]
+];
 
 call FUNC(autorunKeyHandler);
 

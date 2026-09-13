@@ -13,9 +13,14 @@ else is lost - set them again and they stay.
 
 ### Added
 
-- **Autorun.** Walk, jog and run as three paces. One key pair steps up and down through them, and a
-  run ends on the pace key it is already on, on stepping below a walk, or on a movement key. The
-  animation follows stamina, terrain, water, stance and injuries.
+- **Autorun.** One key starts and ends a run; one key pair steps through five paces - walk,
+  tactical, jog, run and sprint. A run also ends on stepping below a walk, or on a movement key.
+  The animation follows stamina, terrain, water, stance and injuries.
+
+  Not every pace exists in every stance with every weapon: there is no tactical pace with empty
+  hands, no walking or tactical crawl at all, and no sprint standing or crouched - what looks
+  like a sprint there is the game's evasive pace. Those boxes ship empty, and an empty box is
+  stepped over as though the pace were not there, which is also how one is switched off.
 
   Each pace has its own animation setting, one set for a rifle, one for a handgun and one for
   empty hands, filled in with what the run resolves to. Put several names in a box, comma
@@ -77,6 +82,9 @@ else is lost - set them again and they stay.
   whitelists and blacklist, the autorun animations, the per-animation speeds and the animation
   keys - not only in Debug.
 
+- **The mouse wheel changes walking speed while a run is going**, on by default and rebindable.
+  Outside a run the wheel is left alone.
+
 - **Speed Up Transitions**, on by default. The game's own transition between two animations in a
   sequence belongs to no group and has no speed of its own, so it ran at normal speed however
   fast the rest was set - which reads as the sequence stopping for a moment. It is given the
@@ -118,8 +126,9 @@ else is lost - set them again and they stay.
 
 - **A blacklist for the custom group**, now that wildcards make one worth having.
 
-- **An animation setting per stance and per weapon**, in a sub-category each. Standing, crouched
-  and prone have nine boxes each - rifle, handgun and empty hands, so a stance change during a run plays something built for that stance. Every pace
+- **An animation setting per stance, pace and weapon** - forty-five boxes, a sub-category per
+  stance, ordered rifle, handgun, empty hands. Twenty-nine ship filled and sixteen empty, taken
+  from what the game actually has, so a stance change during a run plays something built for that stance. Every pace
   ships with its lowered and raised variants as alternatives, so the next-animation key switches
   between them - except prone, which the game only has lowered, and whose two crawl speeds are
   all there is.

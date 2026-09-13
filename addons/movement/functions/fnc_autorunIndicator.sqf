@@ -60,12 +60,16 @@ private _readable = {
 
 // The pace decides both what it is called and which key ends it, since a pace key pressed on the
 // pace it is already on is one of the ways out.
-private _tier = switch (GVAR(autorun_tier)) do {
-    case AUTORUN_WALK: {[LLSTRING(AUTORUN_tier_walk), QGVAR(autorun_walkKey)]};
-    case AUTORUN_JOG: {[LLSTRING(AUTORUN_tier_jog), QGVAR(autorun_jogKey)]};
-    default {[LLSTRING(AUTORUN_tier_run), QGVAR(autorun_runKey)]};
+private _tierName = switch (GVAR(autorun_tier)) do {
+    case AUTORUN_WALK: {LLSTRING(AUTORUN_tier_walk)};
+    case AUTORUN_TACTICAL: {LLSTRING(AUTORUN_tier_tactical)};
+    case AUTORUN_JOG: {LLSTRING(AUTORUN_tier_jog)};
+    case AUTORUN_RUN: {LLSTRING(AUTORUN_tier_run)};
+    default {LLSTRING(AUTORUN_tier_sprint)};
 };
-_tier params ["_tierName", "_tierAction"];
+
+// One key starts and ends a run now, so the stop line names that one whatever pace it is in.
+private _tierAction = QGVAR(autorun_startKey);
 
 private _lines = [];
 

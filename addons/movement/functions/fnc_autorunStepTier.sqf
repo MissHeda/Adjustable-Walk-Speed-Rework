@@ -22,11 +22,15 @@ params [["_delta", 1]];
 // are bound to - stepping up out of nothing would take the key away from the player entirely.
 if (!GVAR(autorun_active)) exitWith {};
 
-private _tier = GVAR(autorun_tier) + _delta;
+// The next pace that has an animation for this stance and this weapon. A pace with an empty box
+// is not a pace here, so stepping past it is the same as it not being there.
+private _tier = [GVAR(autorun_tier), _delta] call FUNC(autorunNextTier);
 
-// Stepping up from the top pace is a no-op. Without this the clamp in awsr_movement_fnc_autorunSetTier
-// turns it back into the current pace, which the pace-key toggle there reads as a request to stop.
-// Stepping below a walk still falls through, because ending the run is what that means.
-if (_tier > AUTORUN_RUN) exitWith {};
+// Nothing above: stay where you are. Nothing below: that is what ending a run means.
+if (_tier isEqualTo AUTORUN_OFF) exitWith {
+    if (_delta > 0) exitWith {};
+
+    0 spawn FUNC(autorunStop);
+};
 
 [_tier] call FUNC(autorunSetTier);

@@ -27,7 +27,7 @@ if (GVAR(animationSlotActive) != 0) exitWith {
     [format [ARR_2("<t color='#FFD766'>%1</t>",LLSTRING(BUSY_animation))], 2] call FUNC(notify);
 };
 
-_tier = (round _tier max AUTORUN_OFF) min AUTORUN_RUN;
+_tier = (round _tier max AUTORUN_OFF) min AUTORUN_SPRINT;
 
 if (_tier == AUTORUN_OFF) exitWith {
     0 spawn FUNC(autorunStop);
@@ -56,6 +56,16 @@ if (!isNull objectParent player) exitWith {};
 if (incapacitatedState player != "") exitWith {};
 if (visibleMap && {!(12 in GVAR(autorun_displayAllow))}) exitWith {};
 if (getUnitFreefallInfo player select 0) exitWith {};
+
+// Asked for a pace this stance and weapon do not have - the walk with empty hands is there, the
+// tactical pace is not - so start at the first one upwards that does exist.
+if (([_tier, GVAR(autorun_stance), [player] call FUNC(autorunWeapon)] call FUNC(autorunAnimList)) isEqualTo []) then {
+    private _usable = [_tier - 1, 1] call FUNC(autorunNextTier);
+
+    if (_usable isEqualTo AUTORUN_OFF) exitWith {};
+
+    _tier = _usable;
+};
 
 GVAR(autorun_tier) = _tier min ([player, AUTORUN_OFF] call FUNC(autorunMaxTier));
 

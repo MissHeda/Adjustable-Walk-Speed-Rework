@@ -27,9 +27,14 @@ params [["_tier", AUTORUN_WALK], ["_stance", "Stand"], ["_weapon", "rfl"]];
 
 private _pace = switch (_tier) do {
     case AUTORUN_WALK: {"Walk"};
+    case AUTORUN_TACTICAL: {"Tactical"};
     case AUTORUN_JOG: {"Jog"};
-    default {"Run"};
+    case AUTORUN_RUN: {"Run"};
+    case AUTORUN_SPRINT: {"Sprint"};
+    default {""};
 };
+
+if (_pace isEqualTo "") exitWith {[]};
 
 // Sitting has no pinned set. It borrowed the standing one, which pinned a standing animation
 // onto a character who is sitting down - so the run simply sat there. An empty list hands it to
