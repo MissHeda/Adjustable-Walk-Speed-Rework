@@ -619,8 +619,8 @@ Taktisch sind.</German>
             <German>Stehend - Taktisch (Pistole)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_TacticalUnarmed">
-            <English>Stand - Tactical (Unarmed)  -</English>
-            <German>Stehend - Taktisch (unbewaffnet)  -</German>
+            <English>Stand - Tactical (Unarmed)</English>
+            <German>Stehend - Taktisch (unbewaffnet)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_Jog">
             <English>Stand - Jog (Rifle)</English>
@@ -647,16 +647,16 @@ Taktisch sind.</German>
             <German>Stehend - Rennen (unbewaffnet)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_Sprint">
-            <English>Stand - Sprint (Rifle)  -</English>
-            <German>Stehend - Sprinten (Gewehr)  -</German>
+            <English>Stand - Sprint (Rifle)</English>
+            <German>Stehend - Sprinten (Gewehr)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_SprintPistol">
-            <English>Stand - Sprint (Handgun)  -</English>
-            <German>Stehend - Sprinten (Pistole)  -</German>
+            <English>Stand - Sprint (Handgun)</English>
+            <German>Stehend - Sprinten (Pistole)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_SprintUnarmed">
-            <English>Stand - Sprint (Unarmed)  -</English>
-            <German>Stehend - Sprinten (unbewaffnet)  -</German>
+            <English>Stand - Sprint (Unarmed)</English>
+            <German>Stehend - Sprinten (unbewaffnet)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchWalk">
             <English>Crouch - Walk (Rifle)</English>
@@ -679,8 +679,8 @@ Taktisch sind.</German>
             <German>Kniend - Taktisch (Pistole)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchTacticalUnarmed">
-            <English>Crouch - Tactical (Unarmed)  -</English>
-            <German>Kniend - Taktisch (unbewaffnet)  -</German>
+            <English>Crouch - Tactical (Unarmed)</English>
+            <German>Kniend - Taktisch (unbewaffnet)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchJog">
             <English>Crouch - Jog (Rifle)</English>
@@ -707,40 +707,40 @@ Taktisch sind.</German>
             <German>Kniend - Rennen (unbewaffnet)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchSprint">
-            <English>Crouch - Sprint (Rifle)  -</English>
-            <German>Kniend - Sprinten (Gewehr)  -</German>
+            <English>Crouch - Sprint (Rifle)</English>
+            <German>Kniend - Sprinten (Gewehr)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchSprintPistol">
-            <English>Crouch - Sprint (Handgun)  -</English>
-            <German>Kniend - Sprinten (Pistole)  -</German>
+            <English>Crouch - Sprint (Handgun)</English>
+            <German>Kniend - Sprinten (Pistole)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchSprintUnarmed">
-            <English>Crouch - Sprint (Unarmed)  -</English>
-            <German>Kniend - Sprinten (unbewaffnet)  -</German>
+            <English>Crouch - Sprint (Unarmed)</English>
+            <German>Kniend - Sprinten (unbewaffnet)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneWalk">
-            <English>Prone - Walk (Rifle)  -</English>
-            <German>Liegend - Gehen (Gewehr)  -</German>
+            <English>Prone - Walk (Rifle)</English>
+            <German>Liegend - Gehen (Gewehr)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneWalkPistol">
-            <English>Prone - Walk (Handgun)  -</English>
-            <German>Liegend - Gehen (Pistole)  -</German>
+            <English>Prone - Walk (Handgun)</English>
+            <German>Liegend - Gehen (Pistole)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneWalkUnarmed">
-            <English>Prone - Walk (Unarmed)  -</English>
-            <German>Liegend - Gehen (unbewaffnet)  -</German>
+            <English>Prone - Walk (Unarmed)</English>
+            <German>Liegend - Gehen (unbewaffnet)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneTactical">
-            <English>Prone - Tactical (Rifle)  -</English>
-            <German>Liegend - Taktisch (Gewehr)  -</German>
+            <English>Prone - Tactical (Rifle)</English>
+            <German>Liegend - Taktisch (Gewehr)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneTacticalPistol">
-            <English>Prone - Tactical (Handgun)  -</English>
-            <German>Liegend - Taktisch (Pistole)  -</German>
+            <English>Prone - Tactical (Handgun)</English>
+            <German>Liegend - Taktisch (Pistole)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneTacticalUnarmed">
-            <English>Prone - Tactical (Unarmed)  -</English>
-            <German>Liegend - Taktisch (unbewaffnet)  -</German>
+            <English>Prone - Tactical (Unarmed)</English>
+            <German>Liegend - Taktisch (unbewaffnet)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneJog">
             <English>Prone - Jog (Rifle)</English>
@@ -759,12 +759,12 @@ Taktisch sind.</German>
             <German>Liegend - Rennen (Gewehr)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneRunPistol">
-            <English>Prone - Run (Handgun)  -</English>
-            <German>Liegend - Rennen (Pistole)  -</German>
+            <English>Prone - Run (Handgun)</English>
+            <German>Liegend - Rennen (Pistole)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneRunUnarmed">
-            <English>Prone - Run (Unarmed)  -</English>
-            <German>Liegend - Rennen (unbewaffnet)  -</German>
+            <English>Prone - Run (Unarmed)</English>
+            <German>Liegend - Rennen (unbewaffnet)</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneSprint">
             <English>Prone - Sprint (Rifle)</English>
@@ -795,12 +795,12 @@ Taktisch sind.</German>
             <German>Startet einen Lauf in der langsamsten\nGangart, die diese Haltung und Waffe\nhaben, und beendet einen laufenden.\n\nDie Gangart wechselst du mit den\nTasten für schneller und langsamer.</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_speed">
-            <English>Autorun | Speed %1</English>
-            <German>Autolauf | Geschwindigkeit %1</German>
+            <English>Autorun | Pace %1</English>
+            <German>Autolauf | Gangart %1</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_speed_DESC">
-            <English>Changes the walking speed while a run\nis going, if the setting for it is on.\n\nDoes nothing outside a run, so the key\nstays free the rest of the time.</English>
-            <German>Ändert die Gehgeschwindigkeit während\neines Laufs, sofern die Einstellung\ndafür an ist.\n\nAußerhalb eines Laufs passiert nichts,\ndie Taste bleibt also sonst frei.</German>
+            <English>Steps the pace while a run is going, if\nthe wheel setting is on.\n\nDoes nothing outside a run, so the key\nstays free the rest of the time.</English>
+            <German>Wechselt die Gangart während eines\nLaufs, sofern die Mausrad-Einstellung\nan ist.\n\nAußerhalb eines Laufs passiert nichts,\ndie Taste bleibt also sonst frei.</German>
         </Key>
         <Key ID="STR_awsr_movement_speedUp">
             <English>Up</English>
@@ -811,12 +811,12 @@ Taktisch sind.</German>
             <German>Runter</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_wheelSpeed">
-            <English>Wheel Changes Speed During A Run</English>
-            <German>Mausrad ändert Geschwindigkeit im Lauf</German>
+            <English>Wheel Changes Pace During A Run</English>
+            <German>Mausrad wechselt Gangart im Lauf</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_wheelSpeed_DESC">
-            <English>While a run is going, the mouse wheel\nchanges the walking speed.\n\nOutside a run the wheel is left alone.\n\nRebind it under Autorun if the wheel\nis wanted for something else.</English>
-            <German>Während eines Laufs ändert das Mausrad\ndie Gehgeschwindigkeit.\n\nAußerhalb eines Laufs bleibt das Rad\nunangetastet.\n\nUnter Autolauf umbelegbar, falls du das\nRad anders brauchst.</German>
+            <English>While a run is going, the mouse wheel\nsteps the pace up and down - the same\nstep the faster and slower keys make.\n\nOutside a run the wheel is left alone.\n\nRebind it under Autorun if the wheel\nis wanted for something else.</English>
+            <German>Während eines Laufs schaltet das Mausrad\ndie Gangart hoch und runter - derselbe\nSchritt wie mit den Tasten für\nschneller und langsamer.\n\nAußerhalb eines Laufs bleibt das Rad\nunangetastet.\n\nUnter Autolauf umbelegbar, falls du das\nRad anders brauchst.</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

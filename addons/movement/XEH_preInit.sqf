@@ -751,7 +751,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Walk),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
-    "AmovPercMwlkSlowWrflDf, AmovPercMwlkSrasWrflDf",
+    "AmovPercMwlkSlowWrflDf_ver2, AmovPercMwlkSlowWrflDf, AmovPercMwlkSrasWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;

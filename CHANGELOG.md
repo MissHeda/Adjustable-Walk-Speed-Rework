@@ -82,8 +82,8 @@ else is lost - set them again and they stay.
   whitelists and blacklist, the autorun animations, the per-animation speeds and the animation
   keys - not only in Debug.
 
-- **The mouse wheel changes walking speed while a run is going**, on by default and rebindable.
-  Outside a run the wheel is left alone.
+- **The mouse wheel steps the pace while a run is going**, the same step the faster and slower
+  keys make. On by default, rebindable, and outside a run the wheel is left alone.
 
 - **Speed Up Transitions**, on by default. The game's own transition between two animations in a
   sequence belongs to no group and has no speed of its own, so it ran at normal speed however

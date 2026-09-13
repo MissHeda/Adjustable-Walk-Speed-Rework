@@ -144,10 +144,10 @@ call FUNC(autorunSeedStopKeys);
     [0x24, [false, false, false]]
 ] call CBA_fnc_addKeybind;
 
-// Speed on the wheel while a run is going, if the setting is on. Bound with no modifier, so it
-// only does anything when a run is up - which is exactly when it means something. Written out
-// rather than generated: a macro inside a compiled string is not expanded, it is just text, and
-// the result is SQF that does not parse.
+// The pace on the wheel while a run is going, if the setting is on - the same step the ctrl keys
+// make. Bound with no modifier, so it only does anything when a run is up, which is exactly when
+// it means something. Written out rather than generated: a macro inside a compiled string is not
+// expanded, it is just text, and the result is SQF that does not parse.
 [
     _autorunCategory,
     QGVAR(autorun_speedUpKey),
@@ -155,7 +155,7 @@ call FUNC(autorunSeedStopKeys);
     {
         if (!GVAR(autorun_active) || {!GVAR(autorun_wheelSpeed)}) exitWith {false};
 
-        [CURRENT_UNIT, "increase", "walk"] call FUNC(adjustSpeed);
+        [1] call FUNC(autorunStepTier);
         true
     },
     "",
@@ -169,7 +169,7 @@ call FUNC(autorunSeedStopKeys);
     {
         if (!GVAR(autorun_active) || {!GVAR(autorun_wheelSpeed)}) exitWith {false};
 
-        [CURRENT_UNIT, "decrease", "walk"] call FUNC(adjustSpeed);
+        [-1] call FUNC(autorunStepTier);
         true
     },
     "",
