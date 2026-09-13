@@ -78,8 +78,7 @@ private _isSwimming = _action in SWIM_ACTIONS;
 private _animation = "";
 
 if (!_stop && {!_isSwimming}) then {
-    private _pistol = ([_unit] call FUNC(autorunWeapon)) isEqualTo "pst";
-    private _list = [_tier, GVAR(autorun_stance), _pistol] call FUNC(autorunAnimList);
+    private _list = [_tier, GVAR(autorun_stance), [_unit] call FUNC(autorunWeapon)] call FUNC(autorunAnimList);
 
     // Already checked against the config when the setting was parsed, so nothing to verify here.
     // The index is wrapped by this list, so stepping past the end comes back to the first.

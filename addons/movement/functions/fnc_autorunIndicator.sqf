@@ -77,8 +77,7 @@ if (GVAR(IGUI_showAutorunKeys)) then {
     private _pace = [([QGVAR(autorun_fasterKey)] call _keysOf) + ([QGVAR(autorun_slowerKey)] call _keysOf)] call _readable;
 
     // Only worth naming when there is more than one animation to step between.
-    private _pistol = ([player] call FUNC(autorunWeapon)) isEqualTo "pst";
-    private _list = [GVAR(autorun_tier), GVAR(autorun_stance), _pistol] call FUNC(autorunAnimList);
+    private _list = [GVAR(autorun_tier), GVAR(autorun_stance), [player] call FUNC(autorunWeapon)] call FUNC(autorunAnimList);
 
     // Empty when there is nothing to step to, so the line does not offer a key that does nothing.
     private _style = "";

@@ -694,6 +694,42 @@ Taktisch sind.</German>
             <English>4) Animations - Prone</English>
             <German>4) Animationen - Liegend</German>
         </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_WalkUnarmed">
+            <English>Stand - Walk (Unarmed)</English>
+            <German>Stehend - Gehen (unbewaffnet)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_JogUnarmed">
+            <English>Stand - Jog (Unarmed)</English>
+            <German>Stehend - Joggen (unbewaffnet)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_RunUnarmed">
+            <English>Stand - Run (Unarmed)</English>
+            <German>Stehend - Rennen (unbewaffnet)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchWalkUnarmed">
+            <English>Crouch - Walk (Unarmed)</English>
+            <German>Kniend - Gehen (unbewaffnet)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchJogUnarmed">
+            <English>Crouch - Jog (Unarmed)</English>
+            <German>Kniend - Joggen (unbewaffnet)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_CrouchRunUnarmed">
+            <English>Crouch - Run (Unarmed)</English>
+            <German>Kniend - Rennen (unbewaffnet)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneWalkUnarmed">
+            <English>Prone - Walk (Unarmed)</English>
+            <German>Liegend - Gehen (unbewaffnet)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneJogUnarmed">
+            <English>Prone - Jog (Unarmed)</English>
+            <German>Liegend - Joggen (unbewaffnet)</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_autorun_animation_ProneRunUnarmed">
+            <English>Prone - Run (Unarmed)</English>
+            <German>Liegend - Rennen (unbewaffnet)</German>
+        </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>
             <German>Autolauf | Stopp</German>

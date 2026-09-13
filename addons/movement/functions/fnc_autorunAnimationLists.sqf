@@ -36,12 +36,13 @@
 
     missionNamespace setVariable [format [QGVAR(autorun_animList_%1), _x], _list];
 } forEach [
-    "Walk", "Jog", "Run",
-    "WalkPistol", "JogPistol", "RunPistol",
-    "CrouchWalk", "CrouchJog", "CrouchRun",
-    "CrouchWalkPistol", "CrouchJogPistol", "CrouchRunPistol",
-    "ProneWalk", "ProneJog", "ProneRun",
-    "ProneWalkPistol", "ProneJogPistol", "ProneRunPistol"
+    "Walk", "WalkPistol", "WalkUnarmed",
+    "Jog", "JogPistol", "JogUnarmed",
+    "Run", "RunPistol", "RunUnarmed",
+    "CrouchWalk", "CrouchWalkPistol", "CrouchWalkUnarmed",
+    "CrouchJog", "CrouchJogPistol", "CrouchJogUnarmed",
+    "CrouchRun", "CrouchRunPistol", "CrouchRunUnarmed",
+    "ProneWalk", "ProneWalkPistol", "ProneWalkUnarmed",
+    "ProneJog", "ProneJogPistol", "ProneJogUnarmed",
+    "ProneRun", "ProneRunPistol", "ProneRunUnarmed"
 ];
-
-GVAR(autorun_animIndex) = 0;

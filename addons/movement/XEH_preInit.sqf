@@ -789,6 +789,17 @@ GVAR(autorun_displayAllow) = [12];
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
 
+// Animation this pace loops with empty hands
+[
+    QGVAR(autorun_animation_WalkUnarmed),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_WalkUnarmed),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
+    "AmovPercMwlkSnonWnonDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
 // Animation this pace loops with a handgun in hand
 [
     QGVAR(autorun_animation_JogPistol),
@@ -800,6 +811,17 @@ GVAR(autorun_displayAllow) = [12];
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
 
+// Animation this pace loops with empty hands
+[
+    QGVAR(autorun_animation_JogUnarmed),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_JogUnarmed),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
+    "AmovPercMrunSnonWnonDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
 // Animation this pace loops with a handgun in hand
 [
     QGVAR(autorun_animation_RunPistol),
@@ -807,6 +829,17 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_autorun_animation_RunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
     "AmovPercMevaSlowWpstDf, AmovPercMevaSrasWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops with empty hands
+[
+    QGVAR(autorun_animation_RunUnarmed),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_RunUnarmed),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
+    "AmovPercMevaSnonWnonDf, AmovPercMsprSnonWnonDf",
     1,
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
@@ -856,6 +889,17 @@ GVAR(autorun_displayAllow) = [12];
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
 
+// Animation this pace loops with empty hands
+[
+    QGVAR(autorun_animation_CrouchWalkUnarmed),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchWalkUnarmed),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
+    "AmovPknlMwlkSnonWnonDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
 // Animation this pace loops crouched with a handgun in hand
 [
     QGVAR(autorun_animation_CrouchJogPistol),
@@ -867,6 +911,17 @@ GVAR(autorun_displayAllow) = [12];
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
 
+// Animation this pace loops with empty hands
+[
+    QGVAR(autorun_animation_CrouchJogUnarmed),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchJogUnarmed),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
+    "AmovPknlMrunSnonWnonDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
 // Animation this pace loops crouched with a handgun in hand
 [
     QGVAR(autorun_animation_CrouchRunPistol),
@@ -874,6 +929,17 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_autorun_animation_CrouchRunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
     "AmovPknlMevaSrasWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops with empty hands
+[
+    QGVAR(autorun_animation_CrouchRunUnarmed),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_CrouchRunUnarmed),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
+    "AmovPknlMevaSnonWnonDf",
     1,
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
@@ -922,6 +988,17 @@ GVAR(autorun_displayAllow) = [12];
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
 
+// Animation this pace loops with empty hands
+[
+    QGVAR(autorun_animation_ProneWalkUnarmed),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneWalkUnarmed),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Prone)],
+    "AmovPpneMrunSnonWnonDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
 // Animation this pace loops prone with a handgun in hand
 [
     QGVAR(autorun_animation_ProneJogPistol),
@@ -933,6 +1010,17 @@ GVAR(autorun_displayAllow) = [12];
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
 
+// Animation this pace loops with empty hands
+[
+    QGVAR(autorun_animation_ProneJogUnarmed),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneJogUnarmed),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Prone)],
+    "AmovPpneMsprSnonWnonDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
 // Animation this pace loops prone with a handgun in hand
 [
     QGVAR(autorun_animation_ProneRunPistol),
@@ -940,6 +1028,17 @@ GVAR(autorun_displayAllow) = [12];
     [LLSTRING(SETTING_autorun_animation_ProneRunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Prone)],
     "AmovPpneMsprSlowWpstDf",
+    1,
+    REBUILD_ANIMATION_LISTS
+] call CBA_Settings_fnc_init;
+
+// Animation this pace loops with empty hands
+[
+    QGVAR(autorun_animation_ProneRunUnarmed),
+    "EDITBOX",
+    [LLSTRING(SETTING_autorun_animation_ProneRunUnarmed),LLSTRING(SETTING_autorun_animation_DESC)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Prone)],
+    "AmovPpneMsprSnonWnonDf",
     1,
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;

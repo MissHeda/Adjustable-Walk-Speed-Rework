@@ -12,18 +12,18 @@
  * Arguments:
  * 0: Pace <NUMBER>
  * 1: Stance - "Stand", "Crouch", "Prone" or "Sit" <STRING> (default: "Stand")
- * 2: Handgun in hand <BOOL> (default: false)
+ * 2: What is in the hands - "rfl", "pst" or "non" <STRING> (default: "rfl")
  *
  * Return Value:
  * Animation names <ARRAY>
  *
  * Example:
- * [AUTORUN_JOG, "Crouch", false] call awsr_movement_fnc_autorunAnimList;
+ * [AUTORUN_JOG, "Crouch", "pst"] call awsr_movement_fnc_autorunAnimList;
  *
  * Public: No
  */
 
-params [["_tier", AUTORUN_WALK], ["_stance", "Stand"], ["_pistol", false]];
+params [["_tier", AUTORUN_WALK], ["_stance", "Stand"], ["_weapon", "rfl"]];
 
 private _pace = switch (_tier) do {
     case AUTORUN_WALK: {"Walk"};
@@ -39,6 +39,12 @@ private _prefix = switch (_stance) do {
     default {""};
 };
 
-private _name = _prefix + _pace + (["", "Pistol"] select _pistol);
+private _suffix = switch (_weapon) do {
+    case "pst": {"Pistol"};
+    case "non": {"Unarmed"};
+    default {""};
+};
+
+private _name = _prefix + _pace + _suffix;
 
 missionNamespace getVariable [format [QGVAR(autorun_animList_%1), _name], []]

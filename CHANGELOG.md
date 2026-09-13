@@ -17,10 +17,10 @@ else is lost - set them again and they stay.
   run ends on the pace key it is already on, on stepping below a walk, or on a movement key. The
   animation follows stamina, terrain, water, stance and injuries.
 
-  Each pace has its own animation setting, one set for a rifle and one for a handgun, filled in
-  with what the run resolves to. Put several names in a box, comma separated, and a key steps
-  between them mid-run. A run only starts with a rifle or a handgun in hand - a launcher or
-  binoculars have no animations to run with.
+  Each pace has its own animation setting, one set for a rifle, one for a handgun and one for
+  empty hands, filled in with what the run resolves to. Put several names in a box, comma
+  separated, and a key steps between them mid-run. A launcher or binoculars still end a run -
+  the game has no animations for running with either.
 
   Derived from Leon and Legion's [Autorun Rework](https://github.com/LeonZ2019/autorun-rework),
   which stays under APL-SA. One thing works differently from that mod: stopping a run there turned
@@ -118,8 +118,8 @@ else is lost - set them again and they stay.
 
 - **A blacklist for the custom group**, now that wildcards make one worth having.
 
-- **An animation setting per stance**, in a sub-category each. Crouched and prone have their own
-  six boxes, so a stance change during a run plays something built for that stance. Every pace
+- **An animation setting per stance and per weapon**, in a sub-category each. Standing, crouched
+  and prone have nine boxes each - rifle, handgun and empty hands, so a stance change during a run plays something built for that stance. Every pace
   ships with its lowered and raised variants as alternatives, so the next-animation key switches
   between them - except prone, which the game only has lowered, and whose two crawl speeds are
   all there is.
