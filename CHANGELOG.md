@@ -66,28 +66,20 @@ else is lost - set them again and they stay.
   finding the name of an animation without opening the config viewer: switch it on, do the move,
   switch it off, paste. It works with the rest of the mod switched off.
 
-- **The Custom category is a mode now, not an on/off**, and it is on out of the box. Left at its
-  default it turns the Custom keys into a speed control for whatever animation is playing, bound
-  to `Ctrl + Alt + Shift + mouse wheel`. Set the other way it is the third animation group it
-  always was, with its own whitelist and range.
+  A group that has been moved off default overrules a speed an animation was given by name - a
+  walk group at 10% slows an animation set to 200% - and a group left at default leaves it
+  alone.
 
-  Three sources of speed, in order: what you set for this animation with those keys, then the
-  group's speed while the group is off default, then the speed the animation was given by name.
-  So a group left alone does not overrule a per-animation speed, and a speed you set by hand is
-  not overruled by anything.
-
-- **The custom override is a three-way switch**, and the display says where it stands. Scroll
-  below the lowest speed and it reads `OFF` - the animation runs on the speed it was given by
-  name. Scroll above the highest and it reads `SYNCED` - the group has it. Anywhere between, the
-  number is yours. Both ends are somewhere you arrive by doing the obvious thing, so no value
-  secretly means something else.
+- **Skip Transition Animations**, off by default. The game's own transition between two
+  animations in a sequence belongs to no group, so it runs at normal speed however fast the rest
+  is set - which is the short pause between them. On, the next animation starts with no
+  transition at all: it snaps rather than blends, and it carries a walking animation nowhere.
 
 - **Default speed reads as "Default"** rather than as 100% or 1.
 
-- **The Custom display says what is actually in force**, whatever set it, with a bar under it
-  showing how far the keys reach - default speed in the middle, the two halves read separately so
-  an ordinary value does not sit squashed against one end. It goes a moment after the speed is
-  back to normal rather than at once.
+- **A range bar under every speed display**, with a checkbox each, showing where the value sits
+  between the lowest and highest the keys reach - default speed in the middle, the two halves
+  read separately so an ordinary value does not sit squashed against one end.
 
 - **Per-Animation Speeds.** A speed for single animations by name, whatever group they are or are
   not in - `Aswm*=2, Ladder*=1.5`. Swimming, ladders and crawling are in no group at all, which is
@@ -112,8 +104,9 @@ else is lost - set them again and they stay.
   it runs stops it. None of the ten are bound by default.
 
 - **An indicator for the animation keys**, placed in the layout tab like the others, saying which
-  key is running - a looping key has no other way of telling you it is still going. It is a line
-  of text rather than another icon, since there is nothing to draw.
+  key is running and which key stops it, named from the binding you actually have - a looping key
+  has no other way of telling you either. It is a line of text rather than another icon, since
+  there is nothing to draw, and its wording is yours like every other display's.
 
 - **A blacklist for the custom group**, now that wildcards make one worth having.
 
@@ -211,9 +204,10 @@ else is lost - set them again and they stay.
 - **Speed flickered back to default under Zeus remote control.** ACE's advanced fatigue was never
   told to keep its hands off, because the claim was made only for `player` - which is not the
   unit being driven. ACE reset the coefficient, the reapply loop put it back, once a second.
-- **The debug list never appeared.** With one entry collected, working out its place in the
-  colour ramp divided by zero, and SQF works out both sides of a `select` before it picks one -
-  so the guard meant to prevent that never ran.
+- **The debug list never appeared**, though the clipboard was right. `reverse` turns an array
+  round in place and hands back nothing at all, so the list being iterated was nothing. Placing a
+  single entry in the colour ramp also divided by zero, since SQF works out both sides of a
+  `select` before it picks one.
 - Toggling settings could grow the whitelists with duplicate entries.
 - The walk group's "include non raised animations" callback referenced an undefined variable.
 - A script error on the first animation change of a mission with ACE loaded, from looking up our
@@ -241,6 +235,9 @@ else is lost - set them again and they stay.
   the speed moves while the animation stays the same, which is the whole point of the mod. It
   also reports after the speed has been applied rather than before, so the number on it is the
   one in force and not the one from the animation before.
+- **Debug reads as something you can hand to someone else**: a header, what the segments of an
+  animation name mean, the list itself in the capitalisation the config uses rather than the
+  lowercase the game reports, and a footer. The whole block goes to the clipboard.
 - **Debug is a server setting** and says `AWSR DEBUG` on the hint, so nobody wonders whose it is
   or turns it on mid mission - it draws on every animation change. It also shows the speed being
   applied and which group the animation belongs to.

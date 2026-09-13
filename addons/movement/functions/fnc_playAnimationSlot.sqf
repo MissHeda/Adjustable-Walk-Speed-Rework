@@ -87,7 +87,16 @@ private _id = _unit addEventHandler ["AnimDone", {
     if (_index < 0) exitWith {};
 
     GVAR(animationSlotIndex) = _index;
-    _unit playMoveNow (_names select _index);
+
+    // playMoveNow walks the transition graph to get there, and the animation it walks through
+    // belongs to no group, so it plays at normal speed however the sequence is set. switchMove
+    // goes straight there - at the cost of snapping rather than blending, and of not carrying a
+    // movement animation anywhere.
+    if (GVAR(animationSkipTransitions)) then {
+        _unit switchMove (_names select _index);
+    } else {
+        _unit playMoveNow (_names select _index);
+    };
 }];
 
 SETVAR(_unit,GVAR(animationSlotEH),_id);

@@ -35,7 +35,7 @@ private _type = _animation call FUNC(animationType);
 
 SETVAR(_unit,GVAR(activeType),_type);
 
-([_unit, _animation] call FUNC(speedSource)) params ["_coef", "", "", "", "_group"];
+([_unit, _animation] call FUNC(speedSource)) params ["_coef", "", "", "_group"];
 
 if (_coef > 0) exitWith {
     if (_coef > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {_coef = 1};

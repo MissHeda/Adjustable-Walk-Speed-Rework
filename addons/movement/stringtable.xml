@@ -582,8 +582,8 @@
             <German>Text der Animationsanzeige</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_IGUI_Text_Animation_DESC">
-            <English>What the animation indicator says.\n\n%1 is the number of the key that is\nrunning.</English>
-            <German>Was die Animationsanzeige schreibt.\n\n%1 ist die Nummer der Taste, die\ngerade läuft.</German>
+            <English>What the animation indicator says.\n\n%1 is the number of the key that is\nrunning, %2 the key that stops it.\n\n<br/> starts a new line.</English>
+            <German>Was die Animationsanzeige schreibt.\n\n%1 ist die Nummer der laufenden Taste,\n%2 die Taste, die sie stoppt.\n\n<br/> beginnt eine neue Zeile.</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_IGUI_textColor_Animation">
             <English>Animation Indicator Colour</English>
@@ -605,22 +605,6 @@
             <English>How large the animation indicator text\nis drawn.</English>
             <German>Wie groß der Text der Animationsanzeige\ngezeichnet wird.</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_customMode">
-            <English>Custom Category Does</English>
-            <German>Custom-Kategorie macht</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_customMode_DESC">
-            <English>What the Custom category and its keys\nare for.\n\nPer-Animation Speed (default):\nthe keys change the speed of whatever\nanimation is playing, and what you set\noutranks the group from then on.\nIts whitelist, min and max are unused -\nthe range comes from the animation and\nthe group it is in.\n\nThird Animation Group:\nas Walking and Tactical, with its own\nwhitelist and range.</English>
-            <German>Wofür die Custom-Kategorie und ihre\nTasten da sind.\n\nGeschwindigkeit je Animation (Standard):\ndie Tasten ändern die Geschwindigkeit\nder laufenden Animation, und was du\nsetzt, schlägt ab dann die Gruppe.\nWhitelist, Min und Max bleiben ungenutzt -\ndie Grenzen kommen aus der Animation und\nihrer Gruppe.\n\nDritte Animationsgruppe:\nwie Gehen und Taktisch, mit eigener\nWhitelist und eigenen Grenzen.</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_customMode_animation">
-            <English>Per-Animation Speed</English>
-            <German>Geschwindigkeit je Animation</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_customMode_group">
-            <English>Third Animation Group</English>
-            <German>Dritte Animationsgruppe</German>
-        </Key>
         <Key ID="STR_awsr_movement_SETTING_IGUI_showSlider">
             <English>Show Range Bar</English>
             <German>Bereichsleiste anzeigen</German>
@@ -641,29 +625,38 @@
             <English>Default</English>
             <German>Standard</German>
         </Key>
-        <Key ID="STR_awsr_movement_MARKER_override">
-            <English>Override: %1</English>
-            <German>Übersteuerung: %1</German>
+        <Key ID="STR_awsr_movement_SETTING_Enable_Custom">
+            <English>Enable Custom Group</English>
+            <German>Custom-Gruppe aktivieren</German>
         </Key>
-        <Key ID="STR_awsr_movement_MARKER_on">
-            <English>On</English>
-            <German>An</German>
+        <Key ID="STR_awsr_movement_SETTING_Enable_Custom_DESC">
+            <English>A third animation group with its own
+whitelist, range and keys, for animations
+that are neither walking nor tactical.</English>
+            <German>Eine dritte Animationsgruppe mit eigener
+Whitelist, eigenen Grenzen und Tasten -
+für Animationen, die weder Gehen noch
+Taktisch sind.</German>
         </Key>
-        <Key ID="STR_awsr_movement_MARKER_off">
-            <English>Off</English>
-            <German>Aus</German>
+        <Key ID="STR_awsr_movement_ANIMATION_noKey">
+            <English>NO KEY</English>
+            <German>KEINE TASTE</German>
         </Key>
-        <Key ID="STR_awsr_movement_MARKER_synced">
-            <English>Synced</English>
-            <German>Gruppe</German>
+        <Key ID="STR_awsr_movement_SETTING_animationSkipTransitions">
+            <English>Skip Transition Animations</English>
+            <German>Übergangsanimationen überspringen</German>
         </Key>
-        <Key ID="STR_awsr_movement_VALUE_off">
-            <English>OFF</English>
-            <German>AUS</German>
+        <Key ID="STR_awsr_movement_SETTING_animationSkipTransitions_DESC">
+            <English>Off: the game plays its own transition\nbetween two animations in a sequence.\nThat transition belongs to no group, so\nit runs at normal speed however fast the\nrest is set - which is what you see as a\nshort pause.\n\nOn: the next animation starts straight\naway with no transition at all. It snaps\nrather than blends, and it does not\ncarry a walking animation anywhere -\nthe character stays on the spot.\n\nOff unless a sequence of poses looks\nworse with the transitions in it.</English>
+            <German>Aus: das Spiel spielt seinen eigenen\nÜbergang zwischen zwei Animationen.\nDer gehört zu keiner Gruppe und läuft\ndeshalb immer mit Normalgeschwindigkeit -\ndas ist die kurze Pause, die du siehst.\n\nAn: die nächste Animation beginnt sofort\nohne Übergang. Das springt statt zu\nblenden und trägt eine Laufanimation\nnirgendwohin - der Charakter bleibt\nstehen.\n\nAus lassen, außer eine Posenfolge sieht\nmit den Übergängen schlechter aus.</German>
         </Key>
-        <Key ID="STR_awsr_movement_VALUE_synced">
-            <English>SYNCED</English>
-            <German>GRUPPE</German>
+        <Key ID="STR_awsr_movement_DEBUG_explain">
+            <English>An animation name is built from segments:\na<action> p<pose> m<movement> s<stance>\nw<weapon> d<direction>.\n\nAmov moved, Ainv inventory, Aadj adjusted.\nPerc upright, Pknl crouched, Ppne prone.\nMstp still, Mwlk walk, Mrun jog, Meva run,\nMspr sprint.\nSlow lowered, Sras raised, Snon none.\nWrfl rifle, Wpst pistol, Wnon unarmed.\nDf forward, Db back, Dl left, Dr right.</English>
+            <German>Ein Animationsname besteht aus Segmenten:\na<Aktion> p<Pose> m<Bewegung> s<Haltung>\nw<Waffe> d<Richtung>.\n\nAmov bewegt, Ainv Inventar, Aadj justiert.\nPerc aufrecht, Pknl kniend, Ppne liegend.\nMstp still, Mwlk gehen, Mrun joggen,\nMeva rennen, Mspr sprinten.\nSlow gesenkt, Sras erhoben, Snon keine.\nWrfl Gewehr, Wpst Pistole, Wnon unbewaffnet.\nDf vorwärts, Db zurück, Dl links, Dr rechts.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_listHeader">
+            <English>Animations (copy this):</English>
+            <German>Animationen (das hier kopieren):</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

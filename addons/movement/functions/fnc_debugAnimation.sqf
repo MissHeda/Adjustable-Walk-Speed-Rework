@@ -46,12 +46,50 @@ while {count _list > DEBUG_ANIMATION_COUNT} do {
 
 GVAR(debugAnimations) = _list;
 
-// Comma separated rather than an SQF array, because that is what the whitelist and the autorun
-// animation boxes take - paste straight in, no editing.
-copyToClipboard (_list joinString ", ");
+// Proper case, read back from the config. Every name the game hands an event handler is
+// lowercase, which is exactly the form nobody can read the segments in.
+private _named = _list apply {
+    private _class = ANIMATION_STATES >> _x;
+    [_x, configName _class] select (isClass _class)
+};
 
-// The speed alongside the name, because the two questions people open Debug for are "what is
-// this animation called" and "is my speed actually being applied to it".
+// One block that explains itself, so it is worth pasting somewhere as it stands - the list on
+// its own line, comma separated, still goes straight into a whitelist or a speed box.
+private _plain = DEBUG_HEADER + endl + endl +
+    LLSTRING(DEBUG_explain) + endl + endl +
+    LLSTRING(DEBUG_listHeader) + endl +
+    (_named joinString ", ") + endl + endl +
+    DEBUG_FOOTER;
+
+copyToClipboard _plain;
+
+// Newest green, oldest red, the rest of the way between - so a glance says which end of the
+// list you are reading without counting entries.
+private _ordered = +_named;
+
+// reverse turns an array round in place and hands back nothing at all, so its result cannot be
+// iterated - which is why this list was empty on screen while the clipboard was fine.
+reverse _ordered;
+
+private _last = (count _ordered) - 1;
+private _lines = [];
+
+{
+    // Both sides of a select are worked out before it picks one, so the division has to be kept
+    // away from a single-entry list rather than guarded by the select.
+    private _fraction = 0;
+    if (_last > 0) then {_fraction = _forEachIndex / _last};
+
+    // Green to red through yellow, which is the only two-channel ramp that stays readable on a
+    // dark hint at this size.
+    private _red = round (255 * (2 * _fraction min 1));
+    private _green = round (255 * (2 * (1 - _fraction) min 1));
+
+    private _colour = ([ARR_2(_red,2)] call FUNC(hex)) + ([ARR_2(_green,2)] call FUNC(hex)) + "00";
+
+    _lines pushBack format [ARR_3("<t color='#%1'>%2</t>",_colour,_x)];
+} forEach _ordered;
+
 private _pinned = _animation call FUNC(animationSpeed);
 private _group = _animation call FUNC(animationType);
 
@@ -68,41 +106,14 @@ private _detail = format [
     _pinnedText
 ];
 
-// Newest green, oldest red, the rest of the way between - so a glance says which end of the
-// list you are reading without counting entries.
-private _last = (count _list) - 1;
-private _lines = [];
+private _current = _named param [count _named - 1, _animation];
 
-{
-    // Both sides of a select are worked out before it picks one, so the division has to be
-    // kept away from a single-entry list rather than guarded by the select.
-    private _fraction = 0;
-    if (_last > 0) then {_fraction = _forEachIndex / _last};
-
-    // Green to red through yellow, which is the only two-channel ramp that stays readable on a
-    // dark hint at this size.
-    private _red = round (255 * (2 * _fraction min 1));
-    private _green = round (255 * (2 * (1 - _fraction) min 1));
-
-    private _colour = ([ARR_2(_red,2)] call FUNC(hex)) + ([ARR_2(_green,2)] call FUNC(hex)) + "00";
-
-    _lines pushBack format [ARR_3("<t color='#%1'>%2</t>",_colour,_x)];
-} forEach (reverse (+_list));
-
-// Without saying which end is which, a gradient is just a list in odd colours.
-private _joined = format [
-    DEBUG_LEGEND_MARKUP,
-    LLSTRING(DEBUG_legend),
-    LLSTRING(DEBUG_legendOld)
-] + ARR_SEPARATOR + (_lines joinString ARR_SEPARATOR);
-
-private _text = format [
+[format [
     DEBUG_MARKUP,
     LLSTRING(DEBUG_title),
-    _animation,
+    _current,
     _detail,
-    format [ARR_2(LLSTRING(DEBUG_copied),count _list)],
-    _joined
-];
-
-[_text, 6] call FUNC(notify);
+    format [ARR_2(LLSTRING(DEBUG_copied),count _named)],
+    (format [ARR_3(DEBUG_LEGEND_MARKUP,LLSTRING(DEBUG_legend),LLSTRING(DEBUG_legendOld))]) +
+        ARR_SEPARATOR + (_lines joinString ARR_SEPARATOR)
+], 6] call FUNC(notify);

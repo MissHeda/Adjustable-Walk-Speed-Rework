@@ -30,45 +30,23 @@
 // CBA reads 0 as "no key", which is what an unbound default is.
 #define DIK_UNBOUND 0
 
-// The custom category is either a third animation group or the thing that adjusts one animation
-// at a time. The second is the default: the group was switched off out of the box anyway, and
-// per-animation speeds are the reason most people open it.
-// The custom override is a three-way switch, not a number with a special value. Below the
-// lowest speed it is off and the animation runs on what it was given by name; above the highest
-// it is synced and the group has it; anywhere between, the number is what the player set.
-#define OVERRIDE_OFF 0
-#define OVERRIDE_SYNCED -2
-
-// Who is deciding the speed right now.
-// What the custom display says about its override switch. The group displays say nothing: they
-// have no switch, so there is nothing for them to report.
-#define MARKER_NONE 0
-#define MARKER_OFF 1
-#define MARKER_ON 2
-#define MARKER_SYNCED 3
-
+// Which of the two is deciding the speed right now.
 #define SOURCE_NONE 0
 #define SOURCE_PINNED 1
 #define SOURCE_GROUP 2
-#define SOURCE_MANUAL 3
 
-#define CUSTOM_MODE_GROUP 0
-#define CUSTOM_MODE_ANIMATION 1
-
-// The bar under the custom display. An odd count so there is a true middle cell for default
-// speed, and box-drawing characters because RobotoCondensed has them at a consistent width.
+// The bar under a speed display. An odd count so there is a true middle cell for default speed.
 #define SPEED_SLIDER_CELLS 21
 #define SPEED_SLIDER_TRACK "-"
 #define SPEED_SLIDER_MARK "|"
 #define SPEED_SLIDER_MARKUP "<t size='0.7'>%1 %2 %3</t>"
 
-// How long the custom display stays after the speed is back to normal.
-#define CUSTOM_FADE_TIME 1.5
-
 // The same grace for every display that is set to hide at default speed.
 #define DEFAULT_HIDE_DELAY 1.5
 
 #define DEBUG_LEGEND_MARKUP "<t size='0.7' color='#00FF00'>%1</t><t size='0.7' color='#AAAAAA'> - </t><t size='0.7' color='#FF0000'>%2</t>"
+#define DEBUG_HEADER "--- AWSR DEBUG ---"
+#define DEBUG_FOOTER "--- END OF AWSR DEBUG ---"
 #define DEBUG_ANIMATION_COUNT 20
 #define DEBUG_REFRESH_INTERVAL 0.25
 

@@ -9,7 +9,6 @@
  * 2: Animation group - "walk", "tactical" or "custom" <STRING>
  * 3: Draw the value in the limit colour <BOOL> (default: false)
  * 4: Why the value was capped, already localised - "" for no reason <STRING> (default: "")
- * 5: MARKER_NONE, MARKER_ACTIVE or MARKER_OVERRIDDEN <NUMBER> (default: MARKER_NONE)
  *
  * Return Value:
  * None
@@ -20,10 +19,7 @@
  * Public: No
  */
 
-params [
-    "_unit", ["_value", 100], ["_type", ""], ["_limitReached", false], ["_reason", ""],
-    ["_marker", MARKER_NONE]
-];
+params ["_unit", ["_value", 100], ["_type", ""], ["_limitReached", false], ["_reason", ""]];
 
 if (!hasInterface) exitWith {};
 
@@ -88,8 +84,6 @@ if (_displayType == DISPLAY_NONE) exitWith {};
 // which is what a mission maker wants to see. Normal speed is worth a word rather than a number:
 // 100% and 1 both take a moment to recognise as "nothing is being done here".
 private _valueText = switch (true) do {
-    case (_marker == MARKER_OFF): {LLSTRING(VALUE_off)};
-    case (_marker == MARKER_SYNCED): {LLSTRING(VALUE_synced)};
     case (_value == 100): {LLSTRING(VALUE_default)};
     case (GVAR(valueStyle) == VALUE_COEFFICIENT): {str ([ARR_2(_value / 100,2)] call BIS_fnc_cutDecimals)};
     default {str _value + "%"};
@@ -111,36 +105,10 @@ if (_reason != "") then {
     _rows = 2;
 };
 
-// Where the override switch stands. Only the custom display has one, so only it says anything.
-if (_marker != MARKER_NONE) then {
-    private _state = switch (_marker) do {
-        case MARKER_ON: {[LLSTRING(MARKER_on), "#7CFC7C"]};
-        case MARKER_SYNCED: {[LLSTRING(MARKER_synced), "#80C0FF"]};
-        default {[LLSTRING(MARKER_off), "#AAAAAA"]};
-    };
-
-    _state params ["_label", "_markerColor"];
-
-    _text = _text + "<br/><t size='0.65' color='" + _markerColor + "'>" +
-        (format [LLSTRING(MARKER_override), _label]) + "</t>";
-    _rows = _rows + 1;
-};
-
 // The bar says where this value sits between what the keys can reach, so the number has a scale
 // around it instead of standing on its own.
-if (_showSlider && {_marker != MARKER_OFF} && {_marker != MARKER_SYNCED}) then {
-    private _low = _min;
-    private _high = _max;
-
-    // In the per-animation mode the custom display is not a group, so its range is the one the
-    // custom keys can actually reach for the animation in hand.
-    if (_type isEqualTo "custom" && {GVAR(customMode) == CUSTOM_MODE_ANIMATION}) then {
-        ([_unit, animationState _unit] call FUNC(customBounds)) params ["_boundLow", "_boundHigh"];
-        _low = _boundLow;
-        _high = _boundHigh;
-    };
-
-    _text = _text + "<br/>" + ([_low, _high, _value / 100] call FUNC(speedSlider));
+if (_showSlider) then {
+    _text = _text + "<br/>" + ([_min, _max, _value / 100] call FUNC(speedSlider));
     _rows = _rows + 1;
 };
 

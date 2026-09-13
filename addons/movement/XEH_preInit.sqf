@@ -44,7 +44,6 @@ GVAR(autorun_animation) = "";
 GVAR(autorun_stanceUntil) = 0;
 GVAR(autorun_exhaustedUntil) = 0;
 GVAR(notifyToken) = 0;
-GVAR(customToken) = 0;
 GVAR(displayState) = createHashMap;
 GVAR(animationSlotActive) = 0;
 GVAR(animationSlotIndex) = 0;
@@ -560,13 +559,13 @@ GVAR(autorun_displayAllow) = [12];
 
 // Enable speed adjustments (custom)
 [
-    QGVAR(customMode),
-    "LIST",
-    [LLSTRING(SETTING_customMode),LLSTRING(SETTING_customMode_DESC)],
+    QGVAR(Enable_Custom),
+    "CHECKBOX",
+    [LLSTRING(SETTING_Enable_Custom),LLSTRING(SETTING_Enable_Custom_DESC)],
     [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Custom)],
-    [[ARR_2(CUSTOM_MODE_GROUP,CUSTOM_MODE_ANIMATION)], [ARR_2(LLSTRING(SETTING_customMode_group),LLSTRING(SETTING_customMode_animation))], CUSTOM_MODE_ANIMATION],
-    0,
-    DROP_ANIMATION_CACHE
+    [false],
+    1,
+    REBUILD_ANIMATIONS
 ] call CBA_Settings_fnc_init;
 
 // Min speed value (custom)
@@ -1177,6 +1176,16 @@ GVAR(autorun_displayAllow) = [12];
     1
 ] call CBA_Settings_fnc_init;
 
+// Cut the transition between two animations in a sequence
+[
+    QGVAR(animationSkipTransitions),
+    "CHECKBOX",
+    [LLSTRING(SETTING_animationSkipTransitions),LLSTRING(SETTING_animationSkipTransitions_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [false],
+    1
+] call CBA_Settings_fnc_init;
+
 // Show the animation indicator
 [
     QGVAR(IGUI_showAnimation),
@@ -1193,7 +1202,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_IGUI_Text_Animation),LLSTRING(SETTING_IGUI_Text_Animation_DESC)],
     [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
-    "PLAYING ANIMATION %1",
+    "PLAYING ANIMATION %1<br/>PRESS %2 TO STOP",
     0
 ] call CBA_Settings_fnc_init;
 
