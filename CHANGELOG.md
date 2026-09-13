@@ -13,8 +13,9 @@ else is lost - set them again and they stay.
 
 ### Added
 
-- **Autorun.** One key starts and ends a run; one key pair steps through five paces - walk,
-  tactical, jog, run and sprint. A run also ends on stepping below a walk, or on a movement key.
+- **Autorun.** One key starts and ends a run; the mouse wheel steps through five paces - walk,
+  tactical, jog, run and sprint - and does nothing at all outside a run, so it stays yours the
+  rest of the time. A run also ends on a movement key.
   The animation follows stamina, terrain, water, stance and injuries.
 
   Not every pace exists in every stance with every weapon: there is no tactical pace with empty
@@ -81,9 +82,6 @@ else is lost - set them again and they stay.
 - **What the segments of an animation name mean** is in every box that takes one - the group
   whitelists and blacklist, the autorun animations, the per-animation speeds and the animation
   keys - not only in Debug.
-
-- **The mouse wheel steps the pace while a run is going**, the same step the faster and slower
-  keys make. On by default, rebindable, and outside a run the wheel is left alone.
 
 - **Speed Up Transitions**, on by default. The game's own transition between two animations in a
   sequence belongs to no group and has no speed of its own, so it ran at normal speed however

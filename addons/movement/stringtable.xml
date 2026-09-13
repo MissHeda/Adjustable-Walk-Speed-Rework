@@ -351,19 +351,19 @@
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_faster">
             <English>Autorun | One Pace Faster</English>
-            <German>Autolauf | Eine Stufe schneller</German>
+            <German>Autolauf | Eine Gangart schneller</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_faster_DESC">
-            <English>Walk to jog to run, while a run is going.\nDoes nothing from a standstill.</English>
-            <German>Gehen zu Joggen zu Rennen, während ein\nLauf läuft. Aus dem Stand passiert nichts.</German>
+            <English>Steps the pace up while a run is going,\npast any pace this stance and weapon do\nnot have.\n\nNothing happens outside a run, so the\nkey stays free the rest of the time.</English>
+            <German>Schaltet die Gangart hoch, während ein\nLauf läuft - über jede Gangart hinweg,\ndie diese Haltung und Waffe nicht haben.\n\nAußerhalb eines Laufs passiert nichts,\ndie Taste bleibt also sonst frei.</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_slower">
             <English>Autorun | One Pace Slower</English>
-            <German>Autolauf | Eine Stufe langsamer</German>
+            <German>Autolauf | Eine Gangart langsamer</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_slower_DESC">
-            <English>Run to jog to walk, while a run is going.\nA step below a walk ends the run.</English>
-            <German>Rennen zu Joggen zu Gehen, während ein Lauf\nläuft. Unter Gehen endet der Lauf.</German>
+            <English>Steps the pace down while a run is\ngoing. At the slowest pace it stays\nthere - the start key ends a run.\n\nNothing happens outside a run, so the\nkey stays free the rest of the time.</English>
+            <German>Schaltet die Gangart runter, während\nein Lauf läuft. Bei der langsamsten\nbleibt er stehen - beendet wird mit der\nStarttaste.\n\nAußerhalb eines Laufs passiert nichts,\ndie Taste bleibt also sonst frei.</German>
         </Key>
         <Key ID="STR_awsr_movement_AUTORUN_tier_walk">
             <English>Walk</English>
@@ -793,30 +793,6 @@ Taktisch sind.</German>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_start_DESC">
             <English>Starts a run at the slowest pace this\nstance and weapon have, and ends one\nthat is already going.\n\nStep the pace with the faster and\nslower keys.</English>
             <German>Startet einen Lauf in der langsamsten\nGangart, die diese Haltung und Waffe\nhaben, und beendet einen laufenden.\n\nDie Gangart wechselst du mit den\nTasten für schneller und langsamer.</German>
-        </Key>
-        <Key ID="STR_awsr_movement_KEYBIND_autorun_speed">
-            <English>Autorun | Pace %1</English>
-            <German>Autolauf | Gangart %1</German>
-        </Key>
-        <Key ID="STR_awsr_movement_KEYBIND_autorun_speed_DESC">
-            <English>Steps the pace while a run is going, if\nthe wheel setting is on.\n\nDoes nothing outside a run, so the key\nstays free the rest of the time.</English>
-            <German>Wechselt die Gangart während eines\nLaufs, sofern die Mausrad-Einstellung\nan ist.\n\nAußerhalb eines Laufs passiert nichts,\ndie Taste bleibt also sonst frei.</German>
-        </Key>
-        <Key ID="STR_awsr_movement_speedUp">
-            <English>Up</English>
-            <German>Hoch</German>
-        </Key>
-        <Key ID="STR_awsr_movement_speedDown">
-            <English>Down</English>
-            <German>Runter</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_autorun_wheelSpeed">
-            <English>Wheel Changes Pace During A Run</English>
-            <German>Mausrad wechselt Gangart im Lauf</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_autorun_wheelSpeed_DESC">
-            <English>While a run is going, the mouse wheel\nsteps the pace up and down - the same\nstep the faster and slower keys make.\n\nOutside a run the wheel is left alone.\n\nRebind it under Autorun if the wheel\nis wanted for something else.</English>
-            <German>Während eines Laufs schaltet das Mausrad\ndie Gangart hoch und runter - derselbe\nSchritt wie mit den Tasten für\nschneller und langsamer.\n\nAußerhalb eines Laufs bleibt das Rad\nunangetastet.\n\nUnter Autolauf umbelegbar, falls du das\nRad anders brauchst.</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

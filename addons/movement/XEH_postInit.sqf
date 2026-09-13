@@ -73,40 +73,38 @@ private _autorunCategory = ["AWSR", LLSTRING(KEYBIND_Category_Autorun)];
     [0x3F, [ARR_3(false,false,false)]]
 ] call CBA_fnc_addKeybind;
 
-// One pace faster, while a run is going: Ctrl + W
+// One pace faster, while a run is going: mouse wheel up
 [
     _autorunCategory,
     QGVAR(autorun_fasterKey),
     [LLSTRING(KEYBIND_autorun_faster), LLSTRING(KEYBIND_autorun_faster_DESC)],
     {
-        // Not swallowed while no run is going, or holding ctrl would eat the movement
-        // key this is bound alongside - which is exactly what stopped the player dead
-        // the moment they held ctrl to change a speed.
+        // Not swallowed while no run is going - on the wheel that would take zoom and weapon
+        // switching away from the player for the rest of the mission.
         if (!GVAR(autorun_active)) exitWith {false};
 
         [1] call FUNC(autorunStepTier);
         true
     },
     "",
-    [0x11, [false, true, false]]
+    [0xF8, [ARR_3(false,false,false)]]
 ] call CBA_fnc_addKeybind;
 
-// One pace slower, ending the run below a walk: Ctrl + S
+// One pace slower, while a run is going: mouse wheel down
 [
     _autorunCategory,
     QGVAR(autorun_slowerKey),
     [LLSTRING(KEYBIND_autorun_slower), LLSTRING(KEYBIND_autorun_slower_DESC)],
     {
-        // Not swallowed while no run is going, or holding ctrl would eat the movement
-        // key this is bound alongside - which is exactly what stopped the player dead
-        // the moment they held ctrl to change a speed.
+        // Not swallowed while no run is going - on the wheel that would take zoom and weapon
+        // switching away from the player for the rest of the mission.
         if (!GVAR(autorun_active)) exitWith {false};
 
         [-1] call FUNC(autorunStepTier);
         true
     },
     "",
-    [0x1F, [false, true, false]]
+    [0xF9, [ARR_3(false,false,false)]]
 ] call CBA_fnc_addKeybind;
 
 // End Run: W and S
@@ -142,38 +140,6 @@ call FUNC(autorunSeedStopKeys);
     },
     "",
     [0x24, [false, false, false]]
-] call CBA_fnc_addKeybind;
-
-// The pace on the wheel while a run is going, if the setting is on - the same step the ctrl keys
-// make. Bound with no modifier, so it only does anything when a run is up, which is exactly when
-// it means something. Written out rather than generated: a macro inside a compiled string is not
-// expanded, it is just text, and the result is SQF that does not parse.
-[
-    _autorunCategory,
-    QGVAR(autorun_speedUpKey),
-    [format [ARR_2(LLSTRING(KEYBIND_autorun_speed),LLSTRING(speedUp))], LLSTRING(KEYBIND_autorun_speed_DESC)],
-    {
-        if (!GVAR(autorun_active) || {!GVAR(autorun_wheelSpeed)}) exitWith {false};
-
-        [1] call FUNC(autorunStepTier);
-        true
-    },
-    "",
-    [0xF8, [ARR_3(false,false,false)]]
-] call CBA_fnc_addKeybind;
-
-[
-    _autorunCategory,
-    QGVAR(autorun_speedDownKey),
-    [format [ARR_2(LLSTRING(KEYBIND_autorun_speed),LLSTRING(speedDown))], LLSTRING(KEYBIND_autorun_speed_DESC)],
-    {
-        if (!GVAR(autorun_active) || {!GVAR(autorun_wheelSpeed)}) exitWith {false};
-
-        [-1] call FUNC(autorunStepTier);
-        true
-    },
-    "",
-    [0xF9, [ARR_3(false,false,false)]]
 ] call CBA_fnc_addKeybind;
 
 call FUNC(autorunKeyHandler);

@@ -828,7 +828,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_JogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
-    "AmovPercMrunSlowWpstDf, AmovPercMrunSrasWpstDf",
+    "AmovPercMrunSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
@@ -850,7 +850,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_Run),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
-    "AmovPercMevaSlowWrflDf, AmovPercMevaSrasWrflDf",
+    "AmovPercMevaSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
@@ -861,7 +861,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_RunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
-    "AmovPercMevaSlowWpstDf, AmovPercMevaSrasWpstDf",
+    "AmovPercMevaSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
@@ -993,7 +993,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_CrouchJogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
-    "AmovPknlMrunSlowWpstDf, AmovPknlMrunSrasWpstDf",
+    "AmovPknlMrunSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
@@ -1015,7 +1015,7 @@ GVAR(autorun_displayAllow) = [12];
     "EDITBOX",
     [LLSTRING(SETTING_autorun_animation_CrouchRun),LLSTRING(SETTING_autorun_animation_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
-    "AmovPknlMevaSlowWrflDf, AmovPknlMevaSrasWrflDf",
+    "AmovPknlMevaSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
@@ -1240,16 +1240,6 @@ GVAR(autorun_displayAllow) = [12];
     REBUILD_ANIMATION_LISTS
 ] call CBA_Settings_fnc_init;
 
-
-// Mouse wheel changes the walking speed while a run is going
-[
-    QGVAR(autorun_wheelSpeed),
-    "CHECKBOX",
-    [LLSTRING(SETTING_autorun_wheelSpeed),LLSTRING(SETTING_autorun_wheelSpeed_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_General)],
-    [true],
-    0
-] call CBA_Settings_fnc_init;
 
 // Let stamina limit the pace
 [

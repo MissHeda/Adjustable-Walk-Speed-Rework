@@ -1,7 +1,10 @@
 #include "..\script_component.hpp"
 /*
  * Author: Miss Heda
- * Shifts a running autorun one pace up or down. Stepping down out of a walk ends the run.
+ * Shifts a running autorun one pace up or down, past any pace this stance and weapon do not
+ * have. At either end of the list it stays put - ending a run belongs to the start key and the
+ * stop keys, not to one scroll too many.
+ *
  * Does nothing while no run is on, so the keys stay free for everything else.
  *
  * Arguments:
@@ -26,11 +29,8 @@ if (!GVAR(autorun_active)) exitWith {};
 // is not a pace here, so stepping past it is the same as it not being there.
 private _tier = [GVAR(autorun_tier), _delta] call FUNC(autorunNextTier);
 
-// Nothing above: stay where you are. Nothing below: that is what ending a run means.
-if (_tier isEqualTo AUTORUN_OFF) exitWith {
-    if (_delta > 0) exitWith {};
-
-    0 spawn FUNC(autorunStop);
-};
+// Nothing in that direction: stay where you are. Ending a run is the start key's job and the
+// stop keys' - scrolling off the bottom of the list should not do it by accident.
+if (_tier isEqualTo AUTORUN_OFF) exitWith {};
 
 [_tier] call FUNC(autorunSetTier);
