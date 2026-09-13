@@ -73,6 +73,10 @@ else is lost - set them again and they stay.
 - **A repeat count on an animation.** `AmovPercMstpSnonWnonDnon_Salutex3` salutes three times.
   Checked as a whole name first, since the game ships animations that genuinely end in `x2`.
 
+- **What the segments of an animation name mean** is in every box that takes one - the group
+  whitelists and blacklist, the autorun animations, the per-animation speeds and the animation
+  keys - not only in Debug.
+
 - **Speed Up Transitions**, on by default. The game's own transition between two animations in a
   sequence belongs to no group and has no speed of its own, so it ran at normal speed however
   fast the rest was set - which reads as the sequence stopping for a moment. It is given the
@@ -192,6 +196,8 @@ else is lost - set them again and they stay.
   runs through the connected idle - which is the animation that kept appearing. The sequence
   watches the animation state instead and puts the next one on with `switchMove`, which takes no
   transition at all.
+- **The first speed set brought all three displays up at once**, each announcing it was at 100%.
+  A group that has never shown anything and is still at default has nothing to say.
 - **The walk and tactical displays came and went together.** Every change redrew all three, which
   restarted all three hide timers - so changing the walk speed kept the tactical display up for
   exactly as long, and simply walking brought it up saying nothing. Each is only touched when
@@ -237,7 +243,7 @@ else is lost - set them again and they stay.
   Walking each used to appear twice, on two different pages; a group's speed and its display now
   sit in one place. No value is lost: CBA stores a setting under its own name, never under its
   category.
-- Every display is as wide as Arma's own stance indicator by default, and starts clear of the
+- Every display lines up with Arma's own stance indicator by default, and is as wide as it, and starts clear of the
   vanilla interface. The artwork keeps its aspect inside the box, and the box is the one the
   layout tab saved rather than a square worked out from its width - the two used to disagree,
   which is what made the layout tab look wrong.

@@ -36,8 +36,8 @@
 
 #define ANIMATION_SLOTS 10
 
-// A repeat count has to stop somewhere, and a slot of a thousand poses is a mistake, not a plan.
-#define ANIMATION_REPEAT_MAX 20
+// A repeat count has to stop somewhere - high enough that nobody meets it on purpose.
+#define ANIMATION_REPEAT_MAX 100
 
 // CBA reads 0 as "no key", which is what an unbound default is.
 #define DIK_UNBOUND 0
@@ -83,7 +83,12 @@
 // figure, and this artwork is square, so matching it exactly only squashed it.
 #define DISPLAY_W (2.3 * GUI_GRID_W)
 #define DISPLAY_H (2.3 * GUI_GRID_H)
-#define DISPLAY_X ((safeZoneX + safeZoneW) - 3.8 * GUI_GRID_W)
+// The left edge of Arma's own stance indicator, worked out the way the game does: the weapon
+// info sits 14.3 grid cells in from the right edge and the indicator 10.1 cells into it, which
+// leaves 4.2 (a3/ui_f/hpp/definecommongrids.inc:106-113). Our boxes are the same width, so the
+// two line up on both edges. Written out rather than read from the profile variable: a macro
+// argument carrying a comma is split by the preprocessor before it reaches the grid preset.
+#define DISPLAY_X ((safeZoneX + safeZoneW) - 4.2 * GUI_GRID_W)
 #define DISPLAY_Y(row) (safeZoneY + 0.105 * safeZoneH + row * 4.1 * GUI_GRID_H)
 
 // The autorun indicator sits low and centred, where it was before it became a display like the

@@ -31,9 +31,16 @@ if !(_unit isEqualTo CURRENT_UNIT) exitWith {};
     private _uiVar = format [QGVAR(display_%1), _x];
     private _value = (_unit call FUNC(getSpeedHashMap)) getOrDefault [_x, 1];
 
-    if ((GVAR(displayState) getOrDefault [_uiVar, -1]) isEqualTo _value) then {continue};
+    private _known = GVAR(displayState) getOrDefault [_uiVar, -1];
+
+    if (_known isEqualTo _value) then {continue};
 
     GVAR(displayState) set [_uiVar, _value];
+
+    // Never shown anything and still at default: there is nothing for this group to say. Without
+    // this, the first speed set on any group brought all three up at once, each announcing that
+    // it was at 100%.
+    if (_known isEqualTo -1 && {_value == 1}) then {continue};
 
     [_unit, _value * 100, _x, false, ""] call FUNC(displayUpdatedInfo);
 } forEach ["walk", "tactical", "custom"];
