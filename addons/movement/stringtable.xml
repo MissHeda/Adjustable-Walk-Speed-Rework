@@ -794,37 +794,13 @@ Taktisch sind.</German>
             <English>Starts a run at the slowest pace this\nstance and weapon have, and ends one\nthat is already going.\n\nStep the pace with the faster and\nslower keys.</English>
             <German>Startet einen Lauf in der langsamsten\nGangart, die diese Haltung und Waffe\nhaben, und beendet einen laufenden.\n\nDie Gangart wechselst du mit den\nTasten für schneller und langsamer.</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_extraAnimations">
-            <English>Also Cover</English>
-            <German>Zusätzlich abdecken</German>
+        <Key ID="STR_awsr_movement_SETTING_includeJoggingAnimations">
+            <English>Cover Jogging Animations As Well</English>
+            <German>Jogg-Animationen mit abdecken</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_extraAnimations_DESC">
-            <English>Whole sets of animations this group\ncovers on top of its built-in list.\n\nThe built-in list is walking and tactical\nwith a rifle or a handgun, raised, plus\nlowered when the box above is ticked.\n\nEach step adds to the one before it.\n\nThe wildcards each step adds, to paste\ninto a box and try one on its own:\n\n1  AmovPercMwlkSnonWnon*, AmovPknlMwlkSnonWnon*, AmovPercMwlkSlowWlnr*, AmovPercMwlkSoptWbin*, AmovPknlMwlkSoptWbin*\n2  AmovPercMrun*, AmovPknlMrun*\n3  AmovPercMeva*, AmovPknlMeva*, AmovPpneMspr*\n4  AmovPpne*\n5  Aswm*, Assw*, Absw*, Adve*, Asdv*, Abdv*, Ladder*</English>
-            <German>Ganze Sätze von Animationen, die diese\nGruppe zusätzlich zur eingebauten Liste\nabdeckt.\n\nEingebaut sind Gehen und Taktisch mit\nGewehr oder Pistole, erhoben - und\ngesenkt, wenn das Häkchen darüber sitzt.\n\nJede Stufe kommt zur vorherigen dazu.\n\nDie Platzhalter je Stufe, zum Einfügen\nin ein Feld, um eine einzeln zu testen:\n\n1  AmovPercMwlkSnonWnon*, AmovPknlMwlkSnonWnon*, AmovPercMwlkSlowWlnr*, AmovPercMwlkSoptWbin*, AmovPknlMwlkSoptWbin*\n2  AmovPercMrun*, AmovPknlMrun*\n3  AmovPercMeva*, AmovPknlMeva*, AmovPpneMspr*\n4  AmovPpne*\n5  Aswm*, Assw*, Absw*, Adve*, Asdv*, Abdv*, Ladder*</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_extra_0">
-            <English>None</English>
-            <German>Keine</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_extra_1">
-            <English>Unarmed, launcher and binoculars</English>
-            <German>Unbewaffnet, Werfer und Fernglas</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_extra_2">
-            <English>Unarmed, launcher and binoculars, and jogging</English>
-            <German>Unbewaffnet, Werfer und Fernglas, und Joggen</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_extra_3">
-            <English>Unarmed, launcher and binoculars, and jogging, and running</English>
-            <German>Unbewaffnet, Werfer und Fernglas, und Joggen, und Rennen</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_extra_4">
-            <English>Unarmed, launcher and binoculars ... and crawling</English>
-            <German>Unbewaffnet, Werfer und Fernglas ... und Kriechen</German>
-        </Key>
-        <Key ID="STR_awsr_movement_SETTING_extra_5">
-            <English>Unarmed, launcher and binoculars ... and swimming and ladders</English>
-            <German>Unbewaffnet, Werfer und Fernglas ... und Schwimmen und Leitern</German>
+        <Key ID="STR_awsr_movement_SETTING_includeJoggingAnimations_DESC">
+            <English>The tactical group also covers jogging -\nevery stance and weapon of it.\n\nOn, because a tactical pace people\nactually use runs through a jog as often\nas through a walk.\n\nOff leaves jogging at normal speed.</English>
+            <German>Die Taktisch-Gruppe deckt auch das\nJoggen ab - in jeder Haltung und mit\njeder Waffe.\n\nAn, weil ein taktisches Tempo im Spiel\ngenauso oft durch einen Jogg läuft wie\ndurch ein Gehen.\n\nAus lässt das Joggen normal schnell.</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

@@ -49,15 +49,13 @@ else is lost - set them again and they stay.
   no key is left out whole, so the style part takes its label with it while a pace has only one
   animation. The keys take a colour of their own so they stand out from the wording.
 
-- **Also Cover**, a dropdown per group that adds whole sets of animations on top of the built-in
-  list: unarmed, launcher and binoculars, then jogging, running, crawling, and swimming and
-  ladders, each step adding to the one before. They are wildcards rather than lists of names, so
-  one entry covers every direction and stance of a pace - and the wildcards themselves are in the
-  setting's own description, to paste into a box and try one on its own.
+- **Cover Jogging Animations As Well**, a tick on the tactical group, on by default. A tactical
+  pace people actually use runs through a jog as often as through a walk, and the group covered
+  none of it.
 
-- **ANIMATIONS.txt in the mod folder** - what each segment of an animation name means, every name
-  the walking and tactical groups cover out of the box, and the wildcards each Also Cover step
-  adds. Paste any of it straight into a settings box.
+- **ANIMATIONS.txt in the mod folder** - what each segment of an animation name means, and every
+  name the walking and tactical groups cover, listed per setting. Paste any of it straight into a
+  settings box.
 
 - **Wildcards in the whitelist and blacklist.** `melee_armed_*` covers every animation whose name
   starts that way, so a mod with a lot of custom animations no longer has to be listed one entry at
@@ -258,6 +256,11 @@ else is lost - set them again and they stay.
   round in place and hands back nothing at all, so the list being iterated was nothing. Placing a
   single entry in the colour ramp also divided by zero, since SQF works out both sides of a
   `select` before it picks one.
+- **Half the walking animations were never covered.** The built-in lists held the rifle and
+  handgun sets and nothing else: no launcher, no binoculars, no unarmed, and the plain lowered
+  erect rifle walk only ever shipped as its `_ver2` twin. Walking went from 64 of the game's 128
+  to all 128, tactical from 64 of 88 to all 88 - taken from the config rather than typed, and
+  checked back against it.
 - Toggling settings could grow the whitelists with duplicate entries.
 - The walk group's "include non raised animations" callback referenced an undefined variable.
 - A script error on the first animation change of a mission with ACE loaded, from looking up our
@@ -277,8 +280,6 @@ else is lost - set them again and they stay.
   Walking each used to appear twice, on two different pages; a group's speed and its display now
   sit in one place. No value is lost: CBA stores a setting under its own name, never under its
   category.
-- Keys whose names begin with the same words are written with those words once on the indicator,
-  so two wheel directions read as `MOUSE WHEEL UP / DOWN` rather than the phrase twice.
 - Every display lines up with Arma's own stance indicator by default, and is as wide as it, and starts clear of the
   vanilla interface. The artwork keeps its aspect inside the box, and the box is the one the
   layout tab saved rather than a square worked out from its width - the two used to disagree,
