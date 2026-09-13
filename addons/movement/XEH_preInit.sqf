@@ -330,7 +330,7 @@ GVAR(autorun_displayAllow) = [12];
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize), LLSTRING(SETTING_IGUI_textSize_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Walk_IGUI)],
-    [ARR_5(50,300,100,0,true)],
+    [ARR_5(0.5,3,1,2,true)],
     0
 ] call CBA_Settings_fnc_init;
 
@@ -516,7 +516,7 @@ GVAR(autorun_displayAllow) = [12];
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize),LLSTRING(SETTING_IGUI_textSize_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Tactical_IGUI)],
-    [ARR_5(50,300,100,0,true)],
+    [ARR_5(0.5,3,1,2,true)],
     0
 ] call CBA_Settings_fnc_init;
 
@@ -691,7 +691,7 @@ GVAR(autorun_displayAllow) = [12];
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize), LLSTRING(SETTING_IGUI_textSize_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
-    [ARR_5(50,300,100,0,true)],
+    [ARR_5(0.5,3,1,2,true)],
     0
 ] call CBA_Settings_fnc_init;
 
@@ -1203,7 +1203,7 @@ GVAR(autorun_displayAllow) = [12];
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize_Animation),LLSTRING(SETTING_IGUI_textSize_Animation_DESC)],
     [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
-    [ARR_5(50,300,100,0,true)],
+    [ARR_5(0.5,3,1,2,true)],
     0
 ] call CBA_Settings_fnc_init;
 
@@ -1349,7 +1349,7 @@ GVAR(autorun_displayAllow) = [12];
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize), LLSTRING(SETTING_IGUI_textSize_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
-    [ARR_5(50,300,100,0,true)],
+    [ARR_5(0.5,3,1,2,true)],
     0
 ] call CBA_Settings_fnc_init;
 

@@ -98,15 +98,6 @@ private _id = _unit addEventHandler ["AnimDone", {
 
     GVAR(animationSlotIndex) = _index;
     _unit playMoveNow (_names select _index);
-
-    // The transition the game walks through to get there belongs to no animation group and has
-    // no speed of its own, so it runs at normal speed however fast the sequence is set - which
-    // reads as a pause between two quick animations. Lending it the speed of the animation it is
-    // heading for closes that gap. switchMove would skip the transition outright, but it fires
-    // no AnimDone, so the sequence would stop dead on the first animation.
-    if (GVAR(animationMatchTransitions)) then {
-        [_unit, _names select _index] call FUNC(matchTransitionSpeed);
-    };
 }];
 
 SETVAR(_unit,GVAR(animationSlotEH),_id);

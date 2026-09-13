@@ -130,7 +130,7 @@ private _color = [GVAR(IGUI_textColor_Autorun)] call FUNC(colorToHex);
     AUTORUN_Y,
     1 max count _lines,
     "<t color='" + _color + "'>" + (_lines joinString "<br/>") + "</t>",
-    GVAR(IGUI_textSize_Autorun) / 100,
+    GVAR(IGUI_textSize_Autorun),
     GVAR(IGUI_imageColor_Autorun),
     0,
     9

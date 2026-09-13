@@ -32,6 +32,19 @@ params ["_unit", ["_animation", ""]];
 private _speeds = _unit call FUNC(getSpeedHashMap);
 
 private _type = _animation call FUNC(animationType);
+// A transition the game walks through in the middle of a sequence is in no group and has no
+// speed of its own, so it would run at normal speed and read as the sequence stopping. It takes
+// the speed of the animation it is heading for instead. Decided here rather than applied from
+// the slot, because the animation handler fires for the transition and would overwrite it.
+if (GVAR(animationSlotActive) != 0 && {GVAR(animationMatchTransitions)}) then {
+    private _names = missionNamespace getVariable [format [QGVAR(animationSlotList_%1), GVAR(animationSlotActive)], []];
+    private _target = _names param [GVAR(animationSlotIndex), ""];
+
+    if (_target != "" && {toLowerANSI _animation != toLowerANSI _target}) then {
+        _animation = _target;
+    };
+};
+
 private _pinned = _animation call FUNC(animationSpeed);
 private _group = 1;
 

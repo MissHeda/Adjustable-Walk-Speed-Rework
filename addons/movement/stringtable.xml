@@ -582,8 +582,8 @@
             <German>Text der Animationsanzeige</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_IGUI_Text_Animation_DESC">
-            <English>What the animation indicator says.\n\n%1 is the number of the key that is\nrunning, %2 the key that stops it.\n\n<br/> starts a new line.</English>
-            <German>Was die Animationsanzeige schreibt.\n\n%1 ist die Nummer der laufenden Taste,\n%2 die Taste, die sie stoppt.\n\n<br/> beginnt eine neue Zeile.</German>
+            <English>What the animation indicator says.\n\n%1 becomes the number of the key that\nis running.\n%2 becomes the key that stops it.\n\nExample:\nPLAYING ANIMATION %1\nPRESS %2 TO STOP\n\nFor a new line write br in angle\nbrackets, closed with a slash, the way\nthe default text does.</English>
+            <German>Was die Animationsanzeige schreibt.\n\n%1 wird zur Nummer der laufenden Taste.\n%2 wird zur Taste, die sie stoppt.\n\nBeispiel:\nPLAYING ANIMATION %1\nPRESS %2 TO STOP\n\nFür eine neue Zeile br in spitzen\nKlammern schreiben, mit Schrägstrich\ngeschlossen - so wie im Standardtext.</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_IGUI_textColor_Animation">
             <English>Animation Indicator Colour</English>
@@ -651,8 +651,8 @@ Taktisch sind.</German>
             <German>Wenn eine Sequenz von einer Animation zur\nnächsten geht, spielt das Spiel einen\nkurzen Übergang dazwischen.\n\nDer gehört zu keiner Gruppe und hat\nkeine eigene Geschwindigkeit, läuft also\nimmer normal schnell - egal wie schnell\nder Rest eingestellt ist. Das sieht aus,\nals würde die Sequenz kurz stehen\nbleiben.\n\nAn: der Übergang bekommt die\nGeschwindigkeit der Animation, zu der er\nführt.</German>
         </Key>
         <Key ID="STR_awsr_movement_DEBUG_explain">
-            <English>Every animation you moved through is listed below, newest first.|Paste the list into an animation or speed box - it is already in the form those take.||A name is built from six segments, in this order:|action, pose, movement, stance, weapon, direction.||Amov moved, Ainv inventory, Aadj adjusted.|Perc upright, Pknl crouched, Ppne prone.|Mstp still, Mwlk walk, Mrun jog, Meva run, Mspr sprint.|Slow lowered, Sras raised, Snon none.|Wrfl rifle, Wpst pistol, Wnon unarmed.|Df forward, Db back, Dl left, Dr right.||So AmovPercMwlkSlowWrflDf is: moved, upright, walking, weapon lowered, rifle, forwards.</English>
-            <German>Alle Animationen, durch die du gegangen bist, stehen unten - die neueste zuerst.|Die Liste passt so, wie sie ist, in ein Animations- oder Speed-Feld.||Ein Name besteht aus sechs Segmenten, in dieser Reihenfolge:|Aktion, Pose, Bewegung, Haltung, Waffe, Richtung.||Amov bewegt, Ainv Inventar, Aadj justiert.|Perc aufrecht, Pknl kniend, Ppne liegend.|Mstp still, Mwlk gehen, Mrun joggen, Meva rennen, Mspr sprinten.|Slow gesenkt, Sras erhoben, Snon keine.|Wrfl Gewehr, Wpst Pistole, Wnon unbewaffnet.|Df vorwärts, Db zurück, Dl links, Dr rechts.||AmovPercMwlkSlowWrflDf heißt also: bewegt, aufrecht, gehend, Waffe gesenkt, Gewehr, vorwärts.</German>
+            <English>The last 20 animations you moved through, newest first.|Delete the ones you do not want and paste the rest into an animation or speed box.</English>
+            <German>Die letzten 20 Animationen, durch die du gegangen bist - die neueste zuerst.|Lösch raus, was du nicht willst, und füg den Rest in ein Animations- oder Speed-Feld ein.</German>
         </Key>
         <Key ID="STR_awsr_movement_DEBUG_listHeader">
             <English>Animations, newest first (copy this):</English>
@@ -665,6 +665,18 @@ Taktisch sind.</German>
         <Key ID="STR_awsr_movement_BUSY_animation">
             <English>An animation key is running</English>
             <German>Eine Animationstaste läuft</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_explain_tip">
+            <English>To catch one exact animation: start a singleplayer mission, do the move, and press Esc at|the moment you want. Time stops, and that animation is the newest name in this list.</English>
+            <German>So fängst du genau eine Animation: Singleplayer-Mission starten, die Bewegung machen und|im richtigen Moment Esc drücken. Die Zeit steht still, und die Animation ist der|neueste Name in dieser Liste.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_explain_segments">
+            <English>A name is six segments, always in this order:||  1  action      Amov moved       Ainv inventory   Aadj adjusted|  2  pose        Perc upright     Pknl crouched    Ppne prone|  3  movement    Mstp still       Mwlk walk        Mrun jog        Meva run   Mspr sprint|  4  stance      Slow lowered     Sras raised      Snon none|  5  weapon      Wrfl rifle       Wpst pistol      Wnon unarmed|  6  direction   Df forward       Db back          Dl left         Dr right</English>
+            <German>Ein Name besteht aus sechs Segmenten, immer in dieser Reihenfolge:||  1  Aktion      Amov bewegt      Ainv Inventar    Aadj justiert|  2  Pose        Perc aufrecht    Pknl kniend      Ppne liegend|  3  Bewegung    Mstp still       Mwlk gehen       Mrun joggen     Meva rennen   Mspr sprinten|  4  Haltung     Slow gesenkt     Sras erhoben     Snon keine|  5  Waffe       Wrfl Gewehr      Wpst Pistole     Wnon unbewaffnet|  6  Richtung    Df vorwärts     Db zurück       Dl links        Dr rechts</German>
+        </Key>
+        <Key ID="STR_awsr_movement_DEBUG_explain_example">
+            <English>  AmovPercMwlkSlowWrflDf|  =  moved, upright, walking, weapon lowered, rifle, forwards</English>
+            <German>  AmovPercMwlkSlowWrflDf|  =  bewegt, aufrecht, gehend, Waffe gesenkt, Gewehr, vorwärts</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

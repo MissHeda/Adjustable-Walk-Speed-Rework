@@ -55,9 +55,14 @@ private _y = [_gridVar + "_Y", _defaultY] call _read;
 private _h = [_gridVar + "_H", _defaultH] call _read;
 if (_h <= 0.001) then {_h = _defaultH};
 
-// A box with artwork gives most of its height to the picture and a slice to the text under it;
-// a text-only box is all text, so the same fraction would come out tiny.
-private _fontHeight = _h * ([ARR_2(0.28,0.75)] select (_widths <= 1)) * _textSize;
+// A box with artwork gives most of its height to the picture and a slice to the text under it.
+// A text-only box is all text, so its lines have to share the whole height between them - two
+// lines at the height one line would get is two lines on top of each other.
+private _fontHeight = _h * 0.28 * _textSize;
+
+if (_widths <= 1) then {
+    _fontHeight = (_h / (1.45 * (_rows max 1))) * _textSize;
+};
 
 // The text is wider than the picture and centred under it, so a long line has somewhere to go
 // instead of being cut off at the edge of the artwork.

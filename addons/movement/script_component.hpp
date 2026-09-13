@@ -20,7 +20,7 @@
 
 // The animation indicator sits above the autorun one, in the same column.
 #define TEXT_DISPLAY_W (14 * GUI_GRID_W)
-#define TEXT_DISPLAY_H (1.2 * GUI_GRID_H)
+#define TEXT_DISPLAY_H (2.4 * GUI_GRID_H)
 
 #define ANIMATION_X (safeZoneX + safeZoneW / 2 - 7 * GUI_GRID_W)
 #define ANIMATION_Y (safeZoneY + 0.72 * safeZoneH)
@@ -30,6 +30,9 @@
 #define TRANSITION_MATCH_TIMEOUT 3
 
 #define ANIMATION_SLOTS 10
+
+// A repeat count has to stop somewhere, and a slot of a thousand poses is a mistake, not a plan.
+#define ANIMATION_REPEAT_MAX 20
 
 // CBA reads 0 as "no key", which is what an unbound default is.
 #define DIK_UNBOUND 0

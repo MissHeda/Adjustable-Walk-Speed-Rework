@@ -70,6 +70,9 @@ else is lost - set them again and they stay.
   walk group at 10% slows an animation set to 200% - and a group left at default leaves it
   alone.
 
+- **A repeat count on an animation.** `AmovPercMstpSnonWnonDnon_Salutex3` salutes three times.
+  Checked as a whole name first, since the game ships animations that genuinely end in `x2`.
+
 - **Speed Up Transitions**, on by default. The game's own transition between two animations in a
   sequence belongs to no group and has no speed of its own, so it ran at normal speed however
   fast the rest was set - which reads as the sequence stopping for a moment. It is given the
@@ -245,7 +248,7 @@ else is lost - set them again and they stay.
   the six segments of an animation name mean with a worked example, the list newest first in the
   capitalisation the config uses rather than the lowercase the game reports, and a footer. The
   whole block goes to the clipboard.
-- **Text sizes are set in percent** rather than as a coefficient, 100 being normal.
+- **Text sizes read as percentages**, 100% being normal.
 - **Debug is a server setting** and says `AWSR DEBUG` on the hint, so nobody wonders whose it is
   or turns it on mid mission - it draws on every animation change. It also shows the speed being
   applied and which group the animation belongs to.

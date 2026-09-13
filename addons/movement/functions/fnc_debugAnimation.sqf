@@ -58,14 +58,25 @@ private _ordered = +_named;
 reverse _ordered;
 
 // One block that explains itself, so it is worth pasting somewhere as it stands - the list on
-// its own line, comma separated, still goes straight into a whitelist or a speed box. The
-// explanation is one string split on "|": a stringtable entry holds no real line breaks, its own
-// escape arrives as two characters, and anything in angle brackets is eaten as markup.
-private _plain = DEBUG_HEADER + endl + endl +
-    ((LLSTRING(DEBUG_explain) splitString "|") joinString endl) + endl + endl +
-    LLSTRING(DEBUG_listHeader) + endl +
-    (_ordered joinString ", ") + endl + endl +
-    DEBUG_FOOTER;
+// its own line, comma separated, still goes straight into a whitelist or a speed box.
+//
+// Each part is a stringtable entry split on "|", and the parts are joined with a blank line
+// between them. A stringtable entry holds no real line breaks, its own escape arrives as two
+// characters, anything in angle brackets is eaten as markup, and splitString drops empty pieces
+// so two separators in a row cannot make the blank line either.
+private _block = {
+    (_this splitString "|") joinString endl
+};
+
+private _plain = ([
+    DEBUG_HEADER,
+    LLSTRING(DEBUG_explain) call _block,
+    LLSTRING(DEBUG_explain_tip) call _block,
+    LLSTRING(DEBUG_explain_segments) call _block,
+    LLSTRING(DEBUG_explain_example) call _block,
+    LLSTRING(DEBUG_listHeader) + endl + (_ordered joinString ", "),
+    DEBUG_FOOTER
+] joinString (endl + endl));
 
 copyToClipboard _plain;
 
