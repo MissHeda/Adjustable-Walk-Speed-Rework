@@ -61,3 +61,12 @@
 // Functions live in a functions\ subfolder here, which CBA's PREP does not expect.
 #undef PREP
 #define PREP(fncName) [QPATHTOF(functions\DOUBLES(fnc,fncName).sqf), QFUNC(fncName)] call CBA_fnc_compileFunction
+
+// Extra animation sets the whitelist dropdown can add, as wildcards - one pattern covers every
+// direction, stance and weapon of a pace, and cannot fall out of date the way a list of names
+// would. Every pattern here was checked against CfgMovesMaleSdr; none of them match nothing.
+#define EXTRA_ANIMATIONS_1 "AmovPercMwlkSnonWnon*, AmovPknlMwlkSnonWnon*, AmovPercMwlkSlowWlnr*, AmovPercMwlkSoptWbin*, AmovPknlMwlkSoptWbin*"
+#define EXTRA_ANIMATIONS_2 "AmovPercMrun*, AmovPknlMrun*"
+#define EXTRA_ANIMATIONS_3 "AmovPercMeva*, AmovPknlMeva*, AmovPpneMspr*"
+#define EXTRA_ANIMATIONS_4 "AmovPpne*"
+#define EXTRA_ANIMATIONS_5 "Aswm*, Assw*, Absw*, Adve*, Asdv*, Abdv*, Ladder*"

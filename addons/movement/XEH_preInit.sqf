@@ -242,6 +242,16 @@ GVAR(autorun_displayAllow) = [12];
 
 // Custom animation whitelist (walk)
 [
+    QGVAR(extraAnimations_Walk),
+    "LIST",
+    [LLSTRING(SETTING_extraAnimations),LLSTRING(SETTING_extraAnimations_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Walk)],
+    [[ARR_6(0,1,2,3,4,5)], [ARR_6(LLSTRING(SETTING_extra_0),LLSTRING(SETTING_extra_1),LLSTRING(SETTING_extra_2),LLSTRING(SETTING_extra_3),LLSTRING(SETTING_extra_4),LLSTRING(SETTING_extra_5))], 0],
+    1,
+    REBUILD_ANIMATIONS
+] call CBA_Settings_fnc_init;
+
+[
     QGVAR(allowedAnimationArray_Walk),
     "EDITBOX",
     [LLSTRING(SETTING_allowedAnimationArray),LLSTRING(SETTING_allowedAnimationArray_DESC)],
@@ -428,6 +438,16 @@ GVAR(autorun_displayAllow) = [12];
 
 // Custom animation whitelist (tactical)
 [
+    QGVAR(extraAnimations_Tactical),
+    "LIST",
+    [LLSTRING(SETTING_extraAnimations),LLSTRING(SETTING_extraAnimations_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Tactical)],
+    [[ARR_6(0,1,2,3,4,5)], [ARR_6(LLSTRING(SETTING_extra_0),LLSTRING(SETTING_extra_1),LLSTRING(SETTING_extra_2),LLSTRING(SETTING_extra_3),LLSTRING(SETTING_extra_4),LLSTRING(SETTING_extra_5))], 0],
+    1,
+    REBUILD_ANIMATIONS
+] call CBA_Settings_fnc_init;
+
+[
     QGVAR(allowedAnimationArray_Tactical),
     "EDITBOX",
     [LLSTRING(SETTING_allowedAnimationArray),LLSTRING(SETTING_allowedAnimationArray_DESC)],
@@ -602,6 +622,16 @@ GVAR(autorun_displayAllow) = [12];
 ] call CBA_Settings_fnc_init;
 
 // Custom animation whitelist (custom)
+[
+    QGVAR(extraAnimations_Custom),
+    "LIST",
+    [LLSTRING(SETTING_extraAnimations),LLSTRING(SETTING_extraAnimations_DESC)],
+    [CBA_SETTINGS_AWSR, LSTRING(SETTING_SubCategory_Custom)],
+    [[ARR_6(0,1,2,3,4,5)], [ARR_6(LLSTRING(SETTING_extra_0),LLSTRING(SETTING_extra_1),LLSTRING(SETTING_extra_2),LLSTRING(SETTING_extra_3),LLSTRING(SETTING_extra_4),LLSTRING(SETTING_extra_5))], 0],
+    1,
+    REBUILD_ANIMATIONS
+] call CBA_Settings_fnc_init;
+
 [
     QGVAR(allowedAnimationArray_Custom),
     "EDITBOX",

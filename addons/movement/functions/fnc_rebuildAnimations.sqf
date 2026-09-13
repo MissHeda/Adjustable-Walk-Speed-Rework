@@ -81,10 +81,28 @@ if (GETMVAR(GVAR(includeNonRaisedAnimations_Tactical),true)) then {
     _tactical = _tactical + ALL_MOVE_TACTICAL_ANIMATIONS_ADDITIONAL;
 };
 
+// The dropdown adds whole sets of animations, cumulatively: picking jogging also brings the
+// unarmed set below it. Wildcards, so one entry covers every direction and stance of a pace.
+private _extras = {
+    params ["_level"];
+
+    private _out = "";
+
+    {
+        if (_forEachIndex >= _level) exitWith {};
+        _out = _out + "," + _x;
+    } forEach [
+        EXTRA_ANIMATIONS_1, EXTRA_ANIMATIONS_2, EXTRA_ANIMATIONS_3,
+        EXTRA_ANIMATIONS_4, EXTRA_ANIMATIONS_5
+    ];
+
+    _out
+};
+
 private _groups = [
-    ["Walk", _walk, GETMVAR(GVAR(allowedAnimationArray_Walk),""), GETMVAR(GVAR(notAllowedAnimationArray_Walk),"")],
-    ["Tactical", _tactical, GETMVAR(GVAR(allowedAnimationArray_Tactical),""), GETMVAR(GVAR(notAllowedAnimationArray_Tactical),"")],
-    ["Custom", [], GETMVAR(GVAR(allowedAnimationArray_Custom),""), ""]
+    ["Walk", _walk, (GETMVAR(GVAR(allowedAnimationArray_Walk),"") + ([GETMVAR(GVAR(extraAnimations_Walk),0)] call _extras)), GETMVAR(GVAR(notAllowedAnimationArray_Walk),"")],
+    ["Tactical", _tactical, (GETMVAR(GVAR(allowedAnimationArray_Tactical),"") + ([GETMVAR(GVAR(extraAnimations_Tactical),0)] call _extras)), GETMVAR(GVAR(notAllowedAnimationArray_Tactical),"")],
+    ["Custom", [], (GETMVAR(GVAR(allowedAnimationArray_Custom),"") + ([GETMVAR(GVAR(extraAnimations_Custom),0)] call _extras)), ""]
 ];
 
 {

@@ -55,7 +55,29 @@ private _readable = {
     if (_ctrl) then {_prefix = _prefix + (toUpper (localize "str_dik_control")) + " + "};
     if (_shift) then {_prefix = _prefix + (toUpper (localize "str_dik_shift")) + " + "};
 
-    _prefix + ((_binds apply {toUpper ([ARR_2(_x select 0,[ARR_3(false,false,false)])] call CBA_fnc_localizeKey)}) joinString " / ")
+    private _keys = _binds apply {toUpper ([ARR_2(_x select 0,[ARR_3(false,false,false)])] call CBA_fnc_localizeKey)};
+
+    // Keys whose names start with the same words are written with those words once: two mouse
+    // wheel directions are MOUSE WHEEL UP / DOWN rather than the whole phrase twice.
+    private _words = (_keys select 0) splitString " ";
+    private _shared = [];
+
+    {
+        private _word = _x;
+        if (_keys findIf {((_x splitString " ") param [_forEachIndex, ""]) != _word} > -1) exitWith {};
+        _shared pushBack _word;
+    } forEach _words;
+
+    // All of it shared means the same key twice - leave one.
+    if (count _shared >= count _words) exitWith {_prefix + (_keys select 0)};
+
+    if (_shared isNotEqualTo []) then {
+        private _drop = count (_shared joinString " ") + 1;
+        _keys = _keys apply {_x select [ARR_2(_drop,count _x)]};
+        _prefix = _prefix + (_shared joinString " ") + " ";
+    };
+
+    _prefix + (_keys joinString " / ")
 };
 
 // The pace decides both what it is called and which key ends it, since a pace key pressed on the
