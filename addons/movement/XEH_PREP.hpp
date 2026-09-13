@@ -36,6 +36,7 @@ PREP(hideIGUI);
 PREP(igUIGeometry);
 PREP(isAceExhaustionWalk);
 PREP(isForceWalkedByOther);
+PREP(matchTransitionSpeed);
 PREP(notify);
 PREP(playAnimationSlot);
 PREP(reapplySpeed);

@@ -33,6 +33,11 @@ if (!isNull objectParent _unit) exitWith {};
 if (incapacitatedState _unit != "") exitWith {};
 if (surfaceIsWater (position _unit)) exitWith {};
 
+// Both of these drive the unit's animation, so only one of them can have it.
+if (GVAR(autorun_active)) exitWith {
+    [format [ARR_2("<t color='#FFD766'>%1</t>",LLSTRING(BUSY_autorun))], 2] call FUNC(notify);
+};
+
 // Same key again: stop, and let the engine take the unit back.
 if (GVAR(animationSlotActive) == _slot) exitWith {
     [_unit] call FUNC(stopAnimationSlot);
@@ -54,7 +59,7 @@ call FUNC(animationIndicator);
 // without moving the unit, so a movement animation played that way only twitches on the spot.
 // The frame of idle is the cheaper of the two.
 private _id = _unit addEventHandler ["AnimDone", {
-    params ["_unit"];
+    params ["_unit", "_finished"];
 
     if (GVAR(animationSlotActive) == 0) exitWith {};
 
@@ -73,6 +78,11 @@ private _id = _unit addEventHandler ["AnimDone", {
         [_unit] call FUNC(stopAnimationSlot);
     };
 
+    // Only the animation this slot asked for advances it. The transition the game plays to get
+    // between two of them finishes too and fires this as well, and taking that as "done" ate an
+    // entry every time - which is why the middle one of three never appeared.
+    if (toLowerANSI _finished != toLowerANSI (_names param [GVAR(animationSlotIndex), ""])) exitWith {};
+
     private _index = GVAR(animationSlotIndex) + 1;
 
     if (_index >= count _names) then {
@@ -87,15 +97,15 @@ private _id = _unit addEventHandler ["AnimDone", {
     if (_index < 0) exitWith {};
 
     GVAR(animationSlotIndex) = _index;
+    _unit playMoveNow (_names select _index);
 
-    // playMoveNow walks the transition graph to get there, and the animation it walks through
-    // belongs to no group, so it plays at normal speed however the sequence is set. switchMove
-    // goes straight there - at the cost of snapping rather than blending, and of not carrying a
-    // movement animation anywhere.
-    if (GVAR(animationSkipTransitions)) then {
-        _unit switchMove (_names select _index);
-    } else {
-        _unit playMoveNow (_names select _index);
+    // The transition the game walks through to get there belongs to no animation group and has
+    // no speed of its own, so it runs at normal speed however fast the sequence is set - which
+    // reads as a pause between two quick animations. Lending it the speed of the animation it is
+    // heading for closes that gap. switchMove would skip the transition outright, but it fires
+    // no AnimDone, so the sequence would stop dead on the first animation.
+    if (GVAR(animationMatchTransitions)) then {
+        [_unit, _names select _index] call FUNC(matchTransitionSpeed);
     };
 }];
 

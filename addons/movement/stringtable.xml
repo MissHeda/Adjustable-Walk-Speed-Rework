@@ -642,21 +642,29 @@ Taktisch sind.</German>
             <English>NO KEY</English>
             <German>KEINE TASTE</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_animationSkipTransitions">
-            <English>Skip Transition Animations</English>
-            <German>Übergangsanimationen überspringen</German>
+        <Key ID="STR_awsr_movement_SETTING_animationMatchTransitions">
+            <English>Speed Up Transitions</English>
+            <German>Übergänge mitziehen</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_animationSkipTransitions_DESC">
-            <English>Off: the game plays its own transition\nbetween two animations in a sequence.\nThat transition belongs to no group, so\nit runs at normal speed however fast the\nrest is set - which is what you see as a\nshort pause.\n\nOn: the next animation starts straight\naway with no transition at all. It snaps\nrather than blends, and it does not\ncarry a walking animation anywhere -\nthe character stays on the spot.\n\nOff unless a sequence of poses looks\nworse with the transitions in it.</English>
-            <German>Aus: das Spiel spielt seinen eigenen\nÜbergang zwischen zwei Animationen.\nDer gehört zu keiner Gruppe und läuft\ndeshalb immer mit Normalgeschwindigkeit -\ndas ist die kurze Pause, die du siehst.\n\nAn: die nächste Animation beginnt sofort\nohne Übergang. Das springt statt zu\nblenden und trägt eine Laufanimation\nnirgendwohin - der Charakter bleibt\nstehen.\n\nAus lassen, außer eine Posenfolge sieht\nmit den Übergängen schlechter aus.</German>
+        <Key ID="STR_awsr_movement_SETTING_animationMatchTransitions_DESC">
+            <English>When a sequence moves from one animation\nto the next, the game plays a short\ntransition between them.\n\nThat transition is in no animation group\nand has no speed of its own, so it runs\nat normal speed however fast the rest of\nthe sequence is - which looks like the\nsequence stopping for a moment.\n\nOn, the transition is given the speed of\nthe animation it is heading for.</English>
+            <German>Wenn eine Sequenz von einer Animation zur\nnächsten geht, spielt das Spiel einen\nkurzen Übergang dazwischen.\n\nDer gehört zu keiner Gruppe und hat\nkeine eigene Geschwindigkeit, läuft also\nimmer normal schnell - egal wie schnell\nder Rest eingestellt ist. Das sieht aus,\nals würde die Sequenz kurz stehen\nbleiben.\n\nAn: der Übergang bekommt die\nGeschwindigkeit der Animation, zu der er\nführt.</German>
         </Key>
         <Key ID="STR_awsr_movement_DEBUG_explain">
-            <English>An animation name is built from segments:\na<action> p<pose> m<movement> s<stance>\nw<weapon> d<direction>.\n\nAmov moved, Ainv inventory, Aadj adjusted.\nPerc upright, Pknl crouched, Ppne prone.\nMstp still, Mwlk walk, Mrun jog, Meva run,\nMspr sprint.\nSlow lowered, Sras raised, Snon none.\nWrfl rifle, Wpst pistol, Wnon unarmed.\nDf forward, Db back, Dl left, Dr right.</English>
-            <German>Ein Animationsname besteht aus Segmenten:\na<Aktion> p<Pose> m<Bewegung> s<Haltung>\nw<Waffe> d<Richtung>.\n\nAmov bewegt, Ainv Inventar, Aadj justiert.\nPerc aufrecht, Pknl kniend, Ppne liegend.\nMstp still, Mwlk gehen, Mrun joggen,\nMeva rennen, Mspr sprinten.\nSlow gesenkt, Sras erhoben, Snon keine.\nWrfl Gewehr, Wpst Pistole, Wnon unbewaffnet.\nDf vorwärts, Db zurück, Dl links, Dr rechts.</German>
+            <English>Every animation you moved through is listed below, newest first.|Paste the list into an animation or speed box - it is already in the form those take.||A name is built from six segments, in this order:|action, pose, movement, stance, weapon, direction.||Amov moved, Ainv inventory, Aadj adjusted.|Perc upright, Pknl crouched, Ppne prone.|Mstp still, Mwlk walk, Mrun jog, Meva run, Mspr sprint.|Slow lowered, Sras raised, Snon none.|Wrfl rifle, Wpst pistol, Wnon unarmed.|Df forward, Db back, Dl left, Dr right.||So AmovPercMwlkSlowWrflDf is: moved, upright, walking, weapon lowered, rifle, forwards.</English>
+            <German>Alle Animationen, durch die du gegangen bist, stehen unten - die neueste zuerst.|Die Liste passt so, wie sie ist, in ein Animations- oder Speed-Feld.||Ein Name besteht aus sechs Segmenten, in dieser Reihenfolge:|Aktion, Pose, Bewegung, Haltung, Waffe, Richtung.||Amov bewegt, Ainv Inventar, Aadj justiert.|Perc aufrecht, Pknl kniend, Ppne liegend.|Mstp still, Mwlk gehen, Mrun joggen, Meva rennen, Mspr sprinten.|Slow gesenkt, Sras erhoben, Snon keine.|Wrfl Gewehr, Wpst Pistole, Wnon unbewaffnet.|Df vorwärts, Db zurück, Dl links, Dr rechts.||AmovPercMwlkSlowWrflDf heißt also: bewegt, aufrecht, gehend, Waffe gesenkt, Gewehr, vorwärts.</German>
         </Key>
         <Key ID="STR_awsr_movement_DEBUG_listHeader">
-            <English>Animations (copy this):</English>
-            <German>Animationen (das hier kopieren):</German>
+            <English>Animations, newest first (copy this):</English>
+            <German>Animationen, neueste zuerst (das hier kopieren):</German>
+        </Key>
+        <Key ID="STR_awsr_movement_BUSY_autorun">
+            <English>Autorun is running</English>
+            <German>Autolauf läuft</German>
+        </Key>
+        <Key ID="STR_awsr_movement_BUSY_animation">
+            <English>An animation key is running</English>
+            <German>Eine Animationstaste läuft</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

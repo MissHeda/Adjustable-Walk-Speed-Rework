@@ -70,10 +70,10 @@ else is lost - set them again and they stay.
   walk group at 10% slows an animation set to 200% - and a group left at default leaves it
   alone.
 
-- **Skip Transition Animations**, off by default. The game's own transition between two
-  animations in a sequence belongs to no group, so it runs at normal speed however fast the rest
-  is set - which is the short pause between them. On, the next animation starts with no
-  transition at all: it snaps rather than blends, and it carries a walking animation nowhere.
+- **Speed Up Transitions**, on by default. The game's own transition between two animations in a
+  sequence belongs to no group and has no speed of its own, so it ran at normal speed however
+  fast the rest was set - which reads as the sequence stopping for a moment. It is given the
+  speed of the animation it is heading for.
 
 - **Default speed reads as "Default"** rather than as 100% or 1.
 
@@ -177,6 +177,12 @@ else is lost - set them again and they stay.
   did nothing to it and landed on the player's own body instead, showing up the moment control was
   handed back. They follow the controlled unit now, the same one CBA's own player event handler
   watches. Taking over also hides the speed displays, since each body keeps its own speeds.
+- **A sequence of three played only the first and the last.** The transition the game walks
+  through between two animations finishes too, and fires the same event the sequence was counting
+  - so every transition ate an entry. Only the animation the sequence actually asked for advances
+  it now.
+- **The autorun and an animation key could both drive the unit at once.** Whichever started
+  second fought the first for the animation. They refuse each other, and say why.
 - **A sequence flickered through a third animation between its own two.** Both `playMove` and
   `playMoveNow` follow the game's transition graph, and between two walk animations that route
   runs through the connected idle - which is the animation that kept appearing. The sequence
@@ -235,9 +241,11 @@ else is lost - set them again and they stay.
   the speed moves while the animation stays the same, which is the whole point of the mod. It
   also reports after the speed has been applied rather than before, so the number on it is the
   one in force and not the one from the animation before.
-- **Debug reads as something you can hand to someone else**: a header, what the segments of an
-  animation name mean, the list itself in the capitalisation the config uses rather than the
-  lowercase the game reports, and a footer. The whole block goes to the clipboard.
+- **Debug reads as something you can hand to someone else**: a header, what Debug collected, what
+  the six segments of an animation name mean with a worked example, the list newest first in the
+  capitalisation the config uses rather than the lowercase the game reports, and a footer. The
+  whole block goes to the clipboard.
+- **Text sizes are set in percent** rather than as a coefficient, 100 being normal.
 - **Debug is a server setting** and says `AWSR DEBUG` on the hint, so nobody wonders whose it is
   or turns it on mid mission - it draws on every animation change. It also shows the speed being
   applied and which group the animation belongs to.

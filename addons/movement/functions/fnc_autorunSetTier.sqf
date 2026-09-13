@@ -22,6 +22,11 @@ if (!hasInterface) exitWith {};
 if (!GVAR(autorun_enable)) exitWith {};
 if !(call FUNC(autorunCheckDisplay)) exitWith {};
 
+// Both of these drive the unit's animation, so only one of them can have it.
+if (GVAR(animationSlotActive) != 0) exitWith {
+    [format [ARR_2("<t color='#FFD766'>%1</t>",LLSTRING(BUSY_animation))], 2] call FUNC(notify);
+};
+
 _tier = (round _tier max AUTORUN_OFF) min AUTORUN_RUN;
 
 if (_tier == AUTORUN_OFF) exitWith {

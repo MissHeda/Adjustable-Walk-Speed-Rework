@@ -33,7 +33,7 @@ private _settings = switch (_type) do {
             GVAR(speedUpdatedDisplayType_Walk), GVAR(minAdjustSpeed_Walk), GVAR(maxAdjustSpeed_Walk),
             QGVAR(IGUI_Display_Walk), QGVAR(display_Walk), QUOTE(DOUBLES(IGUI,GVAR(grid_Walk))), DISPLAY_X, DISPLAY_Y(0),
             GVAR(IGUI_imageColor_Walk), GVAR(IGUI_Text_Walk), GVAR(IGUI_textColor_Walk),
-            GVAR(IGUI_textSize_Walk), GVAR(allowIGUIRedLimitValue_Walk),
+            GVAR(IGUI_textSize_Walk) / 100, GVAR(allowIGUIRedLimitValue_Walk),
             GVAR(IGUI_textColorLimitReached_Walk), GVAR(IGUI_displayDuration_Walk),
             GVAR(IGUI_hideAtDefault_Walk), GVAR(IGUI_showSlider_Walk)
         ]
@@ -43,7 +43,7 @@ private _settings = switch (_type) do {
             GVAR(speedUpdatedDisplayType_Tactical), GVAR(minAdjustSpeed_Tactical), GVAR(maxAdjustSpeed_Tactical),
             QGVAR(IGUI_Display_Tactical), QGVAR(display_Tactical), QUOTE(DOUBLES(IGUI,GVAR(grid_Tactical))), DISPLAY_X, DISPLAY_Y(1),
             GVAR(IGUI_imageColor_Tactical), GVAR(IGUI_Text_Tactical), GVAR(IGUI_textColor_Tactical),
-            GVAR(IGUI_textSize_Tactical), GVAR(allowIGUIRedLimitValue_Tactical),
+            GVAR(IGUI_textSize_Tactical) / 100, GVAR(allowIGUIRedLimitValue_Tactical),
             GVAR(IGUI_textColorLimitReached_Tactical), GVAR(IGUI_displayDuration_Tactical),
             GVAR(IGUI_hideAtDefault_Tactical), GVAR(IGUI_showSlider_Tactical)
         ]
@@ -53,7 +53,7 @@ private _settings = switch (_type) do {
             GVAR(speedUpdatedDisplayType_Custom), GVAR(minAdjustSpeed_Custom), GVAR(maxAdjustSpeed_Custom),
             QGVAR(IGUI_Display_Custom), QGVAR(display_Custom), QUOTE(DOUBLES(IGUI,GVAR(grid_Custom))), DISPLAY_X, DISPLAY_Y(2),
             GVAR(IGUI_imageColor_Custom), GVAR(IGUI_Text_Custom), GVAR(IGUI_textColor_Custom),
-            GVAR(IGUI_textSize_Custom), GVAR(allowIGUIRedLimitValue_Custom),
+            GVAR(IGUI_textSize_Custom) / 100, GVAR(allowIGUIRedLimitValue_Custom),
             GVAR(IGUI_textColorLimitReached_Custom), GVAR(IGUI_displayDuration_Custom),
             GVAR(IGUI_hideAtDefault_Custom), GVAR(IGUI_showSlider_Custom)
         ]

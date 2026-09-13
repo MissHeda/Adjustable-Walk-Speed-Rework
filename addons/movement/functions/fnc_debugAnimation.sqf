@@ -53,24 +53,24 @@ private _named = _list apply {
     [_x, configName _class] select (isClass _class)
 };
 
+// Newest first, the same order the hint shows, so the two read alike.
+private _ordered = +_named;
+reverse _ordered;
+
 // One block that explains itself, so it is worth pasting somewhere as it stands - the list on
-// its own line, comma separated, still goes straight into a whitelist or a speed box.
+// its own line, comma separated, still goes straight into a whitelist or a speed box. The
+// explanation is one string split on "|": a stringtable entry holds no real line breaks, its own
+// escape arrives as two characters, and anything in angle brackets is eaten as markup.
 private _plain = DEBUG_HEADER + endl + endl +
-    LLSTRING(DEBUG_explain) + endl + endl +
+    ((LLSTRING(DEBUG_explain) splitString "|") joinString endl) + endl + endl +
     LLSTRING(DEBUG_listHeader) + endl +
-    (_named joinString ", ") + endl + endl +
+    (_ordered joinString ", ") + endl + endl +
     DEBUG_FOOTER;
 
 copyToClipboard _plain;
 
 // Newest green, oldest red, the rest of the way between - so a glance says which end of the
 // list you are reading without counting entries.
-private _ordered = +_named;
-
-// reverse turns an array round in place and hands back nothing at all, so its result cannot be
-// iterated - which is why this list was empty on screen while the clipboard was fine.
-reverse _ordered;
-
 private _last = (count _ordered) - 1;
 private _lines = [];
 

@@ -330,11 +330,8 @@ GVAR(autorun_displayAllow) = [12];
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize), LLSTRING(SETTING_IGUI_textSize_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Walk_IGUI)],
-    [0.1, 3, 1, 2],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textSize_Walk),[ARR_2(GVAR(IGUI_textSize_Walk),2)] call BIS_fnc_cutDecimals);
-    }
+    [ARR_5(50,300,100,0,true)],
+    0
 ] call CBA_Settings_fnc_init;
 
 // IGUI display duration (walk)
@@ -519,11 +516,8 @@ GVAR(autorun_displayAllow) = [12];
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize),LLSTRING(SETTING_IGUI_textSize_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Tactical_IGUI)],
-    [0.1, 3, 1, 2],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textSize_Tactical),[ARR_2(GVAR(IGUI_textSize_Tactical),2)] call BIS_fnc_cutDecimals);
-    }
+    [ARR_5(50,300,100,0,true)],
+    0
 ] call CBA_Settings_fnc_init;
 
 // IGUI display duration (tactical)
@@ -697,11 +691,8 @@ GVAR(autorun_displayAllow) = [12];
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize), LLSTRING(SETTING_IGUI_textSize_DESC)],
     [CBA_SETTINGS_AWSR_GUI, LSTRING(SETTING_SubCategory_Custom_IGUI)],
-    [0.1, 3, 1, 2],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textSize_Custom),[ARR_2(GVAR(IGUI_textSize_Custom),2)] call BIS_fnc_cutDecimals);
-    }
+    [ARR_5(50,300,100,0,true)],
+    0
 ] call CBA_Settings_fnc_init;
 
 // IGUI display duration (custom)
@@ -1176,13 +1167,13 @@ GVAR(autorun_displayAllow) = [12];
     1
 ] call CBA_Settings_fnc_init;
 
-// Cut the transition between two animations in a sequence
+// Let the transition between two animations run at the sequence's speed
 [
-    QGVAR(animationSkipTransitions),
+    QGVAR(animationMatchTransitions),
     "CHECKBOX",
-    [LLSTRING(SETTING_animationSkipTransitions),LLSTRING(SETTING_animationSkipTransitions_DESC)],
+    [LLSTRING(SETTING_animationMatchTransitions),LLSTRING(SETTING_animationMatchTransitions_DESC)],
     [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
-    [false],
+    [true],
     1
 ] call CBA_Settings_fnc_init;
 
@@ -1212,7 +1203,7 @@ GVAR(autorun_displayAllow) = [12];
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize_Animation),LLSTRING(SETTING_IGUI_textSize_Animation_DESC)],
     [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
-    [ARR_5(0.5,3,1.4,1,true)],
+    [ARR_5(50,300,100,0,true)],
     0
 ] call CBA_Settings_fnc_init;
 
@@ -1358,11 +1349,8 @@ GVAR(autorun_displayAllow) = [12];
     "SLIDER",
     [LLSTRING(SETTING_IGUI_textSize), LLSTRING(SETTING_IGUI_textSize_DESC)],
     [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Indicator)],
-    [0.1, 3, 1, 2],
-    0,
-    {
-        SETMVAR(GVAR(IGUI_textSize_Autorun),[ARR_2(GVAR(IGUI_textSize_Autorun),2)] call BIS_fnc_cutDecimals);
-    }
+    [ARR_5(50,300,100,0,true)],
+    0
 ] call CBA_Settings_fnc_init;
 
 ADDON = true;

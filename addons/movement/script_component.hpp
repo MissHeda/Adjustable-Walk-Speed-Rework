@@ -25,6 +25,10 @@
 #define ANIMATION_X (safeZoneX + safeZoneW / 2 - 7 * GUI_GRID_W)
 #define ANIMATION_Y (safeZoneY + 0.72 * safeZoneH)
 
+// Long enough for any transition the game ships, short enough that a sequence that never
+// arrives does not hold a speed forever.
+#define TRANSITION_MATCH_TIMEOUT 3
+
 #define ANIMATION_SLOTS 10
 
 // CBA reads 0 as "no key", which is what an unbound default is.
