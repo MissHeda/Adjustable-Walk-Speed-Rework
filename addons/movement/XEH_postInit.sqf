@@ -145,25 +145,36 @@ call FUNC(autorunSeedStopKeys);
 ] call CBA_fnc_addKeybind;
 
 // Speed on the wheel while a run is going, if the setting is on. Bound with no modifier, so it
-// is only reachable at all while a run is up - which is exactly when it means anything.
-{
-    _x params ["_name", "_mode", "_key"];
+// only does anything when a run is up - which is exactly when it means something. Written out
+// rather than generated: a macro inside a compiled string is not expanded, it is just text, and
+// the result is SQF that does not parse.
+[
+    _autorunCategory,
+    QGVAR(autorun_speedUpKey),
+    [format [ARR_2(LLSTRING(KEYBIND_autorun_speed),LLSTRING(speedUp))], LLSTRING(KEYBIND_autorun_speed_DESC)],
+    {
+        if (!GVAR(autorun_active) || {!GVAR(autorun_wheelSpeed)}) exitWith {false};
 
-    [
-        _autorunCategory,
-        format [QGVAR(autorun_%1Key), _name],
-        [format [ARR_2(LLSTRING(KEYBIND_autorun_speed),localize ("STR_" + QUOTE(ADDON) + "_" + _name))], LLSTRING(KEYBIND_autorun_speed_DESC)],
-        compile format [ARR_2("
-            if (!GVAR(autorun_active) || {!GVAR(autorun_wheelSpeed)}) exitWith {false};
-            [CURRENT_UNIT, '%1', 'walk'] call " + QFUNC(adjustSpeed) + "; true
-        ",_mode)],
-        "",
-        [_key, [ARR_3(false,false,false)]]
-    ] call CBA_fnc_addKeybind;
-} forEach [
-    [ARR_3("speedUp","increase",0xF8)],
-    [ARR_3("speedDown","decrease",0xF9)]
-];
+        [CURRENT_UNIT, "increase", "walk"] call FUNC(adjustSpeed);
+        true
+    },
+    "",
+    [0xF8, [ARR_3(false,false,false)]]
+] call CBA_fnc_addKeybind;
+
+[
+    _autorunCategory,
+    QGVAR(autorun_speedDownKey),
+    [format [ARR_2(LLSTRING(KEYBIND_autorun_speed),LLSTRING(speedDown))], LLSTRING(KEYBIND_autorun_speed_DESC)],
+    {
+        if (!GVAR(autorun_active) || {!GVAR(autorun_wheelSpeed)}) exitWith {false};
+
+        [CURRENT_UNIT, "decrease", "walk"] call FUNC(adjustSpeed);
+        true
+    },
+    "",
+    [0xF9, [ARR_3(false,false,false)]]
+] call CBA_fnc_addKeybind;
 
 call FUNC(autorunKeyHandler);
 
