@@ -199,6 +199,10 @@ else is lost - set them again and they stay.
   runs through the connected idle - which is the animation that kept appearing. The sequence
   watches the animation state instead and puts the next one on with `switchMove`, which takes no
   transition at all.
+- **The autorun sat still while sitting.** Dropping from a crouch towards prone puts the
+  character in the game's sit state, which has no pinned animation set - so it borrowed the
+  standing one and pinned a standing animation onto someone sitting down. It resolves its own
+  now, which is the shuffle forward the game has for exactly that state.
 - **The autorun stopped at the water's edge.** The weapon segment kept saying rifle once the
   swim started, and plain swimming has no rifle animations at all - only the three diving actions
   do, and those want a wetsuit. The name built did not exist, the fallback had nowhere to go, and

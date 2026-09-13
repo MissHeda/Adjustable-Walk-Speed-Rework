@@ -31,8 +31,11 @@ private _pace = switch (_tier) do {
     default {"Run"};
 };
 
-// Sitting has no run of its own, so it borrows the standing set - it is a transitional state
-// the run leaves again on the next stance key.
+// Sitting has no pinned set. It borrowed the standing one, which pinned a standing animation
+// onto a character who is sitting down - so the run simply sat there. An empty list hands it to
+// the resolver, which builds the shuffle-forward the game has for exactly this state.
+if (_stance isEqualTo "Sit") exitWith {[]};
+
 private _prefix = switch (_stance) do {
     case "Crouch": {"Crouch"};
     case "Prone": {"Prone"};

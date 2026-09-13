@@ -166,6 +166,10 @@ private _stance = switch (true) do {
 };
 
 private _weapon = switch (true) do {
+    // Sitting up on one elbow only exists holding something. With empty hands the game has no
+    // such state, so it borrows the rifle one rather than resolving to a name that is not there.
+    case (GVAR(autorun_stance) == "Sit" && !_isPst): {"rfl"};
+
     // In the water the game only has what it has: the three diving actions - which need a wetsuit
     // - carry a rifle, and plain swimming carries nothing at all. Asking for a rifle where there
     // is none built a name that does not exist, the fallback had nowhere to go, and the run came
