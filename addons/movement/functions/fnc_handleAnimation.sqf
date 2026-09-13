@@ -19,23 +19,22 @@
 
 params ["_unit", ["_animation", ""]];
 
-// Switched off mid mission: hand the unit back before going quiet.
-if (!GVAR(Enable)) exitWith {
-    if (GETVAR(_unit,GVAR(activeType),"") isEqualTo "" && {GETVAR(_unit,GVAR(appliedSpeed),1) == 1}) exitWith {};
-
-    SETVAR(_unit,GVAR(activeType),"");
-    [_unit, 1] call FUNC(applySpeed);
-    [_unit, false] call FUNC(setForceWalk);
-
-    if (GVAR(debug)) then {[_animation] call FUNC(debugAnimation)};
-};
-
 private _speeds = _unit call FUNC(getSpeedHashMap);
 private _type = _animation call FUNC(animationType);
 
 SETVAR(_unit,GVAR(activeType),_type);
 
 ([_unit, _animation] call FUNC(speedSource)) params ["_coef", "", "", "_group"];
+
+// The speed groups switched off mid mission: hand the unit back and go quiet. Per-animation
+// speeds and Debug are their own category and carry on - this switch is the three groups, their
+// keys and their displays, not the whole mod.
+if (!GVAR(Enable)) then {
+    if (_type isNotEqualTo "") then {
+        _coef = -1;
+        _group = 1;
+    };
+};
 
 if (_coef > 0) exitWith {
     if (_coef > 1 && {_unit call FUNC(isForceWalkedByOther)}) then {_coef = 1};

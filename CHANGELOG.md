@@ -118,8 +118,11 @@ else is lost - set them again and they stay.
 
 - **A blacklist for the custom group**, now that wildcards make one worth having.
 
-- **An animation setting per stance.** Crouched and prone each have their own six boxes, so a
-  stance change during a run plays something built for that stance.
+- **An animation setting per stance**, in a sub-category each. Crouched and prone have their own
+  six boxes, so a stance change during a run plays something built for that stance. Every pace
+  ships with its lowered and raised variants as alternatives, so the next-animation key switches
+  between them - except prone, which the game only has lowered, and whose two crawl speeds are
+  all there is.
 
 ### Fixed
 
@@ -196,6 +199,16 @@ else is lost - set them again and they stay.
   runs through the connected idle - which is the animation that kept appearing. The sequence
   watches the animation state instead and puts the next one on with `switchMove`, which takes no
   transition at all.
+- **The autorun stopped at the water's edge.** The weapon segment kept saying rifle once the
+  swim started, and plain swimming has no rifle animations at all - only the three diving actions
+  do, and those want a wetsuit. The name built did not exist, the fallback had nowhere to go, and
+  the run halted.
+- **The autorun sprinted on a broken leg.** It read the engine's leg hitpoint, which ACE leaves
+  alone; ACE keeps fractures of its own. A fractured leg limits the run the same way it limits
+  everything else.
+- **Switching the speed groups off switched off more than the groups.** Per-animation speeds and
+  Debug are their own category and keep working - that switch is the three groups, their keys and
+  their displays.
 - **The first speed set brought all three displays up at once**, each announcing it was at 100%.
   A group that has never shown anything and is still at default has nothing to say.
 - **The walk and tactical displays came and went together.** Every change redrew all three, which

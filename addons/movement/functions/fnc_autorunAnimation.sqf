@@ -91,6 +91,15 @@ if (!_stop && {!_isSwimming}) then {
 if (_animation != "") exitWith {_animation};
 
 private _isLegHits = (_unit getHitPointDamage "hitlegs") >= 0.5;
+
+// ACE keeps fractures of its own, and a fractured leg makes it limp - the engine hitpoint stays
+// low, so without asking ACE the run would carry on sprinting on a broken leg. Indices 4 and 5
+// are the legs, which is the same test ACE's own updateDamageEffects makes.
+if (!_isLegHits && {isClass (configFile >> "CfgPatches" >> "ace_medical_engine")}) then {
+    private _fractures = _unit getVariable [QUOTE(ACEGVAR(medical,fractures)), []];
+
+    _isLegHits = (_fractures param [4, 0]) == 1 || {(_fractures param [5, 0]) == 1};
+};
 private _fatigue = getFatigue _unit;
 private _isFW = isForcedWalk _unit || {_tier <= AUTORUN_WALK};
 
@@ -158,6 +167,13 @@ private _stance = switch (true) do {
 };
 
 private _weapon = switch (true) do {
+    // In the water the game only has what it has: the three diving actions - which need a wetsuit
+    // - carry a rifle, and plain swimming carries nothing at all. Asking for a rifle where there
+    // is none built a name that does not exist, the fallback had nowhere to go, and the run came
+    // to a halt at the water's edge.
+    case (_isSwimming && _action in ["dve", "sdv", "bdv"] && _isRfl): {"rfl"};
+    case (_isSwimming): {"non"};
+
     case (_cw == ""): {"non"};
     case (_isRfl): {"rfl"};
     case (_isPst): {"pst"};

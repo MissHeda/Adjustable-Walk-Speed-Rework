@@ -9,9 +9,9 @@
             <English>5) Display - General</English>
             <German>5) Anzeige - Allgemein</German>
         </Key>
-        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_Animations">
-            <English>2) Animations</English>
-            <German>2) Animationen</German>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_Stand">
+            <English>2) Animations - Standing</English>
+            <German>2) Animationen - Stehend</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_SubCategory_Debug">
             <English>0) Debug</English>
@@ -322,8 +322,8 @@
             <German>1) Allgemein</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_Indicator">
-            <English>3) Indicator</English>
-            <German>3) Anzeige</German>
+            <English>5) Indicator</English>
+            <German>5) Anzeige</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_autorun_enable">
             <English>Enable autorun</English>
@@ -685,6 +685,14 @@ Taktisch sind.</German>
         <Key ID="STR_awsr_movement_SETTING_IGUI_keyColor_Animation_DESC">
             <English>Colour of the key named on the\nanimation indicator, so it stands out\nfrom the wording around it.</English>
             <German>Farbe der Taste auf der Animations-\nanzeige, damit sie sich vom Text\nabhebt.</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_Crouch">
+            <English>3) Animations - Crouched</English>
+            <German>3) Animationen - Kniend</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_SubCategory_Autorun_Prone">
+            <English>4) Animations - Prone</English>
+            <German>4) Animationen - Liegend</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

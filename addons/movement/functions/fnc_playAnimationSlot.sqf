@@ -26,7 +26,7 @@ params [["_slot", 0]];
 if (!hasInterface) exitWith {};
 if (_slot < 1 || {_slot > ANIMATION_SLOTS}) exitWith {};
 
-private _unit = player;
+private _unit = CURRENT_UNIT;
 
 if (!alive _unit) exitWith {};
 if (!isNull objectParent _unit) exitWith {};

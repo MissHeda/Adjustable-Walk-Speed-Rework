@@ -748,9 +748,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops instead of the one worked out for the situation
 [
     QGVAR(autorun_animation_Walk),
-    "EDITBOX",
+    "AmovPercMwlkSlowWrflDf, AmovPercMwlkSrasWrflDf",
     [LLSTRING(SETTING_autorun_animation_Walk),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
     "AmovPercMwlkSlowWrflDf_ver2, AmovPercMwlkSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -759,9 +759,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops instead of the one worked out for the situation
 [
     QGVAR(autorun_animation_Jog),
-    "EDITBOX",
+    "AmovPercMrunSlowWrflDf, AmovPercMrunSrasWrflDf",
     [LLSTRING(SETTING_autorun_animation_Jog),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
     "AmovPercMrunSrasWrflDf, AmovPercMrunSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -770,9 +770,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops instead of the one worked out for the situation
 [
     QGVAR(autorun_animation_Run),
-    "EDITBOX",
+    "AmovPercMevaSlowWrflDf, AmovPercMevaSrasWrflDf",
     [LLSTRING(SETTING_autorun_animation_Run),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
     "AmovPercMevaSrasWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -781,9 +781,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops with a handgun in hand
 [
     QGVAR(autorun_animation_WalkPistol),
-    "EDITBOX",
+    "AmovPercMwlkSlowWpstDf, AmovPercMwlkSrasWpstDf",
     [LLSTRING(SETTING_autorun_animation_WalkPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
     "AmovPercMrunSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -792,9 +792,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops with a handgun in hand
 [
     QGVAR(autorun_animation_JogPistol),
-    "EDITBOX",
+    "AmovPercMrunSlowWpstDf, AmovPercMrunSrasWpstDf",
     [LLSTRING(SETTING_autorun_animation_JogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
     "AmovPercMrunSrasWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -803,9 +803,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops with a handgun in hand
 [
     QGVAR(autorun_animation_RunPistol),
-    "EDITBOX",
+    "AmovPercMevaSlowWpstDf, AmovPercMevaSrasWpstDf",
     [LLSTRING(SETTING_autorun_animation_RunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Stand)],
     "AmovPercMevaSrasWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -815,9 +815,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops crouched with a rifle in hand
 [
     QGVAR(autorun_animation_CrouchWalk),
-    "EDITBOX",
+    "AmovPknlMwlkSlowWrflDf, AmovPknlMwlkSrasWrflDf",
     [LLSTRING(SETTING_autorun_animation_CrouchWalk),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
     "AmovPknlMwlkSrasWrflDf, AmovPknlMwlkSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -826,9 +826,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops crouched with a rifle in hand
 [
     QGVAR(autorun_animation_CrouchJog),
-    "EDITBOX",
+    "AmovPknlMrunSlowWrflDf, AmovPknlMrunSrasWrflDf",
     [LLSTRING(SETTING_autorun_animation_CrouchJog),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
     "AmovPknlMrunSrasWrflDf, AmovPknlMrunSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -837,9 +837,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops crouched with a rifle in hand
 [
     QGVAR(autorun_animation_CrouchRun),
-    "EDITBOX",
+    "AmovPknlMevaSlowWrflDf, AmovPknlMevaSrasWrflDf",
     [LLSTRING(SETTING_autorun_animation_CrouchRun),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
     "AmovPknlMevaSrasWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -848,9 +848,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops crouched with a handgun in hand
 [
     QGVAR(autorun_animation_CrouchWalkPistol),
-    "EDITBOX",
+    "AmovPknlMwlkSlowWpstDf, AmovPknlMwlkSrasWpstDf",
     [LLSTRING(SETTING_autorun_animation_CrouchWalkPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
     "AmovPknlMwlkSrasWpstDf, AmovPknlMwlkSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -859,9 +859,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops crouched with a handgun in hand
 [
     QGVAR(autorun_animation_CrouchJogPistol),
-    "EDITBOX",
+    "AmovPknlMrunSlowWpstDf, AmovPknlMrunSrasWpstDf",
     [LLSTRING(SETTING_autorun_animation_CrouchJogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
     "AmovPknlMrunSrasWpstDf, AmovPknlMrunSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -870,9 +870,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops crouched with a handgun in hand
 [
     QGVAR(autorun_animation_CrouchRunPistol),
-    "EDITBOX",
+    "AmovPknlMevaSrasWpstDf",
     [LLSTRING(SETTING_autorun_animation_CrouchRunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Crouch)],
     "AmovPknlMevaSrasWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -881,9 +881,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops prone with a rifle in hand
 [
     QGVAR(autorun_animation_ProneWalk),
-    "EDITBOX",
+    "AmovPpneMrunSlowWrflDf, AmovPpneMevaSlowWrflDf",
     [LLSTRING(SETTING_autorun_animation_ProneWalk),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Prone)],
     "AmovPpneMevaSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -892,9 +892,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops prone with a rifle in hand
 [
     QGVAR(autorun_animation_ProneJog),
-    "EDITBOX",
+    "AmovPpneMsprSlowWrflDf",
     [LLSTRING(SETTING_autorun_animation_ProneJog),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Prone)],
     "AmovPpneMrunSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -903,9 +903,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops prone with a rifle in hand
 [
     QGVAR(autorun_animation_ProneRun),
-    "EDITBOX",
+    "AmovPpneMsprSlowWrflDf",
     [LLSTRING(SETTING_autorun_animation_ProneRun),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Prone)],
     "AmovPpneMsprSlowWrflDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -914,9 +914,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops prone with a handgun in hand
 [
     QGVAR(autorun_animation_ProneWalkPistol),
-    "EDITBOX",
+    "AmovPpneMrunSlowWpstDf",
     [LLSTRING(SETTING_autorun_animation_ProneWalkPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Prone)],
     "AmovPpneMrunSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -925,9 +925,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops prone with a handgun in hand
 [
     QGVAR(autorun_animation_ProneJogPistol),
-    "EDITBOX",
+    "AmovPpneMsprSlowWpstDf",
     [LLSTRING(SETTING_autorun_animation_ProneJogPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Prone)],
     "AmovPpneMrunSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS
@@ -936,9 +936,9 @@ GVAR(autorun_displayAllow) = [12];
 // Animation this pace loops prone with a handgun in hand
 [
     QGVAR(autorun_animation_ProneRunPistol),
-    "EDITBOX",
+    "AmovPpneMsprSlowWpstDf",
     [LLSTRING(SETTING_autorun_animation_ProneRunPistol),LLSTRING(SETTING_autorun_animation_DESC)],
-    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Animations)],
+    [CBA_SETTINGS_AWSR_AUTORUN, LSTRING(SETTING_SubCategory_Autorun_Prone)],
     "AmovPpneMsprSlowWpstDf",
     1,
     REBUILD_ANIMATION_LISTS

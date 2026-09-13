@@ -86,9 +86,12 @@
 // The left edge of Arma's own stance indicator, worked out the way the game does: the weapon
 // info sits 14.3 grid cells in from the right edge and the indicator 10.1 cells into it, which
 // leaves 4.2 (a3/ui_f/hpp/definecommongrids.inc:106-113). Our boxes are the same width, so the
-// two line up on both edges. Written out rather than read from the profile variable: a macro
-// argument carrying a comma is split by the preprocessor before it reaches the grid preset.
-#define DISPLAY_X ((safeZoneX + safeZoneW) - 4.2 * GUI_GRID_W)
+// two would line up on both edges at 4.2 - but the indicator's artwork keeps its aspect inside
+// a box far taller than it is wide, so the figure sits well right of the box's own left edge.
+// 3.2 puts these under the figure rather than under the box. Written out rather than read from
+// the profile variable: a macro argument carrying a comma is split by the preprocessor before it
+// reaches the grid preset.
+#define DISPLAY_X ((safeZoneX + safeZoneW) - 3.2 * GUI_GRID_W)
 #define DISPLAY_Y(row) (safeZoneY + 0.105 * safeZoneH + row * 4.1 * GUI_GRID_H)
 
 // The autorun indicator sits low and centred, where it was before it became a display like the
