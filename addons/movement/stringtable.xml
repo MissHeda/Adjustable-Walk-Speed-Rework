@@ -542,8 +542,8 @@
             <German>Animationstaste %1</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_animationSlot_DESC">
-            <English>The animation this key plays.\n\nOne name plays that animation.\nSeveral, comma separated, play one\nafter another as a sequence.\n\nBind the key under Animations in the\nkeybind menu - none are bound by\ndefault.\n\nPressing the key again while it runs\nstops it.\n\nUnknown names are dropped.\nUse Debug to collect names.</English>
-            <German>Die Animation, die diese Taste spielt.\n\nEin Name spielt diese Animation.\nMehrere, per Komma getrennt, laufen\nnacheinander als Sequenz.\n\nDie Taste liegt unter Animationen im\nTastenmenü - keine ist vorbelegt.\n\nNochmal drücken bricht ab.\n\nUnbekannte Namen fliegen raus.\nNamen sammelst du mit Debug.</German>
+            <English>The animation this key plays.\n\nOne name plays that animation.\nSeveral, comma separated, play one\nafter another as a sequence.\n\nAdd x and a number to repeat one:\nAmovPercMstpSnonWnonDnon_Salutex3\nsalutes three times. Up to 20.\n\nBind the key under Animations in the\nkeybind menu - none are bound by\ndefault.\n\nPressing the key again while it runs\nstops it.\n\nUnknown names are dropped.\nUse Debug to collect names.</English>
+            <German>Die Animation, die diese Taste spielt.\n\nEin Name spielt diese Animation.\nMehrere, per Komma getrennt, laufen\nnacheinander als Sequenz.\n\nEin x und eine Zahl wiederholt eine:\nAmovPercMstpSnonWnonDnon_Salutex3\nsalutiert dreimal. Bis 20.\n\nDie Taste liegt unter Animationen im\nTastenmenü - keine ist vorbelegt.\n\nNochmal drücken bricht ab.\n\nUnbekannte Namen fliegen raus.\nNamen sammelst du mit Debug.</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_animationSlotLoop">
             <English>Animation Key %1 - Loop</English>
@@ -671,12 +671,20 @@ Taktisch sind.</German>
             <German>So fängst du genau eine Animation: Singleplayer-Mission starten, die Bewegung machen und|im richtigen Moment Esc drücken. Die Zeit steht still, und die Animation ist der|neueste Name in dieser Liste.</German>
         </Key>
         <Key ID="STR_awsr_movement_DEBUG_explain_segments">
-            <English>A name is six segments, always in this order:||  1  action      Amov moved       Ainv inventory   Aadj adjusted|  2  pose        Perc upright     Pknl crouched    Ppne prone|  3  movement    Mstp still       Mwlk walk        Mrun jog        Meva run   Mspr sprint|  4  stance      Slow lowered     Sras raised      Snon none|  5  weapon      Wrfl rifle       Wpst pistol      Wnon unarmed|  6  direction   Df forward       Db back          Dl left         Dr right</English>
-            <German>Ein Name besteht aus sechs Segmenten, immer in dieser Reihenfolge:||  1  Aktion      Amov bewegt      Ainv Inventar    Aadj justiert|  2  Pose        Perc aufrecht    Pknl kniend      Ppne liegend|  3  Bewegung    Mstp still       Mwlk gehen       Mrun joggen     Meva rennen   Mspr sprinten|  4  Haltung     Slow gesenkt     Sras erhoben     Snon keine|  5  Waffe       Wrfl Gewehr      Wpst Pistole     Wnon unbewaffnet|  6  Richtung    Df vorwärts     Db zurück       Dl links        Dr rechts</German>
+            <English>A name is six segments, always in this order:| |  1  action      Amov moved       Ainv inventory   Aadj adjusted|  2  pose        Perc upright     Pknl crouched    Ppne prone|  3  movement    Mstp still       Mwlk walk        Mrun jog         Meva run         Mspr sprint|  4  stance      Slow lowered     Sras raised      Snon none|  5  weapon      Wrfl rifle       Wpst pistol      Wnon unarmed|  6  direction   Df forward       Db back          Dl left          Dr right</English>
+            <German>Ein Name besteht aus sechs Segmenten, immer in dieser Reihenfolge:| |  1  Aktion     Amov bewegt        Ainv Inventar      Aadj justiert|  2  Pose       Perc aufrecht      Pknl kniend        Ppne liegend|  3  Bewegung   Mstp still         Mwlk gehen         Mrun joggen        Meva rennen        Mspr sprinten|  4  Haltung    Slow gesenkt       Sras erhoben       Snon keine|  5  Waffe      Wrfl Gewehr        Wpst Pistole       Wnon unbewaffnet|  6  Richtung   Df vorwärts        Db zurück          Dl links           Dr rechts</German>
         </Key>
         <Key ID="STR_awsr_movement_DEBUG_explain_example">
-            <English>  AmovPercMwlkSlowWrflDf|  =  moved, upright, walking, weapon lowered, rifle, forwards</English>
-            <German>  AmovPercMwlkSlowWrflDf|  =  bewegt, aufrecht, gehend, Waffe gesenkt, Gewehr, vorwärts</German>
+            <English>AmovPercMwlkSlowWrflDf reads as:| |  Amov    Perc      Mwlk      Slow      Wrfl    Df|  moved   upright   walking   lowered   rifle   forwards</English>
+            <German>AmovPercMwlkSlowWrflDf liest sich als:| |  Amov     Perc       Mwlk     Slow      Wrfl     Df|  bewegt   aufrecht   gehend   gesenkt   Gewehr   vorwärts</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_keyColor_Animation">
+            <English>Animation Indicator Key Colour</English>
+            <German>Tastenfarbe der Animationsanzeige</German>
+        </Key>
+        <Key ID="STR_awsr_movement_SETTING_IGUI_keyColor_Animation_DESC">
+            <English>Colour of the key named on the\nanimation indicator, so it stands out\nfrom the wording around it.</English>
+            <German>Farbe der Taste auf der Animations-\nanzeige, damit sie sich vom Text\nabhebt.</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_autorun_stop">
             <English>Autorun | Stop</English>

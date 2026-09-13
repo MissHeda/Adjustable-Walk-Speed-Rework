@@ -107,7 +107,8 @@ else is lost - set them again and they stay.
   it runs stops it. None of the ten are bound by default.
 
 - **An indicator for the animation keys**, placed in the layout tab like the others, saying which
-  key is running and which key stops it, named from the binding you actually have - a looping key
+  key is running and which key stops it, the key in a colour of its own, named from the binding
+  you actually have - a looping key
   has no other way of telling you either. It is a line of text rather than another icon, since
   there is nothing to draw, and its wording is yours like every other display's.
 

@@ -29,6 +29,11 @@
 // arrives does not hold a speed forever.
 #define TRANSITION_MATCH_TIMEOUT 3
 
+// The animation indicator sits alone in a wide box rather than under a picture, so 100% in its
+// setting is worth more here than it is on a speed display. Kept out of the setting so the
+// number people see stays the number they expect.
+#define ANIMATION_TEXT_SCALE 1.5
+
 #define ANIMATION_SLOTS 10
 
 // A repeat count has to stop somewhere, and a slot of a thousand poses is a mistake, not a plan.

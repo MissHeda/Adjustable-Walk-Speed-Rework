@@ -42,8 +42,16 @@ if (!isNil "_keybind") then {
     };
 };
 
+// Only the key is recoloured - the wording around it stays the text colour, the same way the
+// autorun indicator names its keys.
+private _keyColor = [GVAR(IGUI_keyColor_Animation)] call FUNC(colorToHex);
+
 private _text = "<t color='" + _color + "'>" +
-    (format [GVAR(IGUI_Text_Animation), GVAR(animationSlotActive), _keyText]) + "</t>";
+    (format [
+        GVAR(IGUI_Text_Animation),
+        GVAR(animationSlotActive),
+        "<t color='" + _keyColor + "'>" + _keyText + "</t>"
+    ]) + "</t>";
 
 [
     QGVAR(IGUI_Display_Animation),
@@ -53,7 +61,7 @@ private _text = "<t color='" + _color + "'>" +
     ANIMATION_Y,
     2,
     _text,
-    GVAR(IGUI_textSize_Animation),
+    GVAR(IGUI_textSize_Animation) * ANIMATION_TEXT_SCALE,
     [0, 0, 0, 0],
     0,
     1,

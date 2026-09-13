@@ -1217,6 +1217,16 @@ GVAR(autorun_displayAllow) = [12];
     0
 ] call CBA_Settings_fnc_init;
 
+// Colour of the key on the animation indicator
+[
+    QGVAR(IGUI_keyColor_Animation),
+    "COLOR",
+    [LLSTRING(SETTING_IGUI_keyColor_Animation),LLSTRING(SETTING_IGUI_keyColor_Animation_DESC)],
+    [CBA_SETTINGS_AWSR_ANIM, LSTRING(SETTING_SubCategory_Slots)],
+    [ARR_3(1,0.84,0.4)],
+    0
+] call CBA_Settings_fnc_init;
+
 // ------------------------------------------------------------------------------------------------------------------------ AUTORUN IGUI
 
 // Show the autorun indicator
