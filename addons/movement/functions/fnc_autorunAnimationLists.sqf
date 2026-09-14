@@ -1,7 +1,8 @@
 #include "..\script_component.hpp"
 /*
  * Author: Miss Heda
- * Turns the six animation settings into lists the run can step through.
+ * Turns the animation settings into lists the run can step through - one per pace, per
+ * stance and per weapon.
  *
  * One name in a box is the animation that pace loops. Several, comma separated, are alternatives:
  * the first is played, and the next-animation key walks through the rest and back round.
@@ -34,6 +35,20 @@
     };
 
     missionNamespace setVariable [format [QGVAR(autorun_animList_%1), _x], _list];
-} forEach ["Walk", "Jog", "Run", "WalkPistol", "JogPistol", "RunPistol"];
-
-GVAR(autorun_animIndex) = 0;
+} forEach [
+    "Walk", "WalkPistol", "WalkUnarmed",
+    "Tactical", "TacticalPistol", "TacticalUnarmed",
+    "Jog", "JogPistol", "JogUnarmed",
+    "Run", "RunPistol", "RunUnarmed",
+    "Sprint", "SprintPistol", "SprintUnarmed",
+    "CrouchWalk", "CrouchWalkPistol", "CrouchWalkUnarmed",
+    "CrouchTactical", "CrouchTacticalPistol", "CrouchTacticalUnarmed",
+    "CrouchJog", "CrouchJogPistol", "CrouchJogUnarmed",
+    "CrouchRun", "CrouchRunPistol", "CrouchRunUnarmed",
+    "CrouchSprint", "CrouchSprintPistol", "CrouchSprintUnarmed",
+    "ProneWalk", "ProneWalkPistol", "ProneWalkUnarmed",
+    "ProneTactical", "ProneTacticalPistol", "ProneTacticalUnarmed",
+    "ProneJog", "ProneJogPistol", "ProneJogUnarmed",
+    "ProneRun", "ProneRunPistol", "ProneRunUnarmed",
+    "ProneSprint", "ProneSprintPistol", "ProneSprintUnarmed"
+];

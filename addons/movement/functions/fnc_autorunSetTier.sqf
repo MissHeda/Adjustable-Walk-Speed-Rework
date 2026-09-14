@@ -1,6 +1,6 @@
 #include "..\script_component.hpp"
 /*
- * Author: Miss Heda
+ * Author: leonz2019, Miss Heda
  * Sets the autorun tier, starting or ending the run as needed. The single way in for every
  * autorun key.
  *
@@ -22,7 +22,12 @@ if (!hasInterface) exitWith {};
 if (!GVAR(autorun_enable)) exitWith {};
 if !(call FUNC(autorunCheckDisplay)) exitWith {};
 
-_tier = (round _tier max AUTORUN_OFF) min AUTORUN_RUN;
+// Both of these drive the unit's animation, so only one of them can have it.
+if (GVAR(animationSlotActive) != 0) exitWith {
+    [format [ARR_2("<t color='#FFD766'>%1</t>",LLSTRING(BUSY_animation))], 2] call FUNC(notify);
+};
+
+_tier = (round _tier max AUTORUN_OFF) min AUTORUN_SPRINT;
 
 if (_tier == AUTORUN_OFF) exitWith {
     0 spawn FUNC(autorunStop);
@@ -34,7 +39,10 @@ if (GVAR(autorun_active)) exitWith {
         0 spawn FUNC(autorunStop);
     };
 
-    GVAR(autorun_tier) = _tier;
+    GVAR(autorun_tier) = _tier min ([player, GVAR(autorun_tier)] call FUNC(autorunMaxTier));
+
+    if (GVAR(autorun_tier) < _tier) then {[] call FUNC(autorunExhausted)};
+
     call FUNC(autorunIndicator);
 };
 
@@ -49,6 +57,18 @@ if (incapacitatedState player != "") exitWith {};
 if (visibleMap && {!(12 in GVAR(autorun_displayAllow))}) exitWith {};
 if (getUnitFreefallInfo player select 0) exitWith {};
 
-GVAR(autorun_tier) = _tier;
+// Asked for a pace this stance and weapon do not have - the walk with empty hands is there, the
+// tactical pace is not - so start at the first one upwards that does exist.
+if (([_tier, GVAR(autorun_stance), [player] call FUNC(autorunWeapon)] call FUNC(autorunAnimList)) isEqualTo []) then {
+    private _usable = [_tier - 1, 1] call FUNC(autorunNextTier);
+
+    if (_usable isEqualTo AUTORUN_OFF) exitWith {};
+
+    _tier = _usable;
+};
+
+GVAR(autorun_tier) = _tier min ([player, AUTORUN_OFF] call FUNC(autorunMaxTier));
+
+if (GVAR(autorun_tier) < _tier) then {[] call FUNC(autorunExhausted)};
 
 call FUNC(autorunStart);

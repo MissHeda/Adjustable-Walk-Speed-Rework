@@ -23,8 +23,10 @@ params ["_unit"];
 
 private _weapon = currentWeapon _unit;
 
-if (_weapon == "") exitWith {""};
+if (_weapon == "") exitWith {"non"};
 if (_weapon == primaryWeapon _unit) exitWith {"rfl"};
 if (_weapon == handgunWeapon _unit) exitWith {"pst"};
 
+// A launcher or binoculars: there are no run animations holding either, and the caller takes
+// this as "not something you can run with".
 ""

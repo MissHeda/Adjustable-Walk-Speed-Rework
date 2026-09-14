@@ -32,34 +32,45 @@
 params [
     "_resource", "_uiVar", "_gridVar", "_defaultX", "_defaultY", ["_rows", 1],
     ["_structuredText", ""], ["_textSize", 1], ["_imageColor", [1,1,1,1]], ["_duration", 0],
-    ["_widths", 3]
+    ["_widths", 3], ["_defaultW", DISPLAY_W], ["_defaultH", DISPLAY_H]
 ];
 
 private _write = {
-    params ["_uiVar", "_gridVar", "_defaultX", "_defaultY", "_rows", "_structuredText", "_textSize", "_imageColor", "_widths"];
+    params [
+        "_uiVar", "_gridVar", "_defaultX", "_defaultY", "_rows", "_structuredText", "_textSize",
+        "_imageColor", "_widths", "_defaultW", "_defaultH"
+    ];
 
     private _display = uiNamespace getVariable [_uiVar, displayNull];
     if (isNull _display) exitWith {};
 
-    ([_gridVar, _defaultX, _defaultY, _textSize, _rows, _widths] call FUNC(igUIGeometry)) params ["_picture", "_text", "_fontHeight"];
+    ([_gridVar, _defaultX, _defaultY, _textSize, _rows, _widths, _defaultW, _defaultH] call FUNC(igUIGeometry)) params ["_picture", "_text", "_fontHeight"];
 
     private _background = _display displayCtrl IDC_SPEED_BACKGROUND;
     private _label = _display displayCtrl IDC_SPEED_TEXT;
 
-    _background ctrlSetTextColor _imageColor;
-    _background ctrlSetPosition _picture;
-    _background ctrlCommit 0;
+    // A text-only display has no picture at all, and its text fills the box rather than sitting
+    // under one.
+    private _hasPicture = !isNull _background;
+
+    if (_hasPicture) then {
+        _background ctrlSetTextColor _imageColor;
+        _background ctrlSetPosition _picture;
+        _background ctrlCommit 0;
+    } else {
+        _text = _picture;
+    };
 
     _label ctrlSetPosition _text;
     _label ctrlCommit 0;
     _label ctrlSetFontHeight _fontHeight;
     _label ctrlSetStructuredText parseText _structuredText;
 
-    _background ctrlShow true;
+    if (_hasPicture) then {_background ctrlShow true};
     _label ctrlShow true;
 };
 
-private _args = [_uiVar, _gridVar, _defaultX, _defaultY, _rows, _structuredText, _textSize, _imageColor, _widths];
+private _args = [_uiVar, _gridVar, _defaultX, _defaultY, _rows, _structuredText, _textSize, _imageColor, _widths, _defaultW, _defaultH];
 
 if (isNull (uiNamespace getVariable [_uiVar, displayNull])) then {
     // The title is cut once and then kept for the rest of the mission. Cutting a fresh one per

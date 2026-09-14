@@ -55,17 +55,43 @@ private _readable = {
     if (_ctrl) then {_prefix = _prefix + (toUpper (localize "str_dik_control")) + " + "};
     if (_shift) then {_prefix = _prefix + (toUpper (localize "str_dik_shift")) + " + "};
 
-    _prefix + ((_binds apply {toUpper ([ARR_2(_x select 0,[ARR_3(false,false,false)])] call CBA_fnc_localizeKey)}) joinString " / ")
+    private _keys = _binds apply {toUpper ([ARR_2(_x select 0,[ARR_3(false,false,false)])] call CBA_fnc_localizeKey)};
+
+    // Keys whose names start with the same words are written with those words once: two mouse
+    // wheel directions are MOUSE WHEEL UP / DOWN rather than the whole phrase twice.
+    private _words = (_keys select 0) splitString " ";
+    private _shared = [];
+
+    {
+        private _word = _x;
+        if (_keys findIf {((_x splitString " ") param [_forEachIndex, ""]) != _word} > -1) exitWith {};
+        _shared pushBack _word;
+    } forEach _words;
+
+    // All of it shared means the same key twice - leave one.
+    if (count _shared >= count _words) exitWith {_prefix + (_keys select 0)};
+
+    if (_shared isNotEqualTo []) then {
+        private _drop = count (_shared joinString " ") + 1;
+        _keys = _keys apply {_x select [ARR_2(_drop,count _x)]};
+        _prefix = _prefix + (_shared joinString " ") + " ";
+    };
+
+    _prefix + (_keys joinString " / ")
 };
 
 // The pace decides both what it is called and which key ends it, since a pace key pressed on the
 // pace it is already on is one of the ways out.
-private _tier = switch (GVAR(autorun_tier)) do {
-    case AUTORUN_WALK: {[LLSTRING(AUTORUN_tier_walk), QGVAR(autorun_walkKey)]};
-    case AUTORUN_JOG: {[LLSTRING(AUTORUN_tier_jog), QGVAR(autorun_jogKey)]};
-    default {[LLSTRING(AUTORUN_tier_run), QGVAR(autorun_runKey)]};
+private _tierName = switch (GVAR(autorun_tier)) do {
+    case AUTORUN_WALK: {LLSTRING(AUTORUN_tier_walk)};
+    case AUTORUN_TACTICAL: {LLSTRING(AUTORUN_tier_tactical)};
+    case AUTORUN_JOG: {LLSTRING(AUTORUN_tier_jog)};
+    case AUTORUN_RUN: {LLSTRING(AUTORUN_tier_run)};
+    default {LLSTRING(AUTORUN_tier_sprint)};
 };
-_tier params ["_tierName", "_tierAction"];
+
+// One key starts and ends a run now, so the stop line names that one whatever pace it is in.
+private _tierAction = QGVAR(autorun_startKey);
 
 private _lines = [];
 
@@ -77,12 +103,7 @@ if (GVAR(IGUI_showAutorunKeys)) then {
     private _pace = [([QGVAR(autorun_fasterKey)] call _keysOf) + ([QGVAR(autorun_slowerKey)] call _keysOf)] call _readable;
 
     // Only worth naming when there is more than one animation to step between.
-    private _pistol = ([player] call FUNC(autorunWeapon)) isEqualTo "pst";
-    private _list = switch (GVAR(autorun_tier)) do {
-        case AUTORUN_WALK: {[ARR_2(GVAR(autorun_animList_Walk),GVAR(autorun_animList_WalkPistol))] select _pistol};
-        case AUTORUN_JOG: {[ARR_2(GVAR(autorun_animList_Jog),GVAR(autorun_animList_JogPistol))] select _pistol};
-        default {[ARR_2(GVAR(autorun_animList_Run),GVAR(autorun_animList_RunPistol))] select _pistol};
-    };
+    private _list = [GVAR(autorun_tier), GVAR(autorun_stance), [player] call FUNC(autorunWeapon)] call FUNC(autorunAnimList);
 
     // Empty when there is nothing to step to, so the line does not offer a key that does nothing.
     private _style = "";
