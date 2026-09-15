@@ -5,7 +5,7 @@
  * autorun key.
  *
  * Arguments:
- * 0: AUTORUN_OFF, AUTORUN_WALK, AUTORUN_JOG or AUTORUN_RUN <NUMBER>
+ * 0: AUTORUN_OFF, or AUTORUN_WALK through AUTORUN_SPRINT <NUMBER>
  *
  * Return Value:
  * None

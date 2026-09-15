@@ -40,7 +40,7 @@ else is lost - set them again and they stay.
   shows the pace and what the keys do:
 
   ```
-  PACE: CTRL + W / S      STYLE: J      STOP: W / S / F5
+  PACE: MOUSE WHEEL      STYLE: J      STOP: W / S / F5
   ```
 
   Both lines can be switched off, and the wording is yours: one box assembles the parts, three more
@@ -104,10 +104,11 @@ else is lost - set them again and they stay.
 
 - **Per-Animation Speeds.** A speed for single animations by name, whatever group they are or are
   not in - `Aswm*=2, Ladder*=1.5`. Swimming, ladders and crawling are in no group at all, which is
-  why they were out of reach until now. It beats all three groups, so the number on the display is
-  always the number being applied. The number also widens what the speed keys can reach: above the
-  group's maximum it becomes the new maximum, below its minimum the new minimum. Ladders and
-  swimming are filled in at 1 already, ready to be turned up.
+  why they were out of reach until now. A group that has been moved off default still overrules it -
+  a walk group at 10% slows an animation set to 200% - and a group left at default leaves it alone,
+  so the two never argue. The number also widens what the speed keys can reach: above the group's
+  maximum it becomes the new maximum, below its minimum the new minimum. Ladders and swimming are
+  filled in at 1 already, ready to be turned up.
 
 - **Stamina limits the autorun.** Out of breath drops the run a pace and refuses a faster one, at
   the same points ACE takes the sprint away and forces a walk. Where ACE advanced fatigue is
@@ -209,11 +210,13 @@ else is lost - set them again and they stay.
   it now.
 - **The autorun and an animation key could both drive the unit at once.** Whichever started
   second fought the first for the animation. They refuse each other, and say why.
-- **A sequence flickered through a third animation between its own two.** Both `playMove` and
-  `playMoveNow` follow the game's transition graph, and between two walk animations that route
-  runs through the connected idle - which is the animation that kept appearing. The sequence
-  watches the animation state instead and puts the next one on with `switchMove`, which takes no
-  transition at all.
+- **A sequence stopped for a moment between its own animations.** The game's transition graph
+  routes between two walk animations through the connected idle, and that transition belongs to no
+  group and has no speed of its own, so it ran at normal speed however fast the rest was set.
+  `switchMove` skips the graph entirely but only snaps the pose without moving the unit, so a
+  movement animation played that way twitches on the spot. The sequence keeps `playMoveNow` and the
+  transition is given the speed of the animation it is heading for instead - see *Speed Up
+  Transitions* above.
 - **The autorun sat still while sitting.** Dropping from a crouch towards prone puts the
   character in the game's sit state, which has no pinned animation set - so it borrowed the
   standing one and pinned a standing animation onto someone sitting down. It resolves its own

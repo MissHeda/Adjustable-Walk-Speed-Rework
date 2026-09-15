@@ -107,10 +107,13 @@
 // Autorun tiers, lowest first. Stepping down out of WALK ends the run.
 // ACE's own fatigue thresholds - it blocks sprint at 0.7 and frees it at 0.6, forces a walk at
 // 1 and lets go at 0.7. Matched so an ACE player meets one limit, not two.
-#define FATIGUE_RUN_ENTER 0.6
-#define FATIGUE_RUN_LEAVE 0.7
-#define FATIGUE_JOG_ENTER 0.7
-#define FATIGUE_JOG_LEAVE 1
+// ACE has these two gates and no more, so they are named after the pace each one takes away
+// rather than after a rung of a ladder of our own - naming them for our rungs is what quietly
+// left the top one unreachable.
+#define FATIGUE_SPRINT_ENTER 0.6
+#define FATIGUE_SPRINT_LEAVE 0.7
+#define FATIGUE_RUN_ENTER 0.7
+#define FATIGUE_RUN_LEAVE 1
 
 // How a speed is written out
 #define VALUE_PERCENT 0
