@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0
+
+### Added
+
+- The "Minimum" and "Maximum" keys toggle: pressed again while already at that speed, they go back to
+  100 %. One key switches between 170 % and 100 % (or 30 % and 100 %), like the original mod.
+  (thanks flussvalentin)
+
 ## 2.0.0
 
 Measured against **1.0.6**, the version on the Workshop. The bug fixes come from the reports on the

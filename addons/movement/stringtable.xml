@@ -234,12 +234,12 @@
             <German>Gehen | Geschwindigkeit Zum Standard Zurücksetzen</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_walk_setMin">
-            <English>Walk | Set To Minimum</English>
-            <German>Gehen | Zum Minimum Setzen</German>
+            <English>Walk | Minimum / Default</English>
+            <German>Gehen | Minimum / Standard</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_walk_setMax">
-            <English>Walk | Set To Maximum</English>
-            <German>Gehen | Zum Maximum Setzen</German>
+            <English>Walk | Maximum / Default</English>
+            <German>Gehen | Maximum / Standard</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_tactical_increaseSpeed">
             <English>Tactical | Increase Speed</English>
@@ -254,12 +254,12 @@
             <German>Taktisch | Geschwindigkeit Zum Standard Zurücksetzen</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_tactical_setMin">
-            <English>Tactical | Set To Minimum</English>
-            <German>Taktisch | Zum Minimum Setzen</German>
+            <English>Tactical | Minimum / Default</English>
+            <German>Taktisch | Minimum / Standard</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_tactical_setMax">
-            <English>Tactical | Set To Maximum</English>
-            <German>Taktisch | Zum Maximum Setzen</German>
+            <English>Tactical | Maximum / Default</English>
+            <German>Taktisch | Maximum / Standard</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_custom_increaseSpeed">
             <English>Custom | Increase Speed</English>
@@ -274,12 +274,12 @@
             <German>Benutzerdefiniert | Geschwindigkeit Zum Standard Zurücksetzen</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_custom_setMin">
-            <English>Custom | Set To Minimum</English>
-            <German>Benutzerdefiniert | Zum Minimum Setzen</German>
+            <English>Custom | Minimum / Default</English>
+            <German>Benutzerdefiniert | Minimum / Standard</German>
         </Key>
         <Key ID="STR_awsr_movement_KEYBIND_custom_setMax">
-            <English>Custom | Set To Maximum</English>
-            <German>Benutzerdefiniert | Zum Maximum Setzen</German>
+            <English>Custom | Maximum / Default</English>
+            <German>Benutzerdefiniert | Maximum / Standard</German>
         </Key>
         <Key ID="STR_awsr_movement_SETTING_reapplySpeed">
             <English>Reapply Speed If Overwritten</English>

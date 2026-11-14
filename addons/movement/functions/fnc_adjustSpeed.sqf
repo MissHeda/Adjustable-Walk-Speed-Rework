@@ -62,8 +62,10 @@ private _new = switch (_mode) do {
     case "increase": {_current + _step};
     case "decrease": {_current - _step};
     case "reset": {1};
-    case "min": {_min};
-    case "max": {_max};
+    // Pressed again while already there, the key goes back to default - one key toggles
+    // between the limit and 100 %, like the original mod did.
+    case "min": {[_min, 1] select (_current isEqualTo _min)};
+    case "max": {[_max, 1] select (_current isEqualTo _max)};
     default {_current};
 };
 
